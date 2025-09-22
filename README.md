@@ -1,5 +1,5 @@
 Pos System
-- Add/Edit/Remove products from current order 
+✅ - Add/Edit/Remove products from current order
 - Modify quantity
 - Customer notes per product order
 - Save order for later (draft)
@@ -7,19 +7,19 @@ Pos System
 - Void whole order (depends on user permission)
 - Create custom product on the fly for the current order (Create a product that doesn’t exist from the inventory)
 - Modify product price on the fly
-- Add discounts and tax 
-- Products sorted by category
+- Add discounts and tax
+✅ - Products sorted by category
 - Out of stock warning (shows impossible order due to stock quantity)
 - Create custom bouquet by mood/theme (pulls tags from inventory items and combines them together)
 
 Inventory System
 - Automatic stock counting from POS orders
-- Create a product
+✅ - Create a product
 - Set product price per quantity (bundles)
 - Create a category
-- Track stock quantity 
-- Export to spreadsheet 
-- Add tags to products (notes, 
+- Track stock quantity
+- Export to spreadsheet
+- Add tags to products
 - Low stock warning
 - Stock histogram (shows product sold per day/month)
 - Shows product edit action history

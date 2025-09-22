@@ -18,7 +18,7 @@ const isActiveLink = (routePath) => {
           alt="logo"
           width="30"
           height="24"
-        />Logo</RouterLink
+        />FSMS</RouterLink
       >
       <button
         class="navbar-toggler"

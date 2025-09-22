@@ -75,86 +75,19 @@ onMounted(() => {
 
 <template>
   <main class="p-4">
-    <button class="btn btn-primary mb-3" @click="toastInstance.show()">
-      Show Toast
-    </button>
-
-    <div
-      id="carouselExampleIndicators"
-      class="carousel slide mb-4"
-      data-bs-ride="carousel"
-    >
-      <div class="carousel-indicators">
+    <div class="d-flex justify-content-between">
+      <h1>Products</h1>
+      <div class="btn-group mb-4">
+        <button type="button" class="btn btn-primary">Create Product</button>
         <button
+          @click="createProduct"
           type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="0"
-          class="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="2"
-          aria-label="Slide 3"
-        ></button>
+          class="btn btn-outline-primary"
+        >
+          <i class="bi bi-pencil-square"></i>
+        </button>
       </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img
-            src="../../assets/image.webp"
-            height="300rem"
-            class="d-block w-100"
-            alt="..."
-          />
-        </div>
-        <div class="carousel-item">
-          <img
-            src="../../assets/image.webp"
-            height="300rem"
-            class="d-block w-100"
-            alt="..."
-          />
-        </div>
-        <div class="carousel-item">
-          <img
-            src="../../assets/image.webp"
-            height="300rem"
-            class="d-block w-100"
-            alt="..."
-          />
-        </div>
-      </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
     </div>
-
-    <button @click="createProduct" type="button" class="btn btn-primary mb-4">
-      Create Product
-    </button>
 
     <!-- Products Table -->
     <table class="table table-striped">
@@ -214,7 +147,7 @@ onMounted(() => {
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="createProductModalLabel">
-              New Product
+              Quick Create
             </h5>
             <button
               type="button"

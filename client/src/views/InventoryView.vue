@@ -1,5 +1,12 @@
 <script setup>
 import Products from "@/components/Inventory/Products.vue";
+import { ref } from "vue";
+
+const sidebarSelected = ref("overview");
+
+function selectSidebar(selected) {
+  sidebarSelected.value = selected;
+}
 </script>
 
 <template>
@@ -12,51 +19,94 @@ import Products from "@/components/Inventory/Products.vue";
         href="/"
         class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
       >
-        <svg class="bi me-2" width="40" height="32">
-          <use xlink:href="#bootstrap" />
-        </svg>
-        <span class="fs-4">Sidebar</span>
+        <span class="fs-4">Inventory</span>
       </a>
       <hr />
       <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-          <a href="#" class="nav-link active" aria-current="page">
-            <svg class="bi me-2" width="16" height="16">
-              <use xlink:href="#home" />
-            </svg>
-            Home
+        <li class="" @click="selectSidebar('overview')">
+          <a
+            href="#"
+            class="nav-link sidebar"
+            :class="{ active: sidebarSelected == 'overview' }"
+          >
+            <i
+              class="me-2 bi bi-grid-1x2-fill"
+              v-show="sidebarSelected == 'overview'"
+            ></i>
+            <i
+              class="me-2 bi bi-grid-1x2"
+              v-show="sidebarSelected !== 'overview'"
+            ></i>
+            Overview
           </a>
         </li>
-        <li>
-          <a href="#" class="nav-link link-dark">
-            <svg class="bi me-2" width="16" height="16">
-              <use xlink:href="#speedometer2" />
-            </svg>
-            Dashboard
+        <li @click="selectSidebar('sales')">
+          <a
+            href="#"
+            class="nav-link sidebar"
+            :class="{ active: sidebarSelected == 'sales' }"
+          >
+            <i
+              class="me-2 bi bi-handbag-fill"
+              v-show="sidebarSelected == 'sales'"
+            ></i>
+            <i
+              class="me-2 bi bi-handbag"
+              v-show="sidebarSelected !== 'sales'"
+            ></i>
+            Sales
           </a>
         </li>
-        <li>
-          <a href="#" class="nav-link link-dark">
-            <svg class="bi me-2" width="16" height="16">
-              <use xlink:href="#table" />
-            </svg>
-            Orders
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link link-dark">
-            <svg class="bi me-2" width="16" height="16">
-              <use xlink:href="#grid" />
-            </svg>
+        <li @click="selectSidebar('products')">
+          <a
+            href="#"
+            class="nav-link sidebar"
+            :class="{ active: sidebarSelected == 'products' }"
+          >
+            <i
+              class="me-2 bi bi-box2-fill"
+              v-show="sidebarSelected == 'products'"
+            ></i>
+            <i
+              class="me-2 bi bi-box2"
+              v-show="sidebarSelected !== 'products'"
+            ></i>
             Products
           </a>
         </li>
-        <li>
-          <a href="#" class="nav-link link-dark">
-            <svg class="bi me-2" width="16" height="16">
-              <use xlink:href="#people-circle" />
-            </svg>
-            Customers
+        <li @click="selectSidebar('reports')">
+          <a
+            href="#"
+            class="nav-link sidebar"
+            :class="{ active: sidebarSelected == 'reports' }"
+          >
+            <i
+              class="me-2 bi bi-bar-chart-line-fill"
+              v-show="sidebarSelected == 'reports'"
+            ></i>
+            <i
+              class="me-2 bi bi-bar-chart-line"
+              v-show="sidebarSelected !== 'reports'"
+            ></i>
+            Reports
+          </a>
+        </li>
+        <li @click="selectSidebar('purchase')">
+          <a
+            href="#"
+            class="nav-link sidebar"
+            :class="{ active: sidebarSelected == 'purchase' }"
+          >
+            <i
+              class="me-2 bi bi-building-fill-down"
+              v-show="sidebarSelected == 'purchase'"
+            ></i>
+            <i
+              class="me-2 bi bi-building-down"
+              v-show="sidebarSelected !== 'purchase'"
+            ></i>
+            <!-- i should just be :class, fix later if issues arise -->
+            Purchase Order
           </a>
         </li>
       </ul>
@@ -100,5 +150,9 @@ import Products from "@/components/Inventory/Products.vue";
 <style scoped>
 aside {
   min-height: 100vh;
+}
+
+.sidebar:hover {
+  box-shadow: var(--bs-box-shadow-sm);
 }
 </style>
