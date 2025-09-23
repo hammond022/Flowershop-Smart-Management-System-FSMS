@@ -4,6 +4,8 @@ import Item from "./Item.vue";
 import SearchBar from "./SearchBar.vue";
 import ItemService from "@/router/api/itemsService";
 
+const emit = defineEmits(["select"]);
+
 const flowers = reactive({
   items: {},
   isLoading: true,
@@ -19,6 +21,10 @@ onMounted(async () => {
     flowers.isLoading = false;
   }
 });
+
+function handleSelect(payload) {
+  emit("select", payload);
+}
 </script>
 
 <template>
@@ -32,6 +38,7 @@ onMounted(async () => {
         :name="flower.name"
         :price="flower.price"
         :id="flower.id"
+        @select="handleSelect"
       />
     </div>
   </div>

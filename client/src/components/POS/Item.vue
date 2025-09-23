@@ -1,6 +1,5 @@
 <script setup>
 import { defineProps } from "vue";
-import { posSelected } from "@/stores/posSelected";
 
 const props = defineProps({
   name: { type: String, default: "Transvaal daisy" },
@@ -8,8 +7,9 @@ const props = defineProps({
   id: { type: Number, default: 0 },
 });
 
+const emit = defineEmits(["select"]);
 function addItem() {
-  posSelected.list.push(["test"]);
+  emit("select", { id: props.id, name: props.name, price: props.price });
 }
 </script>
 

@@ -1,6 +1,6 @@
 Pos System
 - Add/Edit/Remove products from current order ✅
-- Modify quantity
+- Modify quantity ✅
 - Customer notes per product order
 - Save order for later (draft)
 - Action history (shows edits, void, time taken per action during the order process)

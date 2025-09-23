@@ -12,7 +12,7 @@ defineProps({
 <template>
   <div class="container">
     <div class="inner-container">
-      <img src="../assets/icons/user.svg" width="70" alt="" />
+      <img src="../../assets/icons/user.svg" width="70" alt="" />
       <div class="text-container">
         <div class="lowlight">ADMIN</div>
         <div class="primary">John Doe</div>
