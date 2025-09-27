@@ -18,6 +18,7 @@ function onFlowerSelect(flower) {
       ...flower,
       qty: 1,
       oldPrice: flower.price,
+      notes: "",
     });
   }
 }
@@ -55,6 +56,7 @@ function editItem(id) {
   editModal.price = flower.price;
   editModal.qty = flower.qty;
   editModal.oldPrice = flower.oldPrice;
+  editModal.notes = flower.notes;
 
   resetModal();
   editItemModal.show();
@@ -67,6 +69,7 @@ function saveEditModal() {
 
   item.price = Number(editModal.price);
   item.qty = Number(editModal.qty);
+  item.notes = editModal.notes;
   editItemModal.hide();
 }
 
@@ -170,17 +173,12 @@ onMounted(() => {
           <div class="mb-3">
             <div class="input-group">
               <span class="input-group-text">Quantity</span>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="ex. Birthday, Happy"
-                v-model="editModal.qty"
-              />
+              <input type="text" class="form-control" v-model="editModal.qty" />
               <button type="button" class="btn btn-outline-primary">-</button>
               <button type="button" class="btn btn-outline-primary">+</button>
             </div>
           </div>
-          <div class="input-group">
+          <div class="input-group mb-3">
             <span class="input-group-text">Price</span>
             <span class="input-group-text">Per item</span
             ><span class="input-group-text">₱</span>
@@ -191,6 +189,16 @@ onMounted(() => {
           </div>
           <div class="form-text" v-if="editModal.oldPrice != editModal.price">
             Price has been edited, original price ₱{{ editModal.oldPrice }}
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">Notes</span>
+            <textarea
+              class="form-control"
+              placeholder="ex. Customer notes"
+              aria-label="With textarea"
+              v-model="editModal.notes"
+            ></textarea>
           </div>
         </div>
 

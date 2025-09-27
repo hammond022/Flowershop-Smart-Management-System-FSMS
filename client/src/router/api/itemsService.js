@@ -1,7 +1,7 @@
 import axios from "axios";
 const baseURL = "http://localhost:3000/api/items/";
 
-// Show this be in a try catch??/
+// should this be in a try catch??/
 
 class ItemService {
   // GET all items
@@ -12,7 +12,7 @@ class ItemService {
 
   //GET item by ID
   static async getItem(id) {
-    const res = await axios.get(baseURL);
+    const res = await axios.get(`${baseURL}${id}`);
     return res.data;
   }
 
