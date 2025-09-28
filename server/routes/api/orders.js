@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
       actionHistory,
     } = req.body;
 
-    if (!orderStart || !orderEnd || !orderStatus) {
+    if (!orderStart || !orderStatus) {
       return res.status(400).json({
         error: "orderStart, orderEnd, and orderStatus are required",
       });

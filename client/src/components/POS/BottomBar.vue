@@ -16,9 +16,12 @@ defineProps({
   },
 });
 
-const emit = defineEmits(["orderCheckout", "cancelOrder"]);
+const emit = defineEmits(["orderCheckout", "cancelOrder", "saveAsDraft"]);
 function orderCheckout() {
   emit("orderCheckout");
+}
+function saveAsDraft() {
+  emit("saveAsDraft");
 }
 function cancelOrder() {
   emit("cancelOrder");
@@ -44,7 +47,7 @@ function cancelOrder() {
         </button>
         <button
           class="btn btn-outline-warning text-nowrap"
-          @click=""
+          @click="saveAsDraft"
           :disabled="!orderStarted || !selectedFlowers.length"
         >
           Save as draft

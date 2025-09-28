@@ -6,6 +6,7 @@ import CurrentUser from "@/components/POS/CurrentUser.vue";
 import Categories from "@/components/POS/Categories.vue";
 import Items from "@/components/POS/Items.vue";
 import BottomBar from "@/components/POS/BottomBar.vue";
+import Draft from "@/components/POS/Draft.vue";
 import OrderService from "@/router/api/ordersService";
 // import QuantityAdjuster from "@/components/QuantityAdjuster.vue";
 
@@ -17,6 +18,7 @@ const order = reactive({
   orderStatus: "",
   selectedFlowers: [],
   actionHistory: [],
+  draftTitle: "",
 });
 const selectedFlowers = ref([]);
 function onFlowerSelect(flower) {
@@ -94,6 +96,10 @@ function orderCheckout() {
   // !todo fix how the modal appears, accordion sometimes collapsed when opened + other things
 }
 
+function saveAsDraft() {
+  draftModal.show();
+}
+
 function resetOrder() {
   order.orderStart = "";
   order.orderEnd = "";
@@ -107,6 +113,22 @@ function voidOrder() {
   resetOrder();
   cancelOrderModal.hide();
   toastInstance.show();
+}
+
+function confirmAsDraft() {
+  try {
+    OrderService.createOrder({
+      orderStart: order.orderStart,
+      orderEnd: "",
+      orderStatus: "Draft",
+      selectedFlowers: selectedFlowers.value.map((f) => ({ ...f })),
+      actionHistory: [...order.actionHistory, order.draftTitle],
+    });
+  } catch (err) {
+    console.error(err.message || "creating draft failed");
+  }
+  draftModal.hide();
+  resetOrder();
 }
 
 function confirmCheckout() {
@@ -126,11 +148,13 @@ function confirmCheckout() {
   toastInstance.show();
 }
 
+let draftModal;
 let editItemModal;
 let cancelOrderModal;
 let orderCheckoutModal;
 let toastInstance;
 onMounted(() => {
+  draftModal = new Modal(document.getElementById("draftModal"));
   editItemModal = new Modal(document.getElementById("editItemModal"));
   cancelOrderModal = new Modal(document.getElementById("cancelOrderModal"));
   orderCheckoutModal = new Modal(document.getElementById("orderCheckoutModal"));
@@ -147,6 +171,7 @@ onMounted(() => {
       <div class="col-4 d-flex flex-column">
         <CurrentUser :orderStart="order.orderStart" />
 
+        <!-- this could be turned into a component in the future -->
         <ul class="list-group">
           <li
             class="list-group-item d-flex justify-content-between align-items-center"
@@ -192,12 +217,14 @@ onMounted(() => {
             <span class="badge text-bg-danger">Tax: P10</span>
           </li> -->
         </ul>
+        <!-- <Draft /> -->
         <BottomBar
           class="mt-auto"
           :selected-flowers="selectedFlowers"
           :order-started="order.orderStart"
           :total="total"
           @orderCheckout="orderCheckout"
+          @saveAsDraft="saveAsDraft"
           @cancelOrder="cancelOrder"
         />
       </div>
@@ -383,7 +410,7 @@ onMounted(() => {
           ></button>
         </div>
         <div class="modal-body">
-          <p>Order created: {{ order.orderStart }}</p>
+          <p>Order created: {{ order.orderStart.toLocaleString() }}</p>
           <div class="accordion mb-3" id="accordionExample">
             <div class="accordion-item">
               <h2 class="accordion-header">
@@ -483,6 +510,93 @@ onMounted(() => {
       </div>
     </div>
   </div>
+
+  <div id="draftModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Save order as draft</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>Order created: {{ order.orderStart.toLocaleString() }}</p>
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="floatingInput"
+              placeholder="name@example.com"
+              v-model="order.draftTitle"
+            />
+            <label for="floatingInput">Draft title</label>
+          </div>
+          <div class="accordion mb-3" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
+                >
+                  Items
+                </button>
+              </h2>
+              <div
+                id="collapseOne"
+                class="accordion-collapse collapse show"
+                data-bs-parent="#accordionExample"
+              >
+                <div class="accordion-body">
+                  <ul class="list-group list-group-flush">
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                      v-for="item in selectedFlowers"
+                      :key="item.id"
+                    >
+                      {{ item.qty }}x {{ item.name }}
+                      <div>
+                        <span>₱{{ item.price }}</span>
+                      </div>
+                    </li>
+
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center list-group-item-success"
+                    >
+                      Total:
+                      <span>₱{{ total }}</span>
+                    </li>
+                  </ul>
+
+                  <!--  -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" @click="confirmAsDraft">
+            Confirm as Draft
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- toast -->
   <div
     id="myToast"
