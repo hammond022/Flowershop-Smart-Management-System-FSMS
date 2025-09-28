@@ -21,7 +21,8 @@ defineProps({
     <div class="inner-container">
       <div>
         <div class="lowlight">ORDER START</div>
-        <div>{{ orderStart }}</div>
+        <div v-if="orderStart">{{ orderStart.toLocaleString() }}</div>
+        <div v-else>Pending Order</div>
       </div>
     </div>
   </div>
@@ -33,7 +34,7 @@ defineProps({
   border-radius: 0.25rem;
   display: flex;
   justify-content: space-between;
-  margin: 1rem;
+  margin: 1em 0rem 1rem 0rem;
   width: 100%;
 }
 

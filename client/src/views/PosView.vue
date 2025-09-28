@@ -5,11 +5,24 @@ import { Modal, Toast } from "bootstrap";
 import CurrentUser from "@/components/POS/CurrentUser.vue";
 import Categories from "@/components/POS/Categories.vue";
 import Items from "@/components/POS/Items.vue";
-import PosBottomBar from "@/components/POS/PosBottomBar.vue";
+import BottomBar from "@/components/POS/BottomBar.vue";
+import OrderService from "@/router/api/ordersService";
 // import QuantityAdjuster from "@/components/QuantityAdjuster.vue";
 
+// currently not using the selectedFlowers here,
+//!todo migrate selectedFlowers(ref) to order(reactive)
+const order = reactive({
+  orderStart: "",
+  orderEnd: "",
+  orderStatus: "",
+  selectedFlowers: [],
+  actionHistory: [],
+});
 const selectedFlowers = ref([]);
 function onFlowerSelect(flower) {
+  if (!order.orderStart) {
+    order.orderStart = new Date();
+  }
   const alreadyExist = selectedFlowers.value.find((f) => f.id === flower.id);
   if (alreadyExist) {
     alreadyExist.qty += 1;
@@ -37,7 +50,6 @@ function removeOne(id) {
     selectedFlowers.value.splice(index, 1);
   }
 }
-
 const editModal = reactive({
   id: null,
   name: "",
@@ -47,7 +59,7 @@ const editModal = reactive({
   oldPrice: null,
 });
 function resetModal() {}
-let editItemModal;
+
 function editItem(id) {
   const index = selectedFlowers.value.findIndex((f) => f.id === id);
   const flower = selectedFlowers.value[index];
@@ -73,16 +85,67 @@ function saveEditModal() {
   editItemModal.hide();
 }
 
+function cancelOrder() {
+  cancelOrderModal.show();
+}
+
+function orderCheckout() {
+  orderCheckoutModal.show();
+  // !todo fix how the modal appears, accordion sometimes collapsed when opened + other things
+}
+
+function resetOrder() {
+  order.orderStart = "";
+  order.orderEnd = "";
+  order.orderStatus = "";
+  order.selectedFlowers = [];
+  order.actionHistory = [];
+  selectedFlowers.value = [];
+}
+
+function voidOrder() {
+  resetOrder();
+  cancelOrderModal.hide();
+  toastInstance.show();
+}
+
+function confirmCheckout() {
+  try {
+    OrderService.createOrder({
+      orderStart: order.orderStart,
+      orderEnd: new Date().toISOString(),
+      orderStatus: "Completed",
+      selectedFlowers: selectedFlowers.value.map((f) => ({ ...f })),
+      actionHistory: order.actionHistory,
+    });
+  } catch (err) {
+    console.error(err.message || "checkout failed");
+  }
+  orderCheckoutModal.hide();
+  resetOrder();
+  toastInstance.show();
+}
+
+let editItemModal;
+let cancelOrderModal;
+let orderCheckoutModal;
+let toastInstance;
 onMounted(() => {
   editItemModal = new Modal(document.getElementById("editItemModal"));
+  cancelOrderModal = new Modal(document.getElementById("cancelOrderModal"));
+  orderCheckoutModal = new Modal(document.getElementById("orderCheckoutModal"));
+  toastInstance = new Toast(document.getElementById("myToast"), {
+    delay: 3000,
+    autohide: true,
+  });
 });
 </script>
 
 <template>
   <div class="container-fluid">
     <div class="row h-100">
-      <div class="col-4">
-        <CurrentUser />
+      <div class="col-4 d-flex flex-column">
+        <CurrentUser :orderStart="order.orderStart" />
 
         <ul class="list-group">
           <li
@@ -129,22 +192,25 @@ onMounted(() => {
             <span class="badge text-bg-danger">Tax: P10</span>
           </li> -->
         </ul>
+        <BottomBar
+          class="mt-auto"
+          :selected-flowers="selectedFlowers"
+          :order-started="order.orderStart"
+          :total="total"
+          @orderCheckout="orderCheckout"
+          @cancelOrder="cancelOrder"
+        />
       </div>
 
       <div class="col">
-        <div class="row"><Categories /><Items @select="onFlowerSelect" /></div>
+        <div class="row"><Categories /> <Items @select="onFlowerSelect" /></div>
       </div>
     </div>
   </div>
-  <PosBottomBar />
+
   <!-- modal -->
-  <div
-    class="modal fade"
-    id="editItemModal"
-    tabindex="-1"
-    aria-labelledby="editItemModalLabel"
-    aria-hidden="true"
-  >
+  <!-- should modals be reusable components? idk -->
+  <div class="modal fade" id="editItemModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
@@ -153,7 +219,6 @@ onMounted(() => {
             type="button"
             class="btn-close"
             data-bs-dismiss="modal"
-            aria-label="Close"
           ></button>
         </div>
 
@@ -219,6 +284,221 @@ onMounted(() => {
           </button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div id="cancelOrderModal" class="modal fade" tabindex="-1 ">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Void current order</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>Order created: {{ order.orderStart.toLocaleString() }}</p>
+          <div
+            class="accordion mb-3"
+            id="accordionExample"
+            v-if="selectedFlowers.length"
+          >
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
+                >
+                  Items
+                </button>
+              </h2>
+              <div
+                id="collapseOne"
+                class="accordion-collapse collapse show"
+                data-bs-parent="#accordionExample"
+              >
+                <div class="accordion-body">
+                  <ul class="list-group list-group-flush">
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                      v-for="item in selectedFlowers"
+                      :key="item.id"
+                    >
+                      {{ item.qty }}x {{ item.name }}
+                      <div>
+                        <span>₱{{ item.price }}</span>
+                      </div>
+                    </li>
+
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center list-group-item-success"
+                    >
+                      Total:
+                      <span>₱{{ total }}</span>
+                    </li>
+                  </ul>
+
+                  <!--  -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <h2 class="text-center" v-if="!selectedFlowers.length">
+            Empty Order
+          </h2>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="button" class="btn btn-danger" @click="voidOrder">
+            Void order
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="orderCheckoutModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirm Order</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>Order created: {{ order.orderStart }}</p>
+          <div class="accordion mb-3" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
+                >
+                  Items
+                </button>
+              </h2>
+              <div
+                id="collapseOne"
+                class="accordion-collapse collapse show"
+                data-bs-parent="#accordionExample"
+              >
+                <div class="accordion-body">
+                  <ul class="list-group list-group-flush">
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                      v-for="item in selectedFlowers"
+                      :key="item.id"
+                    >
+                      {{ item.qty }}x {{ item.name }}
+                      <div>
+                        <span>₱{{ item.price }}</span>
+                      </div>
+                    </li>
+
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center list-group-item-success"
+                    >
+                      Total:
+                      <span>₱{{ total }}</span>
+                    </li>
+                  </ul>
+
+                  <!--  -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <label for="">Payment Method</label>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="radioDefault"
+              id="payment-cash"
+              checked
+            />
+            <label class="form-check-label" for="payment-cash"> Cash </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="radioDefault"
+              id="payment-other"
+              disabled
+            />
+            <label class="form-check-label" for="payment-other">
+              Bank Transfer/E-Wallet
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+            Cancel
+          </button>
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn btn-success"
+              @click="confirmCheckout"
+            >
+              Confirm Checkout
+            </button>
+            <button
+              type="button"
+              class="btn btn-success dropdown-toggle dropdown-toggle-split"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            ></button>
+            <ul class="dropdown-menu">
+              <li class="">
+                <a class="dropdown-item" href="#" @click="draftOrder"
+                  >Save as draft</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- toast -->
+  <div
+    id="myToast"
+    class="toast align-items-center text-bg-success border-0 position-fixed bottom-0 end-0 p-3 m-3 shadow-sm"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="d-flex">
+      <div class="toast-body">Successfully created product</div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
     </div>
   </div>
 </template>
