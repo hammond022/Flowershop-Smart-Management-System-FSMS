@@ -2,7 +2,7 @@ Pos System
 - Add/Edit/Remove products from current order ✅
 - Modify quantity ✅
 - Customer notes per product order ✅
-- Save order for later (draft) 
+- Save order for later (draft)  ✅
 - Action history (shows edits, void, time taken per action during the order process)
 - Void whole order (depends on user permission) ✅
 - Create custom product on the fly for the current order (Create a product that doesn’t exist from the inventory)

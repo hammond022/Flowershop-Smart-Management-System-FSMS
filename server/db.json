@@ -74,6 +74,16 @@
         "Birthday",
         "Happy"
       ]
+    },
+    {
+      "id": 1759086526233,
+      "name": "Peony",
+      "quantity": 1,
+      "price": 72,
+      "tags": [
+        "Birthday",
+        "Happy"
+      ]
     }
   ],
   "orders": [
@@ -252,51 +262,19 @@
       "createdAt": "2025-09-28T12:20:40.493Z"
     },
     {
-      "id": 1759062180116,
-      "orderStart": "2025-09-28T12:22:58.135Z",
-      "orderEnd": "",
-      "orderStatus": "Draft",
+      "id": 1759078221093,
+      "orderStart": "2025-09-28T16:50:12.522Z",
+      "orderEnd": "2025-09-28T16:50:21.025Z",
+      "orderStatus": "Completed",
       "selectedFlowers": [
         {
-          "id": 1758563272928,
-          "name": "Test",
-          "price": 30,
+          "id": 1758636015490,
+          "name": "Bougainvillea",
+          "price": 69,
           "qty": 3,
-          "oldPrice": 30,
+          "oldPrice": 69,
           "notes": ""
-        }
-      ],
-      "actionHistory": [
-        ""
-      ],
-      "createdAt": "2025-09-28T12:23:00.116Z"
-    },
-    {
-      "id": 1759062196082,
-      "orderStart": "2025-09-28T12:23:11.599Z",
-      "orderEnd": "",
-      "orderStatus": "Draft",
-      "selectedFlowers": [
-        {
-          "id": 1758127668172,
-          "name": "Lily",
-          "price": 100,
-          "qty": 1,
-          "oldPrice": 100,
-          "notes": ""
-        }
-      ],
-      "actionHistory": [
-        "testtt"
-      ],
-      "createdAt": "2025-09-28T12:23:16.082Z"
-    },
-    {
-      "id": 1759062258946,
-      "orderStart": "2025-09-28T12:24:16.915Z",
-      "orderEnd": "",
-      "orderStatus": "Draft",
-      "selectedFlowers": [
+        },
         {
           "id": 1758127668172,
           "name": "Lily",
@@ -305,6 +283,98 @@
           "oldPrice": 100,
           "notes": ""
         },
+        {
+          "id": 1758547065391,
+          "name": "White Floral",
+          "price": 180,
+          "qty": 1,
+          "oldPrice": 180,
+          "notes": ""
+        },
+        {
+          "id": 1758547342313,
+          "name": "Rose",
+          "price": 30,
+          "qty": 1,
+          "oldPrice": 30,
+          "notes": ""
+        },
+        {
+          "id": 1758563272928,
+          "name": "Test",
+          "price": 30,
+          "qty": 1,
+          "oldPrice": 30,
+          "notes": ""
+        }
+      ],
+      "actionHistory": [],
+      "createdAt": "2025-09-28T16:50:21.093Z"
+    },
+    {
+      "id": 1759086701927,
+      "orderStart": "2025-09-28T19:11:39.999Z",
+      "orderEnd": "2025-09-28T19:11:41.828Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1758127668172,
+          "name": "Lily",
+          "price": 100,
+          "qty": 1,
+          "oldPrice": 100,
+          "notes": ""
+        }
+      ],
+      "actionHistory": [],
+      "createdAt": "2025-09-28T19:11:41.927Z"
+    },
+    {
+      "id": 1759155978083,
+      "orderStart": "2025-09-29T14:26:15.636Z",
+      "orderEnd": "",
+      "orderStatus": "Draft",
+      "selectedFlowers": [
+        {
+          "id": 1758547065391,
+          "name": "White Floral",
+          "price": 180,
+          "qty": 1,
+          "oldPrice": 180,
+          "notes": ""
+        }
+      ],
+      "actionHistory": [
+        ""
+      ],
+      "createdAt": "2025-09-29T14:26:18.083Z"
+    },
+    {
+      "id": 1759156169005,
+      "orderStart": "2025-09-29T14:29:27.391Z",
+      "orderEnd": "",
+      "orderStatus": "Draft",
+      "selectedFlowers": [
+        {
+          "id": 1758127668172,
+          "name": "Lily",
+          "price": 100,
+          "qty": 2,
+          "oldPrice": 100,
+          "notes": ""
+        }
+      ],
+      "actionHistory": [
+        ""
+      ],
+      "createdAt": "2025-09-29T14:29:29.005Z"
+    },
+    {
+      "id": 1759156173717,
+      "orderStart": "2025-09-29T14:29:29.924Z",
+      "orderEnd": "",
+      "orderStatus": "Draft",
+      "selectedFlowers": [
         {
           "id": 1758636015490,
           "name": "Bougainvillea",
@@ -315,9 +385,9 @@
         }
       ],
       "actionHistory": [
-        "testtt"
+        "tite"
       ],
-      "createdAt": "2025-09-28T12:24:18.946Z"
+      "createdAt": "2025-09-29T14:29:33.717Z"
     }
   ]
 }

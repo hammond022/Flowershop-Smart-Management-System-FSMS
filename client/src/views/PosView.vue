@@ -12,6 +12,7 @@ import OrderService from "@/router/api/ordersService";
 
 // currently not using the selectedFlowers here,
 //!todo migrate selectedFlowers(ref) to order(reactive)
+
 const order = reactive({
   orderStart: "",
   orderEnd: "",
@@ -115,20 +116,22 @@ function voidOrder() {
   toastInstance.show();
 }
 
-function confirmAsDraft() {
+async function confirmAsDraft() {
   try {
-    OrderService.createOrder({
+    await OrderService.createOrder({
       orderStart: order.orderStart,
       orderEnd: "",
       orderStatus: "Draft",
       selectedFlowers: selectedFlowers.value.map((f) => ({ ...f })),
       actionHistory: [...order.actionHistory, order.draftTitle],
     });
+    await getDraftOrders();
   } catch (err) {
     console.error(err.message || "creating draft failed");
+  } finally {
+    draftModal.hide();
+    resetOrder();
   }
-  draftModal.hide();
-  resetOrder();
 }
 
 function confirmCheckout() {
@@ -148,12 +151,23 @@ function confirmCheckout() {
   toastInstance.show();
 }
 
+const draftOrders = ref([]);
+
+async function getDraftOrders() {
+  try {
+    const drafts = await OrderService.getOrders({ status: "Draft" });
+    console.log(drafts);
+    draftOrders.value = drafts;
+  } catch (err) {
+    console.error("Error fetching draft orders:", err.message);
+  }
+}
 let draftModal;
 let editItemModal;
 let cancelOrderModal;
 let orderCheckoutModal;
 let toastInstance;
-onMounted(() => {
+onMounted(async () => {
   draftModal = new Modal(document.getElementById("draftModal"));
   editItemModal = new Modal(document.getElementById("editItemModal"));
   cancelOrderModal = new Modal(document.getElementById("cancelOrderModal"));
@@ -162,14 +176,27 @@ onMounted(() => {
     delay: 3000,
     autohide: true,
   });
+  await getDraftOrders();
 });
 </script>
 
 <template>
   <div class="container-fluid">
     <div class="row h-100">
-      <div class="col-4 d-flex flex-column">
-        <CurrentUser :orderStart="order.orderStart" />
+      <div class="col-4 d-flex flex-column" style="max-height: 80vh">
+        <CurrentUser :orderStart="order.orderStart.toLocaleString()" />
+        <div v-if="!order.orderStart" class="overflow-y-auto">
+          <h2>Draft orders</h2>
+          <Draft
+            v-for="item in draftOrders"
+            :key="item.id"
+            :draft="item"
+            @delete-draft="getDraftOrders()"
+          />
+          <p class="text-center">
+            <a href="#" class="link-underline-primary">Show more drafts...</a>
+          </p>
+        </div>
 
         <!-- this could be turned into a component in the future -->
         <ul class="list-group">
@@ -221,7 +248,7 @@ onMounted(() => {
         <BottomBar
           class="mt-auto"
           :selected-flowers="selectedFlowers"
-          :order-started="order.orderStart"
+          :order-started="order.orderStart.toLocaleString()"
           :total="total"
           @orderCheckout="orderCheckout"
           @saveAsDraft="saveAsDraft"
@@ -511,7 +538,7 @@ onMounted(() => {
     </div>
   </div>
 
-  <div id="draftModal" class="modal" tabindex="-1">
+  <div id="draftModal" class="modal fade" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -590,7 +617,7 @@ onMounted(() => {
             Close
           </button>
           <button type="button" class="btn btn-primary" @click="confirmAsDraft">
-            Confirm as Draft
+            Save
           </button>
         </div>
       </div>

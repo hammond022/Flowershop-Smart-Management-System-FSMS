@@ -1,42 +1,49 @@
 <script setup>
 import { defineProps } from "vue";
+import OrderService from "@/router/api/ordersService";
 
-defineProps({
-  draftTitle: {
-    type: String,
-    default: "Draft title",
-  },
-  draftTimestamp: {
-    type: String,
-  },
-  draftSelectedFlowers: {
-    type: Array,
+const props = defineProps({
+  draft: {
+    type: Object,
   },
 });
+
+const emit = defineEmits(["deleteDraft"]);
+async function deleteDraft() {
+  try {
+    await OrderService.deleteOrder(props.draft.id);
+    emit("deleteDraft", props.draft.id);
+  } catch (err) {
+    console.error("Failed to delete draft:", err);
+  }
+}
 </script>
 
 <template>
-  <div class="card" style="width: 100%">
+  <div class="card mb-3" style="width: 100%">
     <div class="card-body">
       <div class="d-flex justify-content-between w-100">
-        <h5 class="card-title">Draft title</h5>
+        <h5 class="card-title">{{ draft.actionHistory.at(-1) }}</h5>
         <button
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
+          @click="deleteDraft()"
         ></button>
       </div>
 
-      <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-      <p class="card-text">
+      <h6 class="card-subtitle mb-2 text-body-secondary">
+        {{ new Date(draft.orderStart).toLocaleString() }}
+      </h6>
+      <!-- <p class="card-text">
         Some quick example text to build on the card title and make up the bulk
         of the card’s content.
-      </p>
+      </p> -->
       <div
         class="accordion mb-3"
         id="accordionExample"
-        v-if="selectedFlowers.length"
+        v-if="draft.selectedFlowers.length"
       >
         <div class="accordion-item">
           <h2 class="accordion-header">
@@ -44,28 +51,26 @@ defineProps({
               class="accordion-button"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#collapseOne"
-              aria-expanded="true"
-              aria-controls="collapseOne"
+              :data-bs-target="`#${draft.id}`"
             >
               Items
             </button>
           </h2>
           <div
-            id="collapseOne"
-            class="accordion-collapse collapse show"
+            :id="draft.id"
+            class="accordion-collapse collapse"
             data-bs-parent="#accordionExample"
           >
             <div class="accordion-body">
               <ul class="list-group list-group-flush">
                 <li
                   class="list-group-item d-flex justify-content-between align-items-center"
-                  v-for="item in selectedFlowers"
-                  :key="item.id"
+                  v-for="flower in draft.selectedFlowers"
+                  :key="flower.id"
                 >
-                  {{ item.qty }}x {{ item.name }}
+                  {{ flower.qty }}x {{ flower.name }}
                   <div>
-                    <span>₱{{ item.price }}</span>
+                    <span>₱{{ flower.price }}</span>
                   </div>
                 </li>
 
@@ -85,12 +90,13 @@ defineProps({
       <a
         href="#"
         class="card-link link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-        >Delete draft</a
+        @click="deleteDraft()"
+        >Delete</a
       >
       <a
         href="#"
         class="card-link link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-        >Load Draft
+        >Load
       </a>
     </div>
   </div>

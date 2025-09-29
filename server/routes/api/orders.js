@@ -6,10 +6,19 @@ const router = express.Router();
 // GET all orders
 router.get("/", (req, res) => {
   try {
-    res.json(db.data.orders);
+    const { status } = req.query;
+    let orders = db.data.orders;
+
+    if (status) {
+      orders = orders.filter(
+        (order) => order.orderStatus.toLowerCase() === status.toLowerCase()
+      );
+    }
+
+    res.json(orders);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server error finding all orders" });
+    res.status(500).json({ error: "Server error fetching orders" });
   }
 });
 
@@ -60,6 +69,27 @@ router.post("/", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server error creating order" });
+  }
+});
+
+// DELETE order by ID
+router.delete("/:id", async (req, res) => {
+  try {
+    const id = Number(req.params.id);
+
+    const order = db.data.orders.find((o) => o.id === id);
+    if (!order) return res.status(404).json({ error: "Order not found" });
+
+    db.data.orders = db.data.orders.filter((o) => o.id !== id);
+    await db.write();
+
+    res.json({
+      message: "Order deleted successfully",
+      deletedOrder: order,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error deleting order" });
   }
 });
 
