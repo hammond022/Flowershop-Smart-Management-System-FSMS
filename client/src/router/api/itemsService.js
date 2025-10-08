@@ -17,11 +17,12 @@ class ItemService {
   }
 
   // POST create new item
-  static async createItem({ name, quantity, price, tags = [] }) {
+  static async createItem({ name, quantity, price, category, tags = [] }) {
     const res = await axios.post(baseURL, {
       name,
       quantity,
       price,
+      category,
       tags,
     });
     return res.data;

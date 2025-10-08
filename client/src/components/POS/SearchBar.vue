@@ -1,16 +1,23 @@
-<script setup></script>
+<script setup>
+import { ref, watch } from "vue";
+
+const emit = defineEmits(["search"]);
+const searchQuery = ref("");
+
+watch(searchQuery, (newValue) => {
+  emit("search", newValue);
+});
+</script>
 
 <template>
-  <!-- Simple Search Bar -->
-  <form class="d-flex" role="search">
+  <div class="mb-3">
     <input
-      class="form-control me-2"
-      type="search"
-      placeholder="Search"
-      aria-label="Search"
+      v-model="searchQuery"
+      type="text"
+      class="form-control"
+      placeholder="Search items..."
     />
-    <button class="btn btn-primary" type="submit">Search</button>
-  </form>
+  </div>
 </template>
 
 <style scoped></style>

@@ -40,6 +40,7 @@
       "name": "White Floral",
       "quantity": 1,
       "price": 180,
+      "category": "flowers",
       "tags": [
         "Birthday",
         "Happy"
@@ -80,6 +81,83 @@
       "name": "Peony",
       "quantity": 1,
       "price": 72,
+      "category": "flowers",
+      "tags": [
+        "Birthday",
+        "Happy"
+      ]
+    },
+    {
+      "id": 1759823044964,
+      "name": "corsage",
+      "quantity": 1,
+      "price": 130,
+      "category": "bouquets",
+      "tags": [
+        "Birthday",
+        "Happy"
+      ]
+    },
+    {
+      "id": 1759823096588,
+      "name": "Cactus",
+      "quantity": 1,
+      "price": 60,
+      "category": "plants",
+      "tags": [
+        "Birthday",
+        "Happy"
+      ]
+    },
+    {
+      "id": 1759823119219,
+      "name": "Wrapper",
+      "quantity": 1,
+      "price": 10,
+      "category": "others",
+      "tags": [
+        "Birthday",
+        "Happy"
+      ]
+    },
+    {
+      "id": 1759828823070,
+      "name": "Lilies",
+      "quantity": 1,
+      "price": 40,
+      "tags": [
+        "Birthday",
+        "Happy"
+      ]
+    },
+    {
+      "id": 1759829381125,
+      "name": "Roses",
+      "quantity": 1,
+      "price": 0,
+      "category": "flowers",
+      "tags": [
+        "Birthday",
+        "Happy"
+      ]
+    },
+    {
+      "id": 1759829422176,
+      "name": "Roses b",
+      "quantity": 1,
+      "price": 60,
+      "category": "bouquets",
+      "tags": [
+        "Birthday",
+        "Happy"
+      ]
+    },
+    {
+      "id": 1759829446755,
+      "name": "among us",
+      "quantity": 1,
+      "price": 20,
+      "category": "bouquets",
       "tags": [
         "Birthday",
         "Happy"
@@ -328,66 +406,6 @@
       ],
       "actionHistory": [],
       "createdAt": "2025-09-28T19:11:41.927Z"
-    },
-    {
-      "id": 1759155978083,
-      "orderStart": "2025-09-29T14:26:15.636Z",
-      "orderEnd": "",
-      "orderStatus": "Draft",
-      "selectedFlowers": [
-        {
-          "id": 1758547065391,
-          "name": "White Floral",
-          "price": 180,
-          "qty": 1,
-          "oldPrice": 180,
-          "notes": ""
-        }
-      ],
-      "actionHistory": [
-        ""
-      ],
-      "createdAt": "2025-09-29T14:26:18.083Z"
-    },
-    {
-      "id": 1759156169005,
-      "orderStart": "2025-09-29T14:29:27.391Z",
-      "orderEnd": "",
-      "orderStatus": "Draft",
-      "selectedFlowers": [
-        {
-          "id": 1758127668172,
-          "name": "Lily",
-          "price": 100,
-          "qty": 2,
-          "oldPrice": 100,
-          "notes": ""
-        }
-      ],
-      "actionHistory": [
-        ""
-      ],
-      "createdAt": "2025-09-29T14:29:29.005Z"
-    },
-    {
-      "id": 1759156173717,
-      "orderStart": "2025-09-29T14:29:29.924Z",
-      "orderEnd": "",
-      "orderStatus": "Draft",
-      "selectedFlowers": [
-        {
-          "id": 1758636015490,
-          "name": "Bougainvillea",
-          "price": 69,
-          "qty": 1,
-          "oldPrice": 69,
-          "notes": ""
-        }
-      ],
-      "actionHistory": [
-        "tite"
-      ],
-      "createdAt": "2025-09-29T14:29:33.717Z"
     }
   ]
 }

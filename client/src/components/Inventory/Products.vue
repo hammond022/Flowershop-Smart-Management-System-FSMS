@@ -1,12 +1,25 @@
 <script setup>
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, computed } from "vue";
 import { Modal, Toast } from "bootstrap";
 import ItemService from "@/router/api/itemsService";
 import InventoryProduct from "./Product.vue";
 
+const flowers = reactive({
+  items: [],
+  isLoading: true,
+});
+
+const categories = ref([]);
+const selectedCategory = ref("all");
+
 const getFlowers = async () => {
   try {
     flowers.items = await ItemService.getItems();
+
+    const uniqueCategories = [
+      ...new Set(flowers.items.map((item) => item.category)),
+    ];
+    categories.value = uniqueCategories;
   } catch (err) {
     console.error(err.message || "Failed to load items");
   } finally {
@@ -14,9 +27,11 @@ const getFlowers = async () => {
   }
 };
 
-const flowers = reactive({
-  items: [],
-  isLoading: true,
+const filteredItems = computed(() => {
+  if (selectedCategory.value === "all") return flowers.items;
+  return flowers.items.filter(
+    (item) => item.category === selectedCategory.value
+  );
 });
 
 const product = reactive({
@@ -24,11 +39,13 @@ const product = reactive({
   price: 0,
   quantity: 1,
   tags: ["Birthday", "Happy"],
+  category: "",
 });
 
 function resetModal() {
   product.name = "";
   product.price = 0;
+  product.category = "";
 }
 
 function increasePrice(amount = 10) {
@@ -45,6 +62,7 @@ async function submitProduct() {
       name: product.name,
       price: product.price,
       quantity: product.quantity,
+      category: product.category,
       tags: product.tags,
     });
     toastInstance.show();
@@ -77,6 +95,7 @@ onMounted(() => {
   <main class="p-4">
     <div class="d-flex justify-content-between">
       <h1>Products</h1>
+
       <div class="btn-group mb-4">
         <button type="button" class="btn btn-primary">Create Product</button>
         <button
@@ -89,7 +108,27 @@ onMounted(() => {
       </div>
     </div>
 
-    <!-- Products Table -->
+    <ul class="nav nav-tabs mb-3">
+      <li class="nav-item">
+        <button
+          class="nav-link"
+          :class="{ active: selectedCategory === 'all' }"
+          @click="selectedCategory = 'all'"
+        >
+          All
+        </button>
+      </li>
+      <li v-for="category in categories" :key="category" class="nav-item">
+        <button
+          class="nav-link text-capitalize"
+          :class="{ active: selectedCategory === category }"
+          @click="selectedCategory = category"
+        >
+          {{ category }}
+        </button>
+      </li>
+    </ul>
+
     <table class="table table-striped">
       <thead>
         <tr>
@@ -97,19 +136,18 @@ onMounted(() => {
           <th>Name</th>
           <th>Quantity</th>
           <th>Price</th>
+          <th>Category</th>
           <th>Tags</th>
-          <th>Status</th>
-          <th>Notes</th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
         <InventoryProduct
-          v-for="flower in flowers.items"
-          :key="flower.name"
+          v-for="flower in filteredItems"
+          :key="flower.id"
           :name="flower.name"
           :quantity="flower.quantity"
           :price="flower.price"
+          :category="flower.category"
         />
       </tbody>
     </table>
@@ -190,6 +228,20 @@ onMounted(() => {
               >
                 +
               </button>
+            </div>
+
+            <div class="mb-3 input-group">
+              <span class="input-group-text">Category</span>
+              <select class="form-select" v-model="product.category">
+                <option value="" disabled>Select category</option>
+                <option
+                  v-for="category in categories"
+                  :key="category"
+                  :value="category"
+                >
+                  {{ category }}
+                </option>
+              </select>
             </div>
 
             <div class="mb-3">

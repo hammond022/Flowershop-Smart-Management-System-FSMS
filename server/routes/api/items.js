@@ -18,7 +18,7 @@ router.get("/:id", (req, res) => {
 
 // CREATE item
 router.post("/", async (req, res) => {
-  const { name, quantity, price, tags = [] } = req.body;
+  const { name, quantity, price, category, tags = [] } = req.body;
 
   if (!name || typeof name !== "string" || !name.trim()) {
     return res
@@ -51,11 +51,18 @@ router.post("/", async (req, res) => {
       .json({ error: "Item with this name already exists." });
   }
 
+  if (!category || typeof category !== "string" || !category.trim()) {
+    return res
+      .status(400)
+      .json({ error: "Category is required and must be a non-empty string." });
+  }
+
   const newItem = {
     id: Date.now(),
     name: name.trim(),
     quantity,
     price,
+    category,
     tags,
   };
 

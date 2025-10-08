@@ -1,4 +1,5 @@
 <!-- im so sorry about this being so poorly written -->
+<!-- day 9 shit on top of dried shit -->
 <script setup>
 import { ref, computed, onMounted, reactive } from "vue";
 import { Modal, Toast } from "bootstrap";
@@ -8,10 +9,16 @@ import Items from "@/components/POS/Items.vue";
 import BottomBar from "@/components/POS/BottomBar.vue";
 import Draft from "@/components/POS/Draft.vue";
 import OrderService from "@/router/api/ordersService";
+import ItemService from "@/router/api/itemsService"; // ✅ Add this
+
 // import QuantityAdjuster from "@/components/QuantityAdjuster.vue";
 
 // currently not using the selectedFlowers here,
 //!todo migrate selectedFlowers(ref) to order(reactive)
+
+const selectedCategory = ref("all");
+const categories = ref([]);
+const allItems = ref([]);
 
 const order = reactive({
   orderStart: "",
@@ -38,6 +45,28 @@ function onFlowerSelect(flower) {
     });
   }
 }
+
+async function loadItems() {
+  try {
+    const items = await ItemService.getItems();
+    allItems.value = items;
+    const unique = [
+      ...new Set(
+        items
+          .map((i) => i.category?.toLowerCase().trim())
+          .filter((c) => c && c.length > 0)
+      ),
+    ];
+    categories.value = ["all", ...unique];
+  } catch (err) {
+    console.error("Error loading items:", err.message);
+  }
+}
+
+function handleCategorySelect(category) {
+  selectedCategory.value = category;
+}
+
 const total = computed(() =>
   selectedFlowers.value.reduce((sum, item) => sum + item.price * item.qty, 0)
 );
@@ -177,87 +206,110 @@ onMounted(async () => {
     autohide: true,
   });
   await getDraftOrders();
+  await loadItems();
 });
 </script>
 
 <template>
-  <div class="container-fluid">
-    <div class="row h-100">
-      <div class="col-4 d-flex flex-column" style="max-height: 80vh">
-        <CurrentUser :orderStart="order.orderStart.toLocaleString()" />
-        <div v-if="!order.orderStart" class="overflow-y-auto">
-          <h2>Draft orders</h2>
-          <Draft
-            v-for="item in draftOrders"
-            :key="item.id"
-            :draft="item"
-            @delete-draft="getDraftOrders()"
-          />
-          <p class="text-center">
-            <a href="#" class="link-underline-primary">Show more drafts...</a>
-          </p>
-        </div>
+  <div class="container-fluid h-100">
+    <div class="col d-flex flex-column h-100">
+      <div class="row">
+        <div
+          class="border border-secondary border-opacity-25 rounded d-flex flex-column m-3 justify-content-between"
+          style="width: 40%; height: 80vh"
+        >
+          <div>
+            <CurrentUser
+              :orderStart="
+                order.orderStart ? order.orderStart.toLocaleString() : ''
+              "
+            />
+            <div
+              class="d-flex flex-column"
+              style="max-height: 55vh; overflow-y: auto"
+            >
+              <div id="drafts" v-if="!order.orderStart">
+                <h2>Draft orders</h2>
+                <Draft
+                  v-for="item in draftOrders"
+                  :key="item.id"
+                  :draft="item"
+                  @delete-draft="getDraftOrders()"
+                />
+                <p v-if="draftOrders.length === 0" class="text-center">
+                  There are no draft orders
+                </p>
+              </div>
+              <div id="cart">
+                <ul class="list-group">
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                    v-for="item in selectedFlowers"
+                    :key="item.id"
+                  >
+                    {{ item.name }} - ₱{{ item.price }}
+                    <div>
+                      <span
+                        class="badge text-bg-secondary rounded-pill me-3"
+                        v-if="item.qty > 1"
+                        >{{ item.qty }}</span
+                      >
+                      <div class="btn-group">
+                        <button
+                          type="button"
+                          class="btn btn-outline-primary"
+                          @click="editItem(item.id)"
+                        >
+                          <i class="bi bi-pencil-square"></i></button
+                        ><button
+                          type="button"
+                          class="btn btn-outline-danger"
+                          @click="removeOne(item.id)"
+                        >
+                          -
+                        </button>
+                      </div>
+                    </div>
+                  </li>
 
-        <!-- this could be turned into a component in the future -->
-        <ul class="list-group">
-          <li
-            class="list-group-item d-flex justify-content-between align-items-center"
-            v-for="item in selectedFlowers"
-            :key="item.id"
-          >
-            {{ item.name }} - ₱{{ item.price }}
-            <div>
-              <span
-                class="badge text-bg-secondary rounded-pill me-3"
-                v-if="item.qty > 1"
-                >{{ item.qty }}</span
-              >
-              <div class="btn-group">
-                <button
-                  type="button"
-                  class="btn btn-outline-primary"
-                  @click="editItem(item.id)"
-                >
-                  <i class="bi bi-pencil-square"></i></button
-                ><button
-                  type="button"
-                  class="btn btn-outline-danger"
-                  @click="removeOne(item.id)"
-                >
-                  -
-                </button>
+                  <li
+                    class="list-group-item d-flex justify-content-end align-items-center fw-bold"
+                    v-if="total > 0"
+                  >
+                    <span class="badge text-bg-success"
+                      >Total: ₱{{ total }}</span
+                    >
+                  </li>
+                </ul>
               </div>
             </div>
-          </li>
+          </div>
 
-          <li
-            class="list-group-item d-flex justify-content-end align-items-center fw-bold"
-            v-if="total > 0"
-          >
-            <span class="badge text-bg-success">Total: ₱{{ total }}</span>
+          <BottomBar
+            :selected-flowers="selectedFlowers"
+            :order-started="
+              order.orderStart ? order.orderStart.toLocaleString() : ''
+            "
+            :total="total"
+            @orderCheckout="orderCheckout"
+            @saveAsDraft="saveAsDraft"
+            @cancelOrder="cancelOrder"
+          />
+        </div>
 
-            <!-- example only -->
-          </li>
-          <!-- <li
-            class="list-group-item d-flex justify-content-end align-items-center fw-bold"
-          >
-            <span class="badge text-bg-danger">Tax: P10</span>
-          </li> -->
-        </ul>
-        <!-- <Draft /> -->
-        <BottomBar
-          class="mt-auto"
-          :selected-flowers="selectedFlowers"
-          :order-started="order.orderStart.toLocaleString()"
-          :total="total"
-          @orderCheckout="orderCheckout"
-          @saveAsDraft="saveAsDraft"
-          @cancelOrder="cancelOrder"
+        <Categories
+          style="width: 15%"
+          :categories="categories"
+          :selected-category="selectedCategory"
+          @select-category="handleCategorySelect"
         />
-      </div>
 
-      <div class="col">
-        <div class="row"><Categories /> <Items @select="onFlowerSelect" /></div>
+        <Items
+          style="width: 40%"
+          :all-items="allItems"
+          :selected-category="selectedCategory"
+          @select="onFlowerSelect"
+        />
       </div>
     </div>
   </div>
@@ -354,7 +406,10 @@ onMounted(async () => {
           ></button>
         </div>
         <div class="modal-body">
-          <p>Order created: {{ order.orderStart.toLocaleString() }}</p>
+          <p>
+            Order created:
+            {{ order.orderStart ? order.orderStart.toLocaleString() : "" }}
+          </p>
           <div
             class="accordion mb-3"
             id="accordionExample"
@@ -437,7 +492,10 @@ onMounted(async () => {
           ></button>
         </div>
         <div class="modal-body">
-          <p>Order created: {{ order.orderStart.toLocaleString() }}</p>
+          <p>
+            Order created:
+            {{ order.orderStart ? order.orderStart.toLocaleString() : "" }}
+          </p>
           <div class="accordion mb-3" id="accordionExample">
             <div class="accordion-item">
               <h2 class="accordion-header">
@@ -537,7 +595,6 @@ onMounted(async () => {
       </div>
     </div>
   </div>
-
   <div id="draftModal" class="modal fade" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">

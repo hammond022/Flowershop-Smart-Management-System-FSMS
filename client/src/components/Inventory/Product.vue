@@ -6,6 +6,7 @@ const props = defineProps({
   price: { type: Number, default: 0 },
   quantity: { type: Number, default: 0 },
   id: { type: Number, default: 0 },
+  category: { type: String, default: "Roses" },
 });
 </script>
 
@@ -18,9 +19,7 @@ const props = defineProps({
     <td scope="row">{{ quantity }}</td>
     <td scope="row">₱{{ price }}</td>
     <td scope="row">
-      <span class="badge text-bg-secondary">Test</span>
-      <span class="badge text-bg-secondary">Test</span>
-      <span class="badge text-bg-secondary">Test</span>
+      <span class="badge text-bg-secondary">{{ category }}</span>
     </td>
     <td scope="row">
       <span class="badge rounded-pill text-bg-success">In stock</span>

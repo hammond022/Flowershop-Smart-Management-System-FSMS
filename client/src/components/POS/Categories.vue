@@ -1,26 +1,36 @@
 <script setup>
-import Category from "./Category.vue";
+import { defineProps, defineEmits } from "vue";
 
-const categoryArray = [
-  "Flowers",
-  "Bouquet",
-  "Plants",
-  "Others",
-  "test1",
-  "test2",
-  "test3",
-];
+const props = defineProps({
+  categories: {
+    type: Array,
+    default: () => [],
+  },
+  selectedCategory: {
+    type: String,
+    default: "all",
+  },
+});
+const emit = defineEmits(["select-category"]);
 </script>
 
 <template>
   <div class="container">
     <h1 class="text">Categories</h1>
     <div class="category-list">
-      <Category
-        v-for="category in categoryArray"
+      <button
+        v-for="category in categories"
         :key="category"
-        :category="category"
-      />
+        type="button"
+        class="btn category-btn w-100 mb-2 text-capitalize"
+        :class="{
+          'btn-primary': selectedCategory === category,
+          'btn-outline-secondary': selectedCategory !== category,
+        }"
+        @click="emit('select-category', category)"
+      >
+        {{ category }}
+      </button>
     </div>
   </div>
 </template>
@@ -32,7 +42,7 @@ const categoryArray = [
   display: flex;
   flex-direction: column;
   margin: 1rem;
-  width: 40%;
+  /* width: 40%; */
   height: 80vh;
   /* toggel this off ^ */
 }

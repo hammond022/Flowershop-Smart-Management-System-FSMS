@@ -72,6 +72,7 @@ function cancelOrder() {
   display: flex;
   justify-content: flex-start;
   /* background-color: ; */
+  margin-bottom: 1rem;
 }
 
 .bottom-bar-inner {
