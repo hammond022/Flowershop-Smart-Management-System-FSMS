@@ -168,6 +168,35 @@ function confirmDiscount() {
   addDiscountModal.hide();
 }
 
+function showToast(type = "success", message = "Operation successful") {
+  const toast = document.getElementById("myToast");
+  const toastBody = toast.querySelector(".toast-body");
+
+  // Remove old classes
+  toast.classList.remove(
+    "bg-success",
+    "bg-danger",
+    "bg-warning",
+    "text-white",
+    "text-dark"
+  );
+
+  // Update message
+  toastBody.textContent = message;
+
+  // Apply color style
+  if (type === "success") {
+    toast.classList.add("bg-success", "text-white");
+  } else if (type === "error") {
+    toast.classList.add("bg-danger", "text-white");
+  } else if (type === "warning") {
+    toast.classList.add("bg-warning", "text-dark");
+  }
+
+  // Show the existing toast instance
+  toastInstance?.show();
+}
+
 function resetOrder() {
   order.orderStart = "";
   order.orderEnd = "";
@@ -181,7 +210,7 @@ function resetOrder() {
 function voidOrder() {
   resetOrder();
   cancelOrderModal.hide();
-  toastInstance.show();
+  showToast("warning", "Order voided successfully!");
 }
 
 async function confirmAsDraft() {
@@ -196,8 +225,10 @@ async function confirmAsDraft() {
       total: totalAfterDiscount.value,
     });
     await getDraftOrders();
+    showToast("success", "Order saved as draft!");
   } catch (err) {
     console.error(err.message || "creating draft failed");
+    showToast("error", "Failed to save draft!");
   } finally {
     draftModal.hide();
     resetOrder();
@@ -207,7 +238,7 @@ async function confirmAsDraft() {
 function confirmCheckout() {
   try {
     if (totalAfterDiscount.value <= 0) {
-      alert("Discount exceeds total amount!");
+      showToast("warning", "Discount exceeds total amount!");
       return;
     }
 
@@ -220,12 +251,14 @@ function confirmCheckout() {
       total: totalAfterDiscount.value,
       actionHistory: order.actionHistory,
     });
+
+    showToast("success", "Order completed successfully!");
   } catch (err) {
     console.error(err.message || "checkout failed");
+    showToast("error", "Checkout failed!");
   }
   orderCheckoutModal.hide();
   resetOrder();
-  toastInstance.show();
 }
 
 const draftOrders = ref([]);
@@ -1011,7 +1044,7 @@ onMounted(async () => {
   <!-- toast -->
   <div
     id="myToast"
-    class="toast align-items-center text-bg-success border-0 position-fixed bottom-0 end-0 p-3 m-3 shadow-sm"
+    class="toast align-items-center border-0 position-fixed bottom-0 end-0 p-3 m-3 shadow-sm"
     role="alert"
     aria-live="assertive"
     aria-atomic="true"

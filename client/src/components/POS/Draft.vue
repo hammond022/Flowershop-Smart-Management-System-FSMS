@@ -96,7 +96,6 @@ async function loadDraft() {
           <div :id="`details-${draft.id}`" class="accordion-collapse collapse">
             <div class="accordion-body">
               <ul class="list-group list-group-flush">
-                <!-- 🏵️ Items -->
                 <li
                   v-for="flower in draft.selectedFlowers || []"
                   :key="flower.id"
@@ -114,7 +113,6 @@ async function loadDraft() {
                   <span>₱{{ subtotal }}</span>
                 </li>
 
-                <!-- 💰 Discounts -->
                 <li
                   v-for="(d, index) in draft.discounts || []"
                   :key="index"
@@ -137,7 +135,6 @@ async function loadDraft() {
                   <span>-₱{{ discountTotal }}</span>
                 </li>
 
-                <!-- ✅ Final Total -->
                 <li
                   class="list-group-item d-flex justify-content-between align-items-center list-group-item-success fw-bold"
                   v-if="totalAfterDiscount < subtotal"
@@ -151,7 +148,6 @@ async function loadDraft() {
         </div>
       </div>
 
-      <!-- Actions -->
       <div class="mt-2">
         <a href="#" class="card-link link-danger" @click="deleteDraft">
           Delete
