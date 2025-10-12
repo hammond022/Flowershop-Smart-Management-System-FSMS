@@ -7,10 +7,10 @@ Pos System
 - Void whole order (depends on user permission) ✅
 - Create custom product on the fly for the current order (Create a product that doesn’t exist from the inventory)
 - Modify product price on the fly ✅
-- Add discounts and tax
+- Add discounts and tax ✅
 - Products sorted by category ✅
-- Out of stock warning (shows impossible order due to stock quantity)
-- Create custom bouquet by mood/theme (pulls tags from inventory items and combines them together)
+- Out of stock warning (shows impossible order due to stock quantity) ✅
+- Create custom bouquet by  mood/theme (pulls tags from inventory items and combines them together)
 
 Inventory System
 - Automatic stock counting from POS orders

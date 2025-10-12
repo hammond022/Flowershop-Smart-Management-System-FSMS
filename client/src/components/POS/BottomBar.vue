@@ -1,6 +1,4 @@
 <script setup>
-import { defineProps } from "vue";
-
 defineProps({
   total: {
     type: Number,
@@ -14,9 +12,18 @@ defineProps({
     type: Array,
     default: [],
   },
+  hasInvalidStock: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const emit = defineEmits(["orderCheckout", "cancelOrder", "saveAsDraft"]);
+const emit = defineEmits([
+  "orderCheckout",
+  "cancelOrder",
+  "saveAsDraft",
+  "addDiscount",
+]);
 function orderCheckout() {
   emit("orderCheckout");
 }
@@ -25,6 +32,10 @@ function saveAsDraft() {
 }
 function cancelOrder() {
   emit("cancelOrder");
+}
+
+function addDiscount() {
+  emit("addDiscount");
 }
 </script>
 
@@ -53,13 +64,28 @@ function cancelOrder() {
           Save as draft
         </button>
         <button
-          class="btn btn-success text-nowrap"
+          class="btn text-nowrap"
           @click="orderCheckout"
-          :disabled="!orderStarted || !selectedFlowers.length"
+          :disabled="
+            !orderStarted || !selectedFlowers.length || hasInvalidStock
+          "
+          :class="{
+            'btn-success': !hasInvalidStock,
+            'btn-danger': hasInvalidStock,
+          }"
         >
           Checkout Total ₱{{ total }}
         </button>
       </div>
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        :disabled="!orderStarted || !selectedFlowers.length"
+        @click="addDiscount"
+      >
+        Add discount
+      </button>
     </div>
   </div>
 </template>
@@ -78,7 +104,7 @@ function cancelOrder() {
 .bottom-bar-inner {
   display: flex;
   justify-content: space-between;
-  width: 20rem;
+  width: 100%;
   align-items: center;
 }
 </style>

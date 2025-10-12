@@ -20,6 +20,8 @@ const selectedCategory = ref("all");
 const categories = ref([]);
 const allItems = ref([]);
 
+const discounts = ref([]);
+
 const order = reactive({
   orderStart: "",
   orderEnd: "",
@@ -70,6 +72,28 @@ function handleCategorySelect(category) {
 const total = computed(() =>
   selectedFlowers.value.reduce((sum, item) => sum + item.price * item.qty, 0)
 );
+
+const totalAfterDiscount = computed(() => {
+  const subtotal = selectedFlowers.value.reduce(
+    (sum, item) => sum + item.price * item.qty,
+    0
+  );
+
+  if (discounts.value.length === 0) return subtotal;
+
+  const totalDiscount = discounts.value.reduce((sum, d) => {
+    if (d.type === "amount") return sum + d.value;
+    if (d.type === "percent") return sum + (subtotal * d.value) / 100;
+    return sum;
+  }, 0);
+
+  return Math.max(subtotal - totalDiscount, 0);
+});
+
+const hasInvalidStock = computed(() => {
+  return selectedFlowers.value.some((item) => item.qty > item.stock);
+});
+
 // kaawaan nawa ako ng diyos
 function removeOne(id) {
   const index = selectedFlowers.value.findIndex((f) => f.id === id);
@@ -130,6 +154,20 @@ function saveAsDraft() {
   draftModal.show();
 }
 
+function addDiscount() {
+  addDiscountModal.show();
+}
+
+function confirmDiscount() {
+  if (discount.value <= 0) return;
+
+  discounts.value.push({ value: discount.value, type: discount.type });
+
+  discount.value = 0;
+  discount.type = "amount";
+  addDiscountModal.hide();
+}
+
 function resetOrder() {
   order.orderStart = "";
   order.orderEnd = "";
@@ -137,6 +175,7 @@ function resetOrder() {
   order.selectedFlowers = [];
   order.actionHistory = [];
   selectedFlowers.value = [];
+  discounts.value = [];
 }
 
 function voidOrder() {
@@ -153,6 +192,8 @@ async function confirmAsDraft() {
       orderStatus: "Draft",
       selectedFlowers: selectedFlowers.value.map((f) => ({ ...f })),
       actionHistory: [...order.actionHistory, order.draftTitle],
+      discounts: discounts.value.map((d) => ({ ...d })),
+      total: totalAfterDiscount.value,
     });
     await getDraftOrders();
   } catch (err) {
@@ -165,11 +206,18 @@ async function confirmAsDraft() {
 
 function confirmCheckout() {
   try {
+    if (totalAfterDiscount.value <= 0) {
+      alert("Discount exceeds total amount!");
+      return;
+    }
+
     OrderService.createOrder({
       orderStart: order.orderStart,
       orderEnd: new Date().toISOString(),
       orderStatus: "Completed",
       selectedFlowers: selectedFlowers.value.map((f) => ({ ...f })),
+      discounts: discounts.value.map((d) => ({ ...d })),
+      total: totalAfterDiscount.value,
       actionHistory: order.actionHistory,
     });
   } catch (err) {
@@ -191,16 +239,58 @@ async function getDraftOrders() {
     console.error("Error fetching draft orders:", err.message);
   }
 }
+
+// mortal sin - will fix this eventually
+function increaseQty(amount = 1) {
+  editModal.qty = Number(editModal.qty) + amount;
+}
+
+function decreaseQty(amount = 1) {
+  if (editModal.qty - amount >= 1) {
+    editModal.qty = Number(editModal.qty) - amount;
+  }
+}
+
+function increasePrice(amount = 10) {
+  editModal.price = Number(editModal.price) + amount;
+}
+
+function decreasePrice(amount = 10) {
+  if (editModal.price - amount >= 0) {
+    editModal.price = Number(editModal.price) - amount;
+  }
+}
+
+const discount = reactive({
+  value: 0,
+  type: "amount", // or "percent"
+});
+
+function increaseDiscount(amount = 10) {
+  discount.value += discount.type === "amount" ? amount : 1;
+}
+
+function decreaseDiscount(amount = 10) {
+  const step = discount.type === "amount" ? amount : 1;
+  discount.value = Math.max(0, discount.value - step);
+}
+
+function removeDiscount(index) {
+  discounts.value.splice(index, 1);
+}
+
 let draftModal;
 let editItemModal;
 let cancelOrderModal;
 let orderCheckoutModal;
+let addDiscountModal;
 let toastInstance;
 onMounted(async () => {
   draftModal = new Modal(document.getElementById("draftModal"));
   editItemModal = new Modal(document.getElementById("editItemModal"));
   cancelOrderModal = new Modal(document.getElementById("cancelOrderModal"));
   orderCheckoutModal = new Modal(document.getElementById("orderCheckoutModal"));
+  addDiscountModal = new Modal(document.getElementById("addDiscountModal"));
   toastInstance = new Toast(document.getElementById("myToast"), {
     delay: 3000,
     autohide: true,
@@ -219,6 +309,14 @@ onMounted(async () => {
           style="width: 40%; height: 80vh"
         >
           <div>
+            <div
+              v-if="hasInvalidStock"
+              class="mt-3 alert alert-danger"
+              role="alert"
+            >
+              This is an impossible order to fulfill!
+            </div>
+
             <CurrentUser
               :orderStart="
                 order.orderStart ? order.orderStart.toLocaleString() : ''
@@ -273,12 +371,58 @@ onMounted(async () => {
                   </li>
 
                   <li
-                    class="list-group-item d-flex justify-content-end align-items-center fw-bold"
+                    v-for="(discount, index) in discounts"
+                    :key="index"
+                    class="list-group-item d-flex justify-content-between align-items-center fw-bold"
+                  >
+                    <div>
+                      <span class="badge text-bg-primary me-2">
+                        {{
+                          discount.type === "amount"
+                            ? `₱${discount.value} off`
+                            : `${discount.value}% off`
+                        }}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      @click="removeDiscount(index)"
+                      aria-label="Remove"
+                    ></button>
+                  </li>
+
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center fw-bold"
                     v-if="total > 0"
                   >
-                    <span class="badge text-bg-success"
-                      >Total: ₱{{ total }}</span
-                    >
+                    <span>Subtotal:</span>
+                    <span class="badge text-bg-secondary">₱{{ total }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center fw-bold"
+                    v-if="discounts.length > 0"
+                  >
+                    <span>Discount total:</span>
+                    <span class="badge text-bg-primary"
+                      >₱{{
+                        discounts.reduce((sum, d) => {
+                          return (
+                            sum +
+                            (d.type === "amount"
+                              ? d.value
+                              : (total * d.value) / 100)
+                          );
+                        }, 0)
+                      }}
+                    </span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center fw-bold list-group-item-success"
+                    v-if="totalAfterDiscount < total"
+                  >
+                    <span>Total after discount:</span>
+                    <span>₱{{ totalAfterDiscount }}</span>
                   </li>
                 </ul>
               </div>
@@ -290,10 +434,12 @@ onMounted(async () => {
             :order-started="
               order.orderStart ? order.orderStart.toLocaleString() : ''
             "
-            :total="total"
+            :total="totalAfterDiscount"
+            :has-invalid-stock="hasInvalidStock"
             @orderCheckout="orderCheckout"
             @saveAsDraft="saveAsDraft"
             @cancelOrder="cancelOrder"
+            @addDiscount="addDiscount"
           />
         </div>
 
@@ -344,20 +490,53 @@ onMounted(async () => {
           <div class="mb-3">
             <div class="input-group">
               <span class="input-group-text">Quantity</span>
-              <input type="text" class="form-control" v-model="editModal.qty" />
-              <button type="button" class="btn btn-outline-primary">-</button>
-              <button type="button" class="btn btn-outline-primary">+</button>
+              <input
+                type="text"
+                class="form-control"
+                v-model.number="editModal.qty"
+              />
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                @click="decreaseQty()"
+              >
+                -
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                @click="increaseQty()"
+              >
+                +
+              </button>
             </div>
           </div>
+
           <div class="input-group mb-3">
             <span class="input-group-text">Price</span>
-            <span class="input-group-text">Per item</span
-            ><span class="input-group-text">₱</span>
-            <input type="text" class="form-control" v-model="editModal.price" />
-
-            <button type="button" class="btn btn-outline-primary">-</button>
-            <button type="button" class="btn btn-outline-primary">+</button>
+            <span class="input-group-text">Per item</span>
+            <span class="input-group-text">₱</span>
+            <input
+              type="text"
+              class="form-control"
+              v-model.number="editModal.price"
+            />
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              @click="decreasePrice()"
+            >
+              -
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              @click="increasePrice()"
+            >
+              +
+            </button>
           </div>
+
           <div class="form-text" v-if="editModal.oldPrice != editModal.price">
             Price has been edited, original price ₱{{ editModal.oldPrice }}
           </div>
@@ -527,12 +706,30 @@ onMounted(async () => {
                         <span>₱{{ item.price }}</span>
                       </div>
                     </li>
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center fw-bold"
+                      v-if="discounts.length > 0"
+                    >
+                      <span>Discount total:</span>
+                      <span class="badge text-bg-primary"
+                        >₱{{
+                          discounts.reduce((sum, d) => {
+                            return (
+                              sum +
+                              (d.type === "amount"
+                                ? d.value
+                                : (total * d.value) / 100)
+                            );
+                          }, 0)
+                        }}
+                      </span>
+                    </li>
 
                     <li
                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-success"
                     >
                       Total:
-                      <span>₱{{ total }}</span>
+                      <span>₱{{ totalAfterDiscount }}</span>
                     </li>
                   </ul>
 
@@ -652,10 +849,29 @@ onMounted(async () => {
                     </li>
 
                     <li
+                      class="list-group-item d-flex justify-content-between align-items-center fw-bold"
+                      v-if="discounts.length > 0"
+                    >
+                      <span>Discount total:</span>
+                      <span class="badge text-bg-primary"
+                        >₱{{
+                          discounts.reduce((sum, d) => {
+                            return (
+                              sum +
+                              (d.type === "amount"
+                                ? d.value
+                                : (total * d.value) / 100)
+                            );
+                          }, 0)
+                        }}
+                      </span>
+                    </li>
+
+                    <li
                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-success"
                     >
                       Total:
-                      <span>₱{{ total }}</span>
+                      <span>₱{{ totalAfterDiscount }}</span>
                     </li>
                   </ul>
 
@@ -675,6 +891,96 @@ onMounted(async () => {
           </button>
           <button type="button" class="btn btn-primary" @click="confirmAsDraft">
             Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="addDiscountModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add discount</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label fw-bold">Discount Type</label>
+            <div class="btn-group w-100" role="group">
+              <input
+                type="radio"
+                class="btn-check"
+                name="discountType"
+                id="discountAmount"
+                value="amount"
+                v-model="discount.type"
+              />
+              <label class="btn btn-outline-primary" for="discountAmount"
+                >₱ Amount</label
+              >
+
+              <input
+                type="radio"
+                class="btn-check"
+                name="discountType"
+                id="discountPercent"
+                value="percent"
+                v-model="discount.type"
+              />
+              <label class="btn btn-outline-primary" for="discountPercent"
+                >% Percent</label
+              >
+            </div>
+          </div>
+
+          <div class="input-group mb-3 mt-3">
+            <span class="input-group-text">Value</span>
+            <span class="input-group-text">{{
+              discount.type === "amount" ? "₱" : "%"
+            }}</span>
+            <input
+              type="number"
+              class="form-control"
+              v-model.number="discount.value"
+              min="0"
+            />
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              @click="decreaseDiscount()"
+            >
+              -
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              @click="increaseDiscount()"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="confirmDiscount"
+          >
+            Confirm
           </button>
         </div>
       </div>

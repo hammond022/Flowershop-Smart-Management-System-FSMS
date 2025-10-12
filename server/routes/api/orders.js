@@ -44,6 +44,7 @@ router.post("/", async (req, res) => {
       orderEnd,
       orderStatus,
       selectedFlowers,
+      discounts,
       actionHistory,
     } = req.body;
 
@@ -59,6 +60,7 @@ router.post("/", async (req, res) => {
       orderEnd,
       orderStatus,
       selectedFlowers: Array.isArray(selectedFlowers) ? selectedFlowers : [],
+      discounts,
       actionHistory: Array.isArray(actionHistory) ? actionHistory : [],
       createdAt: new Date().toISOString(),
     };

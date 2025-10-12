@@ -62,6 +62,7 @@ function handleSearchInput(value) {
         :name="flower.name"
         :price="flower.price"
         :id="flower.id"
+        :stock="flower.stock"
         @select="handleSelect"
       />
 

@@ -33,7 +33,8 @@
     {
       "id": 1758127668172,
       "name": "Lily",
-      "price": 100
+      "price": 100,
+      "stock": 6
     },
     {
       "id": 1758547065391,
@@ -44,7 +45,8 @@
       "tags": [
         "Birthday",
         "Happy"
-      ]
+      ],
+      "stock": 6
     },
     {
       "id": 1758547342313,
@@ -54,7 +56,8 @@
       "tags": [
         "Birthday",
         "Happy"
-      ]
+      ],
+      "stock": 6
     },
     {
       "id": 1758563272928,
@@ -64,7 +67,8 @@
       "tags": [
         "Birthday",
         "Happy"
-      ]
+      ],
+      "stock": 6
     },
     {
       "id": 1758636015490,
@@ -74,7 +78,8 @@
       "tags": [
         "Birthday",
         "Happy"
-      ]
+      ],
+      "stock": 6
     },
     {
       "id": 1759086526233,
@@ -85,7 +90,8 @@
       "tags": [
         "Birthday",
         "Happy"
-      ]
+      ],
+      "stock": 6
     },
     {
       "id": 1759823044964,
@@ -96,7 +102,8 @@
       "tags": [
         "Birthday",
         "Happy"
-      ]
+      ],
+      "stock": 6
     },
     {
       "id": 1759823096588,
@@ -107,7 +114,8 @@
       "tags": [
         "Birthday",
         "Happy"
-      ]
+      ],
+      "stock": 6
     },
     {
       "id": 1759823119219,
@@ -118,7 +126,8 @@
       "tags": [
         "Birthday",
         "Happy"
-      ]
+      ],
+      "stock": 6
     },
     {
       "id": 1759828823070,
@@ -128,7 +137,8 @@
       "tags": [
         "Birthday",
         "Happy"
-      ]
+      ],
+      "stock": 6
     },
     {
       "id": 1759829381125,
@@ -139,7 +149,8 @@
       "tags": [
         "Birthday",
         "Happy"
-      ]
+      ],
+      "stock": 6
     },
     {
       "id": 1759829422176,
@@ -150,7 +161,8 @@
       "tags": [
         "Birthday",
         "Happy"
-      ]
+      ],
+      "stock": 6
     },
     {
       "id": 1759829446755,
@@ -161,7 +173,8 @@
       "tags": [
         "Birthday",
         "Happy"
-      ]
+      ],
+      "stock": 6
     }
   ],
   "orders": [
@@ -406,6 +419,219 @@
       ],
       "actionHistory": [],
       "createdAt": "2025-09-28T19:11:41.927Z"
+    },
+    {
+      "id": 1760264199822,
+      "orderStart": "2025-10-12T09:44:59.941Z",
+      "orderEnd": "2025-10-12T10:16:39.594Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1758127668172,
+          "name": "Lily",
+          "price": 100,
+          "stock": 6,
+          "qty": 5,
+          "oldPrice": 100,
+          "notes": ""
+        },
+        {
+          "id": 1758547065391,
+          "name": "White Floral",
+          "price": 180,
+          "stock": 6,
+          "qty": 3,
+          "oldPrice": 180,
+          "notes": ""
+        },
+        {
+          "id": 1759823044964,
+          "name": "corsage",
+          "price": 130,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 130,
+          "notes": ""
+        }
+      ],
+      "actionHistory": [],
+      "createdAt": "2025-10-12T10:16:39.822Z"
+    },
+    {
+      "id": 1760264363046,
+      "orderStart": "2025-10-12T10:19:18.502Z",
+      "orderEnd": "2025-10-12T10:19:23.004Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1758127668172,
+          "name": "Lily",
+          "price": 100,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 100,
+          "notes": ""
+        },
+        {
+          "id": 1758547065391,
+          "name": "White Floral",
+          "price": 180,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 180,
+          "notes": ""
+        }
+      ],
+      "actionHistory": [],
+      "createdAt": "2025-10-12T10:19:23.046Z"
+    },
+    {
+      "id": 1760264450545,
+      "orderStart": "2025-10-12T10:20:44.430Z",
+      "orderEnd": "2025-10-12T10:20:50.505Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1758127668172,
+          "name": "Lily",
+          "price": 100,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 100,
+          "notes": ""
+        },
+        {
+          "id": 1758547065391,
+          "name": "White Floral",
+          "price": 180,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 180,
+          "notes": ""
+        },
+        {
+          "id": 1758547342313,
+          "name": "Rose",
+          "price": 30,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 30,
+          "notes": ""
+        }
+      ],
+      "discounts": [
+        {
+          "value": 30,
+          "type": "amount"
+        }
+      ],
+      "actionHistory": [],
+      "createdAt": "2025-10-12T10:20:50.545Z"
+    },
+    {
+      "id": 1760264677881,
+      "orderStart": "2025-10-12T10:23:57.082Z",
+      "orderEnd": "2025-10-12T10:24:37.833Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1759086526233,
+          "name": "Peony",
+          "price": 72,
+          "stock": 6,
+          "qty": 2,
+          "oldPrice": 72,
+          "notes": ""
+        },
+        {
+          "id": 1758127668172,
+          "name": "Lily",
+          "price": 100,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 100,
+          "notes": ""
+        }
+      ],
+      "discounts": [
+        {
+          "value": 20,
+          "type": "amount"
+        },
+        {
+          "value": 30,
+          "type": "amount"
+        }
+      ],
+      "actionHistory": [],
+      "createdAt": "2025-10-12T10:24:37.881Z"
+    },
+    {
+      "id": 1760265464857,
+      "orderStart": "2025-10-12T10:37:40.777Z",
+      "orderEnd": "",
+      "orderStatus": "Draft",
+      "selectedFlowers": [
+        {
+          "id": 1758127668172,
+          "name": "Lily",
+          "price": 100,
+          "stock": 6,
+          "qty": 2,
+          "oldPrice": 100,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "actionHistory": [
+        "This"
+      ],
+      "createdAt": "2025-10-12T10:37:44.857Z"
+    },
+    {
+      "id": 1760265483440,
+      "orderStart": "2025-10-12T10:37:48.637Z",
+      "orderEnd": "",
+      "orderStatus": "Draft",
+      "selectedFlowers": [
+        {
+          "id": 1758127668172,
+          "name": "Lily",
+          "price": 100,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 100,
+          "notes": ""
+        },
+        {
+          "id": 1758547065391,
+          "name": "White Floral",
+          "price": 180,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 180,
+          "notes": ""
+        },
+        {
+          "id": 1758547342313,
+          "name": "Rose",
+          "price": 30,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 30,
+          "notes": ""
+        }
+      ],
+      "discounts": [
+        {
+          "value": 30,
+          "type": "amount"
+        }
+      ],
+      "actionHistory": [
+        "That"
+      ],
+      "createdAt": "2025-10-12T10:38:03.440Z"
     }
   ]
 }

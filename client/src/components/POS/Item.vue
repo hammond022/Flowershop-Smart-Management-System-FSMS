@@ -5,11 +5,17 @@ const props = defineProps({
   name: { type: String, default: "Transvaal daisy" },
   price: { type: Number, default: 0 },
   id: { type: Number, default: 0 },
+  stock: { type: Number, default: 0 },
 });
 
 const emit = defineEmits(["select"]);
 function addItem() {
-  emit("select", { id: props.id, name: props.name, price: props.price });
+  emit("select", {
+    id: props.id,
+    name: props.name,
+    price: props.price,
+    stock: props.stock,
+  });
 }
 </script>
 
@@ -22,6 +28,12 @@ function addItem() {
   >
     <div>{{ name }}</div>
     <div>₱{{ price }}</div>
+    <div>
+      <div v-if="stock < 5">
+        <span class="badge text-bg-danger">stock: {{ stock }}</span>
+      </div>
+      <span v-else class="badge text-bg-secondary"> stock: {{ stock }} </span>
+    </div>
   </button>
 </template>
 
@@ -32,7 +44,7 @@ function addItem() {
   text-align: center;
   align-content: center;
   border-radius: 0.25rem;
-  height: 5rem;
+  height: 7rem;
   min-width: 8rem;
   font-size: large;
 }
