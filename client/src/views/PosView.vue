@@ -305,8 +305,8 @@ onMounted(async () => {
     <div class="col d-flex flex-column h-100">
       <div class="row">
         <div
-          class="border border-secondary border-opacity-25 rounded d-flex flex-column m-3 justify-content-between"
-          style="width: 40%; height: 80vh"
+          class="border border-secondary border-opacity-25 rounded d-flex flex-column mt-3 ms-3 justify-content-between shadow-lg"
+          style="width: 40%; height: 90vh"
         >
           <div>
             <div

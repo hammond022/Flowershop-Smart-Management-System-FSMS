@@ -15,7 +15,7 @@ const emit = defineEmits(["select-category"]);
 </script>
 
 <template>
-  <div class="container">
+  <div class="container shadow-lg">
     <h1 class="text">Categories</h1>
     <div class="category-list">
       <button

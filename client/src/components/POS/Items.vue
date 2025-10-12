@@ -50,7 +50,7 @@ function handleSearchInput(value) {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container shadow-lg">
     <h1 class="text text-capitalize">{{ selectedCategory }} Items</h1>
 
     <SearchBar @search="handleSearchInput" />
