@@ -10,7 +10,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="container">
+  <div class="container shadow-sm">
     <div class="inner-container">
       <img src="../../assets/icons/user.svg" width="70" alt="" />
       <div class="text-container">

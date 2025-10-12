@@ -10,7 +10,7 @@ watch(searchQuery, (newValue) => {
 </script>
 
 <template>
-  <div class="mb-3">
+  <div class="mb-3 shadow-sm">
     <input
       v-model="searchQuery"
       type="text"

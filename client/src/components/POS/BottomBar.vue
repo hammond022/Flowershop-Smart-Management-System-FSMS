@@ -40,7 +40,7 @@ function addDiscount() {
 </script>
 
 <template>
-  <div class="bottom-bar-container">
+  <div class="bottom-bar-container shadow-sm">
     <div class="bottom-bar-inner">
       <!-- <p>Total: {{ total }}</p> -->
 

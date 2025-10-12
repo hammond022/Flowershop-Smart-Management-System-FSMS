@@ -9,7 +9,7 @@ const isActiveLink = (routePath) => {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
     <div class="container-fluid">
       <RouterLink class="navbar-brand" to="/"
         ><img
