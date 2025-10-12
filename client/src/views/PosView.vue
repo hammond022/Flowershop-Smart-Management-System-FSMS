@@ -130,6 +130,29 @@ function editItem(id) {
   editItemModal.show();
 }
 
+const draftToDelete = ref(null);
+let deleteDraftModal;
+
+function openDeleteConfirmModal(draft) {
+  draftToDelete.value = draft;
+  deleteDraftModal.show();
+}
+
+async function confirmDeleteDraft() {
+  if (!draftToDelete.value) return;
+  try {
+    await OrderService.deleteOrder(draftToDelete.value.id);
+    await getDraftOrders();
+    showToast("success", "Draft deleted successfully!");
+  } catch (err) {
+    console.error("Failed to delete draft:", err);
+    showToast("error", "Failed to delete draft!");
+  } finally {
+    deleteDraftModal.hide();
+    draftToDelete.value = null;
+  }
+}
+
 function saveEditModal() {
   const index = selectedFlowers.value.findIndex((f) => f.id === editModal.id);
   if (index === -1) return;
@@ -231,6 +254,7 @@ async function confirmAsDraft() {
     showToast("error", "Failed to save draft!");
   } finally {
     draftModal.hide();
+    orderCheckoutModal.hide();
     resetOrder();
   }
 }
@@ -344,6 +368,7 @@ onMounted(async () => {
   cancelOrderModal = new Modal(document.getElementById("cancelOrderModal"));
   orderCheckoutModal = new Modal(document.getElementById("orderCheckoutModal"));
   addDiscountModal = new Modal(document.getElementById("addDiscountModal"));
+  deleteDraftModal = new Modal(document.getElementById("deleteDraftModal"));
   toastInstance = new Toast(document.getElementById("myToast"), {
     delay: 3000,
     autohide: true,
@@ -385,9 +410,11 @@ onMounted(async () => {
                   v-for="item in draftOrders"
                   :key="item.id"
                   :draft="item"
-                  @delete-draft="getDraftOrders()"
+                  @delete-draft="getDraftOrders"
                   @load-draft="loadDraft"
+                  @deleteDraft="openDeleteConfirmModal"
                 />
+
                 <p v-if="draftOrders.length === 0" class="text-center">
                   There are no draft orders
                 </p>
@@ -836,7 +863,7 @@ onMounted(async () => {
             ></button>
             <ul class="dropdown-menu">
               <li class="">
-                <a class="dropdown-item" href="#" @click="draftOrder"
+                <a class="dropdown-item" href="#" @click="confirmAsDraft"
                   >Save as draft</a
                 >
               </li>
@@ -847,7 +874,7 @@ onMounted(async () => {
     </div>
   </div>
   <div id="draftModal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Save order as draft</h5>
@@ -1035,6 +1062,61 @@ onMounted(async () => {
             @click="confirmDiscount"
           >
             Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Delete Draft Modal -->
+  <div
+    class="modal fade"
+    id="deleteDraftModal"
+    tabindex="-1"
+    aria-labelledby="deleteDraftModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteDraftModalLabel">Delete Draft</h5>
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-2">
+            Are you sure you want to delete this draft?
+            <strong>{{
+              draftToDelete?.actionHistory?.at(-1) || "Untitled Draft"
+            }}</strong>
+          </p>
+          <p class="text-muted small mb-0">
+            Created:
+            {{
+              draftToDelete?.orderStart
+                ? new Date(draftToDelete.orderStart).toLocaleString()
+                : ""
+            }}
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            @click="confirmDeleteDraft"
+          >
+            Delete
           </button>
         </div>
       </div>

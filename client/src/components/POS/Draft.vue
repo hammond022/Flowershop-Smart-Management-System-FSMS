@@ -3,42 +3,31 @@ import { defineProps, computed, defineEmits } from "vue";
 import OrderService from "@/router/api/ordersService";
 
 const props = defineProps({
-  draft: {
-    type: Object,
-    required: true,
-  },
+  draft: { type: Object, required: true },
 });
 
-const emit = defineEmits(["deleteDraft", "loadDraft"]);
+const emit = defineEmits(["deleteDraft", "loadDraft", "requestDelete"]);
 
-const subtotal = computed(() => {
-  if (!props.draft?.selectedFlowers) return 0;
-  return props.draft.selectedFlowers.reduce(
-    (sum, f) => sum + f.price * f.qty,
-    0
-  );
-});
+const subtotal = computed(
+  () =>
+    props.draft?.selectedFlowers?.reduce((s, f) => s + f.price * f.qty, 0) || 0
+);
 
-const discountTotal = computed(() => {
-  if (!props.draft?.discounts) return 0;
-  return props.draft.discounts.reduce((sum, d) => {
-    if (d.type === "amount") return sum + d.value;
-    if (d.type === "percent") return sum + (subtotal.value * d.value) / 100;
-    return sum;
-  }, 0);
-});
+const discountTotal = computed(
+  () =>
+    props.draft?.discounts?.reduce((sum, d) => {
+      return (
+        sum + (d.type === "amount" ? d.value : (subtotal.value * d.value) / 100)
+      );
+    }, 0) || 0
+);
 
 const totalAfterDiscount = computed(() =>
   Math.max(subtotal.value - discountTotal.value, 0)
 );
 
-async function deleteDraft() {
-  try {
-    await OrderService.deleteOrder(props.draft.id);
-    emit("deleteDraft", props.draft.id);
-  } catch (err) {
-    console.error("Failed to delete draft:", err);
-  }
+function deleteDraft() {
+  emit("deleteDraft", props.draft);
 }
 
 async function loadDraft() {
