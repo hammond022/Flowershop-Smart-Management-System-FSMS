@@ -240,6 +240,26 @@ async function getDraftOrders() {
   }
 }
 
+function loadDraft(draft) {
+  resetOrder();
+
+  order.orderStart = new Date(draft.orderStart);
+  order.orderStatus = draft.orderStatus || "Draft";
+  order.actionHistory = draft.actionHistory ? [...draft.actionHistory] : [];
+  order.draftTitle =
+    draft.actionHistory?.length && draft.actionHistory.at(-1)
+      ? draft.actionHistory.at(-1)
+      : "Untitled Draft";
+
+  selectedFlowers.value = draft.selectedFlowers
+    ? draft.selectedFlowers.map((f) => ({ ...f }))
+    : [];
+
+  discounts.value = draft.discounts
+    ? draft.discounts.map((d) => ({ ...d }))
+    : [];
+}
+
 // mortal sin - will fix this eventually
 function increaseQty(amount = 1) {
   editModal.qty = Number(editModal.qty) + amount;
@@ -333,6 +353,7 @@ onMounted(async () => {
                   :key="item.id"
                   :draft="item"
                   @delete-draft="getDraftOrders()"
+                  @load-draft="loadDraft"
                 />
                 <p v-if="draftOrders.length === 0" class="text-center">
                   There are no draft orders
@@ -686,7 +707,7 @@ onMounted(async () => {
                   aria-expanded="true"
                   aria-controls="collapseOne"
                 >
-                  Items
+                  Order Details
                 </button>
               </h2>
               <div

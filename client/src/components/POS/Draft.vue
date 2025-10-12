@@ -9,7 +9,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["deleteDraft"]);
+const emit = defineEmits(["deleteDraft", "loadDraft"]);
 
 const subtotal = computed(() => {
   if (!props.draft?.selectedFlowers) return 0;
@@ -33,6 +33,16 @@ const totalAfterDiscount = computed(() =>
 );
 
 async function deleteDraft() {
+  try {
+    await OrderService.deleteOrder(props.draft.id);
+    emit("deleteDraft", props.draft.id);
+  } catch (err) {
+    console.error("Failed to delete draft:", err);
+  }
+}
+
+async function loadDraft() {
+  emit("loadDraft", props.draft);
   try {
     await OrderService.deleteOrder(props.draft.id);
     emit("deleteDraft", props.draft.id);
@@ -143,10 +153,10 @@ async function deleteDraft() {
 
       <!-- Actions -->
       <div class="mt-2">
-        <a href="#" class="card-link link-danger" @click.prevent="deleteDraft">
+        <a href="#" class="card-link link-danger" @click="deleteDraft">
           Delete
         </a>
-        <a href="#" class="card-link link-primary"> Load </a>
+        <a href="#" class="card-link link-primary" @click="loadDraft"> Load </a>
       </div>
     </div>
   </div>
