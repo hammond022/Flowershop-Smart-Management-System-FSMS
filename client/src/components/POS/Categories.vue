@@ -43,7 +43,7 @@ const emit = defineEmits(["select-category"]);
   flex-direction: column;
   margin: 1rem;
   /* width: 40%; */
-  height: 80vh;
+  height: 90vh;
   /* toggel this off ^ */
 }
 
