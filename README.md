@@ -32,11 +32,11 @@ Inventory System
 | Set product price per quantity (bundles) | ❌ Cancelled |
 | Create a category | ✅ |
 | Track stock quantity | ✅ |
-| Export to spreadsheet | 🚧 In Progress |
+| Export to spreadsheet | ✅ |
 | Add tags to products | ✅ |
-| Low stock warning | 🚧 In Progress |
+| Low stock warning | ✅ |
 | Stock histogram (sales per day/month) | 🚧 In Progress |
-| Product edit action history | 🚧 In Progress |
+| Product edit action history | ❌ Cancelled |
 
 
 
