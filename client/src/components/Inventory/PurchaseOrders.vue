@@ -4,6 +4,10 @@ import { Modal, Toast } from "bootstrap";
 import { useToast } from "@/composables/useToast";
 import ItemService from "@/router/api/itemsService.js";
 import PurchaseOrderService from "@/router/api/purchaseOrderService.js";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import ExcelJS from "exceljs";
+import { saveAs } from "file-saver";
 
 const { showToast } = useToast();
 
@@ -13,6 +17,14 @@ const purchaseOrders = reactive({
   items: [],
   isLoading: true,
 });
+
+const purchaseOrdersDB = reactive({
+  items: [],
+  isLoading: true,
+});
+
+const selectedPOs = ref([]);
+let exportPOModal;
 
 const categories = ref([]);
 const selectedCategory = ref("all");
@@ -79,6 +91,20 @@ function openBulkPurchaseModal() {
   bulkPOModal.show();
 }
 
+async function openExportModal() {
+  try {
+    purchaseOrdersDB.isLoading = true;
+    purchaseOrdersDB.items = await PurchaseOrderService.getPurchaseOrders();
+    selectedPOs.value = [];
+    exportPOModal.show();
+  } catch (err) {
+    showToast("error", "Failed to load purchase orders.");
+    console.error(err);
+  } finally {
+    purchaseOrdersDB.isLoading = false;
+  }
+}
+
 let createPOModal;
 
 function openPurchaseModal(item) {
@@ -117,7 +143,6 @@ async function submitBulkPurchaseOrder() {
     showToast("success", "Bulk purchase order completed!");
     await getItems();
 
-    // Reset form after submission
     Object.assign(bulkForm, { supplier: "", items: [] });
     bulkPOModal.hide();
   } catch (err) {
@@ -170,10 +195,187 @@ function toggleSelectAll(event) {
   }
 }
 
+async function exportSelectedToExcel() {
+  if (!selectedPOs.value.length) {
+    showToast("error", "Please select at least one purchase order.");
+    return;
+  }
+
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet("Selected Purchase Orders");
+
+  worksheet.mergeCells("A1", "E1");
+  const titleCell = worksheet.getCell("A1");
+  titleCell.value = "Selected Purchase Orders Report";
+  titleCell.font = { size: 16, bold: true, color: { argb: "FFFFFFFF" } };
+  titleCell.alignment = { horizontal: "center" };
+  titleCell.fill = {
+    type: "pattern",
+    pattern: "solid",
+    fgColor: { argb: "4F81BD" },
+  };
+
+  worksheet.mergeCells("A2", "E2");
+  const dateCell = worksheet.getCell("A2");
+  dateCell.value = `Generated on: ${new Date().toLocaleString()}`;
+  dateCell.alignment = { horizontal: "center" };
+
+  worksheet.addRow([]);
+
+  for (const po of selectedPOs.value) {
+    worksheet.addRow([
+      `PO ID: ${po.id}`,
+      `Supplier: ${po.supplier}`,
+      `Date: ${new Date(po.createdAt).toLocaleString()}`,
+    ]);
+    const headerRow = worksheet.addRow([
+      "Item ID",
+      "Name",
+      "Quantity",
+      "Cost/unit (₱)",
+      "Subtotal (₱)",
+    ]);
+
+    headerRow.eachCell((cell) => {
+      cell.font = { bold: true, color: { argb: "FFFFFFFF" } };
+      cell.alignment = { horizontal: "center", vertical: "middle" };
+      cell.fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: "305496" },
+      };
+      cell.border = {
+        top: { style: "thin", color: { argb: "000000" } },
+        left: { style: "thin", color: { argb: "000000" } },
+        bottom: { style: "thin", color: { argb: "000000" } },
+        right: { style: "thin", color: { argb: "000000" } },
+      };
+    });
+
+    po.items.forEach((item) => {
+      const row = worksheet.addRow([
+        item.id,
+        item.name,
+        item.qty,
+        item.costPerUnit,
+        item.subtotal,
+      ]);
+
+      row.eachCell((cell) => {
+        cell.border = {
+          top: { style: "thin", color: { argb: "000000" } },
+          left: { style: "thin", color: { argb: "000000" } },
+          bottom: { style: "thin", color: { argb: "000000" } },
+          right: { style: "thin", color: { argb: "000000" } },
+        };
+      });
+    });
+
+    const totalRow = worksheet.addRow([`Total Cost: ₱${po.totalCost}`]);
+    totalRow.getCell(1).font = { bold: true };
+    worksheet.addRow([]);
+  }
+
+  worksheet.columns = [
+    { key: "id", width: 10 },
+    { key: "name", width: 30 },
+    { key: "qty", width: 12 },
+    { key: "cost", width: 12 },
+    { key: "subtotal", width: 12 },
+  ];
+
+  worksheet.autoFilter = {
+    from: "A4",
+    to: "E4",
+  };
+
+  const buffer = await workbook.xlsx.writeBuffer();
+  saveAs(
+    new Blob([buffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    }),
+    "selected_purchase_orders.xlsx"
+  );
+
+  showToast("success", "Styled Excel export complete!");
+  exportPOModal.hide();
+}
+
+async function exportSelectedToPDF() {
+  if (!selectedPOs.value.length) {
+    showToast("error", "Please select at least one purchase order.");
+    return;
+  }
+
+  const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "A4" });
+  const pageWidth = doc.internal.pageSize.getWidth();
+  let y = 40;
+
+  doc.setFontSize(16);
+  doc.text("Purchase Orders Report", pageWidth / 2, y, { align: "center" });
+  y += 20;
+
+  const now = new Date().toLocaleString();
+  doc.setFontSize(10);
+  doc.text(`Generated on: ${now}`, pageWidth / 2, y, { align: "center" });
+  y += 30;
+
+  for (const po of selectedPOs.value) {
+    doc.setFontSize(12);
+    doc.text(
+      `PO ID: ${po.id} | Supplier: ${po.supplier} | Date: ${new Date(
+        po.createdAt
+      ).toLocaleString()}`,
+      40,
+      y
+    );
+    y += 20;
+
+    autoTable(doc, {
+      startY: y,
+      head: [["Item ID", "Name", "Qty", "Cost/unit (₱)", "Subtotal (₱)"]],
+      body: po.items.map((i) => [
+        i.id,
+        i.name,
+        i.qty,
+        Number(i.costPerUnit).toLocaleString(),
+        Number(i.subtotal).toLocaleString(),
+      ]),
+      styles: { fontSize: 9, cellPadding: 6, halign: "center" },
+      headStyles: { fillColor: [79, 129, 189], textColor: 255 },
+      alternateRowStyles: { fillColor: [240, 240, 240] },
+      theme: "grid",
+    });
+
+    y = doc.lastAutoTable.finalY + 10;
+
+    doc.setFontSize(12);
+    doc.text(
+      `Total Cost: ₱${po.totalCost.toLocaleString()}`,
+      pageWidth - 50,
+      y,
+      {
+        align: "right",
+      }
+    );
+    y += 30;
+
+    if (y > doc.internal.pageSize.getHeight() - 100) {
+      doc.addPage();
+      y = 40;
+    }
+  }
+
+  doc.save("purchase_orders_selected.pdf");
+  showToast("success", "Styled PDF export complete!");
+  exportPOModal.hide();
+}
+
 onMounted(() => {
   getItems();
   bulkPOModal = new Modal(document.getElementById("bulkPOModal"));
   createPOModal = new Modal(document.getElementById("createPOModal"));
+  exportPOModal = new Modal(document.getElementById("exportPOModal"));
 });
 </script>
 
@@ -199,6 +401,14 @@ onMounted(() => {
         >
           Refresh
           <i class="bi bi-arrow-clockwise ms-1"></i>
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          @click="openExportModal()"
+        >
+          Export to file
+          <i class="bi bi-file-arrow-down"></i>
         </button>
       </div>
     </div>
@@ -476,6 +686,71 @@ onMounted(() => {
               @click="submitBulkPurchaseOrder"
             >
               Submit Bulk Purchase Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="exportPOModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Select Purchase Orders to Export</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body" v-if="purchaseOrdersDB.isLoading">
+            Loading...
+          </div>
+          <div class="modal-body" v-else>
+            <table class="table table-bordered table-sm">
+              <thead>
+                <tr>
+                  <th>Select</th>
+                  <th>PO ID</th>
+                  <th>Supplier</th>
+                  <th>Date</th>
+                  <th>Total Cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="po in purchaseOrdersDB.items" :key="po.id">
+                  <td>
+                    <input type="checkbox" :value="po" v-model="selectedPOs" />
+                  </td>
+                  <td>{{ po.id }}</td>
+                  <td>{{ po.supplier }}</td>
+                  <td>{{ new Date(po.createdAt).toLocaleString() }}</td>
+                  <td>₱{{ po.totalCost }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="exportSelectedToExcel"
+            >
+              Export to Excel
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              @click="exportSelectedToPDF"
+            >
+              Export to PDF
             </button>
           </div>
         </div>
