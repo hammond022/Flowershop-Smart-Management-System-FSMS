@@ -32,9 +32,8 @@
   "items": [
     {
       "id": 1758127668172,
-      "name": "Lily",
       "price": 100,
-      "stock": 6
+      "stock": 15
     },
     {
       "id": 1758547065391,
@@ -45,7 +44,7 @@
         "Birthday",
         "Happy"
       ],
-      "stock": 6
+      "stock": 15
     },
     {
       "id": 1758547342313,
@@ -55,7 +54,7 @@
         "Birthday",
         "Happy"
       ],
-      "stock": 6
+      "stock": 7
     },
     {
       "id": 1758563272928,
@@ -65,7 +64,7 @@
         "Birthday",
         "Happy"
       ],
-      "stock": 6
+      "stock": 10
     },
     {
       "id": 1758636015490,
@@ -129,7 +128,7 @@
         "Birthday",
         "Happy"
       ],
-      "stock": 6
+      "stock": 8
     },
     {
       "id": 1759829381125,
@@ -155,7 +154,6 @@
     },
     {
       "id": 1759829446755,
-      "name": "among us",
       "price": 20,
       "category": "bouquets",
       "tags": [
@@ -178,8 +176,7 @@
     },
     {
       "id": 1760331488776,
-      "name": "dd",
-      "stock": 0,
+      "stock": 21,
       "price": 10,
       "cost": 10,
       "category": "this",
@@ -905,6 +902,53 @@
         ""
       ],
       "createdAt": "2025-10-13T12:18:33.656Z"
+    }
+  ],
+  "purchaseOrders": [
+    {
+      "id": 1760362397573,
+      "supplier": "test",
+      "items": [
+        {
+          "id": 1758547065391,
+          "name": "White Floral",
+          "qty": 1,
+          "costPerUnit": 2,
+          "subtotal": 2
+        }
+      ],
+      "totalCost": 2,
+      "createdAt": "2025-10-13T13:33:17.573Z"
+    },
+    {
+      "id": 1760362597916,
+      "supplier": "sdsd",
+      "items": [
+        {
+          "id": 1758547065391,
+          "name": "White Floral",
+          "qty": 1,
+          "costPerUnit": 2,
+          "subtotal": 2
+        }
+      ],
+      "totalCost": 2,
+      "createdAt": "2025-10-13T13:36:37.916Z"
+    },
+    {
+      "id": 1760364932869,
+      "supplier": "ghg",
+      "items": [
+        {
+          "id": 1758547342313,
+          "name": "Rose",
+          "qty": 1,
+          "costPerUnit": 1,
+          "subtotal": 1
+        }
+      ],
+      "totalCost": 1,
+      "createdAt": "2025-10-13T14:15:32.869Z"
     }
   ]
 }
