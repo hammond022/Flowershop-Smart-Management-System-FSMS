@@ -86,8 +86,24 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const id = Number(req.params.id);
   const item = db.data.items.find((i) => i.id === id);
-  if (!item) return res.status(404).send("Not found");
-  item.name = req.body.name;
+  if (!item) return res.status(404).json({ error: "Item not found" });
+
+  const allowedFields = [
+    "name",
+    "stock",
+    "price",
+    "cost",
+    "category",
+    "description",
+    "tags",
+  ];
+
+  for (const field of allowedFields) {
+    if (req.body[field] !== undefined) {
+      item[field] = req.body[field];
+    }
+  }
+
   await db.write();
   res.json(item);
 });

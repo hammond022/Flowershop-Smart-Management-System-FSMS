@@ -2,6 +2,7 @@
 import Products from "@/components/Inventory/Products.vue";
 import Overview from "@/components/Inventory/Overview.vue";
 import { ref } from "vue";
+import PurchaseOrders from "@/components/Inventory/PurchaseOrders.vue";
 
 const sidebarSelected = ref("overview");
 
@@ -145,6 +146,7 @@ function selectSidebar(selected) {
     <main class="flex-fill p-4">
       <Overview v-if="sidebarSelected == 'overview'" />
       <Products v-if="sidebarSelected == 'products'" />
+      <PurchaseOrders v-if="sidebarSelected == 'purchase'" />
     </main>
   </div>
 </template>

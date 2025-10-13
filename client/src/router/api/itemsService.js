@@ -1,8 +1,6 @@
 import axios from "axios";
 const baseURL = "http://localhost:3000/api/items/";
 
-// should this be in a try catch??/
-
 class ItemService {
   // GET all items
   static async getItems() {
@@ -10,7 +8,7 @@ class ItemService {
     return res.data;
   }
 
-  //GET item by ID
+  // GET item by ID
   static async getItem(id) {
     const res = await axios.get(`${baseURL}${id}`);
     return res.data;
@@ -38,7 +36,13 @@ class ItemService {
     return res.data;
   }
 
-  // PUT update a user
+  // PUT update stock only (for purchase orders)
+  static async updateItemStock(id, stock) {
+    const res = await axios.put(`${baseURL}${id}`, { stock });
+    return res.data;
+  }
+
+  // PUT update a user (this looks outdated — maybe remove later)
   static async updateUser(id, name) {
     const res = await axios.put(`${baseURL}${id}`, { name });
     return res.data;
