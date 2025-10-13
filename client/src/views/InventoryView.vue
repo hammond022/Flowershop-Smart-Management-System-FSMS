@@ -42,7 +42,7 @@ function selectSidebar(selected) {
             Overview
           </a>
         </li>
-        <li @click="selectSidebar('sales')">
+        <!-- <li @click="selectSidebar('sales')">
           <a
             href="#"
             class="nav-link sidebar"
@@ -58,7 +58,7 @@ function selectSidebar(selected) {
             ></i>
             Sales
           </a>
-        </li>
+        </li> -->
         <li @click="selectSidebar('products')">
           <a
             href="#"
@@ -76,7 +76,7 @@ function selectSidebar(selected) {
             Products
           </a>
         </li>
-        <li @click="selectSidebar('reports')">
+        <!-- <li @click="selectSidebar('reports')">
           <a
             href="#"
             class="nav-link sidebar"
@@ -92,7 +92,7 @@ function selectSidebar(selected) {
             ></i>
             Reports
           </a>
-        </li>
+        </li> -->
         <li @click="selectSidebar('purchase')">
           <a
             href="#"
