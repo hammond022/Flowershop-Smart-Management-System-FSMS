@@ -1,17 +1,23 @@
 <script setup>
 import OrderService from "@/router/api/ordersService";
+import ItemService from "@/router/api/itemsService";
 import { computed, onMounted, ref } from "vue";
 import { useToast } from "@/composables/useToast";
 
+const { showToast } = useToast();
+
 const orders = ref([]);
+const items = ref([]);
+
 async function getOrders() {
   try {
     const drafts = await OrderService.getOrders();
     orders.value = drafts;
-  } catch (error) {
-    showToast("error", err.response?.data.error);
+  } catch (err) {
+    showToast("error", err.response?.data?.error || "Failed to load orders");
   }
 }
+
 const completedOrders = computed(() =>
   orders.value.filter(
     (order) => order.orderStatus?.toLowerCase() === "completed"
@@ -26,22 +32,42 @@ const pendingOrders = computed(() =>
   orders.value.filter((order) => order.orderStatus?.toLowerCase() === "pending")
 );
 
-const firstFiveOrders = computed(
-  () =>
-    orders.value
-      .filter((o) => o.orderStatus?.toLowerCase() !== "draft") // exclude drafts
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // latest first
-      .slice(0, 5) // only take 5
+const firstFiveOrders = computed(() =>
+  orders.value
+    .filter((o) => o.orderStatus?.toLowerCase() !== "draft")
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 5)
 );
+
+async function getItems() {
+  try {
+    items.value = await ItemService.getItems();
+  } catch (err) {
+    console.error("Failed to load items:", err);
+  }
+}
+
+const lowStockCount = computed(
+  () => items.value.filter((item) => item.stock <= 5).length
+);
+
+const categoryCounts = computed(() => {
+  const counts = {};
+  items.value.forEach((item) => {
+    if (!counts[item.category]) counts[item.category] = 0;
+    counts[item.category]++;
+  });
+  return counts;
+});
 
 onMounted(() => {
   getOrders();
+  getItems();
 });
 </script>
 
 <template>
   <div class="container my-4">
-    <!-- Welcome Header -->
     <div class="d-flex align-items-center p-3 mb-5 bg-light rounded shadow-sm">
       <img
         src="../../assets/icons/user.svg"
@@ -56,12 +82,9 @@ onMounted(() => {
       </div>
     </div>
 
-    <!-- Dashboard Title -->
     <h1 class="mb-5">Dashboard</h1>
 
-    <!-- Sales Activity Cards -->
     <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
-      <!-- Completed -->
       <div class="col">
         <div class="card shadow-sm border-0">
           <div class="card-body">
@@ -82,7 +105,6 @@ onMounted(() => {
         </div>
       </div>
 
-      <!-- Drafts -->
       <div class="col">
         <div class="card shadow-sm border-0">
           <div class="card-body">
@@ -103,7 +125,6 @@ onMounted(() => {
         </div>
       </div>
 
-      <!-- Pending Payment -->
       <div class="col">
         <div class="card shadow-sm border-0">
           <div class="card-body">
@@ -125,7 +146,7 @@ onMounted(() => {
       </div>
     </div>
 
-    <div id="product-details-card" class="card shadow-sm border-0 mt-3">
+    <div class="card shadow-sm border-0 mb-3 mt-3">
       <div class="card-body">
         <h5 class="card-title mb-4">
           <i class="bi bi-box-seam fs-2 me-2"></i>
@@ -137,25 +158,22 @@ onMounted(() => {
             class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 py-2"
           >
             Low Stock Items
-            <span class="badge bg-danger rounded-pill">15</span>
+            <span class="badge bg-danger rounded-pill">{{
+              lowStockCount
+            }}</span>
           </div>
+
           <div
-            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 py-2"
+            v-for="(count, category) in categoryCounts"
+            :key="category"
+            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 py-2 text-capitalize"
           >
-            All Category 1
-            <span class="badge bg-primary rounded-pill">120</span>
-          </div>
-          <div
-            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 py-2"
-          >
-            All Category 2
-            <span class="badge bg-success rounded-pill">90</span>
+            All {{ category }}
+            <span class="badge bg-primary rounded-pill">{{ count }}</span>
           </div>
         </div>
       </div>
     </div>
-
-    <!--  -->
 
     <div class="card shadow-sm border-0 mt-3">
       <div class="card-body">
@@ -177,7 +195,6 @@ onMounted(() => {
             </thead>
             <tbody>
               <tr v-for="order in firstFiveOrders" :key="order.id">
-                <!-- Mode of Payment (replace with actual field if available) -->
                 <td>
                   {{
                     order.mop
@@ -186,7 +203,6 @@ onMounted(() => {
                   }}
                 </td>
 
-                <!-- Total number of items -->
                 <td>
                   {{
                     order.selectedFlowers?.reduce(
@@ -196,7 +212,6 @@ onMounted(() => {
                   }}
                 </td>
 
-                <!-- Status badge -->
                 <td>
                   <span
                     class="badge"
@@ -213,7 +228,6 @@ onMounted(() => {
                   </span>
                 </td>
 
-                <!-- Price (sum of all flower items - discounts if any) -->
                 <td>
                   {{
                     new Intl.NumberFormat("en-PH", {
@@ -232,11 +246,9 @@ onMounted(() => {
                   }}
                 </td>
 
-                <!-- Order date -->
                 <td>{{ new Date(order.createdAt).toLocaleDateString() }}</td>
               </tr>
 
-              <!-- Fallback -->
               <tr v-if="firstFiveOrders.length === 0">
                 <td colspan="5" class="text-center text-muted py-3">
                   No transactions available
@@ -260,5 +272,3 @@ onMounted(() => {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* smooth shadow increase */
 }
 </style> -->
-
-<!-- Remember to include Bootstrap CSS & Bootstrap Icons in your project -->
