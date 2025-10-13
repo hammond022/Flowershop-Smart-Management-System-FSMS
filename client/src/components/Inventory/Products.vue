@@ -152,6 +152,7 @@ onMounted(() => {
           <th>Name</th>
           <th>Category</th>
           <th>Description</th>
+          <th>Tags</th>
           <th>Price</th>
         </tr>
       </thead>
@@ -162,7 +163,9 @@ onMounted(() => {
           :name="flower.name"
           :stock="flower.stock"
           :price="flower.price"
+          :description="flower.description"
           :category="flower.category"
+          :tags="flower.tags"
         />
       </tbody>
     </table>
