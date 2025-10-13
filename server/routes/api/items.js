@@ -57,8 +57,9 @@ router.post("/", async (req, res) => {
   }
 
   const exists = db.data.items.some(
-    (item) => item.name.toLowerCase() === name.toLowerCase()
+    (item) => item.name && item.name.toLowerCase() === name.toLowerCase()
   );
+
   if (exists) {
     return res
       .status(409)
