@@ -31,158 +31,549 @@
   ],
   "items": [
     {
-      "id": 1758127668172,
-      "price": 100,
-      "stock": 15
-    },
-    {
-      "id": 1758547065391,
-      "name": "White Floral",
-      "price": 180,
-      "category": "flowers",
-      "tags": [
-        "Birthday",
-        "Happy"
-      ],
-      "stock": 15
-    },
-    {
-      "id": 1758547342313,
-      "name": "Rose",
-      "price": 30,
-      "tags": [
-        "Birthday",
-        "Happy"
-      ],
-      "stock": 7
-    },
-    {
-      "id": 1758563272928,
-      "name": "Test",
-      "price": 30,
-      "tags": [
-        "Birthday",
-        "Happy"
-      ],
-      "stock": 10
-    },
-    {
-      "id": 1758636015490,
-      "name": "Bougainvillea",
-      "price": 69,
-      "tags": [
-        "Birthday",
-        "Happy"
-      ],
-      "stock": 6
-    },
-    {
-      "id": 1759086526233,
-      "name": "Peony",
-      "price": 72,
-      "category": "flowers",
-      "tags": [
-        "Birthday",
-        "Happy"
-      ],
-      "stock": 6
-    },
-    {
-      "id": 1759823044964,
-      "name": "corsage",
-      "price": 130,
-      "category": "bouquets",
-      "tags": [
-        "Birthday",
-        "Happy"
-      ],
-      "stock": 6
-    },
-    {
-      "id": 1759823096588,
-      "name": "Cactus",
-      "price": 60,
-      "category": "plants",
-      "tags": [
-        "Birthday",
-        "Happy"
-      ],
-      "stock": 6
-    },
-    {
-      "id": 1759823119219,
-      "name": "Wrapper",
-      "price": 10,
-      "category": "others",
-      "tags": [
-        "Birthday",
-        "Happy"
-      ],
-      "stock": 6
-    },
-    {
-      "id": 1759828823070,
-      "name": "Lilies",
-      "price": 40,
-      "tags": [
-        "Birthday",
-        "Happy"
-      ],
-      "stock": 8
-    },
-    {
-      "id": 1759829381125,
-      "name": "Roses",
-      "price": 0,
-      "category": "flowers",
-      "tags": [
-        "Birthday",
-        "Happy"
-      ],
-      "stock": 6
-    },
-    {
-      "id": 1759829422176,
-      "name": "Roses b",
-      "price": 60,
-      "category": "bouquets",
-      "tags": [
-        "Birthday",
-        "Happy"
-      ],
-      "stock": 6
-    },
-    {
-      "id": 1759829446755,
-      "price": 20,
-      "category": "bouquets",
-      "tags": [
-        "Birthday",
-        "Happy"
-      ],
-      "stock": 6
-    },
-    {
-      "id": 1760331460625,
-      "name": "sdsd",
+      "id": 1760376321522,
+      "name": "Red Rose",
       "stock": 0,
-      "price": 5,
-      "cost": 3,
-      "category": "bouquets",
-      "description": "sdsds",
+      "price": 3.5,
+      "cost": 1.5,
+      "category": "Flowers",
+      "description": "Fresh red roses, perfect for expressing love",
       "tags": [
-        "sdsd"
+        "rose",
+        "red",
+        "romantic"
       ]
     },
     {
-      "id": 1760331488776,
-      "stock": 21,
-      "price": 10,
-      "cost": 10,
-      "category": "this",
-      "description": "dd",
+      "id": 1760376411347,
+      "name": "White Lily",
+      "stock": 0,
+      "price": 4,
+      "cost": 2,
+      "category": "Flowers",
+      "description": "Pure white lilies, ideal for weddings or sympathy arrangements",
       "tags": [
-        "dd"
+        "lily",
+        "white",
+        "elegant"
+      ]
+    },
+    {
+      "id": 1760376426460,
+      "name": "Sunflower",
+      "stock": 0,
+      "price": 3,
+      "cost": 1.2,
+      "category": "Flowers",
+      "description": "Bright and cheerful sunflowers to brighten any space",
+      "tags": [
+        "sunflower",
+        "yellow",
+        "cheerful"
+      ]
+    },
+    {
+      "id": 1760376469148,
+      "name": "Pink Tulip",
+      "stock": 0,
+      "price": 3.25,
+      "cost": 1.3,
+      "category": "Flowers",
+      "description": "Soft pink tulips, perfect for spring decor",
+      "tags": [
+        "tulip",
+        "pink",
+        "spring"
+      ]
+    },
+    {
+      "id": 1760376488968,
+      "name": "Orchid",
+      "stock": 0,
+      "price": 7.5,
+      "cost": 3.5,
+      "category": "Flowers",
+      "description": "Elegant exotic orchids for long-lasting beauty",
+      "tags": [
+        "orchid",
+        "exotic",
+        "indoor"
+      ]
+    },
+    {
+      "id": 1760376528009,
+      "name": "Blue Hydrangea",
+      "stock": 0,
+      "price": 5,
+      "cost": 2.5,
+      "category": "Flowers",
+      "description": "Beautiful blue hydrangeas for a striking floral display",
+      "tags": [
+        "hydrangea",
+        "blue",
+        "lush"
+      ]
+    },
+    {
+      "id": 1760376546972,
+      "name": "Lavender",
+      "stock": 0,
+      "price": 2.75,
+      "cost": 1.1,
+      "category": "Flowers",
+      "description": "Aromatic lavender flowers for relaxation and decor",
+      "tags": [
+        "lavender",
+        "purple",
+        "fragrant"
+      ]
+    },
+    {
+      "id": 1760376750511,
+      "name": "Gerbera Daisy",
+      "stock": 0,
+      "price": 3,
+      "cost": 1.25,
+      "category": "Flowers",
+      "description": "Vibrant gerbera daisies, ideal for cheerful arrangements",
+      "tags": [
+        "gerbera",
+        "bright",
+        "colorful"
+      ]
+    },
+    {
+      "id": 1760376785060,
+      "name": "Yellow Rose",
+      "stock": 0,
+      "price": 3.5,
+      "cost": 1.5,
+      "category": "Flowers",
+      "description": "Bright yellow roses symbolizing friendship and joy",
+      "tags": [
+        "rose",
+        "yellow",
+        "friendship"
+      ]
+    },
+    {
+      "id": 1760377299155,
+      "name": "Mixed Carnation",
+      "stock": 0,
+      "price": 2.8,
+      "cost": 1.2,
+      "category": "Flowers",
+      "description": "Colorful mixed carnations for versatile bouquets",
+      "tags": [
+        "carnation",
+        "mixed",
+        "versatile"
+      ]
+    },
+    {
+      "id": 1760377321878,
+      "name": "Romantic Red Bouquet",
+      "stock": 0,
+      "price": 25,
+      "cost": 12,
+      "category": "Bouquets",
+      "description": "A beautiful bouquet of fresh red roses",
+      "tags": [
+        "rose",
+        "bouquet",
+        "romantic"
+      ]
+    },
+    {
+      "id": 1760377359961,
+      "name": "Spring Mix Bouquet",
+      "stock": 0,
+      "price": 20,
+      "cost": 10,
+      "category": "Bouquets",
+      "description": "A mix of spring flowers in a cheerful arrangement",
+      "tags": [
+        "tulip",
+        "daisy",
+        "bouquet"
+      ]
+    },
+    {
+      "id": 1760377376980,
+      "name": "Elegant White Lily Bouquet",
+      "stock": 0,
+      "price": 30,
+      "cost": 15,
+      "category": "Bouquets",
+      "description": "Pure white lilies arranged in an elegant bouquet",
+      "tags": [
+        "lily",
+        "bouquet",
+        "elegant"
+      ]
+    },
+    {
+      "id": 1760377394772,
+      "name": "Sunflower Sunshine",
+      "stock": 0,
+      "price": 22,
+      "cost": 11,
+      "category": "Bouquets",
+      "description": "A sunny bouquet of fresh sunflowers",
+      "tags": [
+        "sunflower",
+        "bouquet",
+        "bright"
+      ]
+    },
+    {
+      "id": 1760377410896,
+      "name": "Exotic Orchid Arrangement",
+      "stock": 0,
+      "price": 40,
+      "cost": 20,
+      "category": "Bouquets",
+      "description": "A sophisticated bouquet featuring exotic orchids",
+      "tags": [
+        "orchid",
+        "bouquet",
+        "exotic"
+      ]
+    },
+    {
+      "id": 1760377426560,
+      "name": "Lavender Serenity",
+      "stock": 0,
+      "price": 18,
+      "cost": 9,
+      "category": "Bouquets",
+      "description": "Fragrant lavender arranged in a calming bouquet",
+      "tags": [
+        "lavender",
+        "bouquet",
+        "fragrant"
+      ]
+    },
+    {
+      "id": 1760377444718,
+      "name": "Mixed Flower Delight",
+      "stock": 0,
+      "price": 24,
+      "cost": 12,
+      "category": "Bouquets",
+      "description": "A vibrant bouquet with mixed seasonal flowers",
+      "tags": [
+        "carnation",
+        "rose",
+        "bouquet"
+      ]
+    },
+    {
+      "id": 1760377459968,
+      "name": "Pink Tulip Elegance",
+      "stock": 0,
+      "price": 21,
+      "cost": 10.5,
+      "category": "Bouquets",
+      "description": "A delicate bouquet of pink tulips",
+      "tags": [
+        "tulip",
+        "pink",
+        "bouquet"
+      ]
+    },
+    {
+      "id": 1760377476002,
+      "name": "Friendship Yellow Roses",
+      "stock": 0,
+      "price": 25,
+      "cost": 12.5,
+      "category": "Bouquets",
+      "description": "Bouquet of yellow roses celebrating friendship",
+      "tags": [
+        "rose",
+        "yellow",
+        "bouquet"
+      ]
+    },
+    {
+      "id": 1760377495077,
+      "name": "Hydrangea Dreams",
+      "stock": 0,
+      "price": 28,
+      "cost": 14,
+      "category": "Bouquets",
+      "description": "Stunning blue hydrangea bouquet for special occasions",
+      "tags": [
+        "hydrangea",
+        "blue",
+        "bouquet"
+      ]
+    },
+    {
+      "id": 1760377536424,
+      "name": "Peace Lily",
+      "stock": 0,
+      "price": 15,
+      "cost": 7.5,
+      "category": "Plants",
+      "description": "Low-maintenance peace lily, perfect for indoors",
+      "tags": [
+        "indoor",
+        "lily",
+        "plant"
+      ]
+    },
+    {
+      "id": 1760377556271,
+      "name": "Snake Plant",
+      "stock": 0,
+      "price": 12,
+      "cost": 6,
+      "category": "Plants",
+      "description": "Hardy snake plant for air purification",
+      "tags": [
+        "indoor",
+        "succulent",
+        "plant"
+      ]
+    },
+    {
+      "id": 1760377569474,
+      "name": "Fiddle Leaf Fig",
+      "stock": 0,
+      "price": 35,
+      "cost": 18,
+      "category": "Plants",
+      "description": "Tall and elegant indoor fiddle leaf fig tree",
+      "tags": [
+        "indoor",
+        "tree",
+        "plant"
+      ]
+    },
+    {
+      "id": 1760377585117,
+      "name": "Aloe Vera",
+      "stock": 0,
+      "price": 10,
+      "cost": 5,
+      "category": "Plants",
+      "description": "Versatile aloe vera plant for health and decor",
+      "tags": [
+        "succulent",
+        "plant",
+        "medicinal"
+      ]
+    },
+    {
+      "id": 1760377599856,
+      "name": "Bonsai Tree",
+      "stock": 0,
+      "price": 45,
+      "cost": 22.5,
+      "category": "Plants",
+      "description": "Beautiful miniature bonsai tree for indoor decor",
+      "tags": [
+        "bonsai",
+        "miniature",
+        "plant"
+      ]
+    },
+    {
+      "id": 1760377622089,
+      "name": "Spider Plant",
+      "stock": 0,
+      "price": 12,
+      "cost": 6,
+      "category": "Plants",
+      "description": "Resilient spider plant perfect for beginners",
+      "tags": [
+        "indoor",
+        "easy-care",
+        "plant"
+      ]
+    },
+    {
+      "id": 1760377638761,
+      "name": "Orchid Plant",
+      "stock": 0,
+      "price": 25,
+      "cost": 12.5,
+      "category": "Plants",
+      "description": "Potted orchid for long-lasting indoor beauty",
+      "tags": [
+        "orchid",
+        "indoor",
+        "plant"
+      ]
+    },
+    {
+      "id": 1760377654550,
+      "name": "Rubber Plant",
+      "stock": 0,
+      "price": 20,
+      "cost": 10,
+      "category": "Plants",
+      "description": "Attractive rubber plant for home or office",
+      "tags": [
+        "indoor",
+        "foliage",
+        "plant"
+      ]
+    },
+    {
+      "id": 1760377720075,
+      "name": "Mini Cactus",
+      "stock": 0,
+      "price": 8,
+      "cost": 3.5,
+      "category": "Plants",
+      "description": "Small cactus plant, perfect for desk or shelf",
+      "tags": [
+        "cactus",
+        "succulent",
+        "plant"
+      ]
+    },
+    {
+      "id": 1760377760378,
+      "name": "Vase - Small",
+      "stock": 0,
+      "price": 8,
+      "cost": 4,
+      "category": "Others",
+      "description": "Small ceramic vase for flowers or decor",
+      "tags": [
+        "vase",
+        "ceramic",
+        "decor"
+      ]
+    },
+    {
+      "id": 1760377776760,
+      "name": "Vase - Large",
+      "stock": 0,
+      "price": 15,
+      "cost": 7.5,
+      "category": "Others",
+      "description": "Elegant large glass vase for floral arrangements",
+      "tags": [
+        "vase",
+        "glass",
+        "decor"
+      ]
+    },
+    {
+      "id": 1760377794800,
+      "name": "Floral Ribbon",
+      "stock": 0,
+      "price": 2.5,
+      "cost": 1,
+      "category": "Others",
+      "description": "Decorative ribbon for bouquets and gifts",
+      "tags": [
+        "ribbon",
+        "floral",
+        "accessory"
+      ]
+    },
+    {
+      "id": 1760377816697,
+      "name": "Flower Foam",
+      "stock": 0,
+      "price": 3,
+      "cost": 1.5,
+      "category": "Others",
+      "description": "Floral foam for arranging flowers securely",
+      "tags": [
+        "foam",
+        "floral",
+        "accessory"
+      ]
+    },
+    {
+      "id": 1760377831438,
+      "name": "Greeting Cards",
+      "stock": 0,
+      "price": 3.5,
+      "cost": 1.5,
+      "category": "Others",
+      "description": "Cards to accompany flowers with a personal message",
+      "tags": [
+        "card",
+        "gift",
+        "message"
+      ]
+    },
+    {
+      "id": 1760377849048,
+      "name": "Gift Wrap",
+      "stock": 0,
+      "price": 2,
+      "cost": 0.8,
+      "category": "Others",
+      "description": "Decorative wrapping paper for bouquets",
+      "tags": [
+        "wrap",
+        "floral",
+        "accessory"
+      ]
+    },
+    {
+      "id": 1760377864548,
+      "name": "Fertilizer - Plant",
+      "stock": 0,
+      "price": 5,
+      "cost": 2.5,
+      "category": "Others",
+      "description": "Plant fertilizer to boost growth and health",
+      "tags": [
+        "fertilizer",
+        "plant",
+        "growth"
+      ]
+    },
+    {
+      "id": 1760377888059,
+      "name": "Pruning Shears",
+      "stock": 0,
+      "price": 12,
+      "cost": 6,
+      "category": "Others",
+      "description": "Essential pruning shears for trimming plants",
+      "tags": [
+        "gardening",
+        "tool",
+        "accessory"
+      ]
+    },
+    {
+      "id": 1760377907286,
+      "name": "Candle - Scented",
+      "stock": 0,
+      "price": 6,
+      "cost": 3,
+      "category": "Others",
+      "description": "Scented candle to complement floral gifts",
+      "tags": [
+        "candle",
+        "decor",
+        "gift"
+      ]
+    },
+    {
+      "id": 1760377926356,
+      "name": "Flower Stand",
+      "stock": 0,
+      "price": 20,
+      "cost": 10,
+      "category": "Others",
+      "description": "Stand for displaying bouquets or plants",
+      "tags": [
+        "stand",
+        "decor",
+        "accessory"
       ]
     }
   ],
@@ -902,6 +1293,63 @@
         ""
       ],
       "createdAt": "2025-10-13T12:18:33.656Z"
+    },
+    {
+      "id": 1760370611766,
+      "orderStart": "2025-10-13T15:49:35.924Z",
+      "orderEnd": "2025-10-13T15:50:11.692Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1758127668172,
+          "name": "Transvaal daisy",
+          "price": 100,
+          "stock": 15,
+          "qty": 4,
+          "oldPrice": 100,
+          "notes": ""
+        },
+        {
+          "id": 1758547065391,
+          "name": "White Floral",
+          "price": 180,
+          "stock": 15,
+          "qty": 1,
+          "oldPrice": 180,
+          "notes": ""
+        },
+        {
+          "id": 1758547342313,
+          "name": "Rose",
+          "price": 30,
+          "stock": 7,
+          "qty": 2,
+          "oldPrice": 30,
+          "notes": ""
+        },
+        {
+          "id": 1758563272928,
+          "name": "Test",
+          "price": 30,
+          "stock": 10,
+          "qty": 1,
+          "oldPrice": 30,
+          "notes": ""
+        }
+      ],
+      "discounts": [
+        {
+          "value": 50,
+          "type": "percent"
+        }
+      ],
+      "mop": "cash",
+      "actionHistory": [
+        "",
+        "Whinitel",
+        "Whinitel"
+      ],
+      "createdAt": "2025-10-13T15:50:11.766Z"
     }
   ],
   "purchaseOrders": [
@@ -949,6 +1397,56 @@
       ],
       "totalCost": 1,
       "createdAt": "2025-10-13T14:15:32.869Z"
+    },
+    {
+      "id": 1760370735858,
+      "supplier": "this",
+      "items": [
+        {
+          "id": 1758547342313,
+          "name": "Rose",
+          "qty": 4,
+          "costPerUnit": 0,
+          "subtotal": 0
+        },
+        {
+          "id": 1758563272928,
+          "name": "Test",
+          "qty": 1,
+          "costPerUnit": 0,
+          "subtotal": 0
+        },
+        {
+          "id": 1758636015490,
+          "name": "Bougainvillea",
+          "qty": 1,
+          "costPerUnit": 0,
+          "subtotal": 0
+        },
+        {
+          "id": 1759086526233,
+          "name": "Peony",
+          "qty": 1,
+          "costPerUnit": 0,
+          "subtotal": 0
+        },
+        {
+          "id": 1759823044964,
+          "name": "corsage",
+          "qty": 3,
+          "costPerUnit": 0,
+          "subtotal": 0
+        },
+        {
+          "id": 1759823096588,
+          "name": "Cactus",
+          "qty": 1,
+          "costPerUnit": 0,
+          "subtotal": 0
+        }
+      ],
+      "totalCost": 0,
+      "createdAt": "2025-10-13T15:52:15.858Z"
     }
   ]
 }
