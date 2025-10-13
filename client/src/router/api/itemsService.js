@@ -49,7 +49,7 @@ class ItemService {
   }
 
   // DELETE remove a user
-  static async deleteUser(id) {
+  static async deleteItem(id) {
     await axios.delete(`${baseURL}${id}`);
     return true;
   }

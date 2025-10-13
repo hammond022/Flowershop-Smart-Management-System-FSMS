@@ -12,6 +12,8 @@ const flowers = reactive({
   isLoading: true,
 });
 
+const selectedItems = ref([]);
+
 const categories = ref([]);
 const selectedCategory = ref("all");
 const newCategory = ref(false);
@@ -76,6 +78,30 @@ async function submitProduct() {
   }
 }
 
+async function deleteSelectedItems() {
+  if (
+    !confirm(
+      `Are you sure you want to delete ${selectedItems.value.length} item(s)?`
+    )
+  )
+    return;
+
+  try {
+    await Promise.all(
+      selectedItems.value.map((id) => ItemService.deleteItem(id))
+    );
+    showToast(
+      "success",
+      `${selectedItems.value.length} item(s) deleted successfully`
+    );
+    selectedItems.value = [];
+    getFlowers();
+  } catch (err) {
+    console.error("Delete failed:", err.response?.data || err.message);
+    showToast("error", "Failed to delete selected items");
+  }
+}
+
 function resetModal() {
   product.name = "";
   product.price = 0;
@@ -121,6 +147,14 @@ onMounted(() => {
           Create Product
           <i class="bi bi-plus-circle ms-1"></i>
         </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          :disabled="selectedItems.length === 0"
+          @click="deleteSelectedItems"
+        >
+          <i class="bi bi-trash"></i>
+        </button>
       </div>
     </div>
 
@@ -160,12 +194,15 @@ onMounted(() => {
         <InventoryProduct
           v-for="flower in filteredItems"
           :key="flower.id"
+          :id="flower.id"
           :name="flower.name"
           :stock="flower.stock"
           :price="flower.price"
           :description="flower.description"
           :category="flower.category"
           :tags="flower.tags"
+          :selectedItems="selectedItems"
+          @update:selectedItems="selectedItems = $event"
         />
       </tbody>
     </table>
