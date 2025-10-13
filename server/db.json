@@ -39,7 +39,6 @@
     {
       "id": 1758547065391,
       "name": "White Floral",
-      "quantity": 1,
       "price": 180,
       "category": "flowers",
       "tags": [
@@ -51,7 +50,6 @@
     {
       "id": 1758547342313,
       "name": "Rose",
-      "quantity": 1,
       "price": 30,
       "tags": [
         "Birthday",
@@ -62,7 +60,6 @@
     {
       "id": 1758563272928,
       "name": "Test",
-      "quantity": 1,
       "price": 30,
       "tags": [
         "Birthday",
@@ -73,7 +70,6 @@
     {
       "id": 1758636015490,
       "name": "Bougainvillea",
-      "quantity": 1,
       "price": 69,
       "tags": [
         "Birthday",
@@ -84,7 +80,6 @@
     {
       "id": 1759086526233,
       "name": "Peony",
-      "quantity": 1,
       "price": 72,
       "category": "flowers",
       "tags": [
@@ -96,7 +91,6 @@
     {
       "id": 1759823044964,
       "name": "corsage",
-      "quantity": 1,
       "price": 130,
       "category": "bouquets",
       "tags": [
@@ -108,7 +102,6 @@
     {
       "id": 1759823096588,
       "name": "Cactus",
-      "quantity": 1,
       "price": 60,
       "category": "plants",
       "tags": [
@@ -120,7 +113,6 @@
     {
       "id": 1759823119219,
       "name": "Wrapper",
-      "quantity": 1,
       "price": 10,
       "category": "others",
       "tags": [
@@ -132,7 +124,6 @@
     {
       "id": 1759828823070,
       "name": "Lilies",
-      "quantity": 1,
       "price": 40,
       "tags": [
         "Birthday",
@@ -143,7 +134,6 @@
     {
       "id": 1759829381125,
       "name": "Roses",
-      "quantity": 1,
       "price": 0,
       "category": "flowers",
       "tags": [
@@ -155,7 +145,6 @@
     {
       "id": 1759829422176,
       "name": "Roses b",
-      "quantity": 1,
       "price": 60,
       "category": "bouquets",
       "tags": [
@@ -167,7 +156,6 @@
     {
       "id": 1759829446755,
       "name": "among us",
-      "quantity": 1,
       "price": 20,
       "category": "bouquets",
       "tags": [
@@ -175,6 +163,30 @@
         "Happy"
       ],
       "stock": 6
+    },
+    {
+      "id": 1760331460625,
+      "name": "sdsd",
+      "stock": 0,
+      "price": 5,
+      "cost": 3,
+      "category": "bouquets",
+      "description": "sdsds",
+      "tags": [
+        "sdsd"
+      ]
+    },
+    {
+      "id": 1760331488776,
+      "name": "dd",
+      "stock": 0,
+      "price": 10,
+      "cost": 10,
+      "category": "this",
+      "description": "dd",
+      "tags": [
+        "dd"
+      ]
     }
   ],
   "orders": [
@@ -567,32 +579,10 @@
       "createdAt": "2025-10-12T10:24:37.881Z"
     },
     {
-      "id": 1760265464857,
-      "orderStart": "2025-10-12T10:37:40.777Z",
-      "orderEnd": "",
-      "orderStatus": "Draft",
-      "selectedFlowers": [
-        {
-          "id": 1758127668172,
-          "name": "Lily",
-          "price": 100,
-          "stock": 6,
-          "qty": 2,
-          "oldPrice": 100,
-          "notes": ""
-        }
-      ],
-      "discounts": [],
-      "actionHistory": [
-        "This"
-      ],
-      "createdAt": "2025-10-12T10:37:44.857Z"
-    },
-    {
-      "id": 1760265483440,
+      "id": 1760357340728,
       "orderStart": "2025-10-12T10:37:48.637Z",
-      "orderEnd": "",
-      "orderStatus": "Draft",
+      "orderEnd": "2025-10-13T12:09:00.639Z",
+      "orderStatus": "Completed",
       "selectedFlowers": [
         {
           "id": 1758127668172,
@@ -628,10 +618,293 @@
           "type": "amount"
         }
       ],
+      "mop": "",
       "actionHistory": [
         "That"
       ],
-      "createdAt": "2025-10-12T10:38:03.440Z"
+      "createdAt": "2025-10-13T12:09:00.728Z"
+    },
+    {
+      "id": 1760357450370,
+      "orderStart": "2025-10-13T12:10:47.030Z",
+      "orderEnd": "2025-10-13T12:10:50.287Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1758127668172,
+          "name": "Lily",
+          "price": 100,
+          "stock": 6,
+          "qty": 2,
+          "oldPrice": 100,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "",
+      "actionHistory": [],
+      "createdAt": "2025-10-13T12:10:50.370Z"
+    },
+    {
+      "id": 1760357555075,
+      "orderStart": "2025-10-13T12:12:32.825Z",
+      "orderEnd": "2025-10-13T12:12:35.034Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1759086526233,
+          "name": "Peony",
+          "price": 72,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 72,
+          "notes": ""
+        },
+        {
+          "id": 1759823044964,
+          "name": "corsage",
+          "price": 130,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 130,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-10-13T12:12:35.075Z"
+    },
+    {
+      "id": 1760357705310,
+      "orderStart": "2025-10-13T12:15:02.163Z",
+      "orderEnd": "2025-10-13T12:15:05.187Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1759086526233,
+          "name": "Peony",
+          "price": 72,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 72,
+          "notes": ""
+        },
+        {
+          "id": 1759823044964,
+          "name": "corsage",
+          "price": 130,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 130,
+          "notes": ""
+        },
+        {
+          "id": 1759823096588,
+          "name": "Cactus",
+          "price": 60,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 60,
+          "notes": ""
+        },
+        {
+          "id": 1759823119219,
+          "name": "Wrapper",
+          "price": 10,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 10,
+          "notes": ""
+        },
+        {
+          "id": 1759828823070,
+          "name": "Lilies",
+          "price": 40,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 40,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-10-13T12:15:05.310Z"
+    },
+    {
+      "id": 1760357801371,
+      "orderStart": "2025-10-12T10:37:40.777Z",
+      "orderEnd": "2025-10-13T12:16:41.299Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1758127668172,
+          "name": "Lily",
+          "price": 100,
+          "stock": 6,
+          "qty": 2,
+          "oldPrice": 100,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [
+        "This"
+      ],
+      "createdAt": "2025-10-13T12:16:41.371Z"
+    },
+    {
+      "id": 1760357805582,
+      "orderStart": "2025-10-12T10:37:40.777Z",
+      "orderEnd": "2025-10-13T12:16:45.550Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1758127668172,
+          "name": "Lily",
+          "price": 100,
+          "stock": 6,
+          "qty": 2,
+          "oldPrice": 100,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [
+        "This"
+      ],
+      "createdAt": "2025-10-13T12:16:45.582Z"
+    },
+    {
+      "id": 1760357809163,
+      "orderStart": "2025-10-12T10:37:40.777Z",
+      "orderEnd": "2025-10-13T12:16:49.127Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1758127668172,
+          "name": "Lily",
+          "price": 100,
+          "stock": 6,
+          "qty": 2,
+          "oldPrice": 100,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [
+        "This"
+      ],
+      "createdAt": "2025-10-13T12:16:49.163Z"
+    },
+    {
+      "id": 1760357831368,
+      "orderStart": "2025-10-13T12:17:01.930Z",
+      "orderEnd": "2025-10-13T12:17:11.315Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1758127668172,
+          "name": "Lily",
+          "price": 100,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 100,
+          "notes": ""
+        },
+        {
+          "id": 1758547065391,
+          "name": "White Floral",
+          "price": 180,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 180,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [
+        ""
+      ],
+      "createdAt": "2025-10-13T12:17:11.368Z"
+    },
+    {
+      "id": 1760357903049,
+      "orderStart": "2025-10-13T12:18:17.247Z",
+      "orderEnd": "2025-10-13T12:18:22.998Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1758127668172,
+          "name": "Lily",
+          "price": 100,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 100,
+          "notes": ""
+        },
+        {
+          "id": 1758547065391,
+          "name": "White Floral",
+          "price": 180,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 180,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [
+        ""
+      ],
+      "createdAt": "2025-10-13T12:18:23.049Z"
+    },
+    {
+      "id": 1760357913656,
+      "orderStart": "2025-10-13T12:18:27.503Z",
+      "orderEnd": "2025-10-13T12:18:33.612Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1758127668172,
+          "name": "Lily",
+          "price": 100,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 100,
+          "notes": ""
+        },
+        {
+          "id": 1758547065391,
+          "name": "White Floral",
+          "price": 180,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 180,
+          "notes": ""
+        },
+        {
+          "id": 1758547342313,
+          "name": "Rose",
+          "price": 30,
+          "stock": 6,
+          "qty": 1,
+          "oldPrice": 30,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [
+        ""
+      ],
+      "createdAt": "2025-10-13T12:18:33.656Z"
     }
   ]
 }

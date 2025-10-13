@@ -18,7 +18,15 @@ router.get("/:id", (req, res) => {
 
 // CREATE item
 router.post("/", async (req, res) => {
-  const { name, quantity, price, category, tags = [] } = req.body;
+  const {
+    name,
+    stock,
+    price,
+    cost,
+    category,
+    description,
+    tags = [],
+  } = req.body;
 
   if (!name || typeof name !== "string" || !name.trim()) {
     return res
@@ -26,9 +34,9 @@ router.post("/", async (req, res) => {
       .json({ error: "Name is required and must be a non-empty string." });
   }
 
-  if (quantity == null || !Number.isInteger(quantity) || quantity < 0) {
+  if (stock == null || !Number.isInteger(stock) || stock < 0) {
     return res.status(400).json({
-      error: "Quantity is required and must be a non-negative integer.",
+      error: "Stock is required and must be a non-negative integer.",
     });
   }
 
@@ -36,6 +44,12 @@ router.post("/", async (req, res) => {
     return res
       .status(400)
       .json({ error: "Price is required and must be a non-negative number." });
+  }
+
+  if (!category || typeof category !== "string" || !category.trim()) {
+    return res
+      .status(400)
+      .json({ error: "Category is required and must be a non-empty string." });
   }
 
   if (!Array.isArray(tags) || !tags.every((t) => typeof t === "string")) {
@@ -51,18 +65,14 @@ router.post("/", async (req, res) => {
       .json({ error: "Item with this name already exists." });
   }
 
-  if (!category || typeof category !== "string" || !category.trim()) {
-    return res
-      .status(400)
-      .json({ error: "Category is required and must be a non-empty string." });
-  }
-
   const newItem = {
     id: Date.now(),
     name: name.trim(),
-    quantity,
+    stock,
     price,
+    cost: cost ?? null,
     category,
+    description: description?.trim() || "",
     tags,
   };
 

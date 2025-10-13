@@ -29,6 +29,7 @@ const order = reactive({
   selectedFlowers: [],
   actionHistory: [],
   draftTitle: "",
+  mop: "cash",
 });
 const selectedFlowers = ref([]);
 function onFlowerSelect(flower) {
@@ -270,6 +271,7 @@ function confirmCheckout() {
       orderStart: order.orderStart,
       orderEnd: new Date().toISOString(),
       orderStatus: "Completed",
+      mop: order.mop,
       selectedFlowers: selectedFlowers.value.map((f) => ({ ...f })),
       discounts: discounts.value.map((d) => ({ ...d })),
       total: totalAfterDiscount.value,
@@ -280,9 +282,11 @@ function confirmCheckout() {
   } catch (err) {
     console.error(err.message || "checkout failed");
     showToast("error", "Checkout failed!");
+  } finally {
+    getDraftOrders();
+    orderCheckoutModal.hide();
+    resetOrder();
   }
-  orderCheckoutModal.hide();
-  resetOrder();
 }
 
 const draftOrders = ref([]);
@@ -824,8 +828,10 @@ onMounted(async () => {
             <input
               class="form-check-input"
               type="radio"
-              name="radioDefault"
               id="payment-cash"
+              name="payment"
+              value="cash"
+              v-model="order.mop"
               checked
             />
             <label class="form-check-label" for="payment-cash"> Cash </label>
@@ -834,8 +840,10 @@ onMounted(async () => {
             <input
               class="form-check-input"
               type="radio"
-              name="radioDefault"
-              id="payment-other"
+              id="payment-bank"
+              name="payment"
+              value="bank"
+              v-model="order.mop"
               disabled
             />
             <label class="form-check-label" for="payment-other">

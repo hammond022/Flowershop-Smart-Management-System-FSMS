@@ -29,11 +29,11 @@ Inventory System
 |----------|:------:|
 | Automatic stock counting from POS orders | 🚧 In Progress |
 | Create a product | ✅ |
-| Set product price per quantity (bundles) | 🚧 In Progress |
-| Create a category | 🚧 In Progress |
-| Track stock quantity | 🚧 In Progress |
+| Set product price per quantity (bundles) | ❌ Cancelled |
+| Create a category | ✅ |
+| Track stock quantity | ✅ |
 | Export to spreadsheet | 🚧 In Progress |
-| Add tags to products | 🚧 In Progress |
+| Add tags to products | ✅ |
 | Low stock warning | 🚧 In Progress |
 | Stock histogram (sales per day/month) | 🚧 In Progress |
 | Product edit action history | 🚧 In Progress |
