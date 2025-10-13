@@ -6,6 +6,7 @@ import { JSONFile } from "lowdb/node";
 import usersRouter from "./routes/api/users.js";
 import itemsRouter from "./routes/api/items.js";
 import ordersRouter from "./routes/api/orders.js";
+import purchaseOrdersRouter from "./routes/api/purchaseOrders.js";
 
 const app = express();
 app.use(express.json());
@@ -20,6 +21,7 @@ await db.read();
 app.use("/api/users", usersRouter);
 app.use("/api/items", itemsRouter);
 app.use("/api/orders", ordersRouter);
+app.use("/api/purchaseOrders", purchaseOrdersRouter);
 
 const PORT = 3000;
 app.listen(PORT, () =>
