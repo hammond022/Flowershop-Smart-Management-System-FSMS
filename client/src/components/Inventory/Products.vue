@@ -42,6 +42,23 @@ const product = reactive({
   category: "",
 });
 
+async function submitProduct() {
+  try {
+    await ItemService.createItem({
+      name: product.name,
+      price: product.price,
+      stock: product.stock,
+      category: product.category,
+      tags: product.tags,
+    });
+    toastInstance.show();
+    createProductModal.hide();
+    getFlowers();
+  } catch (err) {
+    console.error("Create failed:", err.response?.data || err.message);
+  }
+}
+
 function resetModal() {
   product.name = "";
   product.price = 0;
