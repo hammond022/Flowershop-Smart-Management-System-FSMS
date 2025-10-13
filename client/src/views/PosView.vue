@@ -260,14 +260,14 @@ async function confirmAsDraft() {
   }
 }
 
-function confirmCheckout() {
+async function confirmCheckout() {
   try {
     if (totalAfterDiscount.value <= 0) {
       showToast("warning", "Discount exceeds total amount!");
       return;
     }
 
-    OrderService.createOrder({
+    await OrderService.createOrder({
       orderStart: order.orderStart,
       orderEnd: new Date().toISOString(),
       orderStatus: "Completed",
@@ -278,6 +278,14 @@ function confirmCheckout() {
       actionHistory: order.actionHistory,
     });
 
+    // stock update
+    await Promise.all(
+      selectedFlowers.value.map(async (item) => {
+        item.stock -= item.qty;
+        await ItemService.updateItemStock(item.id, item.stock);
+      })
+    );
+
     showToast("success", "Order completed successfully!");
   } catch (err) {
     console.error(err.message || "checkout failed");
@@ -286,6 +294,7 @@ function confirmCheckout() {
     getDraftOrders();
     orderCheckoutModal.hide();
     resetOrder();
+    await loadItems();
   }
 }
 
