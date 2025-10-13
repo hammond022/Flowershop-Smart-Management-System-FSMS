@@ -27,7 +27,7 @@ Inventory System
 
 | Feature | Status |
 |----------|:------:|
-| Automatic stock counting from POS orders | 🚧 In Progress |
+| Automatic stock counting from POS orders | ✅ |
 | Create a product | ✅ |
 | Set product price per quantity (bundles) | ❌ Cancelled |
 | Create a category | ✅ |
@@ -35,7 +35,7 @@ Inventory System
 | Export to spreadsheet | ✅ |
 | Add tags to products | ✅ |
 | Low stock warning | ✅ |
-| Stock histogram (sales per day/month) | 🚧 In Progress |
+| Stock histogram (sales per day/month) | ❌ Cancelled (turned in sales histogram) |
 | Product edit action history | ❌ Cancelled |
 
 

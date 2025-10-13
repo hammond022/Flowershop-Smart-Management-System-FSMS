@@ -67,7 +67,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container my-4">
+  <div class="my-3">
     <div class="d-flex align-items-center p-3 mb-5 bg-light rounded shadow-sm">
       <img
         src="../../assets/icons/user.svg"
@@ -89,7 +89,7 @@ onMounted(() => {
         <div class="card shadow-sm border-0">
           <div class="card-body">
             <i class="bi bi-check-circle fs-2 text-success mb-2"></i>
-            <h5 class="card-title">Completed</h5>
+            <h5 class="card-title">Completed orders</h5>
             <p class="fs-4 fw-bold">{{ completedOrders.length }}</p>
             <span class="badge bg-success mb-2">Success</span>
             <div class="progress mt-2" style="height: 6px">

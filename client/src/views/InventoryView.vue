@@ -3,6 +3,7 @@ import Products from "@/components/Inventory/Products.vue";
 import Overview from "@/components/Inventory/Overview.vue";
 import { ref } from "vue";
 import PurchaseOrders from "@/components/Inventory/PurchaseOrders.vue";
+import Sales from "@/components/Inventory/Sales.vue";
 
 const sidebarSelected = ref("overview");
 
@@ -42,7 +43,7 @@ function selectSidebar(selected) {
             Overview
           </a>
         </li>
-        <!-- <li @click="selectSidebar('sales')">
+        <li @click="selectSidebar('sales')">
           <a
             href="#"
             class="nav-link sidebar"
@@ -58,7 +59,7 @@ function selectSidebar(selected) {
             ></i>
             Sales
           </a>
-        </li> -->
+        </li>
         <li @click="selectSidebar('products')">
           <a
             href="#"
@@ -112,41 +113,13 @@ function selectSidebar(selected) {
           </a>
         </li>
       </ul>
-      <hr />
-      <div class="dropdown">
-        <a
-          href="#"
-          class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
-          id="dropdownUser2"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <img
-            src="https://github.com/mdo.png"
-            alt=""
-            width="32"
-            height="32"
-            class="rounded-circle me-2"
-          />
-          <strong>mdo</strong>
-        </a>
-        <ul
-          class="dropdown-menu text-small shadow"
-          aria-labelledby="dropdownUser2"
-        >
-          <li><a class="dropdown-item" href="#">New project...</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
-          <li><hr class="dropdown-divider" /></li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
-        </ul>
-      </div>
     </aside>
 
     <main class="flex-fill p-4">
       <Overview v-if="sidebarSelected == 'overview'" />
       <Products v-if="sidebarSelected == 'products'" />
       <PurchaseOrders v-if="sidebarSelected == 'purchase'" />
+      <Sales v-if="sidebarSelected == 'sales'" />
     </main>
   </div>
 </template>
