@@ -1,8 +1,11 @@
 <script setup>
 import { onMounted, reactive, ref, computed } from "vue";
 import { Modal, Toast } from "bootstrap";
-import ItemService from "@/router/api/itemsService";
+import { useToast } from "@/composables/useToast";
+import ItemService from "@/router/api/itemsService.js";
 import InventoryProduct from "./Product.vue";
+
+const { showToast } = useToast();
 
 const flowers = reactive({
   items: [],
@@ -11,6 +14,11 @@ const flowers = reactive({
 
 const categories = ref([]);
 const selectedCategory = ref("all");
+const newCategory = ref(false);
+
+function formSetNewcategory(x) {
+  newCategory.value = x;
+}
 
 const getFlowers = async () => {
   try {
@@ -37,9 +45,10 @@ const filteredItems = computed(() => {
 const product = reactive({
   name: "",
   price: 0,
-  quantity: 1,
-  tags: ["Birthday", "Happy"],
+  cost: 0,
   category: "",
+  description: "",
+  tags: "",
 });
 
 async function submitProduct() {
@@ -47,22 +56,33 @@ async function submitProduct() {
     await ItemService.createItem({
       name: product.name,
       price: product.price,
-      stock: product.stock,
+      cost: product.cost,
       category: product.category,
-      tags: product.tags,
+      description: product.description,
+      tags: product.tags
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean),
+      stock: 0,
     });
-    toastInstance.show();
-    createProductModal.hide();
-    getFlowers();
+    resetModal();
+    showToast("success", `Successfully created product ${product.name}`);
   } catch (err) {
     console.error("Create failed:", err.response?.data || err.message);
+    showToast("error", err.response?.data.error);
+  } finally {
+    createProductModal.hide();
+    getFlowers();
   }
 }
 
 function resetModal() {
   product.name = "";
   product.price = 0;
+  product.cost = 0;
   product.category = "";
+  product.description = "";
+  product.tags = "";
 }
 
 function increasePrice(amount = 10) {
@@ -73,28 +93,10 @@ function decreasePrice(amount = 1) {
   if (product.price - amount >= 0) product.price -= amount;
 }
 
-async function submitProduct() {
-  try {
-    await ItemService.createItem({
-      name: product.name,
-      price: product.price,
-      quantity: product.quantity,
-      category: product.category,
-      tags: product.tags,
-    });
-    toastInstance.show();
-    createProductModal.hide();
-    getFlowers();
-  } catch (err) {
-    console.error("Create failed:", err.response?.data || err.message);
-  }
-}
-
 let toastInstance;
 let createProductModal;
 
 function createProduct() {
-  resetModal();
   createProductModal.show();
 }
 
@@ -114,13 +116,10 @@ onMounted(() => {
       <h1>Products</h1>
 
       <div class="btn-group mb-4">
-        <button type="button" class="btn btn-primary">Create Product</button>
-        <button
-          @click="createProduct"
-          type="button"
-          class="btn btn-outline-primary"
-        >
-          <i class="bi bi-pencil-square"></i>
+        <!-- <button type="button" class="btn btn-primary">Create Product</button> -->
+        <button @click="createProduct" type="button" class="btn btn-primary">
+          Create Product
+          <i class="bi bi-plus-circle ms-1"></i>
         </button>
       </div>
     </div>
@@ -151,10 +150,9 @@ onMounted(() => {
         <tr>
           <th>#</th>
           <th>Name</th>
-          <th>Quantity</th>
-          <th>Price</th>
           <th>Category</th>
-          <th>Tags</th>
+          <th>Description</th>
+          <th>Price</th>
         </tr>
       </thead>
       <tbody>
@@ -162,7 +160,7 @@ onMounted(() => {
           v-for="flower in filteredItems"
           :key="flower.id"
           :name="flower.name"
-          :quantity="flower.quantity"
+          :stock="flower.stock"
           :price="flower.price"
           :category="flower.category"
         />
@@ -189,67 +187,165 @@ onMounted(() => {
         ></button>
       </div>
     </div>
+  </main>
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="screateProductModal"
+    tabindex="-1"
+    aria-labelledby="createProductModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createProductModalLabel">Quick Create</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
 
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="createProductModal"
-      tabindex="-1"
-      aria-labelledby="createProductModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="createProductModalLabel">
-              Quick Create
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+        <div class="modal-body">
+          <div class="input-group mb-3">
+            <span class="input-group-text">Name</span>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="ex. Transvaal daisy"
+              v-model="product.name"
+            />
           </div>
 
+          <div class="input-group mb-3">
+            <span class="input-group-text">Price</span>
+            <span class="input-group-text">₱</span>
+            <input
+              type="text"
+              class="form-control"
+              v-model.number="product.price"
+            />
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              @click="decreasePrice()"
+            >
+              -
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              @click="increasePrice()"
+            >
+              +
+            </button>
+          </div>
+
+          <div class="mb-3 input-group">
+            <span class="input-group-text">Category</span>
+            <select class="form-select" v-model="product.category">
+              <option value="" disabled>Select category</option>
+              <option
+                v-for="category in categories"
+                :key="category"
+                :value="category"
+              >
+                {{ category }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <div class="input-group">
+              <span class="input-group-text">Tags</span>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="ex. Birthday, Happy"
+                disabled
+              />
+            </div>
+            <div class="form-text">Separate tags by space or comma.</div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" @click="submitProduct">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="createProductModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="productModalLabel">Add New Product</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <form>
           <div class="modal-body">
-            <div class="input-group mb-3">
-              <span class="input-group-text">Name</span>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="ex. Transvaal daisy"
-                v-model="product.name"
-              />
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="productName"
+                    placeholder="Product Name"
+                    required
+                    v-model="product.name"
+                  />
+                  <label for="productName">Product Name</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="tags"
+                    placeholder="Comma-separated tags"
+                    v-model="product.tags"
+                  />
+                  <label for="tags">Tags (comma-separated)</label>
+                </div>
+              </div>
             </div>
 
-            <div class="input-group mb-3">
-              <span class="input-group-text">Price</span>
-              <span class="input-group-text">₱</span>
-              <input
-                type="text"
+            <!-- Description -->
+            <div class="form-floating mb-3">
+              <textarea
                 class="form-control"
-                v-model.number="product.price"
-              />
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                @click="decreasePrice()"
-              >
-                -
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                @click="increasePrice()"
-              >
-                +
-              </button>
+                placeholder="Description"
+                id="description"
+                style="height: 120px"
+                required
+                v-model="product.description"
+              ></textarea>
+              <label for="description">Description</label>
             </div>
-
-            <div class="mb-3 input-group">
+            <!-- category 1 -->
+            <div v-if="!newCategory" class="mb-3 input-group">
               <span class="input-group-text">Category</span>
-              <select class="form-select" v-model="product.category">
+              <select class="form-select" v-model="product.category" required>
                 <option value="" disabled>Select category</option>
                 <option
                   v-for="category in categories"
@@ -259,19 +355,64 @@ onMounted(() => {
                   {{ category }}
                 </option>
               </select>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                @click="formSetNewcategory(true)"
+              >
+                <i class="bi bi-plus-lg"></i>
+              </button>
+            </div>
+            <!-- category 2 -->
+            <div v-if="newCategory" class="mb-3 input-group">
+              <span class="input-group-text">Category</span>
+              <input
+                type="text"
+                class="form-control"
+                id="productName"
+                placeholder="New Category"
+                required
+                v-model="product.category"
+              />
+              <button
+                type="button"
+                class="btn btn-secondary"
+                @click="formSetNewcategory(false)"
+              >
+                <i class="bi bi-x-lg"></i>
+              </button>
             </div>
 
-            <div class="mb-3">
-              <div class="input-group">
-                <span class="input-group-text">Tags</span>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="ex. Birthday, Happy"
-                  disabled
-                />
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="sellingPrice"
+                    placeholder="Selling Price"
+                    min="0"
+                    required
+                    v-model.number="product.price"
+                  />
+                  <label for="sellingPrice">Selling Price</label>
+                </div>
               </div>
-              <div class="form-text">Separate tags by space or comma.</div>
+
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="costPrice"
+                    placeholder="Cost Price"
+                    min="0"
+                    required
+                    v-model.number="product.cost"
+                  />
+                  <label for="costPrice">Cost Price</label>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -281,18 +422,18 @@ onMounted(() => {
               class="btn btn-secondary"
               data-bs-dismiss="modal"
             >
-              Close
+              Cancel
             </button>
             <button
-              type="button"
-              class="btn btn-primary"
-              @click="submitProduct"
+              type="submit"
+              class="btn btn-success"
+              @click.prevent="submitProduct"
             >
-              Save
+              Save Product
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
-  </main>
+  </div>
 </template>
