@@ -2,7 +2,8 @@
 import { onMounted, reactive, ref, computed } from "vue";
 import { Modal, Toast } from "bootstrap";
 import { useToast } from "@/composables/useToast";
-import ItemService from "@/router/api/itemsService.js"; // same service for items
+import ItemService from "@/router/api/itemsService.js";
+import PurchaseOrderService from "@/router/api/purchaseOrderService.js";
 
 const { showToast } = useToast();
 
@@ -51,6 +52,12 @@ const bulkForm = reactive({
   items: [],
 });
 let bulkPOModal;
+const totalBulkCost = computed(() =>
+  bulkForm.items.reduce(
+    (sum, item) => sum + item.quantity * item.costPerUnit,
+    0
+  )
+);
 
 function openBulkPurchaseModal() {
   if (selectedItems.value.length === 0) {
@@ -86,26 +93,36 @@ function openPurchaseModal(item) {
 }
 
 async function submitBulkPurchaseOrder() {
-  const validItems = bulkForm.items.filter((i) => i.quantity > 0);
-
-  if (validItems.length === 0) {
-    showToast("error", "Please enter a quantity for at least one item.");
+  if (!bulkForm.supplier || bulkForm.items.length === 0) {
+    showToast("error", "Please select items and supplier first.");
     return;
   }
 
   try {
-    for (const item of validItems) {
+    for (const item of bulkForm.items) {
       const newStock = item.currentStock + item.quantity;
       await ItemService.updateItemStock(item.id, newStock);
     }
 
-    showToast("success", "Bulk purchase order completed successfully!");
-    getItems();
+    await PurchaseOrderService.createPurchaseOrder({
+      supplier: bulkForm.supplier,
+      items: bulkForm.items.map((i) => ({
+        id: i.id,
+        name: i.name,
+        qty: i.quantity,
+        costPerUnit: i.costPerUnit,
+      })),
+    });
+
+    showToast("success", "Bulk purchase order completed!");
+    await getItems();
+
+    // Reset form after submission
+    Object.assign(bulkForm, { supplier: "", items: [] });
+    bulkPOModal.hide();
   } catch (err) {
     console.error("Failed to submit bulk PO:", err);
-    showToast("error", "Failed to complete bulk purchase order.");
-  } finally {
-    bulkPOModal.hide();
+    showToast("error", err.response?.data?.error || "Failed to submit order");
   }
 }
 
@@ -313,14 +330,15 @@ onMounted(() => {
               </div>
             </div>
 
-            <div class="mb-3">
-              <label class="form-label">Supplier</label>
+            <div class="form-floating mb-3">
               <input
                 type="text"
                 class="form-control"
-                v-model="purchaseForm.supplier"
+                id="bulkSupplierInput"
+                v-model="bulkForm.supplier"
                 placeholder="Supplier name"
               />
+              <label for="bulkSupplierInput">Supplier Name</label>
             </div>
 
             <div class="mb-3">
@@ -377,14 +395,15 @@ onMounted(() => {
           </div>
 
           <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">Supplier</label>
+            <div class="form-floating mb-3">
               <input
                 type="text"
                 class="form-control"
+                id="bulkSupplierInput"
                 v-model="bulkForm.supplier"
                 placeholder="Supplier name"
               />
+              <label for="bulkSupplierInput">Supplier Name</label>
             </div>
 
             <table class="table table-bordered table-sm align-middle">
@@ -421,6 +440,26 @@ onMounted(() => {
                 </tr>
               </tbody>
             </table>
+
+            <div class="border-top pt-3 mt-3" v-if="bulkForm.items.length > 0">
+              <h6>Summary</h6>
+              <ul class="list-group mb-3">
+                <template v-for="(item, index) in bulkForm.items" :key="index">
+                  <li
+                    v-if="item && item.quantity > 0"
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    {{ item.name }} (x{{ item.quantity }})
+                    <span>₱{{ item.quantity * item.costPerUnit }}</span>
+                  </li>
+                </template>
+              </ul>
+
+              <div class="d-flex justify-content-between fw-bold">
+                <span>Total Cost</span>
+                <span>₱{{ totalBulkCost }}</span>
+              </div>
+            </div>
           </div>
 
           <div class="modal-footer">
