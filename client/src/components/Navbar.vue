@@ -14,12 +14,11 @@ const isActiveLink = (routePath) => {
       <RouterLink class="navbar-brand" to="/"
         ><img
           class="align-text-bottom"
-          src="../assets/icons/icon.svg"
+          src="../assets/logo.jpg"
           alt="logo"
           width="30"
-          height="24"
-        />FSMS</RouterLink
-      >
+        />
+      </RouterLink>
       <button
         class="navbar-toggler"
         type="button"
