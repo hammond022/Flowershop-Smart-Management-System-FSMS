@@ -395,6 +395,18 @@ onMounted(async () => {
   <div class="container-fluid h-100">
     <div class="col d-flex flex-column h-100">
       <div class="row">
+        <Categories
+          style="width: 15%"
+          :categories="categories"
+          :selected-category="selectedCategory"
+          @select-category="handleCategorySelect"
+        /><Items
+          style="width: 40%"
+          :all-items="allItems"
+          :selected-category="selectedCategory"
+          @select="onFlowerSelect"
+        />
+
         <div
           class="border border-secondary border-opacity-25 rounded d-flex flex-column mt-3 ms-3 justify-content-between shadow-lg"
           style="width: 40%; height: 90vh"
@@ -536,20 +548,6 @@ onMounted(async () => {
             @addDiscount="addDiscount"
           />
         </div>
-
-        <Categories
-          style="width: 15%"
-          :categories="categories"
-          :selected-category="selectedCategory"
-          @select-category="handleCategorySelect"
-        />
-
-        <Items
-          style="width: 40%"
-          :all-items="allItems"
-          :selected-category="selectedCategory"
-          @select="onFlowerSelect"
-        />
       </div>
     </div>
   </div>
