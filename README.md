@@ -83,3 +83,4 @@ Settings
 | **POST** | `/api/orders/` | Create order | `{ "items": [1, 2], "notes": "For delivery", "discount": 0.1 }` | `{ "id": 101, "status": "pending", "total": 25.50 }` |
 | **GET** | `/api/orders/:id` | Get order by ID | — | `{ "id": 101, "items": [1, 2], "total": 25.50 }` |
  
+ .
