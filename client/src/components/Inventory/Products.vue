@@ -4,6 +4,7 @@ import { Modal, Toast } from "bootstrap";
 import { useToast } from "@/composables/useToast";
 import ItemService from "@/router/api/itemsService.js";
 import InventoryProduct from "./Product.vue";
+import axios from "axios";
 
 const { showToast } = useToast();
 
@@ -51,6 +52,8 @@ const product = reactive({
   category: "",
   description: "",
   tags: "",
+  photo: null,
+  previewUrl: null, // for image preview
 });
 
 async function submitProduct() {
@@ -66,6 +69,8 @@ async function submitProduct() {
         .map((t) => t.trim())
         .filter(Boolean),
       stock: 0,
+      photo: product.photo,
+      previewUrl: product.previewUrl,
     });
     resetModal();
     showToast("success", `Successfully created product ${product.name}`);
@@ -109,6 +114,8 @@ function resetModal() {
   product.category = "";
   product.description = "";
   product.tags = "";
+  product.photo = null;
+  product.previewUrl = null;
 }
 
 function increasePrice(amount = 10) {
@@ -134,6 +141,19 @@ onMounted(() => {
   });
   getFlowers();
 });
+const handlePhotoUpload = async (event) => { 
+  const file = event.target.files[0]; 
+  if (!file) return; product.previewUrl = URL.createObjectURL(file); // upload to backend 
+  const formData = new FormData(); 
+  formData.append("photo", file); 
+  try { 
+      const res = await axios.post("http://localhost:3000/api/upload", formData, { 
+      headers: { "Content-Type": "multipart/form-data" }, }); // save the returned file path from backend 
+      product.photo = res.data.filePath;
+    } catch (err) { 
+        console.error("Photo upload failed:", err);
+      } 
+};
 </script>
 
 <template>
@@ -381,6 +401,25 @@ onMounted(() => {
                 v-model="product.description"
               ></textarea>
               <label for="description">Description</label>
+            </div>
+            <!-- image -->
+            <div class="col-md-4 d-flex flex-column justify-content-center mb-3">
+              <label for="photo" class="form-label">Product Photo</label>
+              <input
+                class="form-control"
+                type="file"
+                id="photo"
+                accept="image/*"
+                @change="handlePhotoUpload"
+              />
+            </div>
+            <div v-if="product.previewUrl" class="mt-3">
+              <img
+                :src="product.previewUrl"
+                alt="Preview"
+                class="img-fluid rounded border"
+                style="max-height: 150px; object-fit: cover;"
+              />
             </div>
             <!-- category 1 -->
             <div v-if="!newCategory" class="mb-3 input-group">

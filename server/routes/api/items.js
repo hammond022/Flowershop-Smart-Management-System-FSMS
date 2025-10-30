@@ -26,6 +26,7 @@ router.post("/", async (req, res) => {
     category,
     description,
     tags = [],
+    photo,
   } = req.body;
 
   if (!name || typeof name !== "string" || !name.trim()) {
@@ -75,6 +76,7 @@ router.post("/", async (req, res) => {
     category,
     description: description?.trim() || "",
     tags,
+    photo,
   };
 
   db.data.items.push(newItem);
@@ -97,6 +99,7 @@ router.put("/:id", async (req, res) => {
     "category",
     "description",
     "tags",
+    "photo",
   ];
 
   for (const field of allowedFields) {

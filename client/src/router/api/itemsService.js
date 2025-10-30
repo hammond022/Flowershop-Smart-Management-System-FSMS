@@ -23,6 +23,7 @@ class ItemService {
     description,
     tags = [],
     stock,
+    photo,
   }) {
     const res = await axios.post(baseURL, {
       name,
@@ -32,6 +33,7 @@ class ItemService {
       description,
       tags,
       stock,
+      photo,
     });
     return res.data;
   }
@@ -53,6 +55,19 @@ class ItemService {
     await axios.delete(`${baseURL}${id}`);
     return true;
   }
+
+   // POST photo upload
+  static async uploadPhoto(photoFile) {
+    const formData = new FormData();
+    formData.append("photo", photoFile);
+
+    const res = await axios.post("http://localhost:3000/api/upload/photo", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    return res.data.photoUrl; // the path to the uploaded image
+  }
 }
+
 
 export default ItemService;

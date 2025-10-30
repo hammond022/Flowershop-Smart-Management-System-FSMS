@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps } from "vue";
 
 const props = defineProps({
   name: { type: String, default: "Transvaal daisy" },
@@ -12,7 +11,7 @@ const emit = defineEmits(["select"]);
 function addItem() {
   emit("select", {
     id: props.id,
-    name: props.name,
+    name: props.name, 
     price: props.price,
     stock: props.stock,
   });
@@ -23,7 +22,7 @@ function addItem() {
   <button
     @click="addItem"
     type="button"
-    class="btn btn-outline-secondary item {"
+    class="btn btn-outline-secondary item"
     id="category1"
   >
     <div>{{ name }}</div>

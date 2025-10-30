@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import path from "path";
 import { Low } from "lowdb";
 import { JSONFile } from "lowdb/node";
 
@@ -8,9 +9,14 @@ import itemsRouter from "./routes/api/items.js";
 import ordersRouter from "./routes/api/orders.js";
 import purchaseOrdersRouter from "./routes/api/purchaseOrders.js";
 
+// i apologize for this monstrosity
+// photo upload
+import photoUploadRoute from "./routes/api/photoUploadRoute.js";
 const app = express();
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
+app.use("/uploads", express.static(path.resolve("server/uploads")));
+app.use("/api/upload", photoUploadRoute);
 
 // Lowdb setup
 const adapter = new JSONFile("db.json");

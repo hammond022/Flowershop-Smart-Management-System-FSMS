@@ -15,4 +15,9 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  server: {
+    proxy: {
+      '/uploads': 'http://localhost:3000', // this tells Vite to proxy uploads from backend
+    },
+  },
 })
