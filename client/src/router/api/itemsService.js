@@ -1,20 +1,24 @@
 import axios from "axios";
-const baseURL = "http://localhost:3000/api/items/";
+
+const API_BASE = "http://localhost:3000/api";
 
 class ItemService {
-  // GET all items
   static async getItems() {
-    const res = await axios.get(baseURL);
-    return res.data;
+    const res = await axios.get(`${API_BASE}/items`);
+    const base = window.location.origin;
+    return res.data.map((item) => ({
+      ...item,
+      photo: item.photo?.startsWith("/uploads/")
+        ? `${base}${item.photo}`
+        : item.photo,
+    }));
   }
 
-  // GET item by ID
   static async getItem(id) {
-    const res = await axios.get(`${baseURL}${id}`);
+    const res = await axios.get(`${API_BASE}/items/${id}`);
     return res.data;
   }
 
-  // POST create new item
   static async createItem({
     name,
     price,
@@ -25,7 +29,7 @@ class ItemService {
     stock,
     photo,
   }) {
-    const res = await axios.post(baseURL, {
+    const res = await axios.post(`${API_BASE}/items`, {
       name,
       price,
       cost,
@@ -38,36 +42,26 @@ class ItemService {
     return res.data;
   }
 
-  // PUT update stock only (for purchase orders)
   static async updateItemStock(id, stock) {
-    const res = await axios.put(`${baseURL}${id}`, { stock });
+    const res = await axios.put(`${API_BASE}/items/${id}`, { stock });
     return res.data;
   }
 
-  // PUT update a user (this looks outdated — maybe remove later)
-  static async updateUser(id, name) {
-    const res = await axios.put(`${baseURL}${id}`, { name });
-    return res.data;
-  }
-
-  // DELETE remove a user
   static async deleteItem(id) {
-    await axios.delete(`${baseURL}${id}`);
-    return true;
+    const res = await axios.delete(`${API_BASE}/items/${id}`);
+    return res.data;
   }
 
-   // POST photo upload
   static async uploadPhoto(photoFile) {
     const formData = new FormData();
     formData.append("photo", photoFile);
 
-    const res = await axios.post("http://localhost:3000/api/upload/photo", formData, {
+    const res = await axios.post(`${API_BASE}/upload`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
 
-    return res.data.photoUrl; // the path to the uploaded image
+    return res.data;
   }
 }
-
 
 export default ItemService;

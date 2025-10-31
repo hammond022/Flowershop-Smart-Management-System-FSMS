@@ -4,7 +4,6 @@ import { Modal, Toast } from "bootstrap";
 import { useToast } from "@/composables/useToast";
 import ItemService from "@/router/api/itemsService.js";
 import InventoryProduct from "./Product.vue";
-import axios from "axios";
 
 const { showToast } = useToast();
 
@@ -133,6 +132,32 @@ function createProduct() {
   createProductModal.show();
 }
 
+const isUploading = ref(false);
+
+const handlePhotoUpload = async (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  // Instant local preview
+  product.previewUrl = URL.createObjectURL(file);
+  isUploading.value = true;
+
+  try {
+    const res = await ItemService.uploadPhoto(file);
+    // Adjust this depending on your backend response structure
+    // e.g. if backend sends { filePath: "uploads/filename.jpg" }
+    product.photo = res.fileUrl || `${window.location.origin}${res.filePath}`;
+
+    showToast("success", "Photo uploaded successfully!");
+  } catch (err) {
+    console.error("Photo upload failed:", err);
+    showToast("error", "Photo upload failed");
+    product.photo = null;
+  } finally {
+    isUploading.value = false;
+  }
+};
+
 onMounted(() => {
   createProductModal = new Modal(document.getElementById("createProductModal"));
   toastInstance = new Toast(document.getElementById("myToast"), {
@@ -141,19 +166,6 @@ onMounted(() => {
   });
   getFlowers();
 });
-const handlePhotoUpload = async (event) => { 
-  const file = event.target.files[0]; 
-  if (!file) return; product.previewUrl = URL.createObjectURL(file); // upload to backend 
-  const formData = new FormData(); 
-  formData.append("photo", file); 
-  try { 
-      const res = await axios.post("http://localhost:3000/api/upload", formData, { 
-      headers: { "Content-Type": "multipart/form-data" }, }); // save the returned file path from backend 
-      product.photo = res.data.filePath;
-    } catch (err) { 
-        console.error("Photo upload failed:", err);
-      } 
-};
 </script>
 
 <template>
@@ -362,6 +374,88 @@ const handlePhotoUpload = async (event) => {
 
         <form>
           <div class="modal-body">
+            <!-- Preview Card -->
+            <div class="card mb-4">
+              <div class="row g-0">
+                <div
+                  class="col-md-4 d-flex align-items-center justify-content-center"
+                >
+                  <img
+                    :src="
+                      product.previewUrl ||
+                      'https://placehold.co/400x400?text=No+Image'
+                    "
+                    class="img-fluid rounded"
+                    style="width: 150px; height: 150px; object-fit: cover"
+                    alt="Product preview"
+                  />
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      {{ product.name || "Product Name" }}
+                    </h5>
+                    <p class="card-text">
+                      {{ product.description || "No description available" }}
+                    </p>
+                    <div class="mb-2">
+                      <span class="badge bg-primary me-1">{{
+                        product.category || "Category"
+                      }}</span>
+                      <span
+                        v-for="tag in product.tags
+                          ? product.tags.split(',')
+                          : []"
+                        :key="tag"
+                        class="badge bg-secondary me-1"
+                      >
+                        {{ tag.trim() }}
+                      </span>
+                    </div>
+                    <div
+                      class="d-flex justify-content-between align-items-center"
+                    >
+                      <div>
+                        <p class="mb-0">
+                          <strong>Selling Price:</strong> ₱{{
+                            product.price || 0
+                          }}
+                        </p>
+                        <p class="mb-0">
+                          <strong>Cost Price:</strong> ₱{{ product.cost || 0 }}
+                        </p>
+                      </div>
+                      <div class="text-end">
+                        <p
+                          class="mb-0 text-success"
+                          v-if="product.price && product.cost"
+                        >
+                          Profit: ₱{{ product.price - product.cost }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Existing form fields -->
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <label for="photo" class="form-label">Product Photo</label>
+                <input
+                  class="form-control"
+                  type="file"
+                  id="photo"
+                  accept="image/*"
+                  @change="handlePhotoUpload"
+                  :disabled="isUploading"
+                />
+                <div v-if="isUploading" class="form-text text-primary">
+                  <i class="bi bi-arrow-repeat"></i> Uploading image…
+                </div>
+              </div>
+            </div>
             <div class="row g-3 mb-3">
               <div class="col-md-6">
                 <div class="form-floating">
@@ -403,24 +497,7 @@ const handlePhotoUpload = async (event) => {
               <label for="description">Description</label>
             </div>
             <!-- image -->
-            <div class="col-md-4 d-flex flex-column justify-content-center mb-3">
-              <label for="photo" class="form-label">Product Photo</label>
-              <input
-                class="form-control"
-                type="file"
-                id="photo"
-                accept="image/*"
-                @change="handlePhotoUpload"
-              />
-            </div>
-            <div v-if="product.previewUrl" class="mt-3">
-              <img
-                :src="product.previewUrl"
-                alt="Preview"
-                class="img-fluid rounded border"
-                style="max-height: 150px; object-fit: cover;"
-              />
-            </div>
+
             <!-- category 1 -->
             <div v-if="!newCategory" class="mb-3 input-group">
               <span class="input-group-text">Category</span>
@@ -497,18 +574,15 @@ const handlePhotoUpload = async (event) => {
 
           <div class="modal-footer">
             <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Cancel
-            </button>
-            <button
               type="submit"
               class="btn btn-success"
+              :disabled="isUploading"
               @click.prevent="submitProduct"
             >
-              Save Product
+              <span v-if="isUploading">
+                <i class="bi bi-hourglass-split"></i> Uploading...
+              </span>
+              <span v-else> Save Product </span>
             </button>
           </div>
         </form>

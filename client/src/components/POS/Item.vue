@@ -1,9 +1,10 @@
 <script setup>
 const props = defineProps({
-  name: { type: String, default: "Transvaal daisy" },
-  price: { type: Number, default: 0 },
-  id: { type: Number, default: 0 },
-  stock: { type: Number, default: 0 },
+  id: Number,
+  name: String,
+  price: Number,
+  stock: Number,
+  photo: String,
 });
 
 const emit = defineEmits(["select"]);
@@ -18,20 +19,21 @@ function addItem() {
 </script>
 
 <template>
-  <button
-    @click="addItem"
-    type="button"
-    class="btn btn-outline-secondary item"
-    id="category1"
-  >
+  <button @click="addItem" type="button" class="btn btn-outline-secondary item">
     <div class="d-flex align-items-center gap-3">
       <div class="image-container">
-        <img class="img-fluid" src="../../assets/flower.jpg" alt="" />
+        <img class="img-fluid" :src="photo" alt="Item photo" />
       </div>
       <div class="item-details">
         <div class="item-name">{{ name }}</div>
         <div class="item-price">₱{{ price }}</div>
       </div>
+      <!-- Stock status badges -->
+      <span v-if="stock === 0" class="badge text-bg-danger">Out of stock</span>
+      <span v-else-if="stock < 5" class="badge text-bg-warning"
+        >stock: {{ stock }}</span
+      >
+      <span v-else class="badge text-bg-success">stock: {{ stock }}</span>
     </div>
   </button>
 </template>
