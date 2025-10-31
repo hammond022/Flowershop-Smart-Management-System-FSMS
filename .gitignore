@@ -3,3 +3,5 @@
 server\db.json
 .prettierignore
 .gitignore
+server\server\uploads
+server/node_modules
