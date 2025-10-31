@@ -22,6 +22,8 @@ class OrderService {
     selectedFlowers = [],
     actionHistory = [],
     discounts = [],
+    amountPaid = 0,
+    change = 0,
   }) {
     const res = await axios.post(baseURL, {
       orderStart,
@@ -31,6 +33,8 @@ class OrderService {
       selectedFlowers,
       discounts,
       actionHistory,
+      amountPaid,
+      change,
     });
     return res.data;
   }

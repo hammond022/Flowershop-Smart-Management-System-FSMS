@@ -229,6 +229,7 @@ function resetOrder() {
   order.actionHistory = [];
   selectedFlowers.value = [];
   discounts.value = [];
+  amountPaid.value = 0;
 }
 
 function voidOrder() {
@@ -267,6 +268,11 @@ async function confirmCheckout() {
       return;
     }
 
+    if (amountPaid.value < totalAfterDiscount.value) {
+      showToast("warning", "Insufficient payment amount!");
+      return;
+    }
+    
     await OrderService.createOrder({
       orderStart: order.orderStart,
       orderEnd: new Date().toISOString(),
@@ -388,6 +394,14 @@ onMounted(async () => {
   });
   await getDraftOrders();
   await loadItems();
+});
+
+const amountPaid = ref(0);
+
+const change = computed(() => {
+  return amountPaid.value > 0
+    ? Math.max(amountPaid.value - totalAfterDiscount.value, 0)
+    : 0;
 });
 </script>
 
@@ -857,6 +871,25 @@ onMounted(async () => {
               Bank Transfer/E-Wallet
             </label>
           </div>
+          <label for="amountPaid" class="form-label">Amount Paid</label>
+            <input
+              id="amountPaid"
+              type="number"
+              class="form-control mb-2"
+              v-model.number="amountPaid"
+              :min="totalAfterDiscount"
+              :placeholder="`₱${totalAfterDiscount}`"
+            />
+
+            <div v-if="amountPaid > 0" class="mt-2">
+              <label class="form-label fw-bold">Change:</label>
+              <div
+                class="form-control bg-light text-success fw-bold"
+                readonly
+              >
+                ₱{{ change }}
+              </div>
+            </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
