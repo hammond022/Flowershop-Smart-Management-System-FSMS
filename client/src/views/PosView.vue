@@ -10,7 +10,6 @@ import BottomBar from "@/components/POS/BottomBar.vue";
 import Draft from "@/components/POS/Draft.vue";
 import OrderService from "@/router/api/ordersService";
 import ItemService from "@/router/api/itemsService"; // ✅ Add this
-
 // import QuantityAdjuster from "@/components/QuantityAdjuster.vue";
 
 // currently not using the selectedFlowers here,
@@ -30,6 +29,8 @@ const order = reactive({
   actionHistory: [],
   draftTitle: "",
   mop: "cash",
+  amountPaid: 0,
+  change: 0,
 });
 const selectedFlowers = ref([]);
 function onFlowerSelect(flower) {
@@ -229,7 +230,8 @@ function resetOrder() {
   order.actionHistory = [];
   selectedFlowers.value = [];
   discounts.value = [];
-  amountPaid.value = 0;
+  order.amountPaid = 0;
+  change.value = 0;
 }
 
 function voidOrder() {
@@ -248,6 +250,8 @@ async function confirmAsDraft() {
       actionHistory: [...order.actionHistory, order.draftTitle],
       discounts: discounts.value.map((d) => ({ ...d })),
       total: totalAfterDiscount.value,
+      amountPaid: order.amountPaid,
+      change: change.value,
     });
     await getDraftOrders();
     showToast("success", "Order saved as draft!");
@@ -282,6 +286,8 @@ async function confirmCheckout() {
       discounts: discounts.value.map((d) => ({ ...d })),
       total: totalAfterDiscount.value,
       actionHistory: order.actionHistory,
+      amountPaid: order.amountPaid,
+      change: change.value,
     });
 
     // stock update
@@ -396,11 +402,9 @@ onMounted(async () => {
   await loadItems();
 });
 
-const amountPaid = ref(0);
-
 const change = computed(() => {
-  return amountPaid.value > 0
-    ? Math.max(amountPaid.value - totalAfterDiscount.value, 0)
+  return order.amountPaid > 0
+    ? Math.max(order.amountPaid - totalAfterDiscount.value, 0)
     : 0;
 });
 </script>
@@ -876,12 +880,12 @@ const change = computed(() => {
               id="amountPaid"
               type="number"
               class="form-control mb-2"
-              v-model.number="amountPaid"
+              v-model.number="order.amountPaid"
               :min="totalAfterDiscount"
               :placeholder="`₱${totalAfterDiscount}`"
             />
 
-            <div v-if="amountPaid > 0" class="mt-2">
+            <div v-if="order.amountPaid > 0" class="mt-2">
               <label class="form-label fw-bold">Change:</label>
               <div
                 class="form-control bg-light text-success fw-bold"

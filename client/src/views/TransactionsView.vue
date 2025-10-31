@@ -173,6 +173,8 @@ onMounted(() => {
           <tr>
             <th>ID</th>
             <th>Payment</th>
+            <th>Amount Paid</th>
+            <th>Change</th>  
             <th>Items</th>
             <th>Status</th>
             <th>Total</th>
@@ -195,6 +197,12 @@ onMounted(() => {
               {{
                 tx.mop ? tx.mop.charAt(0).toUpperCase() + tx.mop.slice(1) : "—"
               }}
+            </td>
+            <td>
+              ₱{{ tx.amountPaid}}
+            </td>
+            <td>
+              ₱{{ tx.change}}
             </td>
             <td>
               {{
