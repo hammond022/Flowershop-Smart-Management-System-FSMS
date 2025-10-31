@@ -1,0 +1,3938 @@
+[
+  {
+    "id": "ecstatic_sunburst",
+    "name": "Ecstatic Sunburst",
+    "theme_tags": [
+      "happy",
+      "fun",
+      "yellow",
+      "bright",
+      "celebration",
+      "summer",
+      "joy",
+      "energy"
+    ],
+    "items": [
+      { "name": "Sunflower", "qty": 5 },
+      { "name": "Yellow Gerbera Daisy", "qty": 7 },
+      { "name": "Solidago", "qty": 5 }
+    ],
+    "popularity": 0.8
+  },
+  {
+    "id": "passionate_embers",
+    "name": "Passionate Embers",
+    "theme_tags": [
+      "red",
+      "romantic",
+      "love",
+      "passion",
+      "desire",
+      "valentine",
+      "anniversary",
+      "deep"
+    ],
+    "items": [
+      { "name": "Red Rose", "qty": 12 },
+      { "name": "Red Tulip", "qty": 6 },
+      { "name": "Amaranthus", "qty": 3 }
+    ],
+    "popularity": 0.9
+  },
+  {
+    "id": "tranquil_azure_dream",
+    "name": "Tranquil Azure Dream",
+    "theme_tags": [
+      "blue",
+      "calm",
+      "peaceful",
+      "serene",
+      "relaxing",
+      "sympathy",
+      "get well",
+      "cool"
+    ],
+    "items": [
+      { "name": "Blue Delphinium", "qty": 7 },
+      { "name": "Hyacinth", "qty": 4 },
+      { "name": "White Lisianthus", "qty": 5 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "vibrant_meadow_magic",
+    "name": "Vibrant Meadow Magic",
+    "theme_tags": [
+      "fun",
+      "happy",
+      "colorful",
+      "mixed",
+      "birthday",
+      "friendship",
+      "cheerful",
+      "bright"
+    ],
+    "items": [
+      { "name": "Pink Gerbera Daisy", "qty": 3 },
+      { "name": "Orange Rose", "qty": 4 },
+      { "name": "Purple Statice", "qty": 4 },
+      { "name": "Yellow Freesia", "qty": 5 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "enchanted_forest",
+    "name": "Enchanted Forest",
+    "theme_tags": [
+      "green",
+      "natural",
+      "organic",
+      "peaceful",
+      "earthy",
+      "home",
+      "office",
+      "fresh"
+    ],
+    "items": [
+      { "name": "Bells of Ireland", "qty": 7 },
+      { "name": "Green Chrysanthemum", "qty": 5 },
+      { "name": "Eucalyptus", "qty": 5 },
+      { "name": "Ruscus", "qty": 4 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "birthday_fiesta",
+    "name": "Birthday Fiesta",
+    "theme_tags": [
+      "birthday",
+      "fun",
+      "happy",
+      "celebration",
+      "colorful",
+      "party",
+      "joy",
+      "surprise"
+    ],
+    "items": [
+      { "name": "Rainbow Carnations", "qty": 12 },
+      { "name": "Pink Alstroemeria", "qty": 6 },
+      { "name": "Blue Iris", "qty": 4 }
+    ],
+    "popularity": 0.85
+  },
+  {
+    "id": "velvet_night",
+    "name": "Velvet Night",
+    "theme_tags": [
+      "purple",
+      "mysterious",
+      "royal",
+      "luxury",
+      "elegant",
+      "dramatic",
+      "deep",
+      "unique"
+    ],
+    "items": [
+      { "name": "Purple Lisianthus", "qty": 5 },
+      { "name": "Dark Purple Carnation", "qty": 8 },
+      { "name": "Aster", "qty": 5 },
+      { "name": "Silver Brunia", "qty": 3 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "blushing_promise",
+    "name": "Blushing Promise",
+    "theme_tags": [
+      "pink",
+      "romantic",
+      "gentle",
+      "appreciation",
+      "mother",
+      "daughter",
+      "grace",
+      "happy"
+    ],
+    "items": [
+      { "name": "Pink Rose", "qty": 9 },
+      { "name": "Light Pink Tulip", "qty": 5 },
+      { "name": "Peony", "qty": 3 }
+    ],
+    "popularity": 0.75
+  },
+  {
+    "id": "fiery_zest",
+    "name": "Fiery Zest",
+    "theme_tags": [
+      "orange",
+      "energy",
+      "enthusiasm",
+      "fun",
+      "bright",
+      "autumn",
+      "warm",
+      "creative"
+    ],
+    "items": [
+      { "name": "Orange Lily", "qty": 4 },
+      { "name": "Orange Gerbera Daisy", "qty": 5 },
+      { "name": "Bird of Paradise", "qty": 2 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "pure_innocence",
+    "name": "Pure Innocence",
+    "theme_tags": [
+      "white",
+      "pure",
+      "wedding",
+      "sympathy",
+      "peaceful",
+      "clean",
+      "angelic",
+      "graceful"
+    ],
+    "items": [
+      { "name": "White Lily", "qty": 3 },
+      { "name": "White Rose", "qty": 8 },
+      { "name": "Baby's Breath", "qty": 4 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "get_well_rainbow",
+    "name": "Get Well Rainbow",
+    "theme_tags": [
+      "get well",
+      "happy",
+      "colorful",
+      "cheerful",
+      "bright",
+      "healing",
+      "friendship",
+      "fun"
+    ],
+    "items": [
+      { "name": "Yellow Rose", "qty": 3 },
+      { "name": "Pink Carnation", "qty": 5 },
+      { "name": "Blue Cornflower", "qty": 4 },
+      { "name": "Lavender", "qty": 3 }
+    ],
+    "popularity": 0.65
+  },
+  {
+    "id": "sunny_disposition",
+    "name": "Sunny Disposition",
+    "theme_tags": [
+      "happy",
+      "yellow",
+      "bright",
+      "joy",
+      "friendship",
+      "congratulations",
+      "summer",
+      "fun"
+    ],
+    "items": [
+      { "name": "Yellow Gerbera Daisy", "qty": 6 },
+      { "name": "Yellow Tulip", "qty": 6 },
+      { "name": "Sunflower", "qty": 2 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "thankful_heart",
+    "name": "Thankful Heart",
+    "theme_tags": [
+      "gratitude",
+      "pink",
+      "yellow",
+      "happy",
+      "appreciation",
+      "thanks",
+      "warm",
+      "friendship"
+    ],
+    "items": [
+      { "name": "Pink Rose", "qty": 5 },
+      { "name": "Yellow Alstroemeria", "qty": 7 },
+      { "name": "Pink Carnation", "qty": 5 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "ocean_whisper",
+    "name": "Ocean Whisper",
+    "theme_tags": [
+      "blue",
+      "white",
+      "calm",
+      "serene",
+      "peaceful",
+      "sympathy",
+      "cool",
+      "tranquil"
+    ],
+    "items": [
+      { "name": "White Hydrangea", "qty": 2 },
+      { "name": "Blue Thistle", "qty": 5 },
+      { "name": "White Ranunculus", "qty": 6 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "berry_delight",
+    "name": "Berry Delight",
+    "theme_tags": [
+      "purple",
+      "pink",
+      "fun",
+      "happy",
+      "birthday",
+      "feminine",
+      "sweet",
+      "berry"
+    ],
+    "items": [
+      { "name": "Purple Alstroemeria", "qty": 7 },
+      { "name": "Pink Spray Rose", "qty": 8 },
+      { "name": "Hypericum Berries", "qty": 4 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "autumn_glow",
+    "name": "Autumn Glow",
+    "theme_tags": [
+      "orange",
+      "red",
+      "yellow",
+      "autumn",
+      "warm",
+      "cozy",
+      "thanksgiving",
+      "rustic"
+    ],
+    "items": [
+      { "name": "Orange Rose", "qty": 4 },
+      { "name": "Red Chrysanthemum", "qty": 5 },
+      { "name": "Yellow Maple Leaves", "qty": 3 },
+      { "name": "Orange Tulip", "qty": 4 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "spring_awakening",
+    "name": "Spring Awakening",
+    "theme_tags": [
+      "pink",
+      "white",
+      "green",
+      "spring",
+      "fresh",
+      "new",
+      "birth",
+      "happy"
+    ],
+    "items": [
+      { "name": "Pink Peony", "qty": 4 },
+      { "name": "White Freesia", "qty": 6 },
+      { "name": "Sprengeri Fern", "qty": 5 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "midnight_mystique",
+    "name": "Midnight Mystique",
+    "theme_tags": [
+      "purple",
+      "blue",
+      "dark",
+      "dramatic",
+      "mysterious",
+      "unique",
+      "luxury",
+      "night"
+    ],
+    "items": [
+      { "name": "Black Magic Rose", "qty": 6 },
+      { "name": "Purple Anemone", "qty": 5 },
+      { "name": "Blue Iris", "qty": 4 },
+      { "name": "Dark Scabiosa", "qty": 3 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "cotton_candy_clouds",
+    "name": "Cotton Candy Clouds",
+    "theme_tags": [
+      "pink",
+      "white",
+      "soft",
+      "sweet",
+      "fun",
+      "birthday",
+      "feminine",
+      "dreamy"
+    ],
+    "items": [
+      { "name": "Pink Carnation", "qty": 9 },
+      { "name": "White Daisy", "qty": 7 },
+      { "name": "Pink Astilbe", "qty": 4 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "citrus_splash",
+    "name": "Citrus Splash",
+    "theme_tags": [
+      "orange",
+      "yellow",
+      "green",
+      "energetic",
+      "fresh",
+      "fun",
+      "summer",
+      "bright"
+    ],
+    "items": [
+      { "name": "Orange Gerbera Daisy", "qty": 5 },
+      { "name": "Yellow Lily", "qty": 3 },
+      { "name": "Bells of Ireland", "qty": 4 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "congratulations_champ",
+    "name": "Congratulations Champ",
+    "theme_tags": [
+      "yellow",
+      "red",
+      "blue",
+      "congratulations",
+      "achievement",
+      "pride",
+      "victory",
+      "happy"
+    ],
+    "items": [
+      { "name": "Yellow Rose", "qty": 6 },
+      { "name": "Red Gerbera Daisy", "qty": 4 },
+      { "name": "Blue Delphinium", "qty": 3 }
+    ],
+    "popularity": 0.65
+  },
+  {
+    "id": "sympathy_peace",
+    "name": "Sympathy Peace",
+    "theme_tags": [
+      "white",
+      "green",
+      "sympathy",
+      "peaceful",
+      "calm",
+      "serene",
+      "funeral",
+      "respect"
+    ],
+    "items": [
+      { "name": "White Lily", "qty": 2 },
+      { "name": "White Carnation", "qty": 8 },
+      { "name": "Eucalyptus", "qty": 4 },
+      { "name": "Ruscus", "qty": 3 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "festive_cheer",
+    "name": "Festive Cheer",
+    "theme_tags": [
+      "red",
+      "green",
+      "white",
+      "christmas",
+      "holiday",
+      "festive",
+      "celebration",
+      "warm"
+    ],
+    "items": [
+      { "name": "Red Amaryllis", "qty": 3 },
+      { "name": "White Chrysanthemum", "qty": 5 },
+      { "name": "Pine Sprigs", "qty": 4 },
+      { "name": "Holly Berries", "qty": 5 }
+    ],
+    "popularity": 0.75
+  },
+  {
+    "id": "new_baby_bliss",
+    "name": "New Baby Bliss",
+    "theme_tags": [
+      "pink",
+      "blue",
+      "white",
+      "baby",
+      "new",
+      "soft",
+      "gentle",
+      "congratulations"
+    ],
+    "items": [
+      { "name": "Pink Rose", "qty": 4 },
+      { "name": "Blue Hydrangea", "qty": 2 },
+      { "name": "White Freesia", "qty": 6 },
+      { "name": "Gypsophila", "qty": 3 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "friendship_forever",
+    "name": "Friendship Forever",
+    "theme_tags": [
+      "yellow",
+      "pink",
+      "friendship",
+      "happy",
+      "fun",
+      "appreciation",
+      "joy",
+      "mixed"
+    ],
+    "items": [
+      { "name": "Yellow Rose", "qty": 5 },
+      { "name": "Pink Alstroemeria", "qty": 7 },
+      { "name": "Yellow Daisy", "qty": 5 }
+    ],
+    "popularity": 0.8
+  },
+  {
+    "id": "winter_elegance",
+    "name": "Winter Elegance",
+    "theme_tags": [
+      "white",
+      "silver",
+      "blue",
+      "winter",
+      "cool",
+      "elegant",
+      "peaceful",
+      "christmas"
+    ],
+    "items": [
+      { "name": "White Rose", "qty": 8 },
+      { "name": "White Ranunculus", "qty": 5 },
+      { "name": "Eucalyptus", "qty": 4 },
+      { "name": "Silver Dollar Eucalyptus", "qty": 3 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "summer_sorbet",
+    "name": "Summer Sorbet",
+    "theme_tags": [
+      "pink",
+      "orange",
+      "yellow",
+      "summer",
+      "fun",
+      "bright",
+      "happy",
+      "vibrant"
+    ],
+    "items": [
+      { "name": "Pink Gerbera Daisy", "qty": 4 },
+      { "name": "Orange Tulip", "qty": 5 },
+      { "name": "Yellow Ranunculus", "qty": 5 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "royal_majesty",
+    "name": "Royal Majesty",
+    "theme_tags": [
+      "purple",
+      "white",
+      "luxury",
+      "elegant",
+      "royal",
+      "majestic",
+      "formal",
+      "dignified"
+    ],
+    "items": [
+      { "name": "Purple Orchid", "qty": 3 },
+      { "name": "White Calla Lily", "qty": 4 },
+      { "name": "Purple Lisianthus", "qty": 6 }
+    ],
+    "popularity": 0.45
+  },
+  {
+    "id": "thinking_of_you",
+    "name": "Thinking of You",
+    "theme_tags": [
+      "pink",
+      "lavender",
+      "soft",
+      "gentle",
+      "caring",
+      "friendship",
+      "romantic",
+      "thoughtful"
+    ],
+    "items": [
+      { "name": "Lavender Rose", "qty": 7 },
+      { "name": "Pink Stock", "qty": 5 },
+      { "name": "Lisianthus", "qty": 4 }
+    ],
+    "popularity": 0.65
+  },
+  {
+    "id": "secret_admirer",
+    "name": "Secret Admirer",
+    "theme_tags": [
+      "red",
+      "pink",
+      "romantic",
+      "mysterious",
+      "love",
+      "passion",
+      "secret",
+      "intriguing"
+    ],
+    "items": [
+      { "name": "Red Rose", "qty": 1 },
+      { "name": "Pink Peony", "qty": 3 },
+      { "name": "Amaranthus", "qty": 2 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "corporate_triumph",
+    "name": "Corporate Triumph",
+    "theme_tags": [
+      "white",
+      "green",
+      "blue",
+      "corporate",
+      "congratulations",
+      "professional",
+      "success",
+      "elegant"
+    ],
+    "items": [
+      { "name": "White Rose", "qty": 7 },
+      { "name": "Green Trick Dianthus", "qty": 3 },
+      { "name": "Blue Thistle", "qty": 4 },
+      { "name": "Leather Leaf", "qty": 5 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "garden_party",
+    "name": "Garden Party",
+    "theme_tags": [
+      "pink",
+      "yellow",
+      "white",
+      "garden",
+      "fresh",
+      "happy",
+      "outdoor",
+      "spring"
+    ],
+    "items": [
+      { "name": "Pink Dahlia", "qty": 3 },
+      { "name": "Yellow Ranunculus", "qty": 5 },
+      { "name": "White Alyssum", "qty": 4 },
+      { "name": "Lavender", "qty": 3 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "tropical_paradise",
+    "name": "Tropical Paradise",
+    "theme_tags": [
+      "orange",
+      "red",
+      "pink",
+      "tropical",
+      "exotic",
+      "vacation",
+      "bold",
+      "fun"
+    ],
+    "items": [
+      { "name": "Bird of Paradise", "qty": 2 },
+      { "name": "Red Ginger", "qty": 3 },
+      { "name": "Orange Heliconia", "qty": 2 },
+      { "name": "Anthurium", "qty": 4 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "vintage_charm",
+    "name": "Vintage Charm",
+    "theme_tags": [
+      "pink",
+      "peach",
+      "cream",
+      "vintage",
+      "romantic",
+      "soft",
+      "nostalgic",
+      "elegant"
+    ],
+    "items": [
+      { "name": "Peach Rose", "qty": 6 },
+      { "name": "Cream Ranunculus", "qty": 5 },
+      { "name": "Pink Stock", "qty": 4 },
+      { "name": "Dusty Miller", "qty": 3 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "dramatic_desire",
+    "name": "Dramatic Desire",
+    "theme_tags": [
+      "red",
+      "black",
+      "dramatic",
+      "passionate",
+      "intense",
+      "romantic",
+      "luxury",
+      "bold"
+    ],
+    "items": [
+      { "name": "Black Baccara Rose", "qty": 8 },
+      { "name": "Red Calla Lily", "qty": 3 },
+      { "name": "Black Scabiosa", "qty": 4 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "morning_dew",
+    "name": "Morning Dew",
+    "theme_tags": [
+      "white",
+      "green",
+      "fresh",
+      "morning",
+      "pure",
+      "calm",
+      "serene",
+      "new"
+    ],
+    "items": [
+      { "name": "White Hydrangea", "qty": 1 },
+      { "name": "White Lisianthus", "qty": 7 },
+      { "name": "Ferns", "qty": 5 },
+      { "name": "Eucalyptus", "qty": 3 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "celebrate_success",
+    "name": "Celebrate Success",
+    "theme_tags": [
+      "yellow",
+      "orange",
+      "red",
+      "congratulations",
+      "achievement",
+      "happy",
+      "pride",
+      "victory"
+    ],
+    "items": [
+      { "name": "Yellow Lily", "qty": 4 },
+      { "name": "Orange Rose", "qty": 5 },
+      { "name": "Red Gerbera Daisy", "qty": 4 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "serene_sympathy",
+    "name": "Serene Sympathy",
+    "theme_tags": [
+      "lavender",
+      "white",
+      "sympathy",
+      "peace",
+      "calm",
+      "serene",
+      "respectful",
+      "gentle"
+    ],
+    "items": [
+      { "name": "Lavender Carnation", "qty": 8 },
+      { "name": "White Rose", "qty": 6 },
+      { "name": "Lisianthus", "qty": 4 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "wildflower_whimsy",
+    "name": "Wildflower Whimsy",
+    "theme_tags": [
+      "mixed",
+      "colorful",
+      "fun",
+      "free",
+      "happy",
+      "bohemian",
+      "garden",
+      "summer"
+    ],
+    "items": [
+      { "name": "Assorted Wildflowers", "qty": 15 },
+      { "name": "Lavender", "qty": 3 },
+      { "name": "Daisy", "qty": 5 }
+    ],
+    "popularity": 0.65
+  },
+  {
+    "id": "grand_gesture",
+    "name": "Grand Gesture",
+    "theme_tags": [
+      "red",
+      "romantic",
+      "luxury",
+      "love",
+      "anniversary",
+      "proposal",
+      "dramatic",
+      "dozen"
+    ],
+    "items": [
+      { "name": "Red Rose", "qty": 24 },
+      { "name": "Leather Leaf", "qty": 10 }
+    ],
+    "popularity": 0.8
+  },
+  {
+    "id": "pink_perfection",
+    "name": "Pink Perfection",
+    "theme_tags": [
+      "pink",
+      "elegant",
+      "feminine",
+      "mothers day",
+      "birthday",
+      "graceful",
+      "soft",
+      "happy"
+    ],
+    "items": [
+      { "name": "Pink Lily", "qty": 3 },
+      { "name": "Pink Rose", "qty": 9 },
+      { "name": "Pink Carnation", "qty": 6 }
+    ],
+    "popularity": 0.75
+  },
+  {
+    "id": "blue_horizon",
+    "name": "Blue Horizon",
+    "theme_tags": [
+      "blue",
+      "white",
+      "calm",
+      "hopeful",
+      "serene",
+      "peaceful",
+      "sympathy",
+      "get well"
+    ],
+    "items": [
+      { "name": "Blue Hydrangea", "qty": 2 },
+      { "name": "White Lisianthus", "qty": 7 },
+      { "name": "Blue Iris", "qty": 5 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "harvest_blessings",
+    "name": "Harvest Blessings",
+    "theme_tags": [
+      "orange",
+      "yellow",
+      "red",
+      "thanksgiving",
+      "autumn",
+      "warm",
+      "bountiful",
+      "gratitude"
+    ],
+    "items": [
+      { "name": "Orange Lily", "qty": 3 },
+      { "name": "Yellow Chrysanthemum", "qty": 5 },
+      { "name": "Red Oak Leaves", "qty": 4 },
+      { "name": "Wheat Stalks", "qty": 3 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "pretty_in_pastels",
+    "name": "Pretty in Pastels",
+    "theme_tags": [
+      "pink",
+      "lavender",
+      "peach",
+      "soft",
+      "gentle",
+      "spring",
+      "baby",
+      "shower"
+    ],
+    "items": [
+      { "name": "Peach Rose", "qty": 5 },
+      { "name": "Lavender Alstroemeria", "qty": 6 },
+      { "name": "Pink Tulip", "qty": 5 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "sunny_side_up",
+    "name": "Sunny Side Up",
+    "theme_tags": [
+      "yellow",
+      "happy",
+      "fun",
+      "cheerful",
+      "get well",
+      "friendship",
+      "morning",
+      "bright"
+    ],
+    "items": [
+      { "name": "Sunflower", "qty": 3 },
+      { "name": "Yellow Gerbera Daisy", "qty": 5 },
+      { "name": "Yellow Tulip", "qty": 6 }
+    ],
+    "popularity": 0.8
+  },
+  {
+    "id": "fire_and_ice",
+    "name": "Fire and Ice",
+    "theme_tags": [
+      "red",
+      "white",
+      "dramatic",
+      "contrast",
+      "passionate",
+      "elegant",
+      "romantic",
+      "modern"
+    ],
+    "items": [
+      { "name": "Red Rose", "qty": 7 },
+      { "name": "White Ranunculus", "qty": 7 },
+      { "name": "Red Anemone", "qty": 4 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "fragrant_escape",
+    "name": "Fragrant Escape",
+    "theme_tags": [
+      "lavender",
+      "purple",
+      "relaxing",
+      "aromatic",
+      "calm",
+      "peaceful",
+      "spa",
+      "serene"
+    ],
+    "items": [
+      { "name": "Lavender", "qty": 10 },
+      { "name": "Purple Stock", "qty": 5 },
+      { "name": "Eucalyptus", "qty": 3 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "mothers_love",
+    "name": "Mother's Love",
+    "theme_tags": [
+      "pink",
+      "white",
+      "mother",
+      "love",
+      "appreciation",
+      "gentle",
+      "caring",
+      "family"
+    ],
+    "items": [
+      { "name": "Pink Carnation", "qty": 9 },
+      { "name": "White Rose", "qty": 6 },
+      { "name": "Gypsophila", "qty": 4 }
+    ],
+    "popularity": 0.9
+  },
+  {
+    "id": "bold_and_beautiful",
+    "name": "Bold and Beautiful",
+    "theme_tags": [
+      "red",
+      "orange",
+      "yellow",
+      "bold",
+      "vibrant",
+      "energy",
+      "confidence",
+      "happy"
+    ],
+    "items": [
+      { "name": "Red Gerbera Daisy", "qty": 5 },
+      { "name": "Orange Tulip", "qty": 6 },
+      { "name": "Yellow Lily", "qty": 3 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "warm_wishes",
+    "name": "Warm Wishes",
+    "theme_tags": [
+      "peach",
+      "yellow",
+      "orange",
+      "warm",
+      "friendly",
+      "get well",
+      "happy",
+      "cozy"
+    ],
+    "items": [
+      { "name": "Peach Rose", "qty": 6 },
+      { "name": "Yellow Alstroemeria", "qty": 7 },
+      { "name": "Orange Carnation", "qty": 5 }
+    ],
+    "popularity": 0.65
+  },
+  {
+    "id": "cool_breeze",
+    "name": "Cool Breeze",
+    "theme_tags": [
+      "blue",
+      "white",
+      "green",
+      "cool",
+      "refreshing",
+      "calm",
+      "serene",
+      "summer"
+    ],
+    "items": [
+      { "name": "Blue Hydrangea", "qty": 2 },
+      { "name": "White Freesia", "qty": 7 },
+      { "name": "Eucalyptus", "qty": 4 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "party_time",
+    "name": "Party Time!",
+    "theme_tags": [
+      "colorful",
+      "mixed",
+      "fun",
+      "birthday",
+      "celebration",
+      "happy",
+      "festive",
+      "joy"
+    ],
+    "items": [
+      { "name": "Rainbow Gerbera Daisies", "qty": 9 },
+      { "name": "Pink Carnation", "qty": 6 },
+      { "name": "Blue Iris", "qty": 3 }
+    ],
+    "popularity": 0.85
+  },
+  {
+    "id": "forever_yours",
+    "name": "Forever Yours",
+    "theme_tags": [
+      "red",
+      "white",
+      "romantic",
+      "anniversary",
+      "eternal",
+      "love",
+      "commitment",
+      "elegant"
+    ],
+    "items": [
+      { "name": "Red Rose", "qty": 12 },
+      { "name": "White Rose", "qty": 12 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "spring_cheer",
+    "name": "Spring Cheer",
+    "theme_tags": [
+      "yellow",
+      "pink",
+      "purple",
+      "spring",
+      "happy",
+      "fresh",
+      "renewal",
+      "fun"
+    ],
+    "items": [
+      { "name": "Yellow Tulip", "qty": 6 },
+      { "name": "Pink Hyacinth", "qty": 4 },
+      { "name": "Purple Iris", "qty": 5 }
+    ],
+    "popularity": 0.75
+  },
+  {
+    "id": "gentle_thoughts",
+    "name": "Gentle Thoughts",
+    "theme_tags": [
+      "lavender",
+      "pink",
+      "soft",
+      "gentle",
+      "thinking of you",
+      "sympathy",
+      "caring",
+      "peaceful"
+    ],
+    "items": [
+      { "name": "Lavender Rose", "qty": 6 },
+      { "name": "Pink Lisianthus", "qty": 5 },
+      { "name": "White Alstroemeria", "qty": 5 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "patriotic_pride",
+    "name": "Patriotic Pride",
+    "theme_tags": [
+      "red",
+      "white",
+      "blue",
+      "patriotic",
+      "fourth of july",
+      "america",
+      "celebration",
+      "bold"
+    ],
+    "items": [
+      { "name": "Red Rose", "qty": 5 },
+      { "name": "White Carnation", "qty": 7 },
+      { "name": "Blue Delphinium", "qty": 4 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "rustic_charm",
+    "name": "Rustic Charm",
+    "theme_tags": [
+      "orange",
+      "yellow",
+      "green",
+      "rustic",
+      "country",
+      "earthy",
+      "natural",
+      "autumn"
+    ],
+    "items": [
+      { "name": "Orange Spray Rose", "qty": 8 },
+      { "name": "Yellow Button Pom", "qty": 6 },
+      { "name": "Eucalyptus", "qty": 5 },
+      { "name": "Wheat", "qty": 3 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "mystic_orchid",
+    "name": "Mystic Orchid",
+    "theme_tags": [
+      "purple",
+      "white",
+      "exotic",
+      "mysterious",
+      "elegant",
+      "unique",
+      "luxury",
+      "tropical"
+    ],
+    "items": [
+      { "name": "Purple Orchid", "qty": 4 },
+      { "name": "White Phalaenopsis", "qty": 2 },
+      { "name": "Monstera Leaf", "qty": 2 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "happy_anniversary",
+    "name": "Happy Anniversary",
+    "theme_tags": [
+      "red",
+      "pink",
+      "white",
+      "anniversary",
+      "romantic",
+      "celebration",
+      "love",
+      "happy"
+    ],
+    "items": [
+      { "name": "Red Rose", "qty": 6 },
+      { "name": "Pink Lily", "qty": 3 },
+      { "name": "White Freesia", "qty": 6 }
+    ],
+    "popularity": 0.8
+  },
+  {
+    "id": "fields_of_france",
+    "name": "Fields of France",
+    "theme_tags": [
+      "purple",
+      "white",
+      "lavender",
+      "provence",
+      "romantic",
+      "elegant",
+      "aromatic",
+      "country"
+    ],
+    "items": [
+      { "name": "Lavender", "qty": 8 },
+      { "name": "White Ranunculus", "qty": 5 },
+      { "name": "Purple Statice", "qty": 4 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "healing_vibes",
+    "name": "Healing Vibes",
+    "theme_tags": [
+      "green",
+      "white",
+      "get well",
+      "healing",
+      "peaceful",
+      "calm",
+      "serene",
+      "healthy"
+    ],
+    "items": [
+      { "name": "Green Chrysanthemum", "qty": 6 },
+      { "name": "White Rose", "qty": 5 },
+      { "name": "Ferns", "qty": 5 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "celebrity_status",
+    "name": "Celebrity Status",
+    "theme_tags": [
+      "red",
+      "white",
+      "luxury",
+      "elegant",
+      "dramatic",
+      "awards",
+      "congratulations",
+      "fame"
+    ],
+    "items": [
+      { "name": "Red Rose", "qty": 18 },
+      { "name": "White Calla Lily", "qty": 4 },
+      { "name": "Bear Grass", "qty": 5 }
+    ],
+    "popularity": 0.3
+  },
+  {
+    "id": "cozy_comfort",
+    "name": "Cozy Comfort",
+    "theme_tags": [
+      "peach",
+      "cream",
+      "orange",
+      "warm",
+      "cozy",
+      "comforting",
+      "autumn",
+      "home"
+    ],
+    "items": [
+      { "name": "Peach Carnation", "qty": 8 },
+      { "name": "Cream Rose", "qty": 6 },
+      { "name": "Orange Alstroemeria", "qty": 5 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "rainbow_connection",
+    "name": "Rainbow Connection",
+    "theme_tags": [
+      "red",
+      "orange",
+      "yellow",
+      "green",
+      "blue",
+      "purple",
+      "rainbow",
+      "lgbtq",
+      "pride",
+      "happy"
+    ],
+    "items": [
+      { "name": "Red Rose", "qty": 3 },
+      { "name": "Orange Tulip", "qty": 3 },
+      { "name": "Yellow Gerbera Daisy", "qty": 3 },
+      { "name": "Green Chrysanthemum", "qty": 3 },
+      { "name": "Blue Iris", "qty": 3 },
+      { "name": "Purple Lisianthus", "qty": 3 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "first_date",
+    "name": "First Date",
+    "theme_tags": [
+      "pink",
+      "lavender",
+      "romantic",
+      "soft",
+      "sweet",
+      "nervous",
+      "hopeful",
+      "gentle"
+    ],
+    "items": [
+      { "name": "Pink Rose", "qty": 4 },
+      { "name": "Lavender Alstroemeria", "qty": 5 },
+      { "name": "Gypsophila", "qty": 3 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "deepest_sympathy",
+    "name": "Deepest Sympathy",
+    "theme_tags": [
+      "white",
+      "purple",
+      "sympathy",
+      "funeral",
+      "respect",
+      "peace",
+      "calm",
+      "serene"
+    ],
+    "items": [
+      { "name": "White Lily", "qty": 2 },
+      { "name": "Purple Iris", "qty": 5 },
+      { "name": "White Carnation", "qty": 7 }
+    ],
+    "popularity": 0.65
+  },
+  {
+    "id": "just_because_smile",
+    "name": "Just Because Smile",
+    "theme_tags": [
+      "yellow",
+      "pink",
+      "happy",
+      "fun",
+      "friendship",
+      "surprise",
+      "cheerful",
+      "no reason"
+    ],
+    "items": [
+      { "name": "Sunflower", "qty": 2 },
+      { "name": "Pink Gerbera Daisy", "qty": 4 },
+      { "name": "Yellow Daisy", "qty": 6 }
+    ],
+    "popularity": 0.8
+  },
+  {
+    "id": "ivory_tower",
+    "name": "Ivory Tower",
+    "theme_tags": [
+      "white",
+      "cream",
+      "elegant",
+      "wedding",
+      "formal",
+      "sophisticated",
+      "pure",
+      "tall"
+    ],
+    "items": [
+      { "name": "White Rose", "qty": 15 },
+      { "name": "Cream Lisianthus", "qty": 7 },
+      { "name": "White Hydrangea", "qty": 1 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "pops_of_color",
+    "name": "Pops of Color",
+    "theme_tags": [
+      "red",
+      "blue",
+      "yellow",
+      "colorful",
+      "fun",
+      "modern",
+      "happy",
+      "eclectic"
+    ],
+    "items": [
+      { "name": "Red Anemone", "qty": 5 },
+      { "name": "Blue Cornflower", "qty": 5 },
+      { "name": "Yellow Ranunculus", "qty": 5 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "thank_you_teacher",
+    "name": "Thank You, Teacher",
+    "theme_tags": [
+      "yellow",
+      "red",
+      "blue",
+      "appreciation",
+      "thank you",
+      "bright",
+      "happy",
+      "gratitude"
+    ],
+    "items": [
+      { "name": "Yellow Rose", "qty": 4 },
+      { "name": "Red Gerbera Daisy", "qty": 4 },
+      { "name": "Blue Iris", "qty": 4 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "bridal_bliss",
+    "name": "Bridal Bliss",
+    "theme_tags": [
+      "white",
+      "ivory",
+      "wedding",
+      "romantic",
+      "elegant",
+      "pure",
+      "bridal",
+      "ceremony"
+    ],
+    "items": [
+      { "name": "White Peony", "qty": 4 },
+      { "name": "Ivory Rose", "qty": 8 },
+      { "name": "Stephanotis", "qty": 10 }
+    ],
+    "popularity": 0.75
+  },
+  {
+    "id": "welcome_home",
+    "name": "Welcome Home",
+    "theme_tags": [
+      "yellow",
+      "orange",
+      "green",
+      "welcome",
+      "warm",
+      "happy",
+      "new home",
+      "cozy"
+    ],
+    "items": [
+      { "name": "Sunflower", "qty": 3 },
+      { "name": "Orange Carnation", "qty": 7 },
+      { "name": "Eucalyptus", "qty": 4 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "sweet_sixteen",
+    "name": "Sweet Sixteen",
+    "theme_tags": [
+      "pink",
+      "purple",
+      "fun",
+      "birthday",
+      "teen",
+      "happy",
+      "youthful",
+      "celebration"
+    ],
+    "items": [
+      { "name": "Pink Rose", "qty": 6 },
+      { "name": "Purple Alstroemeria", "qty": 7 },
+      { "name": "Pink Carnation", "qty": 6 }
+    ],
+    "popularity": 0.65
+  },
+  {
+    "id": "majestic_purple",
+    "name": "Majestic Purple",
+    "theme_tags": [
+      "purple",
+      "luxury",
+      "royal",
+      "elegant",
+      "dignified",
+      "anniversary",
+      "congratulations",
+      "deep"
+    ],
+    "items": [
+      { "name": "Purple Rose", "qty": 9 },
+      { "name": "Purple Dendrobium Orchid", "qty": 4 },
+      { "name": "Lisianthus", "qty": 5 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "apology_accepted",
+    "name": "Apology Accepted",
+    "theme_tags": [
+      "white",
+      "pink",
+      "soft",
+      "gentle",
+      "sorry",
+      "forgiveness",
+      "peace",
+      "tender"
+    ],
+    "items": [
+      { "name": "White Rose", "qty": 7 },
+      { "name": "Pink Tulip", "qty": 6 },
+      { "name": "Baby's Breath", "qty": 4 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "good_luck_charm",
+    "name": "Good Luck Charm",
+    "theme_tags": [
+      "green",
+      "white",
+      "yellow",
+      "good luck",
+      "new job",
+      "exams",
+      "success",
+      "hopeful"
+    ],
+    "items": [
+      { "name": "Bells of Ireland", "qty": 7 },
+      { "name": "White Freesia", "qty": 5 },
+      { "name": "Yellow Acacia", "qty": 4 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "winter_berry",
+    "name": "Winter Berry",
+    "theme_tags": [
+      "red",
+      "green",
+      "white",
+      "winter",
+      "christmas",
+      "holiday",
+      "festive",
+      "berry"
+    ],
+    "items": [
+      { "name": "Red Rose", "qty": 5 },
+      { "name": "Holly Berries", "qty": 8 },
+      { "name": "Pine", "qty": 5 },
+      { "name": "White Spray Rose", "qty": 4 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "summer_sunset",
+    "name": "Summer Sunset",
+    "theme_tags": [
+      "orange",
+      "pink",
+      "purple",
+      "sunset",
+      "summer",
+      "warm",
+      "romantic",
+      "vibrant"
+    ],
+    "items": [
+      { "name": "Orange Gerbera Daisy", "qty": 5 },
+      { "name": "Pink Lily", "qty": 3 },
+      { "name": "Purple Liatris", "qty": 4 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "fresh_start",
+    "name": "Fresh Start",
+    "theme_tags": [
+      "green",
+      "white",
+      "new",
+      "beginning",
+      "fresh",
+      "hopeful",
+      "peaceful",
+      "clean"
+    ],
+    "items": [
+      { "name": "Green Hydrangea", "qty": 2 },
+      { "name": "White Ranunculus", "qty": 7 },
+      { "name": "Eucalyptus", "qty": 4 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "pink_lemonade",
+    "name": "Pink Lemonade",
+    "theme_tags": [
+      "pink",
+      "yellow",
+      "fun",
+      "summer",
+      "sweet",
+      "refreshing",
+      "happy",
+      "birthday"
+    ],
+    "items": [
+      { "name": "Pink Rose", "qty": 6 },
+      { "name": "Yellow Tulip", "qty": 6 },
+      { "name": "Pink Carnation", "qty": 5 }
+    ],
+    "popularity": 0.65
+  },
+  {
+    "id": "blue_lagoon",
+    "name": "Blue Lagoon",
+    "theme_tags": [
+      "blue",
+      "green",
+      "cool",
+      "tropical",
+      "refreshing",
+      "calm",
+      "vacation",
+      "serene"
+    ],
+    "items": [
+      { "name": "Blue Thistle", "qty": 6 },
+      { "name": "Green Trick Dianthus", "qty": 3 },
+      { "name": "Monstera Leaf", "qty": 2 }
+    ],
+    "popularity": 0.45
+  },
+  {
+    "id": "fall_foliage",
+    "name": "Fall Foliage",
+    "theme_tags": [
+      "orange",
+      "red",
+      "yellow",
+      "autumn",
+      "fall",
+      "rustic",
+      "warm",
+      "thanksgiving"
+    ],
+    "items": [
+      { "name": "Orange Dahlia", "qty": 4 },
+      { "name": "Red Rose", "qty": 5 },
+      { "name": "Yellow Maple Leaves", "qty": 5 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "silver_anniversary",
+    "name": "Silver Anniversary",
+    "theme_tags": [
+      "white",
+      "silver",
+      "anniversary",
+      "elegant",
+      "25 years",
+      "celebration",
+      "dignified",
+      "metallic"
+    ],
+    "items": [
+      { "name": "White Rose", "qty": 10 },
+      { "name": "White Carnation", "qty": 8 },
+      { "name": "Dusty Miller", "qty": 5 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "hope_and_healing",
+    "name": "Hope and Healing",
+    "theme_tags": [
+      "yellow",
+      "white",
+      "get well",
+      "hope",
+      "positive",
+      "cheerful",
+      "recovery",
+      "bright"
+    ],
+    "items": [
+      { "name": "Yellow Rose", "qty": 6 },
+      { "name": "White Daisy", "qty": 7 },
+      { "name": "Solidago", "qty": 4 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "dramatic_allure",
+    "name": "Dramatic Allure",
+    "theme_tags": [
+      "black",
+      "red",
+      "dramatic",
+      "gothic",
+      "mysterious",
+      "intense",
+      "bold",
+      "romantic"
+    ],
+    "items": [
+      { "name": "Black Calla Lily", "qty": 3 },
+      { "name": "Black Baccara Rose", "qty": 7 },
+      { "name": "Red Amaranthus", "qty": 3 }
+    ],
+    "popularity": 0.3
+  },
+  {
+    "id": "spring_daffodil",
+    "name": "Spring Daffodil",
+    "theme_tags": [
+      "yellow",
+      "white",
+      "spring",
+      "fresh",
+      "new",
+      "happy",
+      "easter",
+      "bright"
+    ],
+    "items": [
+      { "name": "Daffodil", "qty": 10 },
+      { "name": "White Freesia", "qty": 5 },
+      { "name": "Ivy", "qty": 4 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "peachy_keen",
+    "name": "Peachy Keen",
+    "theme_tags": [
+      "peach",
+      "cream",
+      "soft",
+      "gentle",
+      "gratitude",
+      "thanks",
+      "sweet",
+      "happy"
+    ],
+    "items": [
+      { "name": "Peach Rose", "qty": 8 },
+      { "name": "Cream Lisianthus", "qty": 5 },
+      { "name": "Peach Carnation", "qty": 6 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "ocean_breeze",
+    "name": "Ocean Breeze",
+    "theme_tags": [
+      "blue",
+      "white",
+      "green",
+      "beach",
+      "coastal",
+      "fresh",
+      "calm",
+      "summer"
+    ],
+    "items": [
+      { "name": "Blue Hydrangea", "qty": 2 },
+      { "name": "White Ranunculus", "qty": 6 },
+      { "name": "Sea Holly", "qty": 4 },
+      { "name": "Eucalyptus", "qty": 3 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "ruby_red_romance",
+    "name": "Ruby Red Romance",
+    "theme_tags": [
+      "red",
+      "romantic",
+      "deep",
+      "love",
+      "passion",
+      "valentine",
+      "anniversary",
+      "luxury"
+    ],
+    "items": [
+      { "name": "Red Rose", "qty": 18 },
+      { "name": "Red Hypericum Berries", "qty": 5 }
+    ],
+    "popularity": 0.85
+  },
+  {
+    "id": "buttercup_bouquet",
+    "name": "Buttercup Bouquet",
+    "theme_tags": [
+      "yellow",
+      "happy",
+      "fun",
+      "cheerful",
+      "spring",
+      "sunny",
+      "bright",
+      "friendship"
+    ],
+    "items": [
+      { "name": "Buttercup", "qty": 12 },
+      { "name": "Yellow Daisy", "qty": 6 },
+      { "name": "Solidago", "qty": 4 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "purple_haze",
+    "name": "Purple Haze",
+    "theme_tags": [
+      "purple",
+      "lavender",
+      "dreamy",
+      "whimsical",
+      "fun",
+      "unique",
+      "bohemian",
+      "artistic"
+    ],
+    "items": [
+      { "name": "Lavender", "qty": 8 },
+      { "name": "Purple Allium", "qty": 3 },
+      { "name": "Purple Statice", "qty": 5 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "white_wedding",
+    "name": "White Wedding",
+    "theme_tags": [
+      "white",
+      "wedding",
+      "pure",
+      "elegant",
+      "bridal",
+      "ceremony",
+      "formal",
+      "classic"
+    ],
+    "items": [
+      { "name": "White Rose", "qty": 12 },
+      { "name": "White Lilac", "qty": 4 },
+      { "name": "Baby's Breath", "qty": 5 }
+    ],
+    "popularity": 0.8
+  },
+  {
+    "id": "golden_glow",
+    "name": "Golden Glow",
+    "theme_tags": [
+      "yellow",
+      "orange",
+      "gold",
+      "luxury",
+      "celebration",
+      "congratulations",
+      "warm",
+      "rich"
+    ],
+    "items": [
+      { "name": "Yellow Rose", "qty": 8 },
+      { "name": "Orange Lily", "qty": 3 },
+      { "name": "Yellow Cymbidium Orchid", "qty": 3 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "pink_promise",
+    "name": "Pink Promise",
+    "theme_tags": [
+      "pink",
+      "romantic",
+      "hopeful",
+      "gentle",
+      "love",
+      "appreciation",
+      "mother",
+      "daughter"
+    ],
+    "items": [
+      { "name": "Pink Rose", "qty": 10 },
+      { "name": "Pink Peony", "qty": 3 },
+      { "name": "Pink Spray Rose", "qty": 6 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "blue_velvet",
+    "name": "Blue Velvet",
+    "theme_tags": [
+      "blue",
+      "purple",
+      "deep",
+      "luxury",
+      "mysterious",
+      "dramatic",
+      "unique",
+      "rich"
+    ],
+    "items": [
+      { "name": "Blue Delphinium", "qty": 6 },
+      { "name": "Purple Anemone", "qty": 5 },
+      { "name": "Dark Blue Thistle", "qty": 4 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "harvest_moon",
+    "name": "Harvest Moon",
+    "theme_tags": [
+      "orange",
+      "yellow",
+      "brown",
+      "autumn",
+      "harvest",
+      "rustic",
+      "warm",
+      "thanksgiving"
+    ],
+    "items": [
+      { "name": "Orange Dahlia", "qty": 4 },
+      { "name": "Yellow Chrysanthemum", "qty": 5 },
+      { "name": "Wheat Stalks", "qty": 5 },
+      { "name": "Orange Tulip", "qty": 4 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "snow_queen",
+    "name": "Snow Queen",
+    "theme_tags": [
+      "white",
+      "silver",
+      "winter",
+      "cool",
+      "elegant",
+      "majestic",
+      "peaceful",
+      "christmas"
+    ],
+    "items": [
+      { "name": "White Amaryllis", "qty": 3 },
+      { "name": "White Ranunculus", "qty": 6 },
+      { "name": "Silver Brunia", "qty": 4 },
+      { "name": "Eucalyptus", "qty": 3 }
+    ],
+    "popularity": 0.45
+  },
+  {
+    "id": "tutti_frutti",
+    "name": "Tutti Frutti",
+    "theme_tags": [
+      "red",
+      "orange",
+      "pink",
+      "fun",
+      "fruity",
+      "bright",
+      "happy",
+      "birthday"
+    ],
+    "items": [
+      { "name": "Red Gerbera Daisy", "qty": 4 },
+      { "name": "Orange Rose", "qty": 5 },
+      { "name": "Pink Carnation", "qty": 6 }
+    ],
+    "popularity": 0.65
+  },
+  {
+    "id": "emerald_city",
+    "name": "Emerald City",
+    "theme_tags": [
+      "green",
+      "white",
+      "natural",
+      "fresh",
+      "lush",
+      "organic",
+      "peaceful",
+      "earthy"
+    ],
+    "items": [
+      { "name": "Green Hydrangea", "qty": 2 },
+      { "name": "Bells of Ireland", "qty": 7 },
+      { "name": "White Freesia", "qty": 5 },
+      { "name": "Ferns", "qty": 5 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "blushing_beauty",
+    "name": "Blushing Beauty",
+    "theme_tags": [
+      "pink",
+      "cream",
+      "soft",
+      "elegant",
+      "feminine",
+      "wedding",
+      "romantic",
+      "graceful"
+    ],
+    "items": [
+      { "name": "Pink Garden Rose", "qty": 5 },
+      { "name": "Cream Peony", "qty": 3 },
+      { "name": "Pink Lisianthus", "qty": 6 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "fiery_sunset",
+    "name": "Fiery Sunset",
+    "theme_tags": [
+      "red",
+      "orange",
+      "yellow",
+      "sunset",
+      "warm",
+      "vibrant",
+      "dramatic",
+      "summer"
+    ],
+    "items": [
+      { "name": "Red Gerbera Daisy", "qty": 5 },
+      { "name": "Orange Tulip", "qty": 6 },
+      { "name": "Yellow Lily", "qty": 3 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "lavender_dreams",
+    "name": "Lavender Dreams",
+    "theme_tags": [
+      "lavender",
+      "purple",
+      "dreamy",
+      "calm",
+      "peaceful",
+      "relaxing",
+      "serene",
+      "gentle"
+    ],
+    "items": [
+      { "name": "Lavender", "qty": 10 },
+      { "name": "Purple Lisianthus", "qty": 5 },
+      { "name": "Eucalyptus", "qty": 3 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "candy_land",
+    "name": "Candy Land",
+    "theme_tags": [
+      "pink",
+      "yellow",
+      "blue",
+      "fun",
+      "playful",
+      "birthday",
+      "child",
+      "sweet"
+    ],
+    "items": [
+      { "name": "Pink Carnation", "qty": 7 },
+      { "name": "Yellow Daisy", "qty": 6 },
+      { "name": "Blue Iris", "qty": 4 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "midnight_blue",
+    "name": "Midnight Blue",
+    "theme_tags": [
+      "blue",
+      "purple",
+      "dark",
+      "mysterious",
+      "dramatic",
+      "night",
+      "unique",
+      "luxury"
+    ],
+    "items": [
+      { "name": "Blue Iris", "qty": 6 },
+      { "name": "Purple Anemone", "qty": 5 },
+      { "name": "Black Calla Lily", "qty": 2 }
+    ],
+    "popularity": 0.35
+  },
+  {
+    "id": "spring_rain",
+    "name": "Spring Rain",
+    "theme_tags": [
+      "purple",
+      "white",
+      "green",
+      "spring",
+      "fresh",
+      "clean",
+      "renewal",
+      "peaceful"
+    ],
+    "items": [
+      { "name": "Purple Hyacinth", "qty": 4 },
+      { "name": "White Tulip", "qty": 6 },
+      { "name": "Ivy", "qty": 5 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "royal_treatment",
+    "name": "Royal Treatment",
+    "theme_tags": [
+      "purple",
+      "gold",
+      "luxury",
+      "elegant",
+      "royal",
+      "celebration",
+      "congratulations",
+      "majestic"
+    ],
+    "items": [
+      { "name": "Purple Orchid", "qty": 4 },
+      { "name": "Yellow Rose", "qty": 6 },
+      { "name": "Bear Grass", "qty": 5 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "happy_days",
+    "name": "Happy Days",
+    "theme_tags": [
+      "yellow",
+      "orange",
+      "happy",
+      "fun",
+      "cheerful",
+      "retro",
+      "friendship",
+      "joy"
+    ],
+    "items": [
+      { "name": "Sunflower", "qty": 3 },
+      { "name": "Orange Gerbera Daisy", "qty": 5 },
+      { "name": "Yellow Carnation", "qty": 7 }
+    ],
+    "popularity": 0.75
+  },
+  {
+    "id": "enchanted_bloom",
+    "name": "Enchanted Bloom",
+    "theme_tags": [
+      "pink",
+      "purple",
+      "magical",
+      "whimsical",
+      "fantasy",
+      "dreamy",
+      "unique",
+      "fairy"
+    ],
+    "items": [
+      { "name": "Pink Ranunculus", "qty": 6 },
+      { "name": "Purple Lisianthus", "qty": 5 },
+      { "name": "Pink Astilbe", "qty": 4 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "sunshine_and_rainbows",
+    "name": "Sunshine and Rainbows",
+    "theme_tags": [
+      "yellow",
+      "multi",
+      "happy",
+      "fun",
+      "colorful",
+      "cheerful",
+      "birthday",
+      "joy"
+    ],
+    "items": [
+      { "name": "Sunflower", "qty": 2 },
+      { "name": "Rainbow Carnations", "qty": 10 },
+      { "name": "Yellow Freesia", "qty": 5 }
+    ],
+    "popularity": 0.8
+  },
+  {
+    "id": "deep_forest",
+    "name": "Deep Forest",
+    "theme_tags": [
+      "green",
+      "brown",
+      "earthy",
+      "natural",
+      "woodland",
+      "rustic",
+      "organic",
+      "peaceful"
+    ],
+    "items": [
+      { "name": "Green Hydrangea", "qty": 2 },
+      { "name": "Eucalyptus", "qty": 5 },
+      { "name": "Pittosporum", "qty": 5 },
+      { "name": "Lemon Leaf", "qty": 4 }
+    ],
+    "popularity": 0.45
+  },
+  {
+    "id": "pink_paradise",
+    "name": "Pink Paradise",
+    "theme_tags": [
+      "pink",
+      "tropical",
+      "exotic",
+      "fun",
+      "bold",
+      "vacation",
+      "happy",
+      "vibrant"
+    ],
+    "items": [
+      { "name": "Pink Anthurium", "qty": 5 },
+      { "name": "Pink Ginger", "qty": 3 },
+      { "name": "Pink Protea", "qty": 2 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "winter_white",
+    "name": "Winter White",
+    "theme_tags": [
+      "white",
+      "winter",
+      "elegant",
+      "pure",
+      "serene",
+      "cool",
+      "christmas",
+      "peaceful"
+    ],
+    "items": [
+      { "name": "White Rose", "qty": 9 },
+      { "name": "White Ranunculus", "qty": 6 },
+      { "name": "White Lisianthus", "qty": 5 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "autumn_splendor",
+    "name": "Autumn Splendor",
+    "theme_tags": [
+      "red",
+      "orange",
+      "yellow",
+      "autumn",
+      "warm",
+      "rich",
+      "thanksgiving",
+      "rustic"
+    ],
+    "items": [
+      { "name": "Red Dahlia", "qty": 4 },
+      { "name": "Orange Rose", "qty": 5 },
+      { "name": "Yellow Chrysanthemum", "qty": 5 },
+      { "name": "Autumn Leaves", "qty": 4 }
+    ],
+    "popularity": 0.65
+  },
+  {
+    "id": "oasis",
+    "name": "Oasis",
+    "theme_tags": [
+      "green",
+      "white",
+      "calm",
+      "refreshing",
+      "serene",
+      "peaceful",
+      "spa",
+      "clean"
+    ],
+    "items": [
+      { "name": "White Phalaenopsis Orchid", "qty": 2 },
+      { "name": "Green Trick Dianthus", "qty": 3 },
+      { "name": "Eucalyptus", "qty": 5 },
+      { "name": "White Rose", "qty": 5 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "berry_nice",
+    "name": "Berry Nice",
+    "theme_tags": [
+      "red",
+      "pink",
+      "berry",
+      "fun",
+      "sweet",
+      "happy",
+      "birthday",
+      "feminine"
+    ],
+    "items": [
+      { "name": "Red Spray Rose", "qty": 8 },
+      { "name": "Pink Carnation", "qty": 6 },
+      { "name": "Hypericum Berries", "qty": 5 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "golden_harvest",
+    "name": "Golden Harvest",
+    "theme_tags": [
+      "yellow",
+      "orange",
+      "brown",
+      "autumn",
+      "harvest",
+      "warm",
+      "thanksgiving",
+      "rustic"
+    ],
+    "items": [
+      { "name": "Yellow Dahlia", "qty": 4 },
+      { "name": "Orange Lily", "qty": 3 },
+      { "name": "Wheat Stalks", "qty": 6 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "silver_bells",
+    "name": "Silver Bells",
+    "theme_tags": [
+      "white",
+      "silver",
+      "christmas",
+      "holiday",
+      "elegant",
+      "festive",
+      "cool",
+      "winter"
+    ],
+    "items": [
+      { "name": "White Amaryllis", "qty": 3 },
+      { "name": "White Carnation", "qty": 8 },
+      { "name": "Dusty Miller", "qty": 5 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "pink_delight",
+    "name": "Pink Delight",
+    "theme_tags": [
+      "pink",
+      "happy",
+      "fun",
+      "feminine",
+      "birthday",
+      "joy",
+      "sweet",
+      "celebration"
+    ],
+    "items": [
+      { "name": "Pink Gerbera Daisy", "qty": 6 },
+      { "name": "Pink Rose", "qty": 6 },
+      { "name": "Pink Alstroemeria", "qty": 5 }
+    ],
+    "popularity": 0.8
+  },
+  {
+    "id": "blue_heaven",
+    "name": "Blue Heaven",
+    "theme_tags": [
+      "blue",
+      "white",
+      "serene",
+      "calm",
+      "peaceful",
+      "heavenly",
+      "soft",
+      "gentle"
+    ],
+    "items": [
+      { "name": "Blue Hydrangea", "qty": 2 },
+      { "name": "White Lisianthus", "qty": 7 },
+      { "name": "Blue Muscari", "qty": 6 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "firecracker",
+    "name": "Firecracker",
+    "theme_tags": [
+      "red",
+      "orange",
+      "yellow",
+      "fourth of july",
+      "patriotic",
+      "bold",
+      "energy",
+      "celebration"
+    ],
+    "items": [
+      { "name": "Red Rose", "qty": 5 },
+      { "name": "Orange Tulip", "qty": 5 },
+      { "name": "Yellow Daisy", "qty": 5 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "mint_fresh",
+    "name": "Mint Fresh",
+    "theme_tags": [
+      "green",
+      "white",
+      "fresh",
+      "clean",
+      "cool",
+      "refreshing",
+      "serene",
+      "peaceful"
+    ],
+    "items": [
+      { "name": "Green Chrysanthemum", "qty": 6 },
+      { "name": "White Freesia", "qty": 6 },
+      { "name": "Eucalyptus", "qty": 4 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "purple_passion",
+    "name": "Purple Passion",
+    "theme_tags": [
+      "purple",
+      "romantic",
+      "passionate",
+      "mysterious",
+      "deep",
+      "luxury",
+      "unique",
+      "dramatic"
+    ],
+    "items": [
+      { "name": "Purple Rose", "qty": 10 },
+      { "name": "Purple Lisianthus", "qty": 5 },
+      { "name": "Purple Tulip", "qty": 5 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "tangerine_dream",
+    "name": "Tangerine Dream",
+    "theme_tags": [
+      "orange",
+      "yellow",
+      "fun",
+      "bright",
+      "energetic",
+      "happy",
+      "summer",
+      "vibrant"
+    ],
+    "items": [
+      { "name": "Orange Gerbera Daisy", "qty": 6 },
+      { "name": "Yellow Ranunculus", "qty": 6 },
+      { "name": "Orange Carnation", "qty": 5 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "whispering_grass",
+    "name": "Whispering Grass",
+    "theme_tags": [
+      "green",
+      "white",
+      "natural",
+      "soft",
+      "gentle",
+      "earthy",
+      "peaceful",
+      "organic"
+    ],
+    "items": [
+      { "name": "Pampas Grass", "qty": 4 },
+      { "name": "White Astilbe", "qty": 5 },
+      { "name": "Eucalyptus", "qty": 4 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "rose_gold_elegance",
+    "name": "Rose Gold Elegance",
+    "theme_tags": [
+      "pink",
+      "peach",
+      "gold",
+      "elegant",
+      "luxury",
+      "modern",
+      "chic",
+      "celebration"
+    ],
+    "items": [
+      { "name": "Pink Rose", "qty": 7 },
+      { "name": "Peach Lisianthus", "qty": 5 },
+      { "name": "Spray Roses", "qty": 6 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "island_breeze",
+    "name": "Island Breeze",
+    "theme_tags": [
+      "white",
+      "green",
+      "tropical",
+      "refreshing",
+      "vacation",
+      "calm",
+      "serene",
+      "exotic"
+    ],
+    "items": [
+      { "name": "White Orchid", "qty": 3 },
+      { "name": "Anthurium", "qty": 4 },
+      { "name": "Monstera Leaf", "qty": 2 },
+      { "name": "Ferns", "qty": 4 }
+    ],
+    "popularity": 0.45
+  },
+  {
+    "id": "blooming_lovely",
+    "name": "Blooming Lovely",
+    "theme_tags": [
+      "pink",
+      "white",
+      "happy",
+      "fun",
+      "fresh",
+      "garden",
+      "spring",
+      "cheerful"
+    ],
+    "items": [
+      { "name": "Pink Dahlia", "qty": 4 },
+      { "name": "White Ranunculus", "qty": 6 },
+      { "name": "Pink Snapdragon", "qty": 5 }
+    ],
+    "popularity": 0.65
+  },
+  {
+    "id": "twilight",
+    "name": "Twilight",
+    "theme_tags": [
+      "purple",
+      "blue",
+      "dark",
+      "mysterious",
+      "evening",
+      "dramatic",
+      "romantic",
+      "night"
+    ],
+    "items": [
+      { "name": "Purple Iris", "qty": 6 },
+      { "name": "Blue Delphinium", "qty": 4 },
+      { "name": "Black Scabiosa", "qty": 3 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "honey_suckle",
+    "name": "Honey Suckle",
+    "theme_tags": [
+      "yellow",
+      "orange",
+      "sweet",
+      "fragrant",
+      "warm",
+      "happy",
+      "garden",
+      "summer"
+    ],
+    "items": [
+      { "name": "Yellow Honeysuckle", "qty": 8 },
+      { "name": "Orange Marigold", "qty": 6 },
+      { "name": "Yellow Freesia", "qty": 4 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "frosty_morning",
+    "name": "Frosty Morning",
+    "theme_tags": [
+      "white",
+      "silver",
+      "blue",
+      "winter",
+      "cool",
+      "frost",
+      "serene",
+      "peaceful"
+    ],
+    "items": [
+      { "name": "White Rose", "qty": 7 },
+      { "name": "Silver Brunia", "qty": 5 },
+      { "name": "Blue Thistle", "qty": 4 }
+    ],
+    "popularity": 0.45
+  },
+  {
+    "id": "popsicle",
+    "name": "Popsicle",
+    "theme_tags": [
+      "pink",
+      "orange",
+      "blue",
+      "fun",
+      "summer",
+      "cool",
+      "child",
+      "happy"
+    ],
+    "items": [
+      { "name": "Pink Carnation", "qty": 5 },
+      { "name": "Orange Tulip", "qty": 5 },
+      { "name": "Blue Iris", "qty": 5 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "woodland_sprite",
+    "name": "Woodland Sprite",
+    "theme_tags": [
+      "green",
+      "white",
+      "purple",
+      "woodland",
+      "magical",
+      "fairy",
+      "natural",
+      "enchanted"
+    ],
+    "items": [
+      { "name": "Foxglove", "qty": 4 },
+      { "name": "White Lily of the Valley", "qty": 6 },
+      { "name": "Ferns", "qty": 5 }
+    ],
+    "popularity": 0.35
+  },
+  {
+    "id": "sunkissed",
+    "name": "Sunkissed",
+    "theme_tags": [
+      "yellow",
+      "orange",
+      "peach",
+      "warm",
+      "summer",
+      "happy",
+      "glowing",
+      "bright"
+    ],
+    "items": [
+      { "name": "Yellow Rose", "qty": 6 },
+      { "name": "Peach Gerbera Daisy", "qty": 5 },
+      { "name": "Orange Ranunculus", "qty": 5 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "blueberry_cheesecake",
+    "name": "Blueberry Cheesecake",
+    "theme_tags": [
+      "blue",
+      "white",
+      "sweet",
+      "fun",
+      "delicate",
+      "birthday",
+      "feminine",
+      "happy"
+    ],
+    "items": [
+      { "name": "Blue Hydrangea", "qty": 2 },
+      { "name": "White Ranunculus", "qty": 7 },
+      { "name": "White Lisianthus", "qty": 5 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "ruby_tuesday",
+    "name": "Ruby Tuesday",
+    "theme_tags": [
+      "red",
+      "romantic",
+      "nostalgic",
+      "classic",
+      "love",
+      "passionate",
+      "deep",
+      "timeless"
+    ],
+    "items": [
+      { "name": "Red Rose", "qty": 12 },
+      { "name": "Red Carnation", "qty": 6 },
+      { "name": "Leather Leaf", "qty": 5 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "green_tea",
+    "name": "Green Tea",
+    "theme_tags": [
+      "green",
+      "white",
+      "calm",
+      "relaxing",
+      "serene",
+      "peaceful",
+      "zen",
+      "refreshing"
+    ],
+    "items": [
+      { "name": "Green Chrysanthemum", "qty": 6 },
+      { "name": "White Freesia", "qty": 6 },
+      { "name": "Bells of Ireland", "qty": 4 }
+    ],
+    "popularity": 0.45
+  },
+  {
+    "id": "plum_perfect",
+    "name": "Plum Perfect",
+    "theme_tags": [
+      "purple",
+      "burgundy",
+      "deep",
+      "rich",
+      "elegant",
+      "autumn",
+      "dramatic",
+      "luxury"
+    ],
+    "items": [
+      { "name": "Purple Dahlia", "qty": 4 },
+      { "name": "Burgundy Rose", "qty": 6 },
+      { "name": "Purple Liatris", "qty": 4 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "lemon_lime",
+    "name": "Lemon Lime",
+    "theme_tags": [
+      "yellow",
+      "green",
+      "zesty",
+      "fresh",
+      "energetic",
+      "fun",
+      "summer",
+      "bright"
+    ],
+    "items": [
+      { "name": "Yellow Gerbera Daisy", "qty": 5 },
+      { "name": "Green Trick Dianthus", "qty": 3 },
+      { "name": "Bells of Ireland", "qty": 5 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "cotton_field",
+    "name": "Cotton Field",
+    "theme_tags": [
+      "white",
+      "green",
+      "soft",
+      "natural",
+      "organic",
+      "pure",
+      "gentle",
+      "rustic"
+    ],
+    "items": [
+      { "name": "Cotton Stems", "qty": 7 },
+      { "name": "Eucalyptus", "qty": 5 },
+      { "name": "White Aster", "qty": 5 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "raspberry_ripple",
+    "name": "Raspberry Ripple",
+    "theme_tags": [
+      "pink",
+      "red",
+      "white",
+      "sweet",
+      "fun",
+      "birthday",
+      "feminine",
+      "happy"
+    ],
+    "items": [
+      { "name": "Pink Rose", "qty": 6 },
+      { "name": "Red Tulip", "qty": 5 },
+      { "name": "White Freesia", "qty": 5 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "moonlight_sonata",
+    "name": "Moonlight Sonata",
+    "theme_tags": [
+      "white",
+      "silver",
+      "blue",
+      "night",
+      "romantic",
+      "elegant",
+      "peaceful",
+      "serene"
+    ],
+    "items": [
+      { "name": "White Calla Lily", "qty": 4 },
+      { "name": "White Rose", "qty": 8 },
+      { "name": "Blue Muscari", "qty": 5 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "gingersnap",
+    "name": "Gingersnap",
+    "theme_tags": [
+      "orange",
+      "red",
+      "brown",
+      "warm",
+      "spicy",
+      "autumn",
+      "cozy",
+      "rustic"
+    ],
+    "items": [
+      { "name": "Orange Lily", "qty": 3 },
+      { "name": "Red Rose", "qty": 5 },
+      { "name": "Cinnamon Sticks", "qty": 4 }
+    ],
+    "popularity": 0.45
+  },
+  {
+    "id": "aqua_marine",
+    "name": "Aqua Marine",
+    "theme_tags": [
+      "blue",
+      "green",
+      "aqua",
+      "ocean",
+      "calm",
+      "refreshing",
+      "serene",
+      "cool"
+    ],
+    "items": [
+      { "name": "Blue Hydrangea", "qty": 2 },
+      { "name": "Green Chrysanthemum", "qty": 6 },
+      { "name": "Sea Holly", "qty": 4 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "strawberry_shortcake",
+    "name": "Strawberry Shortcake",
+    "theme_tags": [
+      "pink",
+      "red",
+      "white",
+      "sweet",
+      "fun",
+      "birthday",
+      "feminine",
+      "happy"
+    ],
+    "items": [
+      { "name": "Pink Peony", "qty": 3 },
+      { "name": "Red Ranunculus", "qty": 6 },
+      { "name": "White Daisy", "qty": 6 }
+    ],
+    "popularity": 0.65
+  },
+  {
+    "id": "black_tie_affair",
+    "name": "Black Tie Affair",
+    "theme_tags": [
+      "black",
+      "white",
+      "elegant",
+      "formal",
+      "dramatic",
+      "luxury",
+      "sophisticated",
+      "event"
+    ],
+    "items": [
+      { "name": "Black Calla Lily", "qty": 4 },
+      { "name": "White Rose", "qty": 8 },
+      { "name": "Bear Grass", "qty": 5 }
+    ],
+    "popularity": 0.35
+  },
+  {
+    "id": "pearlescent",
+    "name": "Pearlescent",
+    "theme_tags": [
+      "white",
+      "pearl",
+      "iridescent",
+      "elegant",
+      "soft",
+      "bridal",
+      "shimmer",
+      "graceful"
+    ],
+    "items": [
+      { "name": "White Ranunculus", "qty": 7 },
+      { "name": "White Lisianthus", "qty": 6 },
+      { "name": "Pearl Accents", "qty": 10 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "tiger_lily",
+    "name": "Tiger Lily",
+    "theme_tags": [
+      "orange",
+      "black",
+      "bold",
+      "exotic",
+      "dramatic",
+      "wild",
+      "confident",
+      "unique"
+    ],
+    "items": [
+      { "name": "Orange Lily", "qty": 5 },
+      { "name": "Black Scabiosa", "qty": 4 },
+      { "name": "Orange Tulip", "qty": 5 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "marshmallow_dream",
+    "name": "Marshmallow Dream",
+    "theme_tags": [
+      "pink",
+      "white",
+      "soft",
+      "fluffy",
+      "sweet",
+      "dreamy",
+      "gentle",
+      "happy"
+    ],
+    "items": [
+      { "name": "Pink Astilbe", "qty": 5 },
+      { "name": "White Hydrangea", "qty": 2 },
+      { "name": "Pink Spray Rose", "qty": 7 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "deep_sea",
+    "name": "Deep Sea",
+    "theme_tags": [
+      "blue",
+      "green",
+      "deep",
+      "mysterious",
+      "ocean",
+      "serene",
+      "cool",
+      "tranquil"
+    ],
+    "items": [
+      { "name": "Blue Delphinium", "qty": 6 },
+      { "name": "Green Trick Dianthus", "qty": 3 },
+      { "name": "Sea Holly", "qty": 4 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "cinnamon_spice",
+    "name": "Cinnamon Spice",
+    "theme_tags": [
+      "red",
+      "orange",
+      "brown",
+      "warm",
+      "spicy",
+      "autumn",
+      "cozy",
+      "thanksgiving"
+    ],
+    "items": [
+      { "name": "Red Dahlia", "qty": 4 },
+      { "name": "Orange Rose", "qty": 5 },
+      { "name": "Cinnamon Sticks", "qty": 5 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "lavender_lullaby",
+    "name": "Lavender Lullaby",
+    "theme_tags": [
+      "lavender",
+      "purple",
+      "calm",
+      "sleep",
+      "peaceful",
+      "soothing",
+      "gentle",
+      "serene"
+    ],
+    "items": [
+      { "name": "Lavender", "qty": 9 },
+      { "name": "Purple Stock", "qty": 5 },
+      { "name": "Eucalyptus", "qty": 3 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "mango_tango",
+    "name": "Mango Tango",
+    "theme_tags": [
+      "orange",
+      "yellow",
+      "tropical",
+      "fun",
+      "energetic",
+      "exotic",
+      "vibrant",
+      "summer"
+    ],
+    "items": [
+      { "name": "Orange Bird of Paradise", "qty": 2 },
+      { "name": "Yellow Lily", "qty": 3 },
+      { "name": "Orange Gerbera Daisy", "qty": 5 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "peppermint_patty",
+    "name": "Peppermint Patty",
+    "theme_tags": [
+      "red",
+      "white",
+      "fun",
+      "festive",
+      "christmas",
+      "sweet",
+      "cool",
+      "happy"
+    ],
+    "items": [
+      { "name": "Red Rose", "qty": 5 },
+      { "name": "White Carnation", "qty": 7 },
+      { "name": "Peppermint Sprigs", "qty": 4 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "denim_and_daisies",
+    "name": "Denim and Daisies",
+    "theme_tags": [
+      "blue",
+      "white",
+      "casual",
+      "fun",
+      "relaxed",
+      "friendly",
+      "happy",
+      "summer"
+    ],
+    "items": [
+      { "name": "Blue Cornflower", "qty": 6 },
+      { "name": "White Daisy", "qty": 8 },
+      { "name": "Blue Thistle", "qty": 4 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "champagne_wishes",
+    "name": "Champagne Wishes",
+    "theme_tags": [
+      "ivory",
+      "gold",
+      "celebration",
+      "elegant",
+      "luxury",
+      "congratulations",
+      "toast",
+      "happy"
+    ],
+    "items": [
+      { "name": "Ivory Rose", "qty": 9 },
+      { "name": "Cream Ranunculus", "qty": 6 },
+      { "name": "Gold Accents", "qty": 5 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "electric_avenue",
+    "name": "Electric Avenue",
+    "theme_tags": [
+      "purple",
+      "pink",
+      "blue",
+      "fun",
+      "bright",
+      "energetic",
+      "modern",
+      "neon"
+    ],
+    "items": [
+      { "name": "Purple Lisianthus", "qty": 5 },
+      { "name": "Pink Gerbera Daisy", "qty": 5 },
+      { "name": "Blue Iris", "qty": 5 }
+    ],
+    "popularity": 0.45
+  },
+  {
+    "id": "coral_reef",
+    "name": "Coral Reef",
+    "theme_tags": [
+      "coral",
+      "orange",
+      "pink",
+      "tropical",
+      "ocean",
+      "vibrant",
+      "exotic",
+      "fun"
+    ],
+    "items": [
+      { "name": "Coral Rose", "qty": 7 },
+      { "name": "Orange Tulip", "qty": 5 },
+      { "name": "Pink Alstroemeria", "qty": 5 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "whimsical_wonder",
+    "name": "Whimsical Wonder",
+    "theme_tags": [
+      "pink",
+      "purple",
+      "yellow",
+      "whimsical",
+      "fun",
+      "magical",
+      "dreamy",
+      "happy"
+    ],
+    "items": [
+      { "name": "Pink Ranunculus", "qty": 5 },
+      { "name": "Purple Lisianthus", "qty": 5 },
+      { "name": "Yellow Freesia", "qty": 5 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "forest_floor",
+    "name": "Forest Floor",
+    "theme_tags": [
+      "green",
+      "brown",
+      "purple",
+      "earthy",
+      "natural",
+      "woodland",
+      "mossy",
+      "organic"
+    ],
+    "items": [
+      { "name": "Green Hydrangea", "qty": 2 },
+      { "name": "Purple Iris", "qty": 5 },
+      { "name": "Ferns", "qty": 5 },
+      { "name": "Moss", "qty": 3 }
+    ],
+    "popularity": 0.35
+  },
+  {
+    "id": "bubble_gum",
+    "name": "Bubble Gum",
+    "theme_tags": [
+      "pink",
+      "fun",
+      "sweet",
+      "playful",
+      "child",
+      "birthday",
+      "happy",
+      "joy"
+    ],
+    "items": [
+      { "name": "Pink Carnation", "qty": 10 },
+      { "name": "Pink Daisy", "qty": 7 },
+      { "name": "Gypsophila", "qty": 4 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "amethyst_cluster",
+    "name": "Amethyst Cluster",
+    "theme_tags": [
+      "purple",
+      "crystal",
+      "geode",
+      "unique",
+      "magical",
+      "mysterious",
+      "luxury",
+      "elegant"
+    ],
+    "items": [
+      { "name": "Purple Dendrobium Orchid", "qty": 5 },
+      { "name": "Lavender", "qty": 6 },
+      { "name": "Crystal Accents", "qty": 3 }
+    ],
+    "popularity": 0.3
+  },
+  {
+    "id": "sunflower_field",
+    "name": "Sunflower Field",
+    "theme_tags": [
+      "yellow",
+      "brown",
+      "green",
+      "happy",
+      "summer",
+      "rustic",
+      "country",
+      "joyful"
+    ],
+    "items": [
+      { "name": "Sunflower", "qty": 7 },
+      { "name": "Yellow Daisy", "qty": 6 },
+      { "name": "Eucalyptus", "qty": 4 }
+    ],
+    "popularity": 0.8
+  },
+  {
+    "id": "berry_patch",
+    "name": "Berry Patch",
+    "theme_tags": [
+      "red",
+      "pink",
+      "berry",
+      "fun",
+      "sweet",
+      "garden",
+      "harvest",
+      "happy"
+    ],
+    "items": [
+      { "name": "Red Spray Rose", "qty": 8 },
+      { "name": "Pink Carnation", "qty": 6 },
+      { "name": "Hypericum Berries", "qty": 6 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "seaside",
+    "name": "Seaside",
+    "theme_tags": [
+      "blue",
+      "white",
+      "green",
+      "beach",
+      "coastal",
+      "fresh",
+      "breezy",
+      "serene"
+    ],
+    "items": [
+      { "name": "Blue Hydrangea", "qty": 2 },
+      { "name": "White Ranunculus", "qty": 6 },
+      { "name": "Sea Holly", "qty": 4 },
+      { "name": "Driftwood", "qty": 2 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "pumpkin_spice",
+    "name": "Pumpkin Spice",
+    "theme_tags": [
+      "orange",
+      "brown",
+      "white",
+      "autumn",
+      "warm",
+      "cozy",
+      "thanksgiving",
+      "fall"
+    ],
+    "items": [
+      { "name": "Orange Rose", "qty": 6 },
+      { "name": "Brown Hypericum Berries", "qty": 5 },
+      { "name": "White Freesia", "qty": 5 }
+    ],
+    "popularity": 0.65
+  },
+  {
+    "id": "starlight",
+    "name": "Starlight",
+    "theme_tags": [
+      "white",
+      "silver",
+      "sparkle",
+      "night",
+      "magical",
+      "dreamy",
+      "elegant",
+      "twinkle"
+    ],
+    "items": [
+      { "name": "White Rose", "qty": 8 },
+      { "name": "Baby's Breath", "qty": 5 },
+      { "name": "Silver Accents", "qty": 6 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "lime_sherbet",
+    "name": "Lime Sherbet",
+    "theme_tags": [
+      "green",
+      "white",
+      "yellow",
+      "refreshing",
+      "sweet",
+      "fun",
+      "summer",
+      "cool"
+    ],
+    "items": [
+      { "name": "Green Chrysanthemum", "qty": 6 },
+      { "name": "White Daisy", "qty": 7 },
+      { "name": "Yellow Freesia", "qty": 4 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "royal_velvet",
+    "name": "Royal Velvet",
+    "theme_tags": [
+      "purple",
+      "burgundy",
+      "deep",
+      "luxury",
+      "velvet",
+      "rich",
+      "majestic",
+      "regal"
+    ],
+    "items": [
+      { "name": "Purple Rose", "qty": 9 },
+      { "name": "Burgundy Carnation", "qty": 7 },
+      { "name": "Purple Tulip", "qty": 4 }
+    ],
+    "popularity": 0.45
+  },
+  {
+    "id": "orange_crush",
+    "name": "Orange Crush",
+    "theme_tags": [
+      "orange",
+      "fun",
+      "energetic",
+      "vibrant",
+      "bold",
+      "happy",
+      "summer",
+      "bright"
+    ],
+    "items": [
+      { "name": "Orange Gerbera Daisy", "qty": 7 },
+      { "name": "Orange Lily", "qty": 3 },
+      { "name": "Orange Tulip", "qty": 5 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "misty_morning",
+    "name": "Misty Morning",
+    "theme_tags": [
+      "lavender",
+      "gray",
+      "white",
+      "soft",
+      "misty",
+      "calm",
+      "serene",
+      "peaceful"
+    ],
+    "items": [
+      { "name": "Lavender", "qty": 6 },
+      { "name": "White Ranunculus", "qty": 6 },
+      { "name": "Dusty Miller", "qty": 4 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "candy_cane",
+    "name": "Candy Cane",
+    "theme_tags": [
+      "red",
+      "white",
+      "christmas",
+      "festive",
+      "sweet",
+      "fun",
+      "holiday",
+      "striped"
+    ],
+    "items": [
+      { "name": "Red Rose", "qty": 5 },
+      { "name": "White Carnation", "qty": 7 },
+      { "name": "Peppermint Sprigs", "qty": 4 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "blue_jay",
+    "name": "Blue Jay",
+    "theme_tags": [
+      "blue",
+      "white",
+      "bold",
+      "confident",
+      "natural",
+      "bird",
+      "happy",
+      "vibrant"
+    ],
+    "items": [
+      { "name": "Blue Delphinium", "qty": 6 },
+      { "name": "White Rose", "qty": 6 },
+      { "name": "Blue Cornflower", "qty": 5 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "peach_melba",
+    "name": "Peach Melba",
+    "theme_tags": [
+      "peach",
+      "pink",
+      "cream",
+      "sweet",
+      "delicate",
+      "elegant",
+      "happy",
+      "soft"
+    ],
+    "items": [
+      { "name": "Peach Rose", "qty": 7 },
+      { "name": "Pink Lisianthus", "qty": 5 },
+      { "name": "Cream Ranunculus", "qty": 5 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "mossy_stone",
+    "name": "Mossy Stone",
+    "theme_tags": [
+      "green",
+      "gray",
+      "earthy",
+      "natural",
+      "organic",
+      "woodland",
+      "peaceful",
+      "rustic"
+    ],
+    "items": [
+      { "name": "Green Hydrangea", "qty": 2 },
+      { "name": "Eucalyptus", "qty": 5 },
+      { "name": "Moss", "qty": 5 },
+      { "name": "Succulents", "qty": 3 }
+    ],
+    "popularity": 0.35
+  },
+  {
+    "id": "tropical_sunset",
+    "name": "Tropical Sunset",
+    "theme_tags": [
+      "orange",
+      "pink",
+      "purple",
+      "tropical",
+      "sunset",
+      "vibrant",
+      "exotic",
+      "vacation"
+    ],
+    "items": [
+      { "name": "Orange Heliconia", "qty": 2 },
+      { "name": "Pink Anthurium", "qty": 4 },
+      { "name": "Purple Orchid", "qty": 3 }
+    ],
+    "popularity": 0.45
+  },
+  {
+    "id": "ginger_flower",
+    "name": "Ginger Flower",
+    "theme_tags": [
+      "red",
+      "pink",
+      "tropical",
+      "exotic",
+      "bold",
+      "unique",
+      "dramatic",
+      "island"
+    ],
+    "items": [
+      { "name": "Red Ginger", "qty": 4 },
+      { "name": "Pink Protea", "qty": 2 },
+      { "name": "Anthurium", "qty": 4 }
+    ],
+    "popularity": 0.3
+  },
+  {
+    "id": "lavender_haze_delight",
+    "name": "Lavender Haze Delight",
+    "theme_tags": [
+      "lavender",
+      "purple",
+      "dreamy",
+      "soft",
+      "gentle",
+      "romantic",
+      "serene",
+      "happy"
+    ],
+    "items": [
+      { "name": "Lavender", "qty": 8 },
+      { "name": "Purple Lisianthus", "qty": 6 },
+      { "name": "Pink Spray Rose", "qty": 5 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "citrus_zest",
+    "name": "Citrus Zest",
+    "theme_tags": [
+      "yellow",
+      "green",
+      "orange",
+      "zesty",
+      "fresh",
+      "energetic",
+      "bright",
+      "summer"
+    ],
+    "items": [
+      { "name": "Yellow Gerbera Daisy", "qty": 5 },
+      { "name": "Orange Rose", "qty": 5 },
+      { "name": "Bells of Ireland", "qty": 5 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "berry_blast",
+    "name": "Berry Blast",
+    "theme_tags": [
+      "red",
+      "purple",
+      "pink",
+      "berry",
+      "fun",
+      "sweet",
+      "vibrant",
+      "happy"
+    ],
+    "items": [
+      { "name": "Red Ranunculus", "qty": 6 },
+      { "name": "Purple Alstroemeria", "qty": 6 },
+      { "name": "Hypericum Berries", "qty": 5 }
+    ],
+    "popularity": 0.6
+  },
+  {
+    "id": "ocean_depths",
+    "name": "Ocean Depths",
+    "theme_tags": [
+      "blue",
+      "green",
+      "deep",
+      "mysterious",
+      "serene",
+      "cool",
+      "tranquil",
+      "aquatic"
+    ],
+    "items": [
+      { "name": "Blue Thistle", "qty": 6 },
+      { "name": "Green Chrysanthemum", "qty": 5 },
+      { "name": "Sea Holly", "qty": 4 }
+    ],
+    "popularity": 0.4
+  },
+  {
+    "id": "autumn_harvest",
+    "name": "Autumn Harvest",
+    "theme_tags": [
+      "orange",
+      "red",
+      "yellow",
+      "brown",
+      "autumn",
+      "harvest",
+      "warm",
+      "thanksgiving"
+    ],
+    "items": [
+      { "name": "Orange Dahlia", "qty": 4 },
+      { "name": "Red Rose", "qty": 5 },
+      { "name": "Yellow Chrysanthemum", "qty": 5 },
+      { "name": "Wheat Stalks", "qty": 4 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "winter_rose",
+    "name": "Winter Rose",
+    "theme_tags": [
+      "red",
+      "white",
+      "winter",
+      "christmas",
+      "festive",
+      "romantic",
+      "holiday",
+      "elegant"
+    ],
+    "items": [
+      { "name": "Red Rose", "qty": 8 },
+      { "name": "White Ranunculus", "qty": 6 },
+      { "name": "Pine", "qty": 4 }
+    ],
+    "popularity": 0.65
+  },
+  {
+    "id": "spring_meadow",
+    "name": "Spring Meadow",
+    "theme_tags": [
+      "yellow",
+      "pink",
+      "blue",
+      "spring",
+      "meadow",
+      "fresh",
+      "happy",
+      "garden"
+    ],
+    "items": [
+      { "name": "Yellow Tulip", "qty": 6 },
+      { "name": "Pink Hyacinth", "qty": 4 },
+      { "name": "Blue Muscari", "qty": 5 }
+    ],
+    "popularity": 0.75
+  },
+  {
+    "id": "summer_nights",
+    "name": "Summer Nights",
+    "theme_tags": [
+      "purple",
+      "blue",
+      "white",
+      "summer",
+      "night",
+      "romantic",
+      "serene",
+      "dreamy"
+    ],
+    "items": [
+      { "name": "Purple Lisianthus", "qty": 6 },
+      { "name": "Blue Delphinium", "qty": 4 },
+      { "name": "White Jasmine", "qty": 5 }
+    ],
+    "popularity": 0.5
+  },
+  {
+    "id": "enchanted_garden",
+    "name": "Enchanted Garden",
+    "theme_tags": [
+      "pink",
+      "purple",
+      "green",
+      "magical",
+      "garden",
+      "whimsical",
+      "dreamy",
+      "fantasy"
+    ],
+    "items": [
+      { "name": "Pink Peony", "qty": 3 },
+      { "name": "Purple Allium", "qty": 3 },
+      { "name": "Ferns", "qty": 5 },
+      { "name": "Ivy", "qty": 4 }
+    ],
+    "popularity": 0.55
+  },
+  {
+    "id": "happy_holidays",
+    "name": "Happy Holidays",
+    "theme_tags": [
+      "red",
+      "green",
+      "white",
+      "christmas",
+      "holiday",
+      "festive",
+      "celebration",
+      "joy"
+    ],
+    "items": [
+      { "name": "Red Amaryllis", "qty": 3 },
+      { "name": "White Chrysanthemum", "qty": 5 },
+      { "name": "Pine Sprigs", "qty": 5 },
+      { "name": "Holly Berries", "qty": 5 }
+    ],
+    "popularity": 0.9
+  },
+  {
+    "id": "birthday_bash",
+    "name": "Birthday Bash",
+    "theme_tags": [
+      "multi",
+      "colorful",
+      "fun",
+      "birthday",
+      "celebration",
+      "happy",
+      "party",
+      "joy"
+    ],
+    "items": [
+      { "name": "Rainbow Gerbera Daisies", "qty": 8 },
+      { "name": "Pink Carnation", "qty": 6 },
+      { "name": "Blue Iris", "qty": 4 },
+      { "name": "Yellow Freesia", "qty": 5 }
+    ],
+    "popularity": 0.95
+  },
+  {
+    "id": "thank_you_bunch",
+    "name": "Thank You Bunch",
+    "theme_tags": [
+      "pink",
+      "yellow",
+      "orange",
+      "gratitude",
+      "thanks",
+      "appreciation",
+      "happy",
+      "warm"
+    ],
+    "items": [
+      { "name": "Pink Rose", "qty": 5 },
+      { "name": "Yellow Alstroemeria", "qty": 7 },
+      { "name": "Orange Carnation", "qty": 5 }
+    ],
+    "popularity": 0.8
+  },
+  {
+    "id": "new_beginnings",
+    "name": "New Beginnings",
+    "theme_tags": [
+      "white",
+      "green",
+      "yellow",
+      "new",
+      "fresh",
+      "hopeful",
+      "peaceful",
+      "start"
+    ],
+    "items": [
+      { "name": "White Lily", "qty": 3 },
+      { "name": "Bells of Ireland", "qty": 6 },
+      { "name": "Yellow Freesia", "qty": 5 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "forever_friends",
+    "name": "Forever Friends",
+    "theme_tags": [
+      "yellow",
+      "pink",
+      "blue",
+      "friendship",
+      "happy",
+      "fun",
+      "loyal",
+      "joyful"
+    ],
+    "items": [
+      { "name": "Yellow Rose", "qty": 5 },
+      { "name": "Pink Gerbera Daisy", "qty": 4 },
+      { "name": "Blue Iris", "qty": 4 }
+    ],
+    "popularity": 0.85
+  },
+  {
+    "id": "love_always",
+    "name": "Love Always",
+    "theme_tags": [
+      "red",
+      "pink",
+      "white",
+      "romantic",
+      "love",
+      "eternal",
+      "anniversary",
+      "valentine"
+    ],
+    "items": [
+      { "name": "Red Rose", "qty": 9 },
+      { "name": "Pink Lily", "qty": 3 },
+      { "name": "White Freesia", "qty": 5 }
+    ],
+    "popularity": 0.9
+  },
+  {
+    "id": "get_well_soon",
+    "name": "Get Well Soon",
+    "theme_tags": [
+      "yellow",
+      "pink",
+      "purple",
+      "get well",
+      "healing",
+      "cheerful",
+      "happy",
+      "recovery"
+    ],
+    "items": [
+      { "name": "Yellow Rose", "qty": 4 },
+      { "name": "Pink Carnation", "qty": 6 },
+      { "name": "Purple Statice", "qty": 4 }
+    ],
+    "popularity": 0.75
+  },
+  {
+    "id": "congratulations_star",
+    "name": "Congratulations Star",
+    "theme_tags": [
+      "yellow",
+      "red",
+      "blue",
+      "congratulations",
+      "achievement",
+      "pride",
+      "success",
+      "happy"
+    ],
+    "items": [
+      { "name": "Yellow Lily", "qty": 3 },
+      { "name": "Red Gerbera Daisy", "qty": 5 },
+      { "name": "Blue Delphinium", "qty": 3 }
+    ],
+    "popularity": 0.8
+  },
+  {
+    "id": "thinking_of_you_always",
+    "name": "Thinking of You Always",
+    "theme_tags": [
+      "lavender",
+      "pink",
+      "white",
+      "thinking of you",
+      "caring",
+      "gentle",
+      "romantic",
+      "friendship"
+    ],
+    "items": [
+      { "name": "Lavender Rose", "qty": 7 },
+      { "name": "Pink Stock", "qty": 5 },
+      { "name": "White Lisianthus", "qty": 5 }
+    ],
+    "popularity": 0.7
+  },
+  {
+    "id": "just_for_you",
+    "name": "Just For You",
+    "theme_tags": [
+      "mixed",
+      "colorful",
+      "happy",
+      "fun",
+      "surprise",
+      "appreciation",
+      "friendship",
+      "joy"
+    ],
+    "items": [
+      { "name": "Pink Rose", "qty": 4 },
+      { "name": "Yellow Tulip", "qty": 5 },
+      { "name": "Purple Alstroemeria", "qty": 5 },
+      { "name": "White Daisy", "qty": 4 }
+    ],
+    "popularity": 0.8
+  }
+]
