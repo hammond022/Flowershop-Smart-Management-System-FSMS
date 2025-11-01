@@ -207,8 +207,121 @@ async function findBestMatchingItems(
   return matches.sort((a, b) => b.scores.total - a.scores.total);
 }
 
+async function buildBouquetResponse(
+  res,
+  template,
+  theme,
+  processingStartTime,
+  templateConfidence,
+  matchingMethod,
+  filteredMatches
+) {
+  const flowerItems = await getItemEmbeddings();
+
+  if (!flowerItems || flowerItems.length === 0) {
+    return res.status(404).json({ error: "No flowers available in inventory" });
+  }
+
+  const bouquetItems = [];
+  const usedItemIds = new Set();
+  let totalMatchingScore = 0;
+
+  for (const templateItem of template.items || []) {
+    if (!templateItem || bouquetItems.length >= 8) break;
+
+    const matches = await findBestMatchingItems(
+      templateItem,
+      flowerItems,
+      usedItemIds
+    );
+
+    if (matches.length > 0) {
+      const bestMatch = matches[0];
+      const quantity = Math.min(
+        templateItem.qty || templateItem.quantity || 3,
+        Math.max(1, Math.floor(bestMatch.flower.stock * 0.5))
+      );
+
+      bouquetItems.push({
+        id: bestMatch.flower.id,
+        name: bestMatch.flower.name,
+        tags: bestMatch.flower.tags,
+        stock: bestMatch.flower.stock,
+        price: bestMatch.flower.price,
+        cost: bestMatch.flower.cost,
+        photo: bestMatch.flower.photo,
+        quantity,
+        totalCost: +(bestMatch.flower.cost * quantity).toFixed(2),
+        totalPrice: +(bestMatch.flower.price * quantity).toFixed(2),
+        matchingAnalysis: {
+          overallConfidence: `${(bestMatch.scores.total * 100).toFixed(1)}%`,
+          scoreBreakdown: bestMatch.breakdown,
+          matchReasons: [
+            bestMatch.scores.semantic > 0.3 && "Semantic meaning matches theme",
+            bestMatch.scores.name > 0.5 && "Name closely matches template",
+            bestMatch.scores.tag > 0.3 && "Tags align with requirements",
+            bestMatch.scores.keyword > 0.2 &&
+              "Description contains relevant keywords",
+          ].filter(Boolean),
+        },
+      });
+
+      totalMatchingScore += bestMatch.scores.total;
+      usedItemIds.add(bestMatch.flower.id);
+    }
+  }
+
+  const totalCost = bouquetItems.reduce((sum, i) => sum + i.totalCost, 0);
+  const totalPrice = bouquetItems.reduce((sum, i) => sum + i.totalPrice, 0);
+  const processingTime = Date.now() - processingStartTime;
+
+  const averageItemConfidence =
+    bouquetItems.length > 0
+      ? ((totalMatchingScore / bouquetItems.length) * 100).toFixed(1)
+      : "0.0";
+
+  return res.json({
+    theme,
+    template: {
+      id: template.id,
+      name: template.name || template.theme,
+      theme: template.theme,
+      themeTags: template.theme_tags || [],
+    },
+    matchingAnalysis: {
+      method: matchingMethod || "keyword",
+      templateConfidence: `${templateConfidence}%`,
+      averageItemConfidence: `${averageItemConfidence}%`,
+      processingTime: `${processingTime}ms`,
+      totalTemplatesConsidered: filteredMatches ? filteredMatches.length : 1,
+      matchingEngine: "AI Semantic + Keyword",
+    },
+    financials: {
+      totalCost: +totalCost.toFixed(2),
+      totalPrice: +totalPrice.toFixed(2),
+      profitMargin: +(totalPrice - totalCost).toFixed(2),
+      profitMarginPercentage: +(
+        ((totalPrice - totalCost) / totalCost) *
+        100
+      ).toFixed(1),
+      recommendedPrice: +totalPrice.toFixed(2),
+    },
+    composition: {
+      totalItems: bouquetItems.length,
+      totalQuantity: bouquetItems.reduce((s, i) => s + i.quantity, 0),
+      stockUtilization: "conservative",
+      uniqueFlowers: bouquetItems.length,
+    },
+    items: bouquetItems,
+    metadata: {
+      generatedAt: new Date().toISOString(),
+      systemVersion: "2.0.0",
+      inventorySnapshot: `${flowerItems.length} flowers available`,
+    },
+  });
+}
 router.post("/suggest", async (req, res) => {
-  const { theme } = req.body;
+  const { theme, excludeIds = [], preferredId } = req.body;
 
   if (!theme || typeof theme !== "string") {
     return res
@@ -229,7 +342,37 @@ router.post("/suggest", async (req, res) => {
     console.log(`🎨 Generating bouquet for theme: "${theme}"`);
 
     const templates = await getTemplates();
+
+    if (preferredId) {
+      const preferredTemplate = templates.find(
+        (t) => t.id === preferredId && !excludeIds.includes(t.id)
+      );
+      if (preferredTemplate) {
+        console.log(`🌹 Using preferred template: ${preferredTemplate.id}`);
+        return await buildBouquetResponse(
+          res,
+          preferredTemplate,
+          theme,
+          processingStartTime,
+          "100.0", // High confidence for preferred template
+          "preferred",
+          [preferredTemplate]
+        );
+      }
+    }
+
     const keywordMatches = keywordMatchTemplates(theme, templates, 10);
+
+    const filteredMatches = keywordMatches.filter(
+      (t) => !excludeIds.includes(t.id)
+    );
+
+    if (filteredMatches.length === 0) {
+      return res.status(404).json({
+        error: "No more bouquet templates available after exclusions.",
+        suggestion: "Try another theme or reset exclusions",
+      });
+    }
 
     if (keywordMatches.length === 0) {
       return res.status(404).json({
@@ -239,7 +382,7 @@ router.post("/suggest", async (req, res) => {
       });
     }
 
-    let chosenTemplate = keywordMatches[0];
+    let chosenTemplate = filteredMatches[0];
     let matchingMethod = "keyword";
     let templateConfidence = chosenTemplate.confidence;
     let themeEmbedding = null;
@@ -250,14 +393,23 @@ router.post("/suggest", async (req, res) => {
       if (templateEmbeddings.length > 0) {
         themeEmbedding = await embedText(theme.toLowerCase());
 
-        const scoredTemplates = templateEmbeddings.map((template) => ({
-          ...template,
-          semanticScore: similarity(themeEmbedding, template.embedding),
-          finalScore:
-            template.matchType === "semantic"
-              ? similarity(themeEmbedding, template.embedding)
-              : template.score / 10,
-        }));
+        const scoredTemplates = templateEmbeddings.map((template) => {
+          const semanticScore = similarity(themeEmbedding, template.embedding);
+
+          const bias = template.feedback?.score || 0;
+          const biasWeight = 1 + bias * 0.05; // each +1 feedback = +5% influence
+
+          const finalScore =
+            (template.matchType === "semantic"
+              ? semanticScore
+              : template.score / 10) * biasWeight;
+
+          return {
+            ...template,
+            semanticScore,
+            finalScore,
+          };
+        });
 
         scoredTemplates.sort((a, b) => b.finalScore - a.finalScore);
 
@@ -288,142 +440,15 @@ router.post("/suggest", async (req, res) => {
       );
     }
 
-    const flowerItems = await getItemEmbeddings();
-
-    if (!flowerItems || flowerItems.length === 0) {
-      return res
-        .status(404)
-        .json({ error: "No flowers available in inventory" });
-    }
-
-    const bouquetItems = [];
-    const usedItemIds = new Set();
-    let totalMatchingScore = 0;
-
-    for (const templateItem of chosenTemplate.items || []) {
-      if (!templateItem || bouquetItems.length >= 8) break;
-
-      const matches = await findBestMatchingItems(
-        templateItem,
-        flowerItems,
-        usedItemIds,
-        themeEmbedding
-      );
-
-      if (matches.length > 0) {
-        const bestMatch = matches[0];
-        const quantity = Math.min(
-          templateItem.qty || templateItem.quantity || 3,
-          Math.max(1, Math.floor(bestMatch.flower.stock * 0.5))
-        );
-
-        bouquetItems.push({
-          id: bestMatch.flower.id,
-          name: bestMatch.flower.name,
-          tags: bestMatch.flower.tags,
-          stock: bestMatch.flower.stock,
-          price: bestMatch.flower.price,
-          cost: bestMatch.flower.cost,
-          photo: bestMatch.flower.photo,
-          quantity,
-          totalCost: +(bestMatch.flower.cost * quantity).toFixed(2),
-          totalPrice: +(bestMatch.flower.price * quantity).toFixed(2),
-          matchingAnalysis: {
-            overallConfidence: `${(bestMatch.scores.total * 100).toFixed(1)}%`,
-            scoreBreakdown: bestMatch.breakdown,
-            matchReasons: [
-              bestMatch.scores.semantic > 0.3 &&
-                "Semantic meaning matches theme",
-              bestMatch.scores.name > 0.5 && "Name closely matches template",
-              bestMatch.scores.tag > 0.3 && "Tags align with requirements",
-              bestMatch.scores.keyword > 0.2 &&
-                "Description contains relevant keywords",
-            ].filter(Boolean),
-          },
-        });
-
-        totalMatchingScore += bestMatch.scores.total;
-        usedItemIds.add(bestMatch.flower.id);
-      }
-    }
-
-    if (bouquetItems.length === 0) {
-      return res.status(404).json({
-        error: "No matching flowers available for this template",
-        attemptedTemplate: chosenTemplate.name,
-        suggestion: "Try refreshing inventory or using a different theme",
-      });
-    }
-
-    const totalCost = bouquetItems.reduce((sum, i) => sum + i.totalCost, 0);
-    const totalPrice = bouquetItems.reduce((sum, i) => sum + i.totalPrice, 0);
-    const averageItemConfidence = (
-      (totalMatchingScore / bouquetItems.length) *
-      100
-    ).toFixed(1);
-    const processingTime = Date.now() - processingStartTime;
-
-    const bouquet = {
+    return await buildBouquetResponse(
+      res,
+      chosenTemplate,
       theme,
-      template: {
-        id: chosenTemplate.id,
-        name: chosenTemplate.name || chosenTemplate.theme,
-        theme: chosenTemplate.theme,
-        themeTags: chosenTemplate.theme_tags || [],
-      },
-      matchingAnalysis: {
-        method: matchingMethod,
-        templateConfidence: `${templateConfidence}%`,
-        averageItemConfidence: `${averageItemConfidence}%`,
-        processingTime: `${processingTime}ms`,
-        totalTemplatesConsidered: keywordMatches.length,
-        matchingEngine: themeEmbedding
-          ? "AI Semantic + Keyword"
-          : "Keyword Only",
-      },
-      financials: {
-        totalCost: +totalCost.toFixed(2),
-        totalPrice: +totalPrice.toFixed(2),
-        profitMargin: +(totalPrice - totalCost).toFixed(2),
-        profitMarginPercentage: +(
-          ((totalPrice - totalCost) / totalCost) *
-          100
-        ).toFixed(1),
-        recommendedPrice: +totalPrice.toFixed(2),
-      },
-      composition: {
-        totalItems: bouquetItems.length,
-        totalQuantity: bouquetItems.reduce((s, i) => s + i.quantity, 0),
-        stockUtilization: "conservative", // or "balanced", "aggressive"
-        uniqueFlowers: bouquetItems.length,
-      },
-      items: bouquetItems,
-      recommendations: {
-        alternativeTemplates,
-        suggestedThemes: ["romantic", "joyful", "elegant", "vibrant"].filter(
-          (t) => t !== theme.toLowerCase()
-        ),
-        seasonalNote: "Consider seasonal availability for best pricing",
-      },
-      metadata: {
-        generatedAt: new Date().toISOString(),
-        systemVersion: "2.0.0",
-        inventorySnapshot: `${flowerItems.length} flowers available`,
-      },
-    };
-
-    console.log(
-      `💐 Generated "${bouquet.template.name}" with ${bouquet.items.length} items`
+      processingStartTime,
+      templateConfidence,
+      matchingMethod,
+      filteredMatches
     );
-    console.log(
-      `   📊 Confidence: ${bouquet.matchingAnalysis.templateConfidence} | Items: ${bouquet.matchingAnalysis.averageItemConfidence}`
-    );
-    console.log(
-      `   💰 Price: $${bouquet.financials.totalPrice} | Margin: ${bouquet.financials.profitMarginPercentage}%`
-    );
-    console.log(`   ⚡ Processing: ${bouquet.matchingAnalysis.processingTime}`);
-
-    res.json(bouquet);
   } catch (err) {
     console.error("Error generating bouquet:", err);
 
@@ -475,6 +500,50 @@ router.get("/status", (req, res) => {
       maxConcurrent: 1,
     },
   });
+});
+
+router.post("/feedback", async (req, res) => {
+  const { templateId, rating } = req.body;
+
+  if (!templateId || !["up", "down"].includes(rating)) {
+    return res.status(400).json({
+      error: "Invalid feedback data",
+      details: "templateId and rating ('up' or 'down') are required",
+    });
+  }
+
+  try {
+    const templatesPath = path.resolve("data/templates.json");
+    const templates = JSON.parse(fs.readFileSync(templatesPath, "utf-8"));
+
+    const templateIndex = templates.findIndex((t) => t.id === templateId);
+    if (templateIndex === -1) {
+      return res.status(404).json({ error: "Template not found" });
+    }
+
+    // Adjust bias (defaults to 0.5 if not set)
+    let currentBias = templates[templateIndex].bias ?? 0.5;
+    const delta = rating === "up" ? 0.05 : -0.05;
+    currentBias = Math.max(0, Math.min(1, currentBias + delta)); // keep between 0–1
+
+    templates[templateIndex].bias = parseFloat(currentBias.toFixed(2));
+
+    fs.writeFileSync(templatesPath, JSON.stringify(templates, null, 2));
+
+    console.log(
+      `⭐ Feedback for ${templateId}: ${rating} (new bias ${currentBias})`
+    );
+
+    res.json({
+      success: true,
+      message: "Feedback recorded",
+      newBias: currentBias,
+      templateId,
+    });
+  } catch (error) {
+    console.error("Failed to update bias:", error);
+    res.status(500).json({ error: "Failed to update template bias" });
+  }
 });
 
 export default router;

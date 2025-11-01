@@ -13,11 +13,20 @@
       "energy"
     ],
     "items": [
-      { "name": "Sunflower", "qty": 5 },
-      { "name": "Yellow Gerbera Daisy", "qty": 7 },
-      { "name": "Solidago", "qty": 5 }
+      {
+        "name": "Sunflower",
+        "qty": 5
+      },
+      {
+        "name": "Yellow Gerbera Daisy",
+        "qty": 7
+      },
+      {
+        "name": "Solidago",
+        "qty": 5
+      }
     ],
-    "popularity": 0.8
+    "bias": 0.7
   },
   {
     "id": "passionate_embers",
@@ -33,11 +42,20 @@
       "deep"
     ],
     "items": [
-      { "name": "Red Rose", "qty": 12 },
-      { "name": "Red Tulip", "qty": 6 },
-      { "name": "Amaranthus", "qty": 3 }
+      {
+        "name": "Red Rose",
+        "qty": 12
+      },
+      {
+        "name": "Red Tulip",
+        "qty": 6
+      },
+      {
+        "name": "Amaranthus",
+        "qty": 3
+      }
     ],
-    "popularity": 0.9
+    "bias": 0.9
   },
   {
     "id": "tranquil_azure_dream",
@@ -53,11 +71,20 @@
       "cool"
     ],
     "items": [
-      { "name": "Blue Delphinium", "qty": 7 },
-      { "name": "Hyacinth", "qty": 4 },
-      { "name": "White Lisianthus", "qty": 5 }
+      {
+        "name": "Blue Delphinium",
+        "qty": 7
+      },
+      {
+        "name": "Hyacinth",
+        "qty": 4
+      },
+      {
+        "name": "White Lisianthus",
+        "qty": 5
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "vibrant_meadow_magic",
@@ -73,12 +100,24 @@
       "bright"
     ],
     "items": [
-      { "name": "Pink Gerbera Daisy", "qty": 3 },
-      { "name": "Orange Rose", "qty": 4 },
-      { "name": "Purple Statice", "qty": 4 },
-      { "name": "Yellow Freesia", "qty": 5 }
+      {
+        "name": "Pink Gerbera Daisy",
+        "qty": 3
+      },
+      {
+        "name": "Orange Rose",
+        "qty": 4
+      },
+      {
+        "name": "Purple Statice",
+        "qty": 4
+      },
+      {
+        "name": "Yellow Freesia",
+        "qty": 5
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "enchanted_forest",
@@ -94,12 +133,24 @@
       "fresh"
     ],
     "items": [
-      { "name": "Bells of Ireland", "qty": 7 },
-      { "name": "Green Chrysanthemum", "qty": 5 },
-      { "name": "Eucalyptus", "qty": 5 },
-      { "name": "Ruscus", "qty": 4 }
+      {
+        "name": "Bells of Ireland",
+        "qty": 7
+      },
+      {
+        "name": "Green Chrysanthemum",
+        "qty": 5
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 5
+      },
+      {
+        "name": "Ruscus",
+        "qty": 4
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "birthday_fiesta",
@@ -115,11 +166,20 @@
       "surprise"
     ],
     "items": [
-      { "name": "Rainbow Carnations", "qty": 12 },
-      { "name": "Pink Alstroemeria", "qty": 6 },
-      { "name": "Blue Iris", "qty": 4 }
+      {
+        "name": "Rainbow Carnations",
+        "qty": 12
+      },
+      {
+        "name": "Pink Alstroemeria",
+        "qty": 6
+      },
+      {
+        "name": "Blue Iris",
+        "qty": 4
+      }
     ],
-    "popularity": 0.85
+    "bias": 0.85
   },
   {
     "id": "velvet_night",
@@ -135,12 +195,24 @@
       "unique"
     ],
     "items": [
-      { "name": "Purple Lisianthus", "qty": 5 },
-      { "name": "Dark Purple Carnation", "qty": 8 },
-      { "name": "Aster", "qty": 5 },
-      { "name": "Silver Brunia", "qty": 3 }
+      {
+        "name": "Purple Lisianthus",
+        "qty": 5
+      },
+      {
+        "name": "Dark Purple Carnation",
+        "qty": 8
+      },
+      {
+        "name": "Aster",
+        "qty": 5
+      },
+      {
+        "name": "Silver Brunia",
+        "qty": 3
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "blushing_promise",
@@ -156,11 +228,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Pink Rose", "qty": 9 },
-      { "name": "Light Pink Tulip", "qty": 5 },
-      { "name": "Peony", "qty": 3 }
+      {
+        "name": "Pink Rose",
+        "qty": 9
+      },
+      {
+        "name": "Light Pink Tulip",
+        "qty": 5
+      },
+      {
+        "name": "Peony",
+        "qty": 3
+      }
     ],
-    "popularity": 0.75
+    "bias": 0.75
   },
   {
     "id": "fiery_zest",
@@ -176,11 +257,20 @@
       "creative"
     ],
     "items": [
-      { "name": "Orange Lily", "qty": 4 },
-      { "name": "Orange Gerbera Daisy", "qty": 5 },
-      { "name": "Bird of Paradise", "qty": 2 }
+      {
+        "name": "Orange Lily",
+        "qty": 4
+      },
+      {
+        "name": "Orange Gerbera Daisy",
+        "qty": 5
+      },
+      {
+        "name": "Bird of Paradise",
+        "qty": 2
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "pure_innocence",
@@ -196,11 +286,20 @@
       "graceful"
     ],
     "items": [
-      { "name": "White Lily", "qty": 3 },
-      { "name": "White Rose", "qty": 8 },
-      { "name": "Baby's Breath", "qty": 4 }
+      {
+        "name": "White Lily",
+        "qty": 3
+      },
+      {
+        "name": "White Rose",
+        "qty": 8
+      },
+      {
+        "name": "Baby's Breath",
+        "qty": 4
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "get_well_rainbow",
@@ -216,12 +315,24 @@
       "fun"
     ],
     "items": [
-      { "name": "Yellow Rose", "qty": 3 },
-      { "name": "Pink Carnation", "qty": 5 },
-      { "name": "Blue Cornflower", "qty": 4 },
-      { "name": "Lavender", "qty": 3 }
+      {
+        "name": "Yellow Rose",
+        "qty": 3
+      },
+      {
+        "name": "Pink Carnation",
+        "qty": 5
+      },
+      {
+        "name": "Blue Cornflower",
+        "qty": 4
+      },
+      {
+        "name": "Lavender",
+        "qty": 3
+      }
     ],
-    "popularity": 0.65
+    "bias": 0.65
   },
   {
     "id": "sunny_disposition",
@@ -237,11 +348,20 @@
       "fun"
     ],
     "items": [
-      { "name": "Yellow Gerbera Daisy", "qty": 6 },
-      { "name": "Yellow Tulip", "qty": 6 },
-      { "name": "Sunflower", "qty": 2 }
+      {
+        "name": "Yellow Gerbera Daisy",
+        "qty": 6
+      },
+      {
+        "name": "Yellow Tulip",
+        "qty": 6
+      },
+      {
+        "name": "Sunflower",
+        "qty": 2
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "thankful_heart",
@@ -257,11 +377,20 @@
       "friendship"
     ],
     "items": [
-      { "name": "Pink Rose", "qty": 5 },
-      { "name": "Yellow Alstroemeria", "qty": 7 },
-      { "name": "Pink Carnation", "qty": 5 }
+      {
+        "name": "Pink Rose",
+        "qty": 5
+      },
+      {
+        "name": "Yellow Alstroemeria",
+        "qty": 7
+      },
+      {
+        "name": "Pink Carnation",
+        "qty": 5
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "ocean_whisper",
@@ -277,11 +406,20 @@
       "tranquil"
     ],
     "items": [
-      { "name": "White Hydrangea", "qty": 2 },
-      { "name": "Blue Thistle", "qty": 5 },
-      { "name": "White Ranunculus", "qty": 6 }
+      {
+        "name": "White Hydrangea",
+        "qty": 2
+      },
+      {
+        "name": "Blue Thistle",
+        "qty": 5
+      },
+      {
+        "name": "White Ranunculus",
+        "qty": 6
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "berry_delight",
@@ -297,11 +435,20 @@
       "berry"
     ],
     "items": [
-      { "name": "Purple Alstroemeria", "qty": 7 },
-      { "name": "Pink Spray Rose", "qty": 8 },
-      { "name": "Hypericum Berries", "qty": 4 }
+      {
+        "name": "Purple Alstroemeria",
+        "qty": 7
+      },
+      {
+        "name": "Pink Spray Rose",
+        "qty": 8
+      },
+      {
+        "name": "Hypericum Berries",
+        "qty": 4
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "autumn_glow",
@@ -317,12 +464,24 @@
       "rustic"
     ],
     "items": [
-      { "name": "Orange Rose", "qty": 4 },
-      { "name": "Red Chrysanthemum", "qty": 5 },
-      { "name": "Yellow Maple Leaves", "qty": 3 },
-      { "name": "Orange Tulip", "qty": 4 }
+      {
+        "name": "Orange Rose",
+        "qty": 4
+      },
+      {
+        "name": "Red Chrysanthemum",
+        "qty": 5
+      },
+      {
+        "name": "Yellow Maple Leaves",
+        "qty": 3
+      },
+      {
+        "name": "Orange Tulip",
+        "qty": 4
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "spring_awakening",
@@ -338,11 +497,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Pink Peony", "qty": 4 },
-      { "name": "White Freesia", "qty": 6 },
-      { "name": "Sprengeri Fern", "qty": 5 }
+      {
+        "name": "Pink Peony",
+        "qty": 4
+      },
+      {
+        "name": "White Freesia",
+        "qty": 6
+      },
+      {
+        "name": "Sprengeri Fern",
+        "qty": 5
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "midnight_mystique",
@@ -358,12 +526,24 @@
       "night"
     ],
     "items": [
-      { "name": "Black Magic Rose", "qty": 6 },
-      { "name": "Purple Anemone", "qty": 5 },
-      { "name": "Blue Iris", "qty": 4 },
-      { "name": "Dark Scabiosa", "qty": 3 }
+      {
+        "name": "Black Magic Rose",
+        "qty": 6
+      },
+      {
+        "name": "Purple Anemone",
+        "qty": 5
+      },
+      {
+        "name": "Blue Iris",
+        "qty": 4
+      },
+      {
+        "name": "Dark Scabiosa",
+        "qty": 3
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "cotton_candy_clouds",
@@ -379,11 +559,20 @@
       "dreamy"
     ],
     "items": [
-      { "name": "Pink Carnation", "qty": 9 },
-      { "name": "White Daisy", "qty": 7 },
-      { "name": "Pink Astilbe", "qty": 4 }
+      {
+        "name": "Pink Carnation",
+        "qty": 9
+      },
+      {
+        "name": "White Daisy",
+        "qty": 7
+      },
+      {
+        "name": "Pink Astilbe",
+        "qty": 4
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "citrus_splash",
@@ -399,11 +588,20 @@
       "bright"
     ],
     "items": [
-      { "name": "Orange Gerbera Daisy", "qty": 5 },
-      { "name": "Yellow Lily", "qty": 3 },
-      { "name": "Bells of Ireland", "qty": 4 }
+      {
+        "name": "Orange Gerbera Daisy",
+        "qty": 5
+      },
+      {
+        "name": "Yellow Lily",
+        "qty": 3
+      },
+      {
+        "name": "Bells of Ireland",
+        "qty": 4
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "congratulations_champ",
@@ -419,11 +617,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Yellow Rose", "qty": 6 },
-      { "name": "Red Gerbera Daisy", "qty": 4 },
-      { "name": "Blue Delphinium", "qty": 3 }
+      {
+        "name": "Yellow Rose",
+        "qty": 6
+      },
+      {
+        "name": "Red Gerbera Daisy",
+        "qty": 4
+      },
+      {
+        "name": "Blue Delphinium",
+        "qty": 3
+      }
     ],
-    "popularity": 0.65
+    "bias": 0.6
   },
   {
     "id": "sympathy_peace",
@@ -439,12 +646,24 @@
       "respect"
     ],
     "items": [
-      { "name": "White Lily", "qty": 2 },
-      { "name": "White Carnation", "qty": 8 },
-      { "name": "Eucalyptus", "qty": 4 },
-      { "name": "Ruscus", "qty": 3 }
+      {
+        "name": "White Lily",
+        "qty": 2
+      },
+      {
+        "name": "White Carnation",
+        "qty": 8
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 4
+      },
+      {
+        "name": "Ruscus",
+        "qty": 3
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "festive_cheer",
@@ -460,12 +679,24 @@
       "warm"
     ],
     "items": [
-      { "name": "Red Amaryllis", "qty": 3 },
-      { "name": "White Chrysanthemum", "qty": 5 },
-      { "name": "Pine Sprigs", "qty": 4 },
-      { "name": "Holly Berries", "qty": 5 }
+      {
+        "name": "Red Amaryllis",
+        "qty": 3
+      },
+      {
+        "name": "White Chrysanthemum",
+        "qty": 5
+      },
+      {
+        "name": "Pine Sprigs",
+        "qty": 4
+      },
+      {
+        "name": "Holly Berries",
+        "qty": 5
+      }
     ],
-    "popularity": 0.75
+    "bias": 0.75
   },
   {
     "id": "new_baby_bliss",
@@ -481,12 +712,24 @@
       "congratulations"
     ],
     "items": [
-      { "name": "Pink Rose", "qty": 4 },
-      { "name": "Blue Hydrangea", "qty": 2 },
-      { "name": "White Freesia", "qty": 6 },
-      { "name": "Gypsophila", "qty": 3 }
+      {
+        "name": "Pink Rose",
+        "qty": 4
+      },
+      {
+        "name": "Blue Hydrangea",
+        "qty": 2
+      },
+      {
+        "name": "White Freesia",
+        "qty": 6
+      },
+      {
+        "name": "Gypsophila",
+        "qty": 3
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "friendship_forever",
@@ -502,11 +745,20 @@
       "mixed"
     ],
     "items": [
-      { "name": "Yellow Rose", "qty": 5 },
-      { "name": "Pink Alstroemeria", "qty": 7 },
-      { "name": "Yellow Daisy", "qty": 5 }
+      {
+        "name": "Yellow Rose",
+        "qty": 5
+      },
+      {
+        "name": "Pink Alstroemeria",
+        "qty": 7
+      },
+      {
+        "name": "Yellow Daisy",
+        "qty": 5
+      }
     ],
-    "popularity": 0.8
+    "bias": 0.8
   },
   {
     "id": "winter_elegance",
@@ -522,12 +774,24 @@
       "christmas"
     ],
     "items": [
-      { "name": "White Rose", "qty": 8 },
-      { "name": "White Ranunculus", "qty": 5 },
-      { "name": "Eucalyptus", "qty": 4 },
-      { "name": "Silver Dollar Eucalyptus", "qty": 3 }
+      {
+        "name": "White Rose",
+        "qty": 8
+      },
+      {
+        "name": "White Ranunculus",
+        "qty": 5
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 4
+      },
+      {
+        "name": "Silver Dollar Eucalyptus",
+        "qty": 3
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "summer_sorbet",
@@ -543,11 +807,20 @@
       "vibrant"
     ],
     "items": [
-      { "name": "Pink Gerbera Daisy", "qty": 4 },
-      { "name": "Orange Tulip", "qty": 5 },
-      { "name": "Yellow Ranunculus", "qty": 5 }
+      {
+        "name": "Pink Gerbera Daisy",
+        "qty": 4
+      },
+      {
+        "name": "Orange Tulip",
+        "qty": 5
+      },
+      {
+        "name": "Yellow Ranunculus",
+        "qty": 5
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "royal_majesty",
@@ -563,11 +836,20 @@
       "dignified"
     ],
     "items": [
-      { "name": "Purple Orchid", "qty": 3 },
-      { "name": "White Calla Lily", "qty": 4 },
-      { "name": "Purple Lisianthus", "qty": 6 }
+      {
+        "name": "Purple Orchid",
+        "qty": 3
+      },
+      {
+        "name": "White Calla Lily",
+        "qty": 4
+      },
+      {
+        "name": "Purple Lisianthus",
+        "qty": 6
+      }
     ],
-    "popularity": 0.45
+    "bias": 0.45
   },
   {
     "id": "thinking_of_you",
@@ -583,11 +865,20 @@
       "thoughtful"
     ],
     "items": [
-      { "name": "Lavender Rose", "qty": 7 },
-      { "name": "Pink Stock", "qty": 5 },
-      { "name": "Lisianthus", "qty": 4 }
+      {
+        "name": "Lavender Rose",
+        "qty": 7
+      },
+      {
+        "name": "Pink Stock",
+        "qty": 5
+      },
+      {
+        "name": "Lisianthus",
+        "qty": 4
+      }
     ],
-    "popularity": 0.65
+    "bias": 0.65
   },
   {
     "id": "secret_admirer",
@@ -603,11 +894,20 @@
       "intriguing"
     ],
     "items": [
-      { "name": "Red Rose", "qty": 1 },
-      { "name": "Pink Peony", "qty": 3 },
-      { "name": "Amaranthus", "qty": 2 }
+      {
+        "name": "Red Rose",
+        "qty": 1
+      },
+      {
+        "name": "Pink Peony",
+        "qty": 3
+      },
+      {
+        "name": "Amaranthus",
+        "qty": 2
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "corporate_triumph",
@@ -623,12 +923,24 @@
       "elegant"
     ],
     "items": [
-      { "name": "White Rose", "qty": 7 },
-      { "name": "Green Trick Dianthus", "qty": 3 },
-      { "name": "Blue Thistle", "qty": 4 },
-      { "name": "Leather Leaf", "qty": 5 }
+      {
+        "name": "White Rose",
+        "qty": 7
+      },
+      {
+        "name": "Green Trick Dianthus",
+        "qty": 3
+      },
+      {
+        "name": "Blue Thistle",
+        "qty": 4
+      },
+      {
+        "name": "Leather Leaf",
+        "qty": 5
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "garden_party",
@@ -644,12 +956,24 @@
       "spring"
     ],
     "items": [
-      { "name": "Pink Dahlia", "qty": 3 },
-      { "name": "Yellow Ranunculus", "qty": 5 },
-      { "name": "White Alyssum", "qty": 4 },
-      { "name": "Lavender", "qty": 3 }
+      {
+        "name": "Pink Dahlia",
+        "qty": 3
+      },
+      {
+        "name": "Yellow Ranunculus",
+        "qty": 5
+      },
+      {
+        "name": "White Alyssum",
+        "qty": 4
+      },
+      {
+        "name": "Lavender",
+        "qty": 3
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "tropical_paradise",
@@ -665,12 +989,24 @@
       "fun"
     ],
     "items": [
-      { "name": "Bird of Paradise", "qty": 2 },
-      { "name": "Red Ginger", "qty": 3 },
-      { "name": "Orange Heliconia", "qty": 2 },
-      { "name": "Anthurium", "qty": 4 }
+      {
+        "name": "Bird of Paradise",
+        "qty": 2
+      },
+      {
+        "name": "Red Ginger",
+        "qty": 3
+      },
+      {
+        "name": "Orange Heliconia",
+        "qty": 2
+      },
+      {
+        "name": "Anthurium",
+        "qty": 4
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.45
   },
   {
     "id": "vintage_charm",
@@ -686,12 +1022,24 @@
       "elegant"
     ],
     "items": [
-      { "name": "Peach Rose", "qty": 6 },
-      { "name": "Cream Ranunculus", "qty": 5 },
-      { "name": "Pink Stock", "qty": 4 },
-      { "name": "Dusty Miller", "qty": 3 }
+      {
+        "name": "Peach Rose",
+        "qty": 6
+      },
+      {
+        "name": "Cream Ranunculus",
+        "qty": 5
+      },
+      {
+        "name": "Pink Stock",
+        "qty": 4
+      },
+      {
+        "name": "Dusty Miller",
+        "qty": 3
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "dramatic_desire",
@@ -707,11 +1055,20 @@
       "bold"
     ],
     "items": [
-      { "name": "Black Baccara Rose", "qty": 8 },
-      { "name": "Red Calla Lily", "qty": 3 },
-      { "name": "Black Scabiosa", "qty": 4 }
+      {
+        "name": "Black Baccara Rose",
+        "qty": 8
+      },
+      {
+        "name": "Red Calla Lily",
+        "qty": 3
+      },
+      {
+        "name": "Black Scabiosa",
+        "qty": 4
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "morning_dew",
@@ -727,12 +1084,24 @@
       "new"
     ],
     "items": [
-      { "name": "White Hydrangea", "qty": 1 },
-      { "name": "White Lisianthus", "qty": 7 },
-      { "name": "Ferns", "qty": 5 },
-      { "name": "Eucalyptus", "qty": 3 }
+      {
+        "name": "White Hydrangea",
+        "qty": 1
+      },
+      {
+        "name": "White Lisianthus",
+        "qty": 7
+      },
+      {
+        "name": "Ferns",
+        "qty": 5
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 3
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "celebrate_success",
@@ -748,11 +1117,20 @@
       "victory"
     ],
     "items": [
-      { "name": "Yellow Lily", "qty": 4 },
-      { "name": "Orange Rose", "qty": 5 },
-      { "name": "Red Gerbera Daisy", "qty": 4 }
+      {
+        "name": "Yellow Lily",
+        "qty": 4
+      },
+      {
+        "name": "Orange Rose",
+        "qty": 5
+      },
+      {
+        "name": "Red Gerbera Daisy",
+        "qty": 4
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "serene_sympathy",
@@ -768,11 +1146,20 @@
       "gentle"
     ],
     "items": [
-      { "name": "Lavender Carnation", "qty": 8 },
-      { "name": "White Rose", "qty": 6 },
-      { "name": "Lisianthus", "qty": 4 }
+      {
+        "name": "Lavender Carnation",
+        "qty": 8
+      },
+      {
+        "name": "White Rose",
+        "qty": 6
+      },
+      {
+        "name": "Lisianthus",
+        "qty": 4
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "wildflower_whimsy",
@@ -788,11 +1175,20 @@
       "summer"
     ],
     "items": [
-      { "name": "Assorted Wildflowers", "qty": 15 },
-      { "name": "Lavender", "qty": 3 },
-      { "name": "Daisy", "qty": 5 }
+      {
+        "name": "Assorted Wildflowers",
+        "qty": 15
+      },
+      {
+        "name": "Lavender",
+        "qty": 3
+      },
+      {
+        "name": "Daisy",
+        "qty": 5
+      }
     ],
-    "popularity": 0.65
+    "bias": 0.65
   },
   {
     "id": "grand_gesture",
@@ -808,10 +1204,16 @@
       "dozen"
     ],
     "items": [
-      { "name": "Red Rose", "qty": 24 },
-      { "name": "Leather Leaf", "qty": 10 }
+      {
+        "name": "Red Rose",
+        "qty": 24
+      },
+      {
+        "name": "Leather Leaf",
+        "qty": 10
+      }
     ],
-    "popularity": 0.8
+    "bias": 0.8
   },
   {
     "id": "pink_perfection",
@@ -827,11 +1229,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Pink Lily", "qty": 3 },
-      { "name": "Pink Rose", "qty": 9 },
-      { "name": "Pink Carnation", "qty": 6 }
+      {
+        "name": "Pink Lily",
+        "qty": 3
+      },
+      {
+        "name": "Pink Rose",
+        "qty": 9
+      },
+      {
+        "name": "Pink Carnation",
+        "qty": 6
+      }
     ],
-    "popularity": 0.75
+    "bias": 0.75
   },
   {
     "id": "blue_horizon",
@@ -847,11 +1258,20 @@
       "get well"
     ],
     "items": [
-      { "name": "Blue Hydrangea", "qty": 2 },
-      { "name": "White Lisianthus", "qty": 7 },
-      { "name": "Blue Iris", "qty": 5 }
+      {
+        "name": "Blue Hydrangea",
+        "qty": 2
+      },
+      {
+        "name": "White Lisianthus",
+        "qty": 7
+      },
+      {
+        "name": "Blue Iris",
+        "qty": 5
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "harvest_blessings",
@@ -867,12 +1287,24 @@
       "gratitude"
     ],
     "items": [
-      { "name": "Orange Lily", "qty": 3 },
-      { "name": "Yellow Chrysanthemum", "qty": 5 },
-      { "name": "Red Oak Leaves", "qty": 4 },
-      { "name": "Wheat Stalks", "qty": 3 }
+      {
+        "name": "Orange Lily",
+        "qty": 3
+      },
+      {
+        "name": "Yellow Chrysanthemum",
+        "qty": 5
+      },
+      {
+        "name": "Red Oak Leaves",
+        "qty": 4
+      },
+      {
+        "name": "Wheat Stalks",
+        "qty": 3
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "pretty_in_pastels",
@@ -888,11 +1320,20 @@
       "shower"
     ],
     "items": [
-      { "name": "Peach Rose", "qty": 5 },
-      { "name": "Lavender Alstroemeria", "qty": 6 },
-      { "name": "Pink Tulip", "qty": 5 }
+      {
+        "name": "Peach Rose",
+        "qty": 5
+      },
+      {
+        "name": "Lavender Alstroemeria",
+        "qty": 6
+      },
+      {
+        "name": "Pink Tulip",
+        "qty": 5
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "sunny_side_up",
@@ -908,11 +1349,20 @@
       "bright"
     ],
     "items": [
-      { "name": "Sunflower", "qty": 3 },
-      { "name": "Yellow Gerbera Daisy", "qty": 5 },
-      { "name": "Yellow Tulip", "qty": 6 }
+      {
+        "name": "Sunflower",
+        "qty": 3
+      },
+      {
+        "name": "Yellow Gerbera Daisy",
+        "qty": 5
+      },
+      {
+        "name": "Yellow Tulip",
+        "qty": 6
+      }
     ],
-    "popularity": 0.8
+    "bias": 0.8
   },
   {
     "id": "fire_and_ice",
@@ -928,11 +1378,20 @@
       "modern"
     ],
     "items": [
-      { "name": "Red Rose", "qty": 7 },
-      { "name": "White Ranunculus", "qty": 7 },
-      { "name": "Red Anemone", "qty": 4 }
+      {
+        "name": "Red Rose",
+        "qty": 7
+      },
+      {
+        "name": "White Ranunculus",
+        "qty": 7
+      },
+      {
+        "name": "Red Anemone",
+        "qty": 4
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "fragrant_escape",
@@ -948,11 +1407,20 @@
       "serene"
     ],
     "items": [
-      { "name": "Lavender", "qty": 10 },
-      { "name": "Purple Stock", "qty": 5 },
-      { "name": "Eucalyptus", "qty": 3 }
+      {
+        "name": "Lavender",
+        "qty": 10
+      },
+      {
+        "name": "Purple Stock",
+        "qty": 5
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 3
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "mothers_love",
@@ -968,11 +1436,20 @@
       "family"
     ],
     "items": [
-      { "name": "Pink Carnation", "qty": 9 },
-      { "name": "White Rose", "qty": 6 },
-      { "name": "Gypsophila", "qty": 4 }
+      {
+        "name": "Pink Carnation",
+        "qty": 9
+      },
+      {
+        "name": "White Rose",
+        "qty": 6
+      },
+      {
+        "name": "Gypsophila",
+        "qty": 4
+      }
     ],
-    "popularity": 0.9
+    "bias": 0.9
   },
   {
     "id": "bold_and_beautiful",
@@ -988,11 +1465,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Red Gerbera Daisy", "qty": 5 },
-      { "name": "Orange Tulip", "qty": 6 },
-      { "name": "Yellow Lily", "qty": 3 }
+      {
+        "name": "Red Gerbera Daisy",
+        "qty": 5
+      },
+      {
+        "name": "Orange Tulip",
+        "qty": 6
+      },
+      {
+        "name": "Yellow Lily",
+        "qty": 3
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.55
   },
   {
     "id": "warm_wishes",
@@ -1008,11 +1494,20 @@
       "cozy"
     ],
     "items": [
-      { "name": "Peach Rose", "qty": 6 },
-      { "name": "Yellow Alstroemeria", "qty": 7 },
-      { "name": "Orange Carnation", "qty": 5 }
+      {
+        "name": "Peach Rose",
+        "qty": 6
+      },
+      {
+        "name": "Yellow Alstroemeria",
+        "qty": 7
+      },
+      {
+        "name": "Orange Carnation",
+        "qty": 5
+      }
     ],
-    "popularity": 0.65
+    "bias": 0.65
   },
   {
     "id": "cool_breeze",
@@ -1028,11 +1523,20 @@
       "summer"
     ],
     "items": [
-      { "name": "Blue Hydrangea", "qty": 2 },
-      { "name": "White Freesia", "qty": 7 },
-      { "name": "Eucalyptus", "qty": 4 }
+      {
+        "name": "Blue Hydrangea",
+        "qty": 2
+      },
+      {
+        "name": "White Freesia",
+        "qty": 7
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 4
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "party_time",
@@ -1048,11 +1552,20 @@
       "joy"
     ],
     "items": [
-      { "name": "Rainbow Gerbera Daisies", "qty": 9 },
-      { "name": "Pink Carnation", "qty": 6 },
-      { "name": "Blue Iris", "qty": 3 }
+      {
+        "name": "Rainbow Gerbera Daisies",
+        "qty": 9
+      },
+      {
+        "name": "Pink Carnation",
+        "qty": 6
+      },
+      {
+        "name": "Blue Iris",
+        "qty": 3
+      }
     ],
-    "popularity": 0.85
+    "bias": 0.85
   },
   {
     "id": "forever_yours",
@@ -1068,10 +1581,16 @@
       "elegant"
     ],
     "items": [
-      { "name": "Red Rose", "qty": 12 },
-      { "name": "White Rose", "qty": 12 }
+      {
+        "name": "Red Rose",
+        "qty": 12
+      },
+      {
+        "name": "White Rose",
+        "qty": 12
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "spring_cheer",
@@ -1087,11 +1606,20 @@
       "fun"
     ],
     "items": [
-      { "name": "Yellow Tulip", "qty": 6 },
-      { "name": "Pink Hyacinth", "qty": 4 },
-      { "name": "Purple Iris", "qty": 5 }
+      {
+        "name": "Yellow Tulip",
+        "qty": 6
+      },
+      {
+        "name": "Pink Hyacinth",
+        "qty": 4
+      },
+      {
+        "name": "Purple Iris",
+        "qty": 5
+      }
     ],
-    "popularity": 0.75
+    "bias": 0.75
   },
   {
     "id": "gentle_thoughts",
@@ -1107,11 +1635,20 @@
       "peaceful"
     ],
     "items": [
-      { "name": "Lavender Rose", "qty": 6 },
-      { "name": "Pink Lisianthus", "qty": 5 },
-      { "name": "White Alstroemeria", "qty": 5 }
+      {
+        "name": "Lavender Rose",
+        "qty": 6
+      },
+      {
+        "name": "Pink Lisianthus",
+        "qty": 5
+      },
+      {
+        "name": "White Alstroemeria",
+        "qty": 5
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "patriotic_pride",
@@ -1127,11 +1664,20 @@
       "bold"
     ],
     "items": [
-      { "name": "Red Rose", "qty": 5 },
-      { "name": "White Carnation", "qty": 7 },
-      { "name": "Blue Delphinium", "qty": 4 }
+      {
+        "name": "Red Rose",
+        "qty": 5
+      },
+      {
+        "name": "White Carnation",
+        "qty": 7
+      },
+      {
+        "name": "Blue Delphinium",
+        "qty": 4
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "rustic_charm",
@@ -1147,12 +1693,24 @@
       "autumn"
     ],
     "items": [
-      { "name": "Orange Spray Rose", "qty": 8 },
-      { "name": "Yellow Button Pom", "qty": 6 },
-      { "name": "Eucalyptus", "qty": 5 },
-      { "name": "Wheat", "qty": 3 }
+      {
+        "name": "Orange Spray Rose",
+        "qty": 8
+      },
+      {
+        "name": "Yellow Button Pom",
+        "qty": 6
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 5
+      },
+      {
+        "name": "Wheat",
+        "qty": 3
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "mystic_orchid",
@@ -1168,11 +1726,20 @@
       "tropical"
     ],
     "items": [
-      { "name": "Purple Orchid", "qty": 4 },
-      { "name": "White Phalaenopsis", "qty": 2 },
-      { "name": "Monstera Leaf", "qty": 2 }
+      {
+        "name": "Purple Orchid",
+        "qty": 4
+      },
+      {
+        "name": "White Phalaenopsis",
+        "qty": 2
+      },
+      {
+        "name": "Monstera Leaf",
+        "qty": 2
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "happy_anniversary",
@@ -1188,11 +1755,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Red Rose", "qty": 6 },
-      { "name": "Pink Lily", "qty": 3 },
-      { "name": "White Freesia", "qty": 6 }
+      {
+        "name": "Red Rose",
+        "qty": 6
+      },
+      {
+        "name": "Pink Lily",
+        "qty": 3
+      },
+      {
+        "name": "White Freesia",
+        "qty": 6
+      }
     ],
-    "popularity": 0.8
+    "bias": 0.8
   },
   {
     "id": "fields_of_france",
@@ -1208,11 +1784,20 @@
       "country"
     ],
     "items": [
-      { "name": "Lavender", "qty": 8 },
-      { "name": "White Ranunculus", "qty": 5 },
-      { "name": "Purple Statice", "qty": 4 }
+      {
+        "name": "Lavender",
+        "qty": 8
+      },
+      {
+        "name": "White Ranunculus",
+        "qty": 5
+      },
+      {
+        "name": "Purple Statice",
+        "qty": 4
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "healing_vibes",
@@ -1228,11 +1813,20 @@
       "healthy"
     ],
     "items": [
-      { "name": "Green Chrysanthemum", "qty": 6 },
-      { "name": "White Rose", "qty": 5 },
-      { "name": "Ferns", "qty": 5 }
+      {
+        "name": "Green Chrysanthemum",
+        "qty": 6
+      },
+      {
+        "name": "White Rose",
+        "qty": 5
+      },
+      {
+        "name": "Ferns",
+        "qty": 5
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "celebrity_status",
@@ -1248,11 +1842,20 @@
       "fame"
     ],
     "items": [
-      { "name": "Red Rose", "qty": 18 },
-      { "name": "White Calla Lily", "qty": 4 },
-      { "name": "Bear Grass", "qty": 5 }
+      {
+        "name": "Red Rose",
+        "qty": 18
+      },
+      {
+        "name": "White Calla Lily",
+        "qty": 4
+      },
+      {
+        "name": "Bear Grass",
+        "qty": 5
+      }
     ],
-    "popularity": 0.3
+    "bias": 0.3
   },
   {
     "id": "cozy_comfort",
@@ -1268,11 +1871,20 @@
       "home"
     ],
     "items": [
-      { "name": "Peach Carnation", "qty": 8 },
-      { "name": "Cream Rose", "qty": 6 },
-      { "name": "Orange Alstroemeria", "qty": 5 }
+      {
+        "name": "Peach Carnation",
+        "qty": 8
+      },
+      {
+        "name": "Cream Rose",
+        "qty": 6
+      },
+      {
+        "name": "Orange Alstroemeria",
+        "qty": 5
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "rainbow_connection",
@@ -1290,14 +1902,32 @@
       "happy"
     ],
     "items": [
-      { "name": "Red Rose", "qty": 3 },
-      { "name": "Orange Tulip", "qty": 3 },
-      { "name": "Yellow Gerbera Daisy", "qty": 3 },
-      { "name": "Green Chrysanthemum", "qty": 3 },
-      { "name": "Blue Iris", "qty": 3 },
-      { "name": "Purple Lisianthus", "qty": 3 }
+      {
+        "name": "Red Rose",
+        "qty": 3
+      },
+      {
+        "name": "Orange Tulip",
+        "qty": 3
+      },
+      {
+        "name": "Yellow Gerbera Daisy",
+        "qty": 3
+      },
+      {
+        "name": "Green Chrysanthemum",
+        "qty": 3
+      },
+      {
+        "name": "Blue Iris",
+        "qty": 3
+      },
+      {
+        "name": "Purple Lisianthus",
+        "qty": 3
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "first_date",
@@ -1313,11 +1943,20 @@
       "gentle"
     ],
     "items": [
-      { "name": "Pink Rose", "qty": 4 },
-      { "name": "Lavender Alstroemeria", "qty": 5 },
-      { "name": "Gypsophila", "qty": 3 }
+      {
+        "name": "Pink Rose",
+        "qty": 4
+      },
+      {
+        "name": "Lavender Alstroemeria",
+        "qty": 5
+      },
+      {
+        "name": "Gypsophila",
+        "qty": 3
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "deepest_sympathy",
@@ -1333,11 +1972,20 @@
       "serene"
     ],
     "items": [
-      { "name": "White Lily", "qty": 2 },
-      { "name": "Purple Iris", "qty": 5 },
-      { "name": "White Carnation", "qty": 7 }
+      {
+        "name": "White Lily",
+        "qty": 2
+      },
+      {
+        "name": "Purple Iris",
+        "qty": 5
+      },
+      {
+        "name": "White Carnation",
+        "qty": 7
+      }
     ],
-    "popularity": 0.65
+    "bias": 0.65
   },
   {
     "id": "just_because_smile",
@@ -1353,11 +2001,20 @@
       "no reason"
     ],
     "items": [
-      { "name": "Sunflower", "qty": 2 },
-      { "name": "Pink Gerbera Daisy", "qty": 4 },
-      { "name": "Yellow Daisy", "qty": 6 }
+      {
+        "name": "Sunflower",
+        "qty": 2
+      },
+      {
+        "name": "Pink Gerbera Daisy",
+        "qty": 4
+      },
+      {
+        "name": "Yellow Daisy",
+        "qty": 6
+      }
     ],
-    "popularity": 0.8
+    "bias": 0.8
   },
   {
     "id": "ivory_tower",
@@ -1373,11 +2030,20 @@
       "tall"
     ],
     "items": [
-      { "name": "White Rose", "qty": 15 },
-      { "name": "Cream Lisianthus", "qty": 7 },
-      { "name": "White Hydrangea", "qty": 1 }
+      {
+        "name": "White Rose",
+        "qty": 15
+      },
+      {
+        "name": "Cream Lisianthus",
+        "qty": 7
+      },
+      {
+        "name": "White Hydrangea",
+        "qty": 1
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "pops_of_color",
@@ -1393,11 +2059,20 @@
       "eclectic"
     ],
     "items": [
-      { "name": "Red Anemone", "qty": 5 },
-      { "name": "Blue Cornflower", "qty": 5 },
-      { "name": "Yellow Ranunculus", "qty": 5 }
+      {
+        "name": "Red Anemone",
+        "qty": 5
+      },
+      {
+        "name": "Blue Cornflower",
+        "qty": 5
+      },
+      {
+        "name": "Yellow Ranunculus",
+        "qty": 5
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "thank_you_teacher",
@@ -1413,11 +2088,20 @@
       "gratitude"
     ],
     "items": [
-      { "name": "Yellow Rose", "qty": 4 },
-      { "name": "Red Gerbera Daisy", "qty": 4 },
-      { "name": "Blue Iris", "qty": 4 }
+      {
+        "name": "Yellow Rose",
+        "qty": 4
+      },
+      {
+        "name": "Red Gerbera Daisy",
+        "qty": 4
+      },
+      {
+        "name": "Blue Iris",
+        "qty": 4
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "bridal_bliss",
@@ -1433,11 +2117,20 @@
       "ceremony"
     ],
     "items": [
-      { "name": "White Peony", "qty": 4 },
-      { "name": "Ivory Rose", "qty": 8 },
-      { "name": "Stephanotis", "qty": 10 }
+      {
+        "name": "White Peony",
+        "qty": 4
+      },
+      {
+        "name": "Ivory Rose",
+        "qty": 8
+      },
+      {
+        "name": "Stephanotis",
+        "qty": 10
+      }
     ],
-    "popularity": 0.75
+    "bias": 0.75
   },
   {
     "id": "welcome_home",
@@ -1453,11 +2146,20 @@
       "cozy"
     ],
     "items": [
-      { "name": "Sunflower", "qty": 3 },
-      { "name": "Orange Carnation", "qty": 7 },
-      { "name": "Eucalyptus", "qty": 4 }
+      {
+        "name": "Sunflower",
+        "qty": 3
+      },
+      {
+        "name": "Orange Carnation",
+        "qty": 7
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 4
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.3
   },
   {
     "id": "sweet_sixteen",
@@ -1473,11 +2175,20 @@
       "celebration"
     ],
     "items": [
-      { "name": "Pink Rose", "qty": 6 },
-      { "name": "Purple Alstroemeria", "qty": 7 },
-      { "name": "Pink Carnation", "qty": 6 }
+      {
+        "name": "Pink Rose",
+        "qty": 6
+      },
+      {
+        "name": "Purple Alstroemeria",
+        "qty": 7
+      },
+      {
+        "name": "Pink Carnation",
+        "qty": 6
+      }
     ],
-    "popularity": 0.65
+    "bias": 0.65
   },
   {
     "id": "majestic_purple",
@@ -1493,11 +2204,20 @@
       "deep"
     ],
     "items": [
-      { "name": "Purple Rose", "qty": 9 },
-      { "name": "Purple Dendrobium Orchid", "qty": 4 },
-      { "name": "Lisianthus", "qty": 5 }
+      {
+        "name": "Purple Rose",
+        "qty": 9
+      },
+      {
+        "name": "Purple Dendrobium Orchid",
+        "qty": 4
+      },
+      {
+        "name": "Lisianthus",
+        "qty": 5
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "apology_accepted",
@@ -1513,11 +2233,20 @@
       "tender"
     ],
     "items": [
-      { "name": "White Rose", "qty": 7 },
-      { "name": "Pink Tulip", "qty": 6 },
-      { "name": "Baby's Breath", "qty": 4 }
+      {
+        "name": "White Rose",
+        "qty": 7
+      },
+      {
+        "name": "Pink Tulip",
+        "qty": 6
+      },
+      {
+        "name": "Baby's Breath",
+        "qty": 4
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "good_luck_charm",
@@ -1533,11 +2262,20 @@
       "hopeful"
     ],
     "items": [
-      { "name": "Bells of Ireland", "qty": 7 },
-      { "name": "White Freesia", "qty": 5 },
-      { "name": "Yellow Acacia", "qty": 4 }
+      {
+        "name": "Bells of Ireland",
+        "qty": 7
+      },
+      {
+        "name": "White Freesia",
+        "qty": 5
+      },
+      {
+        "name": "Yellow Acacia",
+        "qty": 4
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "winter_berry",
@@ -1553,12 +2291,24 @@
       "berry"
     ],
     "items": [
-      { "name": "Red Rose", "qty": 5 },
-      { "name": "Holly Berries", "qty": 8 },
-      { "name": "Pine", "qty": 5 },
-      { "name": "White Spray Rose", "qty": 4 }
+      {
+        "name": "Red Rose",
+        "qty": 5
+      },
+      {
+        "name": "Holly Berries",
+        "qty": 8
+      },
+      {
+        "name": "Pine",
+        "qty": 5
+      },
+      {
+        "name": "White Spray Rose",
+        "qty": 4
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.1
   },
   {
     "id": "summer_sunset",
@@ -1574,11 +2324,20 @@
       "vibrant"
     ],
     "items": [
-      { "name": "Orange Gerbera Daisy", "qty": 5 },
-      { "name": "Pink Lily", "qty": 3 },
-      { "name": "Purple Liatris", "qty": 4 }
+      {
+        "name": "Orange Gerbera Daisy",
+        "qty": 5
+      },
+      {
+        "name": "Pink Lily",
+        "qty": 3
+      },
+      {
+        "name": "Purple Liatris",
+        "qty": 4
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "fresh_start",
@@ -1594,11 +2353,20 @@
       "clean"
     ],
     "items": [
-      { "name": "Green Hydrangea", "qty": 2 },
-      { "name": "White Ranunculus", "qty": 7 },
-      { "name": "Eucalyptus", "qty": 4 }
+      {
+        "name": "Green Hydrangea",
+        "qty": 2
+      },
+      {
+        "name": "White Ranunculus",
+        "qty": 7
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 4
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "pink_lemonade",
@@ -1614,11 +2382,20 @@
       "birthday"
     ],
     "items": [
-      { "name": "Pink Rose", "qty": 6 },
-      { "name": "Yellow Tulip", "qty": 6 },
-      { "name": "Pink Carnation", "qty": 5 }
+      {
+        "name": "Pink Rose",
+        "qty": 6
+      },
+      {
+        "name": "Yellow Tulip",
+        "qty": 6
+      },
+      {
+        "name": "Pink Carnation",
+        "qty": 5
+      }
     ],
-    "popularity": 0.65
+    "bias": 0.65
   },
   {
     "id": "blue_lagoon",
@@ -1634,11 +2411,20 @@
       "serene"
     ],
     "items": [
-      { "name": "Blue Thistle", "qty": 6 },
-      { "name": "Green Trick Dianthus", "qty": 3 },
-      { "name": "Monstera Leaf", "qty": 2 }
+      {
+        "name": "Blue Thistle",
+        "qty": 6
+      },
+      {
+        "name": "Green Trick Dianthus",
+        "qty": 3
+      },
+      {
+        "name": "Monstera Leaf",
+        "qty": 2
+      }
     ],
-    "popularity": 0.45
+    "bias": 0.45
   },
   {
     "id": "fall_foliage",
@@ -1654,11 +2440,20 @@
       "thanksgiving"
     ],
     "items": [
-      { "name": "Orange Dahlia", "qty": 4 },
-      { "name": "Red Rose", "qty": 5 },
-      { "name": "Yellow Maple Leaves", "qty": 5 }
+      {
+        "name": "Orange Dahlia",
+        "qty": 4
+      },
+      {
+        "name": "Red Rose",
+        "qty": 5
+      },
+      {
+        "name": "Yellow Maple Leaves",
+        "qty": 5
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "silver_anniversary",
@@ -1674,11 +2469,20 @@
       "metallic"
     ],
     "items": [
-      { "name": "White Rose", "qty": 10 },
-      { "name": "White Carnation", "qty": 8 },
-      { "name": "Dusty Miller", "qty": 5 }
+      {
+        "name": "White Rose",
+        "qty": 10
+      },
+      {
+        "name": "White Carnation",
+        "qty": 8
+      },
+      {
+        "name": "Dusty Miller",
+        "qty": 5
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "hope_and_healing",
@@ -1694,11 +2498,20 @@
       "bright"
     ],
     "items": [
-      { "name": "Yellow Rose", "qty": 6 },
-      { "name": "White Daisy", "qty": 7 },
-      { "name": "Solidago", "qty": 4 }
+      {
+        "name": "Yellow Rose",
+        "qty": 6
+      },
+      {
+        "name": "White Daisy",
+        "qty": 7
+      },
+      {
+        "name": "Solidago",
+        "qty": 4
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "dramatic_allure",
@@ -1714,11 +2527,20 @@
       "romantic"
     ],
     "items": [
-      { "name": "Black Calla Lily", "qty": 3 },
-      { "name": "Black Baccara Rose", "qty": 7 },
-      { "name": "Red Amaranthus", "qty": 3 }
+      {
+        "name": "Black Calla Lily",
+        "qty": 3
+      },
+      {
+        "name": "Black Baccara Rose",
+        "qty": 7
+      },
+      {
+        "name": "Red Amaranthus",
+        "qty": 3
+      }
     ],
-    "popularity": 0.3
+    "bias": 0.3
   },
   {
     "id": "spring_daffodil",
@@ -1734,11 +2556,20 @@
       "bright"
     ],
     "items": [
-      { "name": "Daffodil", "qty": 10 },
-      { "name": "White Freesia", "qty": 5 },
-      { "name": "Ivy", "qty": 4 }
+      {
+        "name": "Daffodil",
+        "qty": 10
+      },
+      {
+        "name": "White Freesia",
+        "qty": 5
+      },
+      {
+        "name": "Ivy",
+        "qty": 4
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "peachy_keen",
@@ -1754,11 +2585,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Peach Rose", "qty": 8 },
-      { "name": "Cream Lisianthus", "qty": 5 },
-      { "name": "Peach Carnation", "qty": 6 }
+      {
+        "name": "Peach Rose",
+        "qty": 8
+      },
+      {
+        "name": "Cream Lisianthus",
+        "qty": 5
+      },
+      {
+        "name": "Peach Carnation",
+        "qty": 6
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "ocean_breeze",
@@ -1774,12 +2614,24 @@
       "summer"
     ],
     "items": [
-      { "name": "Blue Hydrangea", "qty": 2 },
-      { "name": "White Ranunculus", "qty": 6 },
-      { "name": "Sea Holly", "qty": 4 },
-      { "name": "Eucalyptus", "qty": 3 }
+      {
+        "name": "Blue Hydrangea",
+        "qty": 2
+      },
+      {
+        "name": "White Ranunculus",
+        "qty": 6
+      },
+      {
+        "name": "Sea Holly",
+        "qty": 4
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 3
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "ruby_red_romance",
@@ -1795,10 +2647,16 @@
       "luxury"
     ],
     "items": [
-      { "name": "Red Rose", "qty": 18 },
-      { "name": "Red Hypericum Berries", "qty": 5 }
+      {
+        "name": "Red Rose",
+        "qty": 18
+      },
+      {
+        "name": "Red Hypericum Berries",
+        "qty": 5
+      }
     ],
-    "popularity": 0.85
+    "bias": 0.85
   },
   {
     "id": "buttercup_bouquet",
@@ -1814,11 +2672,20 @@
       "friendship"
     ],
     "items": [
-      { "name": "Buttercup", "qty": 12 },
-      { "name": "Yellow Daisy", "qty": 6 },
-      { "name": "Solidago", "qty": 4 }
+      {
+        "name": "Buttercup",
+        "qty": 12
+      },
+      {
+        "name": "Yellow Daisy",
+        "qty": 6
+      },
+      {
+        "name": "Solidago",
+        "qty": 4
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "purple_haze",
@@ -1834,11 +2701,20 @@
       "artistic"
     ],
     "items": [
-      { "name": "Lavender", "qty": 8 },
-      { "name": "Purple Allium", "qty": 3 },
-      { "name": "Purple Statice", "qty": 5 }
+      {
+        "name": "Lavender",
+        "qty": 8
+      },
+      {
+        "name": "Purple Allium",
+        "qty": 3
+      },
+      {
+        "name": "Purple Statice",
+        "qty": 5
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "white_wedding",
@@ -1854,11 +2730,20 @@
       "classic"
     ],
     "items": [
-      { "name": "White Rose", "qty": 12 },
-      { "name": "White Lilac", "qty": 4 },
-      { "name": "Baby's Breath", "qty": 5 }
+      {
+        "name": "White Rose",
+        "qty": 12
+      },
+      {
+        "name": "White Lilac",
+        "qty": 4
+      },
+      {
+        "name": "Baby's Breath",
+        "qty": 5
+      }
     ],
-    "popularity": 0.8
+    "bias": 0.8
   },
   {
     "id": "golden_glow",
@@ -1874,11 +2759,20 @@
       "rich"
     ],
     "items": [
-      { "name": "Yellow Rose", "qty": 8 },
-      { "name": "Orange Lily", "qty": 3 },
-      { "name": "Yellow Cymbidium Orchid", "qty": 3 }
+      {
+        "name": "Yellow Rose",
+        "qty": 8
+      },
+      {
+        "name": "Orange Lily",
+        "qty": 3
+      },
+      {
+        "name": "Yellow Cymbidium Orchid",
+        "qty": 3
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "pink_promise",
@@ -1894,11 +2788,20 @@
       "daughter"
     ],
     "items": [
-      { "name": "Pink Rose", "qty": 10 },
-      { "name": "Pink Peony", "qty": 3 },
-      { "name": "Pink Spray Rose", "qty": 6 }
+      {
+        "name": "Pink Rose",
+        "qty": 10
+      },
+      {
+        "name": "Pink Peony",
+        "qty": 3
+      },
+      {
+        "name": "Pink Spray Rose",
+        "qty": 6
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "blue_velvet",
@@ -1914,11 +2817,20 @@
       "rich"
     ],
     "items": [
-      { "name": "Blue Delphinium", "qty": 6 },
-      { "name": "Purple Anemone", "qty": 5 },
-      { "name": "Dark Blue Thistle", "qty": 4 }
+      {
+        "name": "Blue Delphinium",
+        "qty": 6
+      },
+      {
+        "name": "Purple Anemone",
+        "qty": 5
+      },
+      {
+        "name": "Dark Blue Thistle",
+        "qty": 4
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "harvest_moon",
@@ -1934,12 +2846,24 @@
       "thanksgiving"
     ],
     "items": [
-      { "name": "Orange Dahlia", "qty": 4 },
-      { "name": "Yellow Chrysanthemum", "qty": 5 },
-      { "name": "Wheat Stalks", "qty": 5 },
-      { "name": "Orange Tulip", "qty": 4 }
+      {
+        "name": "Orange Dahlia",
+        "qty": 4
+      },
+      {
+        "name": "Yellow Chrysanthemum",
+        "qty": 5
+      },
+      {
+        "name": "Wheat Stalks",
+        "qty": 5
+      },
+      {
+        "name": "Orange Tulip",
+        "qty": 4
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "snow_queen",
@@ -1955,12 +2879,24 @@
       "christmas"
     ],
     "items": [
-      { "name": "White Amaryllis", "qty": 3 },
-      { "name": "White Ranunculus", "qty": 6 },
-      { "name": "Silver Brunia", "qty": 4 },
-      { "name": "Eucalyptus", "qty": 3 }
+      {
+        "name": "White Amaryllis",
+        "qty": 3
+      },
+      {
+        "name": "White Ranunculus",
+        "qty": 6
+      },
+      {
+        "name": "Silver Brunia",
+        "qty": 4
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 3
+      }
     ],
-    "popularity": 0.45
+    "bias": 0.45
   },
   {
     "id": "tutti_frutti",
@@ -1976,11 +2912,20 @@
       "birthday"
     ],
     "items": [
-      { "name": "Red Gerbera Daisy", "qty": 4 },
-      { "name": "Orange Rose", "qty": 5 },
-      { "name": "Pink Carnation", "qty": 6 }
+      {
+        "name": "Red Gerbera Daisy",
+        "qty": 4
+      },
+      {
+        "name": "Orange Rose",
+        "qty": 5
+      },
+      {
+        "name": "Pink Carnation",
+        "qty": 6
+      }
     ],
-    "popularity": 0.65
+    "bias": 0.65
   },
   {
     "id": "emerald_city",
@@ -1996,12 +2941,24 @@
       "earthy"
     ],
     "items": [
-      { "name": "Green Hydrangea", "qty": 2 },
-      { "name": "Bells of Ireland", "qty": 7 },
-      { "name": "White Freesia", "qty": 5 },
-      { "name": "Ferns", "qty": 5 }
+      {
+        "name": "Green Hydrangea",
+        "qty": 2
+      },
+      {
+        "name": "Bells of Ireland",
+        "qty": 7
+      },
+      {
+        "name": "White Freesia",
+        "qty": 5
+      },
+      {
+        "name": "Ferns",
+        "qty": 5
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "blushing_beauty",
@@ -2017,11 +2974,20 @@
       "graceful"
     ],
     "items": [
-      { "name": "Pink Garden Rose", "qty": 5 },
-      { "name": "Cream Peony", "qty": 3 },
-      { "name": "Pink Lisianthus", "qty": 6 }
+      {
+        "name": "Pink Garden Rose",
+        "qty": 5
+      },
+      {
+        "name": "Cream Peony",
+        "qty": 3
+      },
+      {
+        "name": "Pink Lisianthus",
+        "qty": 6
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "fiery_sunset",
@@ -2037,11 +3003,20 @@
       "summer"
     ],
     "items": [
-      { "name": "Red Gerbera Daisy", "qty": 5 },
-      { "name": "Orange Tulip", "qty": 6 },
-      { "name": "Yellow Lily", "qty": 3 }
+      {
+        "name": "Red Gerbera Daisy",
+        "qty": 5
+      },
+      {
+        "name": "Orange Tulip",
+        "qty": 6
+      },
+      {
+        "name": "Yellow Lily",
+        "qty": 3
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "lavender_dreams",
@@ -2057,11 +3032,20 @@
       "gentle"
     ],
     "items": [
-      { "name": "Lavender", "qty": 10 },
-      { "name": "Purple Lisianthus", "qty": 5 },
-      { "name": "Eucalyptus", "qty": 3 }
+      {
+        "name": "Lavender",
+        "qty": 10
+      },
+      {
+        "name": "Purple Lisianthus",
+        "qty": 5
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 3
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "candy_land",
@@ -2077,11 +3061,20 @@
       "sweet"
     ],
     "items": [
-      { "name": "Pink Carnation", "qty": 7 },
-      { "name": "Yellow Daisy", "qty": 6 },
-      { "name": "Blue Iris", "qty": 4 }
+      {
+        "name": "Pink Carnation",
+        "qty": 7
+      },
+      {
+        "name": "Yellow Daisy",
+        "qty": 6
+      },
+      {
+        "name": "Blue Iris",
+        "qty": 4
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "midnight_blue",
@@ -2097,11 +3090,20 @@
       "luxury"
     ],
     "items": [
-      { "name": "Blue Iris", "qty": 6 },
-      { "name": "Purple Anemone", "qty": 5 },
-      { "name": "Black Calla Lily", "qty": 2 }
+      {
+        "name": "Blue Iris",
+        "qty": 6
+      },
+      {
+        "name": "Purple Anemone",
+        "qty": 5
+      },
+      {
+        "name": "Black Calla Lily",
+        "qty": 2
+      }
     ],
-    "popularity": 0.35
+    "bias": 0.35
   },
   {
     "id": "spring_rain",
@@ -2117,11 +3119,20 @@
       "peaceful"
     ],
     "items": [
-      { "name": "Purple Hyacinth", "qty": 4 },
-      { "name": "White Tulip", "qty": 6 },
-      { "name": "Ivy", "qty": 5 }
+      {
+        "name": "Purple Hyacinth",
+        "qty": 4
+      },
+      {
+        "name": "White Tulip",
+        "qty": 6
+      },
+      {
+        "name": "Ivy",
+        "qty": 5
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "royal_treatment",
@@ -2137,11 +3148,20 @@
       "majestic"
     ],
     "items": [
-      { "name": "Purple Orchid", "qty": 4 },
-      { "name": "Yellow Rose", "qty": 6 },
-      { "name": "Bear Grass", "qty": 5 }
+      {
+        "name": "Purple Orchid",
+        "qty": 4
+      },
+      {
+        "name": "Yellow Rose",
+        "qty": 6
+      },
+      {
+        "name": "Bear Grass",
+        "qty": 5
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "happy_days",
@@ -2157,11 +3177,20 @@
       "joy"
     ],
     "items": [
-      { "name": "Sunflower", "qty": 3 },
-      { "name": "Orange Gerbera Daisy", "qty": 5 },
-      { "name": "Yellow Carnation", "qty": 7 }
+      {
+        "name": "Sunflower",
+        "qty": 3
+      },
+      {
+        "name": "Orange Gerbera Daisy",
+        "qty": 5
+      },
+      {
+        "name": "Yellow Carnation",
+        "qty": 7
+      }
     ],
-    "popularity": 0.75
+    "bias": 0.75
   },
   {
     "id": "enchanted_bloom",
@@ -2177,11 +3206,20 @@
       "fairy"
     ],
     "items": [
-      { "name": "Pink Ranunculus", "qty": 6 },
-      { "name": "Purple Lisianthus", "qty": 5 },
-      { "name": "Pink Astilbe", "qty": 4 }
+      {
+        "name": "Pink Ranunculus",
+        "qty": 6
+      },
+      {
+        "name": "Purple Lisianthus",
+        "qty": 5
+      },
+      {
+        "name": "Pink Astilbe",
+        "qty": 4
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "sunshine_and_rainbows",
@@ -2197,11 +3235,20 @@
       "joy"
     ],
     "items": [
-      { "name": "Sunflower", "qty": 2 },
-      { "name": "Rainbow Carnations", "qty": 10 },
-      { "name": "Yellow Freesia", "qty": 5 }
+      {
+        "name": "Sunflower",
+        "qty": 2
+      },
+      {
+        "name": "Rainbow Carnations",
+        "qty": 10
+      },
+      {
+        "name": "Yellow Freesia",
+        "qty": 5
+      }
     ],
-    "popularity": 0.8
+    "bias": 0.8
   },
   {
     "id": "deep_forest",
@@ -2217,12 +3264,24 @@
       "peaceful"
     ],
     "items": [
-      { "name": "Green Hydrangea", "qty": 2 },
-      { "name": "Eucalyptus", "qty": 5 },
-      { "name": "Pittosporum", "qty": 5 },
-      { "name": "Lemon Leaf", "qty": 4 }
+      {
+        "name": "Green Hydrangea",
+        "qty": 2
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 5
+      },
+      {
+        "name": "Pittosporum",
+        "qty": 5
+      },
+      {
+        "name": "Lemon Leaf",
+        "qty": 4
+      }
     ],
-    "popularity": 0.45
+    "bias": 0.45
   },
   {
     "id": "pink_paradise",
@@ -2238,11 +3297,20 @@
       "vibrant"
     ],
     "items": [
-      { "name": "Pink Anthurium", "qty": 5 },
-      { "name": "Pink Ginger", "qty": 3 },
-      { "name": "Pink Protea", "qty": 2 }
+      {
+        "name": "Pink Anthurium",
+        "qty": 5
+      },
+      {
+        "name": "Pink Ginger",
+        "qty": 3
+      },
+      {
+        "name": "Pink Protea",
+        "qty": 2
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "winter_white",
@@ -2258,11 +3326,20 @@
       "peaceful"
     ],
     "items": [
-      { "name": "White Rose", "qty": 9 },
-      { "name": "White Ranunculus", "qty": 6 },
-      { "name": "White Lisianthus", "qty": 5 }
+      {
+        "name": "White Rose",
+        "qty": 9
+      },
+      {
+        "name": "White Ranunculus",
+        "qty": 6
+      },
+      {
+        "name": "White Lisianthus",
+        "qty": 5
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "autumn_splendor",
@@ -2278,12 +3355,24 @@
       "rustic"
     ],
     "items": [
-      { "name": "Red Dahlia", "qty": 4 },
-      { "name": "Orange Rose", "qty": 5 },
-      { "name": "Yellow Chrysanthemum", "qty": 5 },
-      { "name": "Autumn Leaves", "qty": 4 }
+      {
+        "name": "Red Dahlia",
+        "qty": 4
+      },
+      {
+        "name": "Orange Rose",
+        "qty": 5
+      },
+      {
+        "name": "Yellow Chrysanthemum",
+        "qty": 5
+      },
+      {
+        "name": "Autumn Leaves",
+        "qty": 4
+      }
     ],
-    "popularity": 0.65
+    "bias": 0.65
   },
   {
     "id": "oasis",
@@ -2299,12 +3388,24 @@
       "clean"
     ],
     "items": [
-      { "name": "White Phalaenopsis Orchid", "qty": 2 },
-      { "name": "Green Trick Dianthus", "qty": 3 },
-      { "name": "Eucalyptus", "qty": 5 },
-      { "name": "White Rose", "qty": 5 }
+      {
+        "name": "White Phalaenopsis Orchid",
+        "qty": 2
+      },
+      {
+        "name": "Green Trick Dianthus",
+        "qty": 3
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 5
+      },
+      {
+        "name": "White Rose",
+        "qty": 5
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "berry_nice",
@@ -2320,11 +3421,20 @@
       "feminine"
     ],
     "items": [
-      { "name": "Red Spray Rose", "qty": 8 },
-      { "name": "Pink Carnation", "qty": 6 },
-      { "name": "Hypericum Berries", "qty": 5 }
+      {
+        "name": "Red Spray Rose",
+        "qty": 8
+      },
+      {
+        "name": "Pink Carnation",
+        "qty": 6
+      },
+      {
+        "name": "Hypericum Berries",
+        "qty": 5
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "golden_harvest",
@@ -2340,11 +3450,20 @@
       "rustic"
     ],
     "items": [
-      { "name": "Yellow Dahlia", "qty": 4 },
-      { "name": "Orange Lily", "qty": 3 },
-      { "name": "Wheat Stalks", "qty": 6 }
+      {
+        "name": "Yellow Dahlia",
+        "qty": 4
+      },
+      {
+        "name": "Orange Lily",
+        "qty": 3
+      },
+      {
+        "name": "Wheat Stalks",
+        "qty": 6
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "silver_bells",
@@ -2360,11 +3479,20 @@
       "winter"
     ],
     "items": [
-      { "name": "White Amaryllis", "qty": 3 },
-      { "name": "White Carnation", "qty": 8 },
-      { "name": "Dusty Miller", "qty": 5 }
+      {
+        "name": "White Amaryllis",
+        "qty": 3
+      },
+      {
+        "name": "White Carnation",
+        "qty": 8
+      },
+      {
+        "name": "Dusty Miller",
+        "qty": 5
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "pink_delight",
@@ -2380,11 +3508,20 @@
       "celebration"
     ],
     "items": [
-      { "name": "Pink Gerbera Daisy", "qty": 6 },
-      { "name": "Pink Rose", "qty": 6 },
-      { "name": "Pink Alstroemeria", "qty": 5 }
+      {
+        "name": "Pink Gerbera Daisy",
+        "qty": 6
+      },
+      {
+        "name": "Pink Rose",
+        "qty": 6
+      },
+      {
+        "name": "Pink Alstroemeria",
+        "qty": 5
+      }
     ],
-    "popularity": 0.8
+    "bias": 0.8
   },
   {
     "id": "blue_heaven",
@@ -2400,11 +3537,20 @@
       "gentle"
     ],
     "items": [
-      { "name": "Blue Hydrangea", "qty": 2 },
-      { "name": "White Lisianthus", "qty": 7 },
-      { "name": "Blue Muscari", "qty": 6 }
+      {
+        "name": "Blue Hydrangea",
+        "qty": 2
+      },
+      {
+        "name": "White Lisianthus",
+        "qty": 7
+      },
+      {
+        "name": "Blue Muscari",
+        "qty": 6
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "firecracker",
@@ -2420,11 +3566,20 @@
       "celebration"
     ],
     "items": [
-      { "name": "Red Rose", "qty": 5 },
-      { "name": "Orange Tulip", "qty": 5 },
-      { "name": "Yellow Daisy", "qty": 5 }
+      {
+        "name": "Red Rose",
+        "qty": 5
+      },
+      {
+        "name": "Orange Tulip",
+        "qty": 5
+      },
+      {
+        "name": "Yellow Daisy",
+        "qty": 5
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "mint_fresh",
@@ -2440,11 +3595,20 @@
       "peaceful"
     ],
     "items": [
-      { "name": "Green Chrysanthemum", "qty": 6 },
-      { "name": "White Freesia", "qty": 6 },
-      { "name": "Eucalyptus", "qty": 4 }
+      {
+        "name": "Green Chrysanthemum",
+        "qty": 6
+      },
+      {
+        "name": "White Freesia",
+        "qty": 6
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 4
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "purple_passion",
@@ -2460,11 +3624,20 @@
       "dramatic"
     ],
     "items": [
-      { "name": "Purple Rose", "qty": 10 },
-      { "name": "Purple Lisianthus", "qty": 5 },
-      { "name": "Purple Tulip", "qty": 5 }
+      {
+        "name": "Purple Rose",
+        "qty": 10
+      },
+      {
+        "name": "Purple Lisianthus",
+        "qty": 5
+      },
+      {
+        "name": "Purple Tulip",
+        "qty": 5
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "tangerine_dream",
@@ -2480,11 +3653,20 @@
       "vibrant"
     ],
     "items": [
-      { "name": "Orange Gerbera Daisy", "qty": 6 },
-      { "name": "Yellow Ranunculus", "qty": 6 },
-      { "name": "Orange Carnation", "qty": 5 }
+      {
+        "name": "Orange Gerbera Daisy",
+        "qty": 6
+      },
+      {
+        "name": "Yellow Ranunculus",
+        "qty": 6
+      },
+      {
+        "name": "Orange Carnation",
+        "qty": 5
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "whispering_grass",
@@ -2500,11 +3682,20 @@
       "organic"
     ],
     "items": [
-      { "name": "Pampas Grass", "qty": 4 },
-      { "name": "White Astilbe", "qty": 5 },
-      { "name": "Eucalyptus", "qty": 4 }
+      {
+        "name": "Pampas Grass",
+        "qty": 4
+      },
+      {
+        "name": "White Astilbe",
+        "qty": 5
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 4
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "rose_gold_elegance",
@@ -2520,11 +3711,20 @@
       "celebration"
     ],
     "items": [
-      { "name": "Pink Rose", "qty": 7 },
-      { "name": "Peach Lisianthus", "qty": 5 },
-      { "name": "Spray Roses", "qty": 6 }
+      {
+        "name": "Pink Rose",
+        "qty": 7
+      },
+      {
+        "name": "Peach Lisianthus",
+        "qty": 5
+      },
+      {
+        "name": "Spray Roses",
+        "qty": 6
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "island_breeze",
@@ -2540,12 +3740,24 @@
       "exotic"
     ],
     "items": [
-      { "name": "White Orchid", "qty": 3 },
-      { "name": "Anthurium", "qty": 4 },
-      { "name": "Monstera Leaf", "qty": 2 },
-      { "name": "Ferns", "qty": 4 }
+      {
+        "name": "White Orchid",
+        "qty": 3
+      },
+      {
+        "name": "Anthurium",
+        "qty": 4
+      },
+      {
+        "name": "Monstera Leaf",
+        "qty": 2
+      },
+      {
+        "name": "Ferns",
+        "qty": 4
+      }
     ],
-    "popularity": 0.45
+    "bias": 0.45
   },
   {
     "id": "blooming_lovely",
@@ -2561,11 +3773,20 @@
       "cheerful"
     ],
     "items": [
-      { "name": "Pink Dahlia", "qty": 4 },
-      { "name": "White Ranunculus", "qty": 6 },
-      { "name": "Pink Snapdragon", "qty": 5 }
+      {
+        "name": "Pink Dahlia",
+        "qty": 4
+      },
+      {
+        "name": "White Ranunculus",
+        "qty": 6
+      },
+      {
+        "name": "Pink Snapdragon",
+        "qty": 5
+      }
     ],
-    "popularity": 0.65
+    "bias": 0.65
   },
   {
     "id": "twilight",
@@ -2581,11 +3802,20 @@
       "night"
     ],
     "items": [
-      { "name": "Purple Iris", "qty": 6 },
-      { "name": "Blue Delphinium", "qty": 4 },
-      { "name": "Black Scabiosa", "qty": 3 }
+      {
+        "name": "Purple Iris",
+        "qty": 6
+      },
+      {
+        "name": "Blue Delphinium",
+        "qty": 4
+      },
+      {
+        "name": "Black Scabiosa",
+        "qty": 3
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "honey_suckle",
@@ -2601,11 +3831,20 @@
       "summer"
     ],
     "items": [
-      { "name": "Yellow Honeysuckle", "qty": 8 },
-      { "name": "Orange Marigold", "qty": 6 },
-      { "name": "Yellow Freesia", "qty": 4 }
+      {
+        "name": "Yellow Honeysuckle",
+        "qty": 8
+      },
+      {
+        "name": "Orange Marigold",
+        "qty": 6
+      },
+      {
+        "name": "Yellow Freesia",
+        "qty": 4
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "frosty_morning",
@@ -2621,11 +3860,20 @@
       "peaceful"
     ],
     "items": [
-      { "name": "White Rose", "qty": 7 },
-      { "name": "Silver Brunia", "qty": 5 },
-      { "name": "Blue Thistle", "qty": 4 }
+      {
+        "name": "White Rose",
+        "qty": 7
+      },
+      {
+        "name": "Silver Brunia",
+        "qty": 5
+      },
+      {
+        "name": "Blue Thistle",
+        "qty": 4
+      }
     ],
-    "popularity": 0.45
+    "bias": 0.45
   },
   {
     "id": "popsicle",
@@ -2641,11 +3889,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Pink Carnation", "qty": 5 },
-      { "name": "Orange Tulip", "qty": 5 },
-      { "name": "Blue Iris", "qty": 5 }
+      {
+        "name": "Pink Carnation",
+        "qty": 5
+      },
+      {
+        "name": "Orange Tulip",
+        "qty": 5
+      },
+      {
+        "name": "Blue Iris",
+        "qty": 5
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "woodland_sprite",
@@ -2661,11 +3918,20 @@
       "enchanted"
     ],
     "items": [
-      { "name": "Foxglove", "qty": 4 },
-      { "name": "White Lily of the Valley", "qty": 6 },
-      { "name": "Ferns", "qty": 5 }
+      {
+        "name": "Foxglove",
+        "qty": 4
+      },
+      {
+        "name": "White Lily of the Valley",
+        "qty": 6
+      },
+      {
+        "name": "Ferns",
+        "qty": 5
+      }
     ],
-    "popularity": 0.35
+    "bias": 0.35
   },
   {
     "id": "sunkissed",
@@ -2681,11 +3947,20 @@
       "bright"
     ],
     "items": [
-      { "name": "Yellow Rose", "qty": 6 },
-      { "name": "Peach Gerbera Daisy", "qty": 5 },
-      { "name": "Orange Ranunculus", "qty": 5 }
+      {
+        "name": "Yellow Rose",
+        "qty": 6
+      },
+      {
+        "name": "Peach Gerbera Daisy",
+        "qty": 5
+      },
+      {
+        "name": "Orange Ranunculus",
+        "qty": 5
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "blueberry_cheesecake",
@@ -2701,11 +3976,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Blue Hydrangea", "qty": 2 },
-      { "name": "White Ranunculus", "qty": 7 },
-      { "name": "White Lisianthus", "qty": 5 }
+      {
+        "name": "Blue Hydrangea",
+        "qty": 2
+      },
+      {
+        "name": "White Ranunculus",
+        "qty": 7
+      },
+      {
+        "name": "White Lisianthus",
+        "qty": 5
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "ruby_tuesday",
@@ -2721,11 +4005,20 @@
       "timeless"
     ],
     "items": [
-      { "name": "Red Rose", "qty": 12 },
-      { "name": "Red Carnation", "qty": 6 },
-      { "name": "Leather Leaf", "qty": 5 }
+      {
+        "name": "Red Rose",
+        "qty": 12
+      },
+      {
+        "name": "Red Carnation",
+        "qty": 6
+      },
+      {
+        "name": "Leather Leaf",
+        "qty": 5
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "green_tea",
@@ -2741,11 +4034,20 @@
       "refreshing"
     ],
     "items": [
-      { "name": "Green Chrysanthemum", "qty": 6 },
-      { "name": "White Freesia", "qty": 6 },
-      { "name": "Bells of Ireland", "qty": 4 }
+      {
+        "name": "Green Chrysanthemum",
+        "qty": 6
+      },
+      {
+        "name": "White Freesia",
+        "qty": 6
+      },
+      {
+        "name": "Bells of Ireland",
+        "qty": 4
+      }
     ],
-    "popularity": 0.45
+    "bias": 0.45
   },
   {
     "id": "plum_perfect",
@@ -2761,11 +4063,20 @@
       "luxury"
     ],
     "items": [
-      { "name": "Purple Dahlia", "qty": 4 },
-      { "name": "Burgundy Rose", "qty": 6 },
-      { "name": "Purple Liatris", "qty": 4 }
+      {
+        "name": "Purple Dahlia",
+        "qty": 4
+      },
+      {
+        "name": "Burgundy Rose",
+        "qty": 6
+      },
+      {
+        "name": "Purple Liatris",
+        "qty": 4
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "lemon_lime",
@@ -2781,11 +4092,20 @@
       "bright"
     ],
     "items": [
-      { "name": "Yellow Gerbera Daisy", "qty": 5 },
-      { "name": "Green Trick Dianthus", "qty": 3 },
-      { "name": "Bells of Ireland", "qty": 5 }
+      {
+        "name": "Yellow Gerbera Daisy",
+        "qty": 5
+      },
+      {
+        "name": "Green Trick Dianthus",
+        "qty": 3
+      },
+      {
+        "name": "Bells of Ireland",
+        "qty": 5
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "cotton_field",
@@ -2801,11 +4121,20 @@
       "rustic"
     ],
     "items": [
-      { "name": "Cotton Stems", "qty": 7 },
-      { "name": "Eucalyptus", "qty": 5 },
-      { "name": "White Aster", "qty": 5 }
+      {
+        "name": "Cotton Stems",
+        "qty": 7
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 5
+      },
+      {
+        "name": "White Aster",
+        "qty": 5
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "raspberry_ripple",
@@ -2821,11 +4150,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Pink Rose", "qty": 6 },
-      { "name": "Red Tulip", "qty": 5 },
-      { "name": "White Freesia", "qty": 5 }
+      {
+        "name": "Pink Rose",
+        "qty": 6
+      },
+      {
+        "name": "Red Tulip",
+        "qty": 5
+      },
+      {
+        "name": "White Freesia",
+        "qty": 5
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "moonlight_sonata",
@@ -2841,11 +4179,20 @@
       "serene"
     ],
     "items": [
-      { "name": "White Calla Lily", "qty": 4 },
-      { "name": "White Rose", "qty": 8 },
-      { "name": "Blue Muscari", "qty": 5 }
+      {
+        "name": "White Calla Lily",
+        "qty": 4
+      },
+      {
+        "name": "White Rose",
+        "qty": 8
+      },
+      {
+        "name": "Blue Muscari",
+        "qty": 5
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "gingersnap",
@@ -2861,11 +4208,20 @@
       "rustic"
     ],
     "items": [
-      { "name": "Orange Lily", "qty": 3 },
-      { "name": "Red Rose", "qty": 5 },
-      { "name": "Cinnamon Sticks", "qty": 4 }
+      {
+        "name": "Orange Lily",
+        "qty": 3
+      },
+      {
+        "name": "Red Rose",
+        "qty": 5
+      },
+      {
+        "name": "Cinnamon Sticks",
+        "qty": 4
+      }
     ],
-    "popularity": 0.45
+    "bias": 0.45
   },
   {
     "id": "aqua_marine",
@@ -2881,11 +4237,20 @@
       "cool"
     ],
     "items": [
-      { "name": "Blue Hydrangea", "qty": 2 },
-      { "name": "Green Chrysanthemum", "qty": 6 },
-      { "name": "Sea Holly", "qty": 4 }
+      {
+        "name": "Blue Hydrangea",
+        "qty": 2
+      },
+      {
+        "name": "Green Chrysanthemum",
+        "qty": 6
+      },
+      {
+        "name": "Sea Holly",
+        "qty": 4
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "strawberry_shortcake",
@@ -2901,11 +4266,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Pink Peony", "qty": 3 },
-      { "name": "Red Ranunculus", "qty": 6 },
-      { "name": "White Daisy", "qty": 6 }
+      {
+        "name": "Pink Peony",
+        "qty": 3
+      },
+      {
+        "name": "Red Ranunculus",
+        "qty": 6
+      },
+      {
+        "name": "White Daisy",
+        "qty": 6
+      }
     ],
-    "popularity": 0.65
+    "bias": 0.65
   },
   {
     "id": "black_tie_affair",
@@ -2921,11 +4295,20 @@
       "event"
     ],
     "items": [
-      { "name": "Black Calla Lily", "qty": 4 },
-      { "name": "White Rose", "qty": 8 },
-      { "name": "Bear Grass", "qty": 5 }
+      {
+        "name": "Black Calla Lily",
+        "qty": 4
+      },
+      {
+        "name": "White Rose",
+        "qty": 8
+      },
+      {
+        "name": "Bear Grass",
+        "qty": 5
+      }
     ],
-    "popularity": 0.35
+    "bias": 0.35
   },
   {
     "id": "pearlescent",
@@ -2941,11 +4324,20 @@
       "graceful"
     ],
     "items": [
-      { "name": "White Ranunculus", "qty": 7 },
-      { "name": "White Lisianthus", "qty": 6 },
-      { "name": "Pearl Accents", "qty": 10 }
+      {
+        "name": "White Ranunculus",
+        "qty": 7
+      },
+      {
+        "name": "White Lisianthus",
+        "qty": 6
+      },
+      {
+        "name": "Pearl Accents",
+        "qty": 10
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "tiger_lily",
@@ -2961,11 +4353,20 @@
       "unique"
     ],
     "items": [
-      { "name": "Orange Lily", "qty": 5 },
-      { "name": "Black Scabiosa", "qty": 4 },
-      { "name": "Orange Tulip", "qty": 5 }
+      {
+        "name": "Orange Lily",
+        "qty": 5
+      },
+      {
+        "name": "Black Scabiosa",
+        "qty": 4
+      },
+      {
+        "name": "Orange Tulip",
+        "qty": 5
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "marshmallow_dream",
@@ -2981,11 +4382,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Pink Astilbe", "qty": 5 },
-      { "name": "White Hydrangea", "qty": 2 },
-      { "name": "Pink Spray Rose", "qty": 7 }
+      {
+        "name": "Pink Astilbe",
+        "qty": 5
+      },
+      {
+        "name": "White Hydrangea",
+        "qty": 2
+      },
+      {
+        "name": "Pink Spray Rose",
+        "qty": 7
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "deep_sea",
@@ -3001,11 +4411,20 @@
       "tranquil"
     ],
     "items": [
-      { "name": "Blue Delphinium", "qty": 6 },
-      { "name": "Green Trick Dianthus", "qty": 3 },
-      { "name": "Sea Holly", "qty": 4 }
+      {
+        "name": "Blue Delphinium",
+        "qty": 6
+      },
+      {
+        "name": "Green Trick Dianthus",
+        "qty": 3
+      },
+      {
+        "name": "Sea Holly",
+        "qty": 4
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "cinnamon_spice",
@@ -3021,11 +4440,20 @@
       "thanksgiving"
     ],
     "items": [
-      { "name": "Red Dahlia", "qty": 4 },
-      { "name": "Orange Rose", "qty": 5 },
-      { "name": "Cinnamon Sticks", "qty": 5 }
+      {
+        "name": "Red Dahlia",
+        "qty": 4
+      },
+      {
+        "name": "Orange Rose",
+        "qty": 5
+      },
+      {
+        "name": "Cinnamon Sticks",
+        "qty": 5
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "lavender_lullaby",
@@ -3041,11 +4469,20 @@
       "serene"
     ],
     "items": [
-      { "name": "Lavender", "qty": 9 },
-      { "name": "Purple Stock", "qty": 5 },
-      { "name": "Eucalyptus", "qty": 3 }
+      {
+        "name": "Lavender",
+        "qty": 9
+      },
+      {
+        "name": "Purple Stock",
+        "qty": 5
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 3
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "mango_tango",
@@ -3061,11 +4498,20 @@
       "summer"
     ],
     "items": [
-      { "name": "Orange Bird of Paradise", "qty": 2 },
-      { "name": "Yellow Lily", "qty": 3 },
-      { "name": "Orange Gerbera Daisy", "qty": 5 }
+      {
+        "name": "Orange Bird of Paradise",
+        "qty": 2
+      },
+      {
+        "name": "Yellow Lily",
+        "qty": 3
+      },
+      {
+        "name": "Orange Gerbera Daisy",
+        "qty": 5
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "peppermint_patty",
@@ -3081,11 +4527,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Red Rose", "qty": 5 },
-      { "name": "White Carnation", "qty": 7 },
-      { "name": "Peppermint Sprigs", "qty": 4 }
+      {
+        "name": "Red Rose",
+        "qty": 5
+      },
+      {
+        "name": "White Carnation",
+        "qty": 7
+      },
+      {
+        "name": "Peppermint Sprigs",
+        "qty": 4
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "denim_and_daisies",
@@ -3101,11 +4556,20 @@
       "summer"
     ],
     "items": [
-      { "name": "Blue Cornflower", "qty": 6 },
-      { "name": "White Daisy", "qty": 8 },
-      { "name": "Blue Thistle", "qty": 4 }
+      {
+        "name": "Blue Cornflower",
+        "qty": 6
+      },
+      {
+        "name": "White Daisy",
+        "qty": 8
+      },
+      {
+        "name": "Blue Thistle",
+        "qty": 4
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "champagne_wishes",
@@ -3121,11 +4585,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Ivory Rose", "qty": 9 },
-      { "name": "Cream Ranunculus", "qty": 6 },
-      { "name": "Gold Accents", "qty": 5 }
+      {
+        "name": "Ivory Rose",
+        "qty": 9
+      },
+      {
+        "name": "Cream Ranunculus",
+        "qty": 6
+      },
+      {
+        "name": "Gold Accents",
+        "qty": 5
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "electric_avenue",
@@ -3141,11 +4614,20 @@
       "neon"
     ],
     "items": [
-      { "name": "Purple Lisianthus", "qty": 5 },
-      { "name": "Pink Gerbera Daisy", "qty": 5 },
-      { "name": "Blue Iris", "qty": 5 }
+      {
+        "name": "Purple Lisianthus",
+        "qty": 5
+      },
+      {
+        "name": "Pink Gerbera Daisy",
+        "qty": 5
+      },
+      {
+        "name": "Blue Iris",
+        "qty": 5
+      }
     ],
-    "popularity": 0.45
+    "bias": 0.45
   },
   {
     "id": "coral_reef",
@@ -3161,11 +4643,20 @@
       "fun"
     ],
     "items": [
-      { "name": "Coral Rose", "qty": 7 },
-      { "name": "Orange Tulip", "qty": 5 },
-      { "name": "Pink Alstroemeria", "qty": 5 }
+      {
+        "name": "Coral Rose",
+        "qty": 7
+      },
+      {
+        "name": "Orange Tulip",
+        "qty": 5
+      },
+      {
+        "name": "Pink Alstroemeria",
+        "qty": 5
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "whimsical_wonder",
@@ -3181,11 +4672,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Pink Ranunculus", "qty": 5 },
-      { "name": "Purple Lisianthus", "qty": 5 },
-      { "name": "Yellow Freesia", "qty": 5 }
+      {
+        "name": "Pink Ranunculus",
+        "qty": 5
+      },
+      {
+        "name": "Purple Lisianthus",
+        "qty": 5
+      },
+      {
+        "name": "Yellow Freesia",
+        "qty": 5
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "forest_floor",
@@ -3201,12 +4701,24 @@
       "organic"
     ],
     "items": [
-      { "name": "Green Hydrangea", "qty": 2 },
-      { "name": "Purple Iris", "qty": 5 },
-      { "name": "Ferns", "qty": 5 },
-      { "name": "Moss", "qty": 3 }
+      {
+        "name": "Green Hydrangea",
+        "qty": 2
+      },
+      {
+        "name": "Purple Iris",
+        "qty": 5
+      },
+      {
+        "name": "Ferns",
+        "qty": 5
+      },
+      {
+        "name": "Moss",
+        "qty": 3
+      }
     ],
-    "popularity": 0.35
+    "bias": 0.35
   },
   {
     "id": "bubble_gum",
@@ -3222,11 +4734,20 @@
       "joy"
     ],
     "items": [
-      { "name": "Pink Carnation", "qty": 10 },
-      { "name": "Pink Daisy", "qty": 7 },
-      { "name": "Gypsophila", "qty": 4 }
+      {
+        "name": "Pink Carnation",
+        "qty": 10
+      },
+      {
+        "name": "Pink Daisy",
+        "qty": 7
+      },
+      {
+        "name": "Gypsophila",
+        "qty": 4
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "amethyst_cluster",
@@ -3242,11 +4763,20 @@
       "elegant"
     ],
     "items": [
-      { "name": "Purple Dendrobium Orchid", "qty": 5 },
-      { "name": "Lavender", "qty": 6 },
-      { "name": "Crystal Accents", "qty": 3 }
+      {
+        "name": "Purple Dendrobium Orchid",
+        "qty": 5
+      },
+      {
+        "name": "Lavender",
+        "qty": 6
+      },
+      {
+        "name": "Crystal Accents",
+        "qty": 3
+      }
     ],
-    "popularity": 0.3
+    "bias": 0.3
   },
   {
     "id": "sunflower_field",
@@ -3262,11 +4792,20 @@
       "joyful"
     ],
     "items": [
-      { "name": "Sunflower", "qty": 7 },
-      { "name": "Yellow Daisy", "qty": 6 },
-      { "name": "Eucalyptus", "qty": 4 }
+      {
+        "name": "Sunflower",
+        "qty": 7
+      },
+      {
+        "name": "Yellow Daisy",
+        "qty": 6
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 4
+      }
     ],
-    "popularity": 0.8
+    "bias": 0.8
   },
   {
     "id": "berry_patch",
@@ -3282,11 +4821,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Red Spray Rose", "qty": 8 },
-      { "name": "Pink Carnation", "qty": 6 },
-      { "name": "Hypericum Berries", "qty": 6 }
+      {
+        "name": "Red Spray Rose",
+        "qty": 8
+      },
+      {
+        "name": "Pink Carnation",
+        "qty": 6
+      },
+      {
+        "name": "Hypericum Berries",
+        "qty": 6
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "seaside",
@@ -3302,12 +4850,24 @@
       "serene"
     ],
     "items": [
-      { "name": "Blue Hydrangea", "qty": 2 },
-      { "name": "White Ranunculus", "qty": 6 },
-      { "name": "Sea Holly", "qty": 4 },
-      { "name": "Driftwood", "qty": 2 }
+      {
+        "name": "Blue Hydrangea",
+        "qty": 2
+      },
+      {
+        "name": "White Ranunculus",
+        "qty": 6
+      },
+      {
+        "name": "Sea Holly",
+        "qty": 4
+      },
+      {
+        "name": "Driftwood",
+        "qty": 2
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "pumpkin_spice",
@@ -3323,11 +4883,20 @@
       "fall"
     ],
     "items": [
-      { "name": "Orange Rose", "qty": 6 },
-      { "name": "Brown Hypericum Berries", "qty": 5 },
-      { "name": "White Freesia", "qty": 5 }
+      {
+        "name": "Orange Rose",
+        "qty": 6
+      },
+      {
+        "name": "Brown Hypericum Berries",
+        "qty": 5
+      },
+      {
+        "name": "White Freesia",
+        "qty": 5
+      }
     ],
-    "popularity": 0.65
+    "bias": 0.65
   },
   {
     "id": "starlight",
@@ -3343,11 +4912,20 @@
       "twinkle"
     ],
     "items": [
-      { "name": "White Rose", "qty": 8 },
-      { "name": "Baby's Breath", "qty": 5 },
-      { "name": "Silver Accents", "qty": 6 }
+      {
+        "name": "White Rose",
+        "qty": 8
+      },
+      {
+        "name": "Baby's Breath",
+        "qty": 5
+      },
+      {
+        "name": "Silver Accents",
+        "qty": 6
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "lime_sherbet",
@@ -3363,11 +4941,20 @@
       "cool"
     ],
     "items": [
-      { "name": "Green Chrysanthemum", "qty": 6 },
-      { "name": "White Daisy", "qty": 7 },
-      { "name": "Yellow Freesia", "qty": 4 }
+      {
+        "name": "Green Chrysanthemum",
+        "qty": 6
+      },
+      {
+        "name": "White Daisy",
+        "qty": 7
+      },
+      {
+        "name": "Yellow Freesia",
+        "qty": 4
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "royal_velvet",
@@ -3383,11 +4970,20 @@
       "regal"
     ],
     "items": [
-      { "name": "Purple Rose", "qty": 9 },
-      { "name": "Burgundy Carnation", "qty": 7 },
-      { "name": "Purple Tulip", "qty": 4 }
+      {
+        "name": "Purple Rose",
+        "qty": 9
+      },
+      {
+        "name": "Burgundy Carnation",
+        "qty": 7
+      },
+      {
+        "name": "Purple Tulip",
+        "qty": 4
+      }
     ],
-    "popularity": 0.45
+    "bias": 0.45
   },
   {
     "id": "orange_crush",
@@ -3403,11 +4999,20 @@
       "bright"
     ],
     "items": [
-      { "name": "Orange Gerbera Daisy", "qty": 7 },
-      { "name": "Orange Lily", "qty": 3 },
-      { "name": "Orange Tulip", "qty": 5 }
+      {
+        "name": "Orange Gerbera Daisy",
+        "qty": 7
+      },
+      {
+        "name": "Orange Lily",
+        "qty": 3
+      },
+      {
+        "name": "Orange Tulip",
+        "qty": 5
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "misty_morning",
@@ -3423,11 +5028,20 @@
       "peaceful"
     ],
     "items": [
-      { "name": "Lavender", "qty": 6 },
-      { "name": "White Ranunculus", "qty": 6 },
-      { "name": "Dusty Miller", "qty": 4 }
+      {
+        "name": "Lavender",
+        "qty": 6
+      },
+      {
+        "name": "White Ranunculus",
+        "qty": 6
+      },
+      {
+        "name": "Dusty Miller",
+        "qty": 4
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "candy_cane",
@@ -3443,11 +5057,20 @@
       "striped"
     ],
     "items": [
-      { "name": "Red Rose", "qty": 5 },
-      { "name": "White Carnation", "qty": 7 },
-      { "name": "Peppermint Sprigs", "qty": 4 }
+      {
+        "name": "Red Rose",
+        "qty": 5
+      },
+      {
+        "name": "White Carnation",
+        "qty": 7
+      },
+      {
+        "name": "Peppermint Sprigs",
+        "qty": 4
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "blue_jay",
@@ -3463,11 +5086,20 @@
       "vibrant"
     ],
     "items": [
-      { "name": "Blue Delphinium", "qty": 6 },
-      { "name": "White Rose", "qty": 6 },
-      { "name": "Blue Cornflower", "qty": 5 }
+      {
+        "name": "Blue Delphinium",
+        "qty": 6
+      },
+      {
+        "name": "White Rose",
+        "qty": 6
+      },
+      {
+        "name": "Blue Cornflower",
+        "qty": 5
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "peach_melba",
@@ -3483,11 +5115,20 @@
       "soft"
     ],
     "items": [
-      { "name": "Peach Rose", "qty": 7 },
-      { "name": "Pink Lisianthus", "qty": 5 },
-      { "name": "Cream Ranunculus", "qty": 5 }
+      {
+        "name": "Peach Rose",
+        "qty": 7
+      },
+      {
+        "name": "Pink Lisianthus",
+        "qty": 5
+      },
+      {
+        "name": "Cream Ranunculus",
+        "qty": 5
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "mossy_stone",
@@ -3503,12 +5144,24 @@
       "rustic"
     ],
     "items": [
-      { "name": "Green Hydrangea", "qty": 2 },
-      { "name": "Eucalyptus", "qty": 5 },
-      { "name": "Moss", "qty": 5 },
-      { "name": "Succulents", "qty": 3 }
+      {
+        "name": "Green Hydrangea",
+        "qty": 2
+      },
+      {
+        "name": "Eucalyptus",
+        "qty": 5
+      },
+      {
+        "name": "Moss",
+        "qty": 5
+      },
+      {
+        "name": "Succulents",
+        "qty": 3
+      }
     ],
-    "popularity": 0.35
+    "bias": 0.35
   },
   {
     "id": "tropical_sunset",
@@ -3524,11 +5177,20 @@
       "vacation"
     ],
     "items": [
-      { "name": "Orange Heliconia", "qty": 2 },
-      { "name": "Pink Anthurium", "qty": 4 },
-      { "name": "Purple Orchid", "qty": 3 }
+      {
+        "name": "Orange Heliconia",
+        "qty": 2
+      },
+      {
+        "name": "Pink Anthurium",
+        "qty": 4
+      },
+      {
+        "name": "Purple Orchid",
+        "qty": 3
+      }
     ],
-    "popularity": 0.45
+    "bias": 0.45
   },
   {
     "id": "ginger_flower",
@@ -3544,11 +5206,20 @@
       "island"
     ],
     "items": [
-      { "name": "Red Ginger", "qty": 4 },
-      { "name": "Pink Protea", "qty": 2 },
-      { "name": "Anthurium", "qty": 4 }
+      {
+        "name": "Red Ginger",
+        "qty": 4
+      },
+      {
+        "name": "Pink Protea",
+        "qty": 2
+      },
+      {
+        "name": "Anthurium",
+        "qty": 4
+      }
     ],
-    "popularity": 0.3
+    "bias": 0.3
   },
   {
     "id": "lavender_haze_delight",
@@ -3564,11 +5235,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Lavender", "qty": 8 },
-      { "name": "Purple Lisianthus", "qty": 6 },
-      { "name": "Pink Spray Rose", "qty": 5 }
+      {
+        "name": "Lavender",
+        "qty": 8
+      },
+      {
+        "name": "Purple Lisianthus",
+        "qty": 6
+      },
+      {
+        "name": "Pink Spray Rose",
+        "qty": 5
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "citrus_zest",
@@ -3584,11 +5264,20 @@
       "summer"
     ],
     "items": [
-      { "name": "Yellow Gerbera Daisy", "qty": 5 },
-      { "name": "Orange Rose", "qty": 5 },
-      { "name": "Bells of Ireland", "qty": 5 }
+      {
+        "name": "Yellow Gerbera Daisy",
+        "qty": 5
+      },
+      {
+        "name": "Orange Rose",
+        "qty": 5
+      },
+      {
+        "name": "Bells of Ireland",
+        "qty": 5
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "berry_blast",
@@ -3604,11 +5293,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Red Ranunculus", "qty": 6 },
-      { "name": "Purple Alstroemeria", "qty": 6 },
-      { "name": "Hypericum Berries", "qty": 5 }
+      {
+        "name": "Red Ranunculus",
+        "qty": 6
+      },
+      {
+        "name": "Purple Alstroemeria",
+        "qty": 6
+      },
+      {
+        "name": "Hypericum Berries",
+        "qty": 5
+      }
     ],
-    "popularity": 0.6
+    "bias": 0.6
   },
   {
     "id": "ocean_depths",
@@ -3624,11 +5322,20 @@
       "aquatic"
     ],
     "items": [
-      { "name": "Blue Thistle", "qty": 6 },
-      { "name": "Green Chrysanthemum", "qty": 5 },
-      { "name": "Sea Holly", "qty": 4 }
+      {
+        "name": "Blue Thistle",
+        "qty": 6
+      },
+      {
+        "name": "Green Chrysanthemum",
+        "qty": 5
+      },
+      {
+        "name": "Sea Holly",
+        "qty": 4
+      }
     ],
-    "popularity": 0.4
+    "bias": 0.4
   },
   {
     "id": "autumn_harvest",
@@ -3644,12 +5351,24 @@
       "thanksgiving"
     ],
     "items": [
-      { "name": "Orange Dahlia", "qty": 4 },
-      { "name": "Red Rose", "qty": 5 },
-      { "name": "Yellow Chrysanthemum", "qty": 5 },
-      { "name": "Wheat Stalks", "qty": 4 }
+      {
+        "name": "Orange Dahlia",
+        "qty": 4
+      },
+      {
+        "name": "Red Rose",
+        "qty": 5
+      },
+      {
+        "name": "Yellow Chrysanthemum",
+        "qty": 5
+      },
+      {
+        "name": "Wheat Stalks",
+        "qty": 4
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "winter_rose",
@@ -3665,11 +5384,20 @@
       "elegant"
     ],
     "items": [
-      { "name": "Red Rose", "qty": 8 },
-      { "name": "White Ranunculus", "qty": 6 },
-      { "name": "Pine", "qty": 4 }
+      {
+        "name": "Red Rose",
+        "qty": 8
+      },
+      {
+        "name": "White Ranunculus",
+        "qty": 6
+      },
+      {
+        "name": "Pine",
+        "qty": 4
+      }
     ],
-    "popularity": 0.65
+    "bias": 0.65
   },
   {
     "id": "spring_meadow",
@@ -3685,11 +5413,20 @@
       "garden"
     ],
     "items": [
-      { "name": "Yellow Tulip", "qty": 6 },
-      { "name": "Pink Hyacinth", "qty": 4 },
-      { "name": "Blue Muscari", "qty": 5 }
+      {
+        "name": "Yellow Tulip",
+        "qty": 6
+      },
+      {
+        "name": "Pink Hyacinth",
+        "qty": 4
+      },
+      {
+        "name": "Blue Muscari",
+        "qty": 5
+      }
     ],
-    "popularity": 0.75
+    "bias": 0.75
   },
   {
     "id": "summer_nights",
@@ -3705,11 +5442,20 @@
       "dreamy"
     ],
     "items": [
-      { "name": "Purple Lisianthus", "qty": 6 },
-      { "name": "Blue Delphinium", "qty": 4 },
-      { "name": "White Jasmine", "qty": 5 }
+      {
+        "name": "Purple Lisianthus",
+        "qty": 6
+      },
+      {
+        "name": "Blue Delphinium",
+        "qty": 4
+      },
+      {
+        "name": "White Jasmine",
+        "qty": 5
+      }
     ],
-    "popularity": 0.5
+    "bias": 0.5
   },
   {
     "id": "enchanted_garden",
@@ -3725,12 +5471,24 @@
       "fantasy"
     ],
     "items": [
-      { "name": "Pink Peony", "qty": 3 },
-      { "name": "Purple Allium", "qty": 3 },
-      { "name": "Ferns", "qty": 5 },
-      { "name": "Ivy", "qty": 4 }
+      {
+        "name": "Pink Peony",
+        "qty": 3
+      },
+      {
+        "name": "Purple Allium",
+        "qty": 3
+      },
+      {
+        "name": "Ferns",
+        "qty": 5
+      },
+      {
+        "name": "Ivy",
+        "qty": 4
+      }
     ],
-    "popularity": 0.55
+    "bias": 0.55
   },
   {
     "id": "happy_holidays",
@@ -3746,12 +5504,24 @@
       "joy"
     ],
     "items": [
-      { "name": "Red Amaryllis", "qty": 3 },
-      { "name": "White Chrysanthemum", "qty": 5 },
-      { "name": "Pine Sprigs", "qty": 5 },
-      { "name": "Holly Berries", "qty": 5 }
+      {
+        "name": "Red Amaryllis",
+        "qty": 3
+      },
+      {
+        "name": "White Chrysanthemum",
+        "qty": 5
+      },
+      {
+        "name": "Pine Sprigs",
+        "qty": 5
+      },
+      {
+        "name": "Holly Berries",
+        "qty": 5
+      }
     ],
-    "popularity": 0.9
+    "bias": 0.9
   },
   {
     "id": "birthday_bash",
@@ -3767,12 +5537,24 @@
       "joy"
     ],
     "items": [
-      { "name": "Rainbow Gerbera Daisies", "qty": 8 },
-      { "name": "Pink Carnation", "qty": 6 },
-      { "name": "Blue Iris", "qty": 4 },
-      { "name": "Yellow Freesia", "qty": 5 }
+      {
+        "name": "Rainbow Gerbera Daisies",
+        "qty": 8
+      },
+      {
+        "name": "Pink Carnation",
+        "qty": 6
+      },
+      {
+        "name": "Blue Iris",
+        "qty": 4
+      },
+      {
+        "name": "Yellow Freesia",
+        "qty": 5
+      }
     ],
-    "popularity": 0.95
+    "bias": 0.95
   },
   {
     "id": "thank_you_bunch",
@@ -3788,11 +5570,20 @@
       "warm"
     ],
     "items": [
-      { "name": "Pink Rose", "qty": 5 },
-      { "name": "Yellow Alstroemeria", "qty": 7 },
-      { "name": "Orange Carnation", "qty": 5 }
+      {
+        "name": "Pink Rose",
+        "qty": 5
+      },
+      {
+        "name": "Yellow Alstroemeria",
+        "qty": 7
+      },
+      {
+        "name": "Orange Carnation",
+        "qty": 5
+      }
     ],
-    "popularity": 0.8
+    "bias": 0.8
   },
   {
     "id": "new_beginnings",
@@ -3808,11 +5599,20 @@
       "start"
     ],
     "items": [
-      { "name": "White Lily", "qty": 3 },
-      { "name": "Bells of Ireland", "qty": 6 },
-      { "name": "Yellow Freesia", "qty": 5 }
+      {
+        "name": "White Lily",
+        "qty": 3
+      },
+      {
+        "name": "Bells of Ireland",
+        "qty": 6
+      },
+      {
+        "name": "Yellow Freesia",
+        "qty": 5
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "forever_friends",
@@ -3828,11 +5628,20 @@
       "joyful"
     ],
     "items": [
-      { "name": "Yellow Rose", "qty": 5 },
-      { "name": "Pink Gerbera Daisy", "qty": 4 },
-      { "name": "Blue Iris", "qty": 4 }
+      {
+        "name": "Yellow Rose",
+        "qty": 5
+      },
+      {
+        "name": "Pink Gerbera Daisy",
+        "qty": 4
+      },
+      {
+        "name": "Blue Iris",
+        "qty": 4
+      }
     ],
-    "popularity": 0.85
+    "bias": 0.85
   },
   {
     "id": "love_always",
@@ -3848,11 +5657,20 @@
       "valentine"
     ],
     "items": [
-      { "name": "Red Rose", "qty": 9 },
-      { "name": "Pink Lily", "qty": 3 },
-      { "name": "White Freesia", "qty": 5 }
+      {
+        "name": "Red Rose",
+        "qty": 9
+      },
+      {
+        "name": "Pink Lily",
+        "qty": 3
+      },
+      {
+        "name": "White Freesia",
+        "qty": 5
+      }
     ],
-    "popularity": 0.9
+    "bias": 0.9
   },
   {
     "id": "get_well_soon",
@@ -3868,11 +5686,20 @@
       "recovery"
     ],
     "items": [
-      { "name": "Yellow Rose", "qty": 4 },
-      { "name": "Pink Carnation", "qty": 6 },
-      { "name": "Purple Statice", "qty": 4 }
+      {
+        "name": "Yellow Rose",
+        "qty": 4
+      },
+      {
+        "name": "Pink Carnation",
+        "qty": 6
+      },
+      {
+        "name": "Purple Statice",
+        "qty": 4
+      }
     ],
-    "popularity": 0.75
+    "bias": 0.75
   },
   {
     "id": "congratulations_star",
@@ -3888,11 +5715,20 @@
       "happy"
     ],
     "items": [
-      { "name": "Yellow Lily", "qty": 3 },
-      { "name": "Red Gerbera Daisy", "qty": 5 },
-      { "name": "Blue Delphinium", "qty": 3 }
+      {
+        "name": "Yellow Lily",
+        "qty": 3
+      },
+      {
+        "name": "Red Gerbera Daisy",
+        "qty": 5
+      },
+      {
+        "name": "Blue Delphinium",
+        "qty": 3
+      }
     ],
-    "popularity": 0.8
+    "bias": 0.8
   },
   {
     "id": "thinking_of_you_always",
@@ -3908,11 +5744,20 @@
       "friendship"
     ],
     "items": [
-      { "name": "Lavender Rose", "qty": 7 },
-      { "name": "Pink Stock", "qty": 5 },
-      { "name": "White Lisianthus", "qty": 5 }
+      {
+        "name": "Lavender Rose",
+        "qty": 7
+      },
+      {
+        "name": "Pink Stock",
+        "qty": 5
+      },
+      {
+        "name": "White Lisianthus",
+        "qty": 5
+      }
     ],
-    "popularity": 0.7
+    "bias": 0.7
   },
   {
     "id": "just_for_you",
@@ -3928,11 +5773,23 @@
       "joy"
     ],
     "items": [
-      { "name": "Pink Rose", "qty": 4 },
-      { "name": "Yellow Tulip", "qty": 5 },
-      { "name": "Purple Alstroemeria", "qty": 5 },
-      { "name": "White Daisy", "qty": 4 }
+      {
+        "name": "Pink Rose",
+        "qty": 4
+      },
+      {
+        "name": "Yellow Tulip",
+        "qty": 5
+      },
+      {
+        "name": "Purple Alstroemeria",
+        "qty": 5
+      },
+      {
+        "name": "White Daisy",
+        "qty": 4
+      }
     ],
-    "popularity": 0.8
+    "bias": 0.8
   }
 ]

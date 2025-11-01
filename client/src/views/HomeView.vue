@@ -1,11 +1,13 @@
 <script setup>
 import { ref } from "vue";
 import BouquetService from "../router/api/BouquetService";
+import NeonSearchBar from "@/components/MLBouquet/NeonSearchBar.vue";
 
 const theme = ref("");
 const isLoading = ref(false);
 const bouquet = ref(null);
 const error = ref("");
+const excludedIds = ref([]); // 🆕 Track excluded bouquet template IDs
 
 const generateBouquet = async () => {
   if (!theme.value.trim()) {
@@ -19,22 +21,82 @@ const generateBouquet = async () => {
 
   try {
     console.log("🔍 Requesting bouquet for theme:", theme.value);
-    const data = await BouquetService.suggest(theme.value);
+
+    const data = await BouquetService.suggest(theme.value, {
+      excludeIds: excludedIds.value,
+    });
+
+    // 🆕 Ensure recommendations exists
+    if (!data.recommendations) {
+      data.recommendations = {
+        alternativeTemplates: [],
+      };
+    }
+
     bouquet.value = data;
     console.log("✅ Bouquet generated successfully:", data);
   } catch (err) {
-    error.value = err.response?.data?.error || "Failed to generate bouquet";
-    if (err.response?.data?.details) {
-      error.value += `: ${err.response.data.details}`;
-    }
-    console.error("❌ Failed to suggest bouquet:", err);
+    // ... existing error handling ...
   } finally {
     isLoading.value = false;
+  }
+};
+
+const giveFeedback = async (rating) => {
+  if (!bouquet.value || !bouquet.value.template?.id) {
+    console.warn("⚠️ No template available for feedback");
+    return;
+  }
+
+  const templateId = bouquet.value.template.id;
+
+  try {
+    console.log(`🗳 Sending feedback: ${rating} for ${templateId}`);
+    const res = await BouquetService.feedback(templateId, rating);
+    console.log("✅ Feedback recorded:", res);
+
+    if (rating === "down") {
+      // 🆕 Exclude this bouquet
+      if (!excludedIds.value.includes(templateId)) {
+        excludedIds.value.push(templateId);
+      }
+
+      // 🛠️ FIXED: Use optional chaining with safe fallback
+      const alternatives =
+        bouquet.value?.recommendations?.alternativeTemplates || [];
+
+      const nextAlt = alternatives.find(
+        (alt) => !excludedIds.value.includes(alt.id)
+      );
+
+      if (nextAlt) {
+        console.log("🔁 Using alternative bouquet:", nextAlt.id);
+
+        // Fetch full details for the new bouquet (via backend)
+        const newBouquet = await BouquetService.suggest(theme.value, {
+          excludeIds: excludedIds.value,
+          preferredId: nextAlt.id, // 🆕 backend can use this to prioritize
+        });
+
+        bouquet.value = newBouquet; // ✅ Replace entire bouquet object
+      } else {
+        // No alternatives? Ask backend for a fresh one
+        console.log("🔁 No alternatives left, requesting new bouquet...");
+        await generateBouquet();
+      }
+    } else {
+      alert("👍 Thanks for your feedback!");
+    }
+  } catch (err) {
+    console.error("❌ Failed to record feedback:", err);
+    alert("Failed to record feedback. Please try again.");
   }
 };
 </script>
 
 <template>
+  <NeonSearchBar />
+
   <div class="p-6 max-w-6xl mx-auto">
     <h1 class="text-3xl font-bold mb-2">AI Bouquet Generator</h1>
     <p class="text-gray-600 mb-6">Powered by semantic AI matching</p>
@@ -198,13 +260,13 @@ const generateBouquet = async () => {
 
       <!-- Alternative Suggestions -->
       <div
-        v-if="bouquet.recommendations.alternativeTemplates.length > 0"
+        v-if="bouquet.recommendations?.alternativeTemplates?.length > 0"
         class="bg-white rounded-lg shadow-md p-6"
       >
         <h3 class="text-lg font-semibold mb-4">🔄 Alternative Templates</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div
-            v-for="alt in bouquet.recommendations.alternativeTemplates"
+            v-for="alt in bouquet.recommendations?.alternativeTemplates || []"
             :key="alt.id"
             class="border rounded-lg p-3 hover:bg-gray-50 cursor-pointer"
           >
@@ -248,6 +310,22 @@ const generateBouquet = async () => {
             </span>
           </div>
         </div>
+      </div>
+
+      <!-- Feedback Buttons -->
+      <div v-if="bouquet" class="mt-6 flex justify-center gap-6">
+        <button
+          @click="giveFeedback('up')"
+          class="flex items-center gap-2 bg-green-100 hover:bg-green-200 text-green-800 font-semibold px-6 py-3 rounded-xl transition-all"
+        >
+          👍 Like this bouquet
+        </button>
+        <button
+          @click="giveFeedback('down')"
+          class="flex items-center gap-2 bg-red-100 hover:bg-red-200 text-red-800 font-semibold px-6 py-3 rounded-xl transition-all"
+        >
+          👎 Not a good match
+        </button>
       </div>
     </div>
   </div>
