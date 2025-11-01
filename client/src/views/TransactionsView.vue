@@ -288,7 +288,7 @@ onMounted(() => {
               {{ new Date(selectedTransaction.orderEnd).toLocaleString() }}
             </p>
             <p>
-              <strong>Status:</strong>
+              <strong>Status: </strong>
               <span
                 class="badge"
                 :class="{
@@ -371,6 +371,32 @@ onMounted(() => {
                             currency: "PHP",
                           }).format(getTotal(selectedTransaction))
                         }}</span>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center list-group-item-light"
+                      >
+                        Amount Paid:
+                        <span>
+                          {{
+                            new Intl.NumberFormat("en-PH", {
+                              style: "currency",
+                              currency: "PHP",
+                            }).format(selectedTransaction.amountPaid)
+                          }}
+                        </span>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center list-group-item-warning"
+                      >
+                        Change:
+                        <span>
+                          {{
+                            new Intl.NumberFormat("en-PH", {
+                              style: "currency",
+                              currency: "PHP",
+                            }).format(selectedTransaction.change)
+                          }}
+                        </span>
                       </li>
                     </ul>
                   </div>

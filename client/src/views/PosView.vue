@@ -298,7 +298,7 @@ async function confirmCheckout() {
       })
     );
 
-    showToast("success", "Order completed successfully!");
+    showToast("success", "Order completed successfully! ");
   } catch (err) {
     console.error(err.message || "checkout failed");
     showToast("error", "Checkout failed!");
@@ -840,6 +840,16 @@ const change = computed(() => {
                     >
                       Total:
                       <span>₱{{ totalAfterDiscount }}</span>
+                    </li>
+                    <li>
+                      <label for="dedication" class="list-group-item d-flex justify-content-between align-items-center list-group-item-light">Dedication (Optional)</label>
+                      <input
+                        id="dedication"
+                        type="string"
+                        class="form-control mb-2"
+                        v-model ="order.dedication"
+                        :placeholder="'Enter dedication here'"
+                      />
                     </li>
                   </ul>
 
