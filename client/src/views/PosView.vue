@@ -9,7 +9,9 @@ import Items from "@/components/POS/Items.vue";
 import BottomBar from "@/components/POS/BottomBar.vue";
 import Draft from "@/components/POS/Draft.vue";
 import OrderService from "@/router/api/ordersService";
-import ItemService from "@/router/api/itemsService"; // ✅ Add this
+import ItemService from "@/router/api/itemsService";
+import CustomBouquet from "@/components/MLBouquet/CustomBouquet.vue";
+
 // import QuantityAdjuster from "@/components/QuantityAdjuster.vue";
 
 // currently not using the selectedFlowers here,
@@ -197,7 +199,6 @@ function showToast(type = "success", message = "Operation successful") {
   const toast = document.getElementById("myToast");
   const toastBody = toast.querySelector(".toast-body");
 
-  // Remove old classes
   toast.classList.remove(
     "bg-success",
     "bg-danger",
@@ -206,10 +207,8 @@ function showToast(type = "success", message = "Operation successful") {
     "text-dark"
   );
 
-  // Update message
   toastBody.textContent = message;
 
-  // Apply color style
   if (type === "success") {
     toast.classList.add("bg-success", "text-white");
   } else if (type === "error") {
@@ -218,7 +217,6 @@ function showToast(type = "success", message = "Operation successful") {
     toast.classList.add("bg-warning", "text-dark");
   }
 
-  // Show the existing toast instance
   toastInstance?.show();
 }
 
@@ -308,6 +306,29 @@ async function confirmCheckout() {
     resetOrder();
     await loadItems();
   }
+}
+
+function addBouquetToOrder(bouquetItems) {
+  if (!order.orderStart) {
+    order.orderStart = new Date();
+  }
+
+  bouquetItems.forEach((bouquetItem) => {
+    const existingItem = selectedFlowers.value.find(
+      (f) => f.id === bouquetItem.id
+    );
+
+    if (existingItem) {
+      existingItem.qty += bouquetItem.qty;
+    } else {
+      selectedFlowers.value.push({
+        ...bouquetItem,
+        oldPrice: bouquetItem.price,
+        notes: bouquetItem.notes || "",
+      });
+    }
+  });
+  showToast("success", `Added ${bouquetItems.length} bouquet items to order!`);
 }
 
 const draftOrders = ref([]);
@@ -418,11 +439,19 @@ const change = computed(() => {
           :categories="categories"
           :selected-category="selectedCategory"
           @select-category="handleCategorySelect"
-        /><Items
+        />
+
+        <Items
           style="width: 40%"
           :all-items="allItems"
           :selected-category="selectedCategory"
           @select="onFlowerSelect"
+          v-if="selectedCategory"
+        />
+        <CustomBouquet
+          v-if="!selectedCategory"
+          style="width: 40%"
+          @add-to-order="addBouquetToOrder"
         />
 
         <div
