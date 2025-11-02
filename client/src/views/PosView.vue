@@ -31,6 +31,8 @@ const order = reactive({
   actionHistory: [],
   draftTitle: "",
   mop: "cash",
+  amountPaid: 0,
+  change: 0,
 });
 const selectedFlowers = ref([]);
 function onFlowerSelect(flower) {
@@ -226,7 +228,8 @@ function resetOrder() {
   order.actionHistory = [];
   selectedFlowers.value = [];
   discounts.value = [];
-  amountPaid.value = 0;
+  order.amountPaid = 0;
+  change.value = 0;
 }
 
 function voidOrder() {
@@ -245,6 +248,8 @@ async function confirmAsDraft() {
       actionHistory: [...order.actionHistory, order.draftTitle],
       discounts: discounts.value.map((d) => ({ ...d })),
       total: totalAfterDiscount.value,
+      amountPaid: order.amountPaid,
+      change: change.value,
     });
     await getDraftOrders();
     showToast("success", "Order saved as draft!");
@@ -279,6 +284,8 @@ async function confirmCheckout() {
       discounts: discounts.value.map((d) => ({ ...d })),
       total: totalAfterDiscount.value,
       actionHistory: order.actionHistory,
+      amountPaid: order.amountPaid,
+      change: change.value,
     });
 
     // stock update
@@ -289,7 +296,7 @@ async function confirmCheckout() {
       })
     );
 
-    showToast("success", "Order completed successfully!");
+    showToast("success", "Order completed successfully! ");
   } catch (err) {
     console.error(err.message || "checkout failed");
     showToast("error", "Checkout failed!");
@@ -416,11 +423,9 @@ onMounted(async () => {
   await loadItems();
 });
 
-const amountPaid = ref(0);
-
 const change = computed(() => {
-  return amountPaid.value > 0
-    ? Math.max(amountPaid.value - totalAfterDiscount.value, 0)
+  return order.amountPaid > 0
+    ? Math.max(order.amountPaid - totalAfterDiscount.value, 0)
     : 0;
 });
 </script>
@@ -865,6 +870,16 @@ const change = computed(() => {
                       Total:
                       <span>₱{{ totalAfterDiscount }}</span>
                     </li>
+                    <li>
+                      <label for="dedication" class="list-group-item d-flex justify-content-between align-items-center list-group-item-light">Dedication (Optional)</label>
+                      <input
+                        id="dedication"
+                        type="string"
+                        class="form-control mb-2"
+                        v-model ="order.dedication"
+                        :placeholder="'Enter dedication here'"
+                      />
+                    </li>
                   </ul>
 
                   <!--  -->
@@ -904,12 +919,12 @@ const change = computed(() => {
               id="amountPaid"
               type="number"
               class="form-control mb-2"
-              v-model.number="amountPaid"
+              v-model.number="order.amountPaid"
               :min="totalAfterDiscount"
               :placeholder="`₱${totalAfterDiscount}`"
             />
 
-            <div v-if="amountPaid > 0" class="mt-2">
+            <div v-if="order.amountPaid > 0" class="mt-2">
               <label class="form-label fw-bold">Change:</label>
               <div
                 class="form-control bg-light text-success fw-bold"

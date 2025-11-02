@@ -48,6 +48,7 @@ router.post("/", async (req, res) => {
       mop,
       actionHistory,
       amountPaid,
+      change,
     } = req.body;
 
     if (!orderStart || !orderStatus) {
@@ -67,6 +68,7 @@ router.post("/", async (req, res) => {
       actionHistory: Array.isArray(actionHistory) ? actionHistory : [],
       createdAt: new Date().toISOString(),
       amountPaid: amountPaid || 0,
+      change: change || 0,
     };
 
     db.data.orders.push(newOrder);
