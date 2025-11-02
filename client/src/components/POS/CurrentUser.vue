@@ -1,11 +1,22 @@
 <script setup>
-import { defineProps } from "vue";
+import { defineProps, computed } from "vue";
+import useAuth from "@/composables/useAuth";
 
 defineProps({
   orderStart: {
     type: String,
     default: "Pending",
   },
+});
+
+const { user } = useAuth();
+
+const displayName = computed(() => {
+  return user.value?.name || "John Doe";
+});
+
+const displayRole = computed(() => {
+  return (user.value?.role || "ADMIN").toString().toUpperCase();
 });
 </script>
 
@@ -14,8 +25,8 @@ defineProps({
     <div class="inner-container">
       <img src="../../assets/icons/user.svg" width="70" alt="" />
       <div class="text-container">
-        <div class="lowlight">ADMIN</div>
-        <div class="primary">John Doe</div>
+        <div class="lowlight">{{ displayRole }}</div>
+        <div class="primary">{{ displayName }}</div>
       </div>
     </div>
     <div class="inner-container">

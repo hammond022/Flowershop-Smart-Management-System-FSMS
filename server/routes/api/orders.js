@@ -49,6 +49,10 @@ router.post("/", async (req, res) => {
       actionHistory,
       amountPaid,
       change,
+      // optional customer/dedication fields
+      customerName,
+      customerContact,
+      dedication,
     } = req.body;
 
     if (!orderStart || !orderStatus) {
@@ -69,6 +73,10 @@ router.post("/", async (req, res) => {
       createdAt: new Date().toISOString(),
       amountPaid: amountPaid || 0,
       change: change || 0,
+      // persist optional customer info and dedication
+      customerName: customerName || "",
+      customerContact: customerContact || "",
+      dedication: dedication || "",
     };
 
     db.data.orders.push(newOrder);

@@ -1,6 +1,7 @@
 <script setup>
 import OrderService from "@/router/api/ordersService";
 import { ref, computed, onMounted } from "vue";
+import useAuth from "@/composables/useAuth";
 import { Modal } from "bootstrap";
 import { useToast } from "@/composables/useToast";
 
@@ -111,6 +112,8 @@ function isRecent(tx) {
 onMounted(() => {
   getTransactions();
 });
+
+const { user } = useAuth();
 </script>
 
 <template>
@@ -306,6 +309,16 @@ onMounted(() => {
                 {{ selectedTransaction.orderStatus }}
               </span>
             </p>
+
+            <div class="row g-2 mb-2 small text-muted">
+              <div class="col-4"><strong>Employee:</strong> {{ user?.name || '—' }}</div>
+              <div class="col-4"><strong>Customer Name:</strong> {{ selectedTransaction.customerName || '—' }}</div>
+              <div class="col-4"><strong>Contact #:</strong> {{ selectedTransaction.customerContact || '—' }}</div>
+            </div>
+              <div v-if="selectedTransaction.dedication" class="mb-2">
+                <div class="small text-muted"><strong>Dedication:</strong></div>
+                <blockquote class="small fst-italic text-secondary mb-0">{{ selectedTransaction.dedication }}</blockquote>
+              </div>
 
             <div class="accordion" id="transactionAccordion">
               <div class="accordion-item">

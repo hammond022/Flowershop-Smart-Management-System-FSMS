@@ -31,6 +31,10 @@ const order = reactive({
   mop: "cash",
   amountPaid: 0,
   change: 0,
+  // customer info & dedication
+  customerName: "",
+  customerContact: "",
+  dedication: "",
 });
 const selectedFlowers = ref([]);
 function onFlowerSelect(flower) {
@@ -232,6 +236,9 @@ function resetOrder() {
   discounts.value = [];
   order.amountPaid = 0;
   change.value = 0;
+  order.customerName = "";
+  order.customerContact = "";
+  order.dedication = "";
 }
 
 function voidOrder() {
@@ -252,6 +259,9 @@ async function confirmAsDraft() {
       total: totalAfterDiscount.value,
       amountPaid: order.amountPaid,
       change: change.value,
+      customerName: order.customerName,
+      customerContact: order.customerContact,
+      dedication: order.dedication,
     });
     await getDraftOrders();
     showToast("success", "Order saved as draft!");
@@ -288,6 +298,9 @@ async function confirmCheckout() {
       actionHistory: order.actionHistory,
       amountPaid: order.amountPaid,
       change: change.value,
+      customerName: order.customerName,
+      customerContact: order.customerContact,
+      dedication: order.dedication,
     });
 
     // stock update
@@ -340,6 +353,9 @@ function loadDraft(draft) {
   discounts.value = draft.discounts
     ? draft.discounts.map((d) => ({ ...d }))
     : [];
+  order.customerName = draft.customerName || "";
+  order.customerContact = draft.customerContact || "";
+  order.dedication = draft.dedication || "";
 }
 
 // mortal sin - will fix this eventually
@@ -769,10 +785,10 @@ const change = computed(() => {
   </div>
 
   <div class="modal fade" id="orderCheckoutModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:560px">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Confirm Order</h5>
+        <div class="modal-header py-2">
+          <h6 class="modal-title mb-0">Confirm Order</h6>
           <button
             type="button"
             class="btn-close"
@@ -780,10 +796,9 @@ const change = computed(() => {
             aria-label="Close"
           ></button>
         </div>
-        <div class="modal-body">
-          <p>
-            Order created:
-            {{ order.orderStart ? order.orderStart.toLocaleString() : "" }}
+        <div class="modal-body py-2">
+          <p class="small text-muted mb-2">
+            Order created: {{ order.orderStart ? order.orderStart.toLocaleString() : "" }}
           </p>
           <div class="accordion mb-3" id="accordionExample">
             <div class="accordion-item">
@@ -805,7 +820,7 @@ const change = computed(() => {
                 data-bs-parent="#accordionExample"
               >
                 <div class="accordion-body">
-                  <ul class="list-group list-group-flush">
+                  <ul class="list-group list-group-flush small">
                     <li
                       class="list-group-item d-flex justify-content-between align-items-center"
                       v-for="item in selectedFlowers"
@@ -841,14 +856,15 @@ const change = computed(() => {
                       Total:
                       <span>₱{{ totalAfterDiscount }}</span>
                     </li>
-                    <li>
-                      <label for="dedication" class="list-group-item d-flex justify-content-between align-items-center list-group-item-light">Dedication (Optional)</label>
+                    <li class="list-group-item">
+                      <label for="dedication" class="form-label small mb-1">Dedication (optional)</label>
                       <input
                         id="dedication"
-                        type="string"
-                        class="form-control mb-2"
-                        v-model ="order.dedication"
-                        :placeholder="'Enter dedication here'"
+                        type="text"
+                        class="form-control form-control-sm"
+                        v-model="order.dedication"
+                        maxlength="200"
+                        placeholder="Short dedication (max 200 chars)"
                       />
                     </li>
                   </ul>
@@ -858,77 +874,56 @@ const change = computed(() => {
               </div>
             </div>
           </div>
-          <label for="">Payment Method</label>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              id="payment-cash"
-              name="payment"
-              value="cash"
-              v-model="order.mop"
-              checked
-            />
-            <label class="form-check-label" for="payment-cash"> Cash </label>
+          <!-- Compact customer info inputs -->
+          <div class="row g-2 mb-2">
+            <div class="col-7">
+              <input
+                id="customerName"
+                type="text"
+                class="form-control form-control-sm"
+                v-model="order.customerName"
+                placeholder="Customer name"
+              />
+            </div>
+            <div class="col-5">
+              <input
+                id="customerContact"
+                type="text"
+                class="form-control form-control-sm"
+                v-model="order.customerContact"
+                placeholder="Contact #"
+              />
+            </div>
           </div>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              id="payment-bank"
-              name="payment"
-              value="bank"
-              v-model="order.mop"
-              disabled
-            />
-            <label class="form-check-label" for="payment-other">
-              Bank Transfer/E-Wallet
-            </label>
-          </div>
-          <label for="amountPaid" class="form-label">Amount Paid</label>
-            <input
-              id="amountPaid"
-              type="number"
-              class="form-control mb-2"
-              v-model.number="order.amountPaid"
-              :min="totalAfterDiscount"
-              :placeholder="`₱${totalAfterDiscount}`"
-            />
 
-            <div v-if="order.amountPaid > 0" class="mt-2">
-              <label class="form-label fw-bold">Change:</label>
-              <div
-                class="form-control bg-light text-success fw-bold"
-                readonly
-              >
-                ₱{{ change }}
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <div class="d-flex align-items-center gap-3">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="payment-cash" name="payment" value="cash" v-model="order.mop" checked />
+                <label class="form-check-label small" for="payment-cash">Cash</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="payment-bank" name="payment" value="bank" v-model="order.mop" disabled />
+                <label class="form-check-label small" for="payment-bank">Bank/E-Wallet</label>
               </div>
             </div>
+            <div style="min-width:160px">
+              <input id="amountPaid" type="number" class="form-control form-control-sm" v-model.number="order.amountPaid" :min="totalAfterDiscount" :placeholder="`₱${totalAfterDiscount}`" />
+            </div>
+          </div>
+
+          <div v-if="order.amountPaid > 0" class="mb-1">
+            <div class="small text-muted mb-1">Change</div>
+            <div class="form-control form-control-sm bg-light text-success fw-bold">₱{{ change }}</div>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-            Cancel
-          </button>
+        <div class="modal-footer py-2">
+          <button type="button" class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
           <div class="btn-group">
-            <button
-              type="button"
-              class="btn btn-success"
-              @click="confirmCheckout"
-            >
-              Confirm Checkout
-            </button>
-            <button
-              type="button"
-              class="btn btn-success dropdown-toggle dropdown-toggle-split"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            ></button>
+            <button type="button" class="btn btn-sm btn-success" @click="confirmCheckout">Confirm Checkout</button>
+            <button type="button" class="btn btn-sm btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"></button>
             <ul class="dropdown-menu">
-              <li class="">
-                <a class="dropdown-item" href="#" @click="confirmAsDraft"
-                  >Save as draft</a
-                >
-              </li>
+              <li><a class="dropdown-item" href="#" @click="confirmAsDraft">Save as draft</a></li>
             </ul>
           </div>
         </div>

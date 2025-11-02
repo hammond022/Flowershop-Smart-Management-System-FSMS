@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from "express";
 import cors from "cors";
 import path from "path";
@@ -8,6 +9,7 @@ import usersRouter from "./routes/api/users.js";
 import itemsRouter from "./routes/api/items.js";
 import ordersRouter from "./routes/api/orders.js";
 import purchaseOrdersRouter from "./routes/api/purchaseOrders.js";
+import authRouter from "./routes/api/auth.js";
 
 // i apologize for this monstrosity
 // photo upload
@@ -17,6 +19,8 @@ app.use(cors());
 app.use(express.json());
 app.use("/uploads", express.static(path.resolve("uploads")));
 app.use("/api/upload", photoUploadRoute);
+// Auth routes
+app.use("/api/auth", authRouter);
 
 // Lowdb setup
 const adapter = new JSONFile("db.json");

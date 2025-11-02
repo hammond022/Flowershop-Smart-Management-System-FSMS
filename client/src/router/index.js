@@ -4,6 +4,9 @@ import PosView from "@/views/PosView.vue";
 import TransactionsView from "@/views/TransactionsView.vue";
 import InventoryView from "@/views/InventoryView.vue";
 import SettingsView from "@/views/SettingsView.vue";
+import LoginView from "@/views/LoginView.vue";
+import RegisterView from "@/views/RegisterView.vue";
+import ForgotPasswordView from "@/views/ForgotPasswordView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,7 +36,37 @@ const router = createRouter({
       name: "settings",
       component: SettingsView,
     },
+    {
+      path: "/login",
+      name: "login",
+      component: LoginView,
+    },
+    {
+      path: "/register",
+      name: "register",
+      component: RegisterView,
+    },
+    {
+      path: "/forgot",
+      name: "forgot",
+      component: ForgotPasswordView,
+    },
   ],
+});
+
+// Navigation guard: send unauthenticated users to /login
+const publicPages = ["/login", "/register", "/forgot"];
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem("token");
+  // If no token and trying to access a protected page -> redirect to login
+  if (!token && !publicPages.includes(to.path)) {
+    return next({ path: "/login" });
+  }
+  // If token exists and user tries to access auth pages, redirect to home
+  if (token && publicPages.includes(to.path)) {
+    return next({ path: "/" });
+  }
+  next();
 });
 
 export default router;

@@ -24,6 +24,10 @@ class OrderService {
     discounts = [],
     amountPaid = 0,
     change = 0,
+    // optional fields
+    customerName = "",
+    customerContact = "",
+    dedication = "",
   }) {
     const res = await axios.post(baseURL, {
       orderStart,
@@ -35,6 +39,9 @@ class OrderService {
       actionHistory,
       amountPaid,
       change,
+      customerName,
+      customerContact,
+      dedication,
     });
     return res.data;
   }
