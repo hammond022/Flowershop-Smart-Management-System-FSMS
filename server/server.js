@@ -8,6 +8,7 @@ import usersRouter from "./routes/api/users.js";
 import itemsRouter from "./routes/api/items.js";
 import ordersRouter from "./routes/api/orders.js";
 import purchaseOrdersRouter from "./routes/api/purchaseOrders.js";
+import bouquetsRouter from "./routes/api/bouquets.js";
 
 // i apologize for this monstrosity
 // photo upload
@@ -24,6 +25,7 @@ export const db = new Low(adapter, { users: [], items: [] });
 await db.read();
 
 // Mount routers
+app.use("/api/bouquets", bouquetsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/items", itemsRouter);
 app.use("/api/orders", ordersRouter);

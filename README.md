@@ -83,4 +83,84 @@ Settings
 | **POST** | `/api/orders/` | Create order | `{ "items": [1, 2], "notes": "For delivery", "discount": 0.1 }` | `{ "id": 101, "status": "pending", "total": 25.50 }` |
 | **GET** | `/api/orders/:id` | Get order by ID | — | `{ "id": 101, "items": [1, 2], "total": 25.50 }` |
  
- .
+ # Bouquet Suggestion API Routes & Responses
+
+## Route Summary Table
+
+| Route | Method | Purpose | Request Body | Success Response | Error Responses |
+|-------|---------|---------|--------------|------------------|-----------------|
+| **/suggest** | POST | Generate bouquet recommendations | `{ theme: string, excludeIds?: string[], preferredId?: string }` | `200` - Bouquet suggestion with items, financials, and analysis | `400` - Invalid theme<br>`429` - System busy<br>`404` - No templates found<br>`500` - Internal error |
+| **/status** | GET | Check system health & cache status | None | `200` - System status with AI, cache, and performance info | None |
+| **/feedback** | POST | Submit template feedback | `{ templateId: string, rating: "up" or "down" }` | `200` - Feedback recorded with new bias score | `400` - Invalid feedback data<br>`404` - Template not found<br>`500` - Update failed |
+
+---
+
+## Detailed Response Structures
+
+### POST /suggest Response
+| Section | Field | Type | Description |
+|---------|-------|------|-------------|
+| **theme** | | string | Original requested theme |
+| **template** | id | string | Template identifier |
+| | name | string | Template name |
+| | theme | string | Template theme |
+| | themeTags | string[] | Associated tags |
+| **matchingAnalysis** | method | string | "keyword" or "semantic" |
+| | templateConfidence | string | Match confidence percentage |
+| | averageItemConfidence | string | Average item match confidence |
+| | processingTime | string | Request processing duration |
+| | totalTemplatesConsidered | number | Number of templates evaluated |
+| | matchingEngine | string | "AI Semantic + Keyword" or "Keyword Only" |
+| **financials** | totalCost | number | Total cost of bouquet |
+| | totalPrice | number | Total price of bouquet |
+| | profitMargin | number | Profit amount |
+| | profitMarginPercentage | number | Profit percentage |
+| | recommendedPrice | number | Suggested selling price |
+| **composition** | totalItems | number | Number of different flowers |
+| | totalQuantity | number | Total flower quantity |
+| | stockUtilization | string | "conservative" stock usage |
+| | uniqueFlowers | number | Number of unique flower types |
+| **items[]** | id | string | Flower item ID |
+| | name | string | Flower name |
+| | quantity | number | Quantity used |
+| | price | number | Unit price |
+| | totalPrice | number | Total price for quantity |
+| | **matchingAnalysis** | object | Item-specific match details |
+| | → overallConfidence | string | Match confidence percentage |
+| | → scoreBreakdown | object | Detailed score breakdown |
+| | → matchReasons | string[] | Reasons for match |
+| **metadata** | generatedAt | string | ISO timestamp |
+| | systemVersion | string | API version |
+| | inventorySnapshot | string | Available flowers count |
+
+### GET /status Response
+| Section | Field | Type | Description |
+|---------|-------|------|-------------|
+| **status** | | string | "operational" system status |
+| **ai** | embeddingsLoaded | boolean | Whether AI embeddings are loaded |
+| | model | string | AI model name |
+| | capabilities | string[] | Available AI capabilities |
+| **cache** | templates | string | Cached templates count |
+| | items | string | Cached flowers count |
+| | lastUpdated | string | Last cache update timestamp |
+| **performance** | concurrentRequests | number | Current active requests |
+| | maxConcurrent | number | Maximum concurrent requests |
+
+### POST /feedback Response
+| Field | Type | Description |
+|-------|------|-------------|
+| success | boolean | Request success status |
+| message | string | Feedback recording status |
+| newBias | number | Updated template bias score (0-1) |
+| templateId | string | Template identifier |
+
+---
+
+## Error Response Structure
+| Field | Type | Description |
+|-------|------|-------------|
+| error | string | Error description |
+| details | string | Detailed error message (optional) |
+| timestamp | string | Error occurrence time (optional) |
+| recoverySuggestion | string | Suggested recovery steps (optional) |
+| suggestion | string | Alternative actions (optional) |
