@@ -34,10 +34,12 @@ const salesData = computed(() => {
 
     if (selectedRange.value === "daily") {
       key = date.toISOString().slice(0, 10);
-    } else {
+    } else if (selectedRange.value === "monthly") {
       key = `${date.getFullYear()}-${(date.getMonth() + 1)
         .toString()
         .padStart(2, "0")}`;
+    } else if (selectedRange.value === "yearly") {
+      key = date.getFullYear().toString();
     }
 
     const subtotal =
@@ -63,17 +65,29 @@ const salesData = computed(() => {
   return { labels, data };
 });
 
-const chartOptions = computed(() => ({
-  chart: { id: "sales-histogram", toolbar: { show: true } },
-  xaxis: { categories: salesData.value.labels },
-  yaxis: { title: { text: "Sales (PHP)" } },
-  dataLabels: { enabled: true, formatter: (val) => "P" + val.toLocaleString() },
-  title: {
-    text: `Sales per ${selectedRange.value === "daily" ? "Day" : "Month"}`,
-    align: "center",
-  },
-  tooltip: { y: { formatter: (val) => "P" + val.toLocaleString() } },
-}));
+const chartOptions = computed(() => {
+  const periodLabel =
+    selectedRange.value === "daily"
+      ? "Day"
+      : selectedRange.value === "monthly"
+      ? "Month"
+      : "Year";
+
+  return {
+    chart: { id: "sales-histogram", toolbar: { show: true } },
+    xaxis: { categories: salesData.value.labels },
+    yaxis: { title: { text: "Sales (PHP)" } },
+    dataLabels: {
+      enabled: true,
+      formatter: (val) => "P" + val.toLocaleString(),
+    },
+    title: {
+      text: `Sales per ${periodLabel}`,
+      align: "center",
+    },
+    tooltip: { y: { formatter: (val) => "P" + val.toLocaleString() } },
+  };
+});
 
 const chartSeries = computed(() => [
   { name: "Sales", data: salesData.value.data },
@@ -343,6 +357,7 @@ onMounted(() => {
       <select class="form-select w-auto" v-model="selectedRange">
         <option value="daily">Daily</option>
         <option value="monthly">Monthly</option>
+        <option value="yearly">Yearly</option>
       </select>
 
       <div class="ms-auto">
@@ -435,7 +450,10 @@ onMounted(() => {
                 <td>{{ new Date(tx.orderStart).toLocaleString() }}</td>
                 <td>{{ new Date(tx.orderEnd).toLocaleString() }}</td>
                 <td>
-                  <button class="btn btn-sm btn-outline-primary" @click="openModal(tx)">
+                  <button
+                    class="btn btn-sm btn-outline-primary"
+                    @click="openModal(tx)"
+                  >
                     View
                   </button>
                 </td>
@@ -479,11 +497,14 @@ onMounted(() => {
                 class="badge"
                 :class="{
                   'bg-success':
-                    selectedTransaction.orderStatus?.toLowerCase() === 'completed',
+                    selectedTransaction.orderStatus?.toLowerCase() ===
+                    'completed',
                   'bg-warning text-dark':
-                    selectedTransaction.orderStatus?.toLowerCase() === 'pending',
+                    selectedTransaction.orderStatus?.toLowerCase() ===
+                    'pending',
                   'bg-danger':
-                    selectedTransaction.orderStatus?.toLowerCase() === 'cancelled',
+                    selectedTransaction.orderStatus?.toLowerCase() ===
+                    'cancelled',
                 }"
               >
                 {{ selectedTransaction.orderStatus }}
@@ -533,7 +554,11 @@ onMounted(() => {
                           {{
                             selectedTransaction.discounts.reduce((sum, d) => {
                               if (d.type === "percent")
-                                return sum + getTotal(selectedTransaction) * (d.value / 100);
+                                return (
+                                  sum +
+                                  getTotal(selectedTransaction) *
+                                    (d.value / 100)
+                                );
                               return sum + d.value;
                             }, 0)
                           }}
@@ -558,7 +583,11 @@ onMounted(() => {
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
               Close
             </button>
           </div>
