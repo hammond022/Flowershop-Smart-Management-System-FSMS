@@ -3,6 +3,8 @@ import OrderService from "@/router/api/ordersService";
 import { ref, computed, onMounted } from "vue";
 import { Modal } from "bootstrap";
 import { useToast } from "@/composables/useToast";
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
 
 const { showToast } = useToast();
 const transactions = ref([]);
@@ -109,6 +111,97 @@ function isRecent(tx) {
   const diffHours = (new Date() - new Date(tx.orderEnd)) / (1000 * 60 * 60);
   return diffHours <= 24;
 }
+
+const printTransaction = (tx) => {
+  const doc = new jsPDF();
+
+  doc.setFontSize(20);
+  doc.text("Transaction Receipt", 105, 15, { align: "center" });
+  doc.setFontSize(12);
+  doc.text(`Transaction ID: ${tx.id}`, 105, 25, { align: "center" });
+
+  doc.setFontSize(14);
+  doc.text("Transaction Details", 14, 40);
+  autoTable(doc, {
+    startY: 45,
+    head: [["Field", "Value"]],
+    body: [
+      ["Status", tx.orderStatus],
+      [
+        "Payment Method",
+        tx.mop ? tx.mop.charAt(0).toUpperCase() + tx.mop.slice(1) : "—",
+      ],
+      ["Start Time", new Date(tx.orderStart).toLocaleString()],
+      ["End Time", new Date(tx.orderEnd).toLocaleString()],
+      ["Amount Paid", `PHP ${tx.amountPaid}`],
+      ["Change", `PHP ${tx.change}`],
+    ],
+  });
+
+  doc.text("Items", 14, doc.lastAutoTable.finalY + 15);
+  const itemsData =
+    tx.selectedFlowers?.map((item) => [
+      item.name,
+      item.qty,
+      `PHP ${item.price}`,
+      `PHP ${item.price * (item.qty || 0)}`,
+    ]) || [];
+
+  autoTable(doc, {
+    startY: doc.lastAutoTable.finalY + 20,
+    head: [["Item", "Quantity", "Unit Price", "Total"]],
+    body: itemsData,
+  });
+
+  if (tx.discounts?.length > 0) {
+    doc.text("Discounts", 14, doc.lastAutoTable.finalY + 15);
+    const discountsData = tx.discounts.map((discount) => [
+      discount.type === "percent" ? "Percentage" : "Fixed Amount",
+      discount.type === "percent"
+        ? `${discount.value}%`
+        : `PHP ${discount.value}`,
+    ]);
+
+    autoTable(doc, {
+      startY: doc.lastAutoTable.finalY + 20,
+      head: [["Type", "Value"]],
+      body: discountsData,
+    });
+  }
+
+  doc.text("Summary", 14, doc.lastAutoTable.finalY + 15);
+  autoTable(doc, {
+    startY: doc.lastAutoTable.finalY + 20,
+    body: [
+      [
+        "Subtotal",
+        `PHP ${
+          tx.selectedFlowers?.reduce(
+            (sum, f) => sum + f.price * (f.qty || 0),
+            0
+          ) || 0
+        }`,
+      ],
+      [
+        "Discount",
+        `PHP ${
+          tx.discounts?.reduce((sum, d) => {
+            const subtotal =
+              tx.selectedFlowers?.reduce(
+                (sum, f) => sum + f.price * (f.qty || 0),
+                0
+              ) || 0;
+            if (d.type === "percent") return sum + subtotal * (d.value / 100);
+            return sum + d.value;
+          }, 0) || 0
+        }`,
+      ],
+      ["Total", `PHP ${getTotal(tx)}`],
+    ],
+  });
+
+  doc.save(`transaction-${tx.id}-${new Date().toISOString().slice(0, 10)}.pdf`);
+};
 
 onMounted(() => {
   getTransactions();
@@ -410,6 +503,13 @@ onMounted(() => {
             </div>
           </div>
           <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-primary me-2"
+              @click="printTransaction(selectedTransaction)"
+            >
+              <i class="bi bi-file-pdf"></i> Print Receipt
+            </button>
             <button
               type="button"
               class="btn btn-secondary"
