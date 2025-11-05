@@ -958,6 +958,7 @@ const change = computed(() => {
             <button
               type="button"
               class="btn btn-success"
+              :disabled="totalAfterDiscount > order.amountPaid"
               @click="confirmCheckout"
             >
               Confirm Checkout
