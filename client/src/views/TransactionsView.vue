@@ -330,13 +330,20 @@ onMounted(() => {
                         :key="item.id"
                         class="list-group-item d-flex justify-content-between align-items-center"
                       >
-                        {{ item.qty }}x {{ item.name }}
-                        <span>{{
-                          new Intl.NumberFormat("en-PH", {
-                            style: "currency",
-                            currency: "PHP",
-                          }).format(item.price * (item.qty || 0))
-                        }}</span>
+                        <div>
+                          <i
+                            class="text-primary ms-1 inline bi bi-sticky"
+                            v-tooltip="item.notes"
+                            v-if="item.notes"
+                          ></i>
+                          {{ item.qty }}x {{ item.name }}
+                          <span>{{
+                            new Intl.NumberFormat("en-PH", {
+                              style: "currency",
+                              currency: "PHP",
+                            }).format(item.price * (item.qty || 0))
+                          }}</span>
+                        </div>
                       </li>
 
                       <li

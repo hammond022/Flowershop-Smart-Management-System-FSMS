@@ -274,7 +274,7 @@ async function confirmCheckout() {
       showToast("warning", "Insufficient payment amount!");
       return;
     }
-    
+
     await OrderService.createOrder({
       orderStart: order.orderStart,
       orderEnd: new Date().toISOString(),
@@ -498,7 +498,15 @@ const change = computed(() => {
                     v-for="item in selectedFlowers"
                     :key="item.id"
                   >
-                    {{ item.name }} - ₱{{ item.price }}
+                    <div>
+                      <i
+                        class="text-primary ms-1 inline bi bi-sticky"
+                        v-tooltip="item.notes"
+                        v-if="item.notes"
+                      ></i>
+                      {{ item.name }} - ₱{{ item.price }}
+                    </div>
+
                     <div>
                       <span
                         class="badge text-bg-secondary rounded-pill me-3"
@@ -840,7 +848,14 @@ const change = computed(() => {
                       v-for="item in selectedFlowers"
                       :key="item.id"
                     >
-                      {{ item.qty }}x {{ item.name }}
+                      <div>
+                        <i
+                          class="text-primary ms-1 inline bi bi-sticky"
+                          v-tooltip="item.notes"
+                          v-if="item.notes"
+                        ></i>
+                        {{ item.qty }}x {{ item.name }}
+                      </div>
                       <div>
                         <span>₱{{ item.price }}</span>
                       </div>
@@ -871,12 +886,16 @@ const change = computed(() => {
                       <span>₱{{ totalAfterDiscount }}</span>
                     </li>
                     <li>
-                      <label for="dedication" class="list-group-item d-flex justify-content-between align-items-center list-group-item-light">Dedication (Optional)</label>
+                      <label
+                        for="dedication"
+                        class="list-group-item d-flex justify-content-between align-items-center list-group-item-light"
+                        >Dedication (Optional)</label
+                      >
                       <input
                         id="dedication"
                         type="string"
                         class="form-control mb-2"
-                        v-model ="order.dedication"
+                        v-model="order.dedication"
                         :placeholder="'Enter dedication here'"
                       />
                     </li>
@@ -915,24 +934,21 @@ const change = computed(() => {
             </label>
           </div>
           <label for="amountPaid" class="form-label">Amount Paid</label>
-            <input
-              id="amountPaid"
-              type="number"
-              class="form-control mb-2"
-              v-model.number="order.amountPaid"
-              :min="totalAfterDiscount"
-              :placeholder="`₱${totalAfterDiscount}`"
-            />
+          <input
+            id="amountPaid"
+            type="number"
+            class="form-control mb-2"
+            v-model.number="order.amountPaid"
+            :min="totalAfterDiscount"
+            :placeholder="`₱${totalAfterDiscount}`"
+          />
 
-            <div v-if="order.amountPaid > 0" class="mt-2">
-              <label class="form-label fw-bold">Change:</label>
-              <div
-                class="form-control bg-light text-success fw-bold"
-                readonly
-              >
-                ₱{{ change }}
-              </div>
+          <div v-if="order.amountPaid > 0" class="mt-2">
+            <label class="form-label fw-bold">Change:</label>
+            <div class="form-control bg-light text-success fw-bold" readonly>
+              ₱{{ change }}
             </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
