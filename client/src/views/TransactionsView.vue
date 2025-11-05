@@ -60,29 +60,31 @@ function openModal(tx) {
 }
 
 function applyFilters() {
-  filteredTransactions.value = transactions.value.filter((tx) => {
-    const matchesSearch =
-      !searchQuery.value ||
-      tx.id.toString().includes(searchQuery.value) ||
-      tx.selectedFlowers?.some((f) =>
-        f.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-      );
+  filteredTransactions.value = transactions.value
+    .filter((tx) => {
+      const matchesSearch =
+        !searchQuery.value ||
+        tx.id.toString().includes(searchQuery.value) ||
+        tx.selectedFlowers?.some((f) =>
+          f.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+        );
 
-    const matchesStatus =
-      !statusFilter.value ||
-      tx.orderStatus.toLowerCase() === statusFilter.value;
+      const matchesStatus =
+        !statusFilter.value ||
+        tx.orderStatus.toLowerCase() === statusFilter.value;
 
-    const matchesPayment =
-      !paymentFilter.value ||
-      (tx.mop && tx.mop.toLowerCase() === paymentFilter.value);
+      const matchesPayment =
+        !paymentFilter.value ||
+        (tx.mop && tx.mop.toLowerCase() === paymentFilter.value);
 
-    const matchesDate =
-      (!startDate.value ||
-        new Date(tx.orderStart) >= new Date(startDate.value)) &&
-      (!endDate.value || new Date(tx.orderEnd) <= new Date(endDate.value));
+      const matchesDate =
+        (!startDate.value ||
+          new Date(tx.orderStart) >= new Date(startDate.value)) &&
+        (!endDate.value || new Date(tx.orderEnd) <= new Date(endDate.value));
 
-    return matchesSearch && matchesStatus && matchesPayment && matchesDate;
-  });
+      return matchesSearch && matchesStatus && matchesPayment && matchesDate;
+    })
+    .sort((a, b) => new Date(b.orderEnd) - new Date(a.orderEnd)); // Sort by orderEnd date, newest first
 
   currentPage.value = 1;
 }
@@ -174,7 +176,7 @@ onMounted(() => {
             <th>ID</th>
             <th>Payment</th>
             <th>Amount Paid</th>
-            <th>Change</th>  
+            <th>Change</th>
             <th>Items</th>
             <th>Status</th>
             <th>Total</th>
@@ -198,12 +200,8 @@ onMounted(() => {
                 tx.mop ? tx.mop.charAt(0).toUpperCase() + tx.mop.slice(1) : "—"
               }}
             </td>
-            <td>
-              ₱{{ tx.amountPaid}}
-            </td>
-            <td>
-              ₱{{ tx.change}}
-            </td>
+            <td>₱{{ tx.amountPaid }}</td>
+            <td>₱{{ tx.change }}</td>
             <td>
               {{
                 tx.selectedFlowers?.reduce((sum, f) => sum + (f.qty || 0), 0) ||
