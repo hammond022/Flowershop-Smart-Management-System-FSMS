@@ -1,4 +1,5 @@
 import { Toast } from "bootstrap";
+// number of hours wasted troubleshooting = 2
 
 export function useToast() {
   let toastInstance;
@@ -7,11 +8,9 @@ export function useToast() {
     const toastEl = document.getElementById("myToast");
     if (!toastEl) return;
 
-    // Update toast content
     const toastBody = toastEl.querySelector(".toast-body");
     toastBody.textContent = message;
 
-    // Reset classes
     toastEl.classList.remove(
       "bg-success",
       "bg-danger",
@@ -24,7 +23,6 @@ export function useToast() {
     if (type === "error") toastEl.classList.add("bg-danger", "text-white");
     if (type === "warning") toastEl.classList.add("bg-warning", "text-dark");
 
-    // Initialize new instance each time (Bootstrap is safe to re-init)
     toastInstance = new Toast(toastEl, { delay: 3000, autohide: true });
     toastInstance.show();
   }

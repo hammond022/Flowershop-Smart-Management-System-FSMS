@@ -1,39 +1,140 @@
 {
   "users": [
     {
-      "id": 1758112000404,
-      "name": "Alice"
+      "id": 1,
+      "username": "Whinilit_Winiliti",
+      "password": "secret",
+      "role": {
+        "Orders": [
+          {
+            "key": "create",
+            "label": "Create",
+            "enabled": true
+          },
+          {
+            "key": "delete",
+            "label": "Delete",
+            "enabled": true
+          }
+        ],
+        "Items": [
+          {
+            "key": "create",
+            "label": "Create",
+            "enabled": true
+          },
+          {
+            "key": "delete",
+            "label": "Delete",
+            "enabled": true
+          },
+          {
+            "key": "update",
+            "label": "Update",
+            "enabled": true
+          }
+        ],
+        "Purchase Orders": [
+          {
+            "key": "create",
+            "label": "Create",
+            "enabled": true
+          }
+        ]
+      }
     },
     {
-      "id": 1758114027269,
-      "name": "Alice"
+      "id": 2,
+      "username": "Bear_Brand",
+      "password": "staff123",
+      "role": {
+        "Orders": [
+          {
+            "key": "create",
+            "label": "Create",
+            "enabled": true
+          },
+          {
+            "key": "delete",
+            "label": "Delete",
+            "enabled": true
+          }
+        ],
+        "Items": [
+          {
+            "key": "create",
+            "label": "Create",
+            "enabled": true
+          },
+          {
+            "key": "delete",
+            "label": "Delete",
+            "enabled": true
+          },
+          {
+            "key": "update",
+            "label": "Update",
+            "enabled": true
+          }
+        ],
+        "Purchase Orders": [
+          {
+            "key": "create",
+            "label": "Create",
+            "enabled": true
+          }
+        ]
+      }
     },
     {
-      "id": 1758114028333,
-      "name": "Alice"
-    },
-    {
-      "id": 1758114028807,
-      "name": "Alice"
-    },
-    {
-      "id": 1758114029181,
-      "name": "Alice"
-    },
-    {
-      "id": 1758114029383,
-      "name": "Alice"
-    },
-    {
-      "id": 1758114029573,
-      "name": "Alice"
+      "id": 3,
+      "username": "viewer",
+      "password": "view",
+      "role": {
+        "Orders": [
+          {
+            "key": "create",
+            "label": "Create",
+            "enabled": false
+          },
+          {
+            "key": "delete",
+            "label": "Delete",
+            "enabled": false
+          }
+        ],
+        "Items": [
+          {
+            "key": "create",
+            "label": "Create",
+            "enabled": false
+          },
+          {
+            "key": "delete",
+            "label": "Delete",
+            "enabled": true
+          },
+          {
+            "key": "update",
+            "label": "Update",
+            "enabled": true
+          }
+        ],
+        "Purchase Orders": [
+          {
+            "key": "create",
+            "label": "Create",
+            "enabled": false
+          }
+        ]
+      }
     }
   ],
   "items": [
     {
       "id": 1760376321522,
       "name": "Red Rose",
-      "stock": 0,
+      "stock": 1,
       "price": 3.5,
       "cost": 1.5,
       "category": "Flowers",
@@ -575,6 +676,71 @@
         "decor",
         "accessory"
       ]
+    },
+    {
+      "id": 1762373108235,
+      "name": "Keane Burris",
+      "stock": 0,
+      "price": 293,
+      "cost": 326,
+      "category": "Bouquets",
+      "description": "Commodi sit at reici",
+      "tags": [
+        "Nesciunt aut evenie"
+      ],
+      "photo": null
+    },
+    {
+      "id": 1762375159950,
+      "name": "Hayfa Michael",
+      "stock": 0,
+      "price": 436,
+      "cost": 636,
+      "category": "Bouquets",
+      "description": "Fugiat nostrud fuga",
+      "tags": [
+        "Tenetur inventore ve"
+      ],
+      "photo": null
+    },
+    {
+      "id": 1762375259363,
+      "name": "Jayme Buckner",
+      "stock": 0,
+      "price": 970,
+      "cost": 719,
+      "category": "Others",
+      "description": "Incididunt consectet",
+      "tags": [
+        "Quidem sit vel et qu"
+      ],
+      "photo": null
+    },
+    {
+      "id": 1762375348357,
+      "name": "Amena Williamson",
+      "stock": 0,
+      "price": 51,
+      "cost": 205,
+      "category": "Bouquets",
+      "description": "Eum qui enim possimu",
+      "tags": [
+        "Amet qui totam esse"
+      ],
+      "photo": null
+    },
+    {
+      "id": 1762375555331,
+      "name": "Caryn Booth",
+      "stock": 0,
+      "price": 603,
+      "cost": 248,
+      "category": "Flowers",
+      "description": "Ullam pariatur Non",
+      "tags": [
+        "Et obcaecati ut arch"
+      ],
+      "photo": null
     }
   ],
   "orders": [

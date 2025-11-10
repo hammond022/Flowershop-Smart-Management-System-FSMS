@@ -1,17 +1,25 @@
-import axios from "axios";
-const baseURL = "http://localhost:3000/api/orders/";
-
-// same thing with itemService.js idk if this should be in a trycatch
-// if something happens definitely try adding a trycatch first to see the error
+import api from "@/axios.js"; // shared axios instance with auth headers
+import { auth } from "@/auth.js"; // for checking user permissions
 
 class OrderService {
   static async getOrders(params = {}) {
-    const res = await axios.get(baseURL, { params });
-    return res.data;
+    try {
+      const res = await api.get("/orders", { params });
+      return res.data;
+    } catch (err) {
+      console.error("Error fetching orders:", err);
+      throw err;
+    }
   }
+
   static async getOrder(id) {
-    const res = await axios.get(`${baseURL}${id}`);
-    return res.data;
+    try {
+      const res = await api.get(`/orders/${id}`);
+      return res.data;
+    } catch (err) {
+      console.error(`Error fetching order ${id}:`, err);
+      throw err;
+    }
   }
 
   static async createOrder({
@@ -25,23 +33,50 @@ class OrderService {
     amountPaid = 0,
     change = 0,
   }) {
-    const res = await axios.post(baseURL, {
-      orderStart,
-      orderEnd,
-      orderStatus,
-      mop,
-      selectedFlowers,
-      discounts,
-      actionHistory,
-      amountPaid,
-      change,
-    });
-    return res.data;
+    if (!auth.can("Orders", "canCreate")) {
+      throw new Error("Permission denied: cannot create orders");
+    }
+
+    try {
+      const res = await api.post("/orders", {
+        orderStart,
+        orderEnd,
+        orderStatus,
+        mop,
+        selectedFlowers,
+        discounts,
+        actionHistory,
+        amountPaid,
+        change,
+      });
+      return res.data;
+    } catch (err) {
+      console.error("Error creating order:", err);
+      throw err;
+    }
+  }
+
+  static async updateOrder(id, updatedData) {
+    if (!auth.can("Orders", "canUpdate")) {
+      throw new Error("Permission denied: cannot update orders");
+    }
+
+    try {
+      const res = await api.put(`/orders/${id}`, updatedData);
+      return res.data;
+    } catch (err) {
+      console.error(`Error updating order ${id}:`, err);
+      throw err;
+    }
   }
 
   static async deleteOrder(id) {
+    if (!auth.can("Orders", "canDelete")) {
+      throw new Error("Permission denied: cannot delete orders");
+    }
+
     try {
-      const res = await axios.delete(`${baseURL}${id}`);
+      const res = await api.delete(`/orders/${id}`);
       return res.data;
     } catch (err) {
       console.error(`Error deleting order ${id}:`, err);

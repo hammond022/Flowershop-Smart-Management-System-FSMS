@@ -4,36 +4,59 @@ import PosView from "@/views/PosView.vue";
 import TransactionsView from "@/views/TransactionsView.vue";
 import InventoryView from "@/views/InventoryView.vue";
 import SettingsView from "@/views/SettingsView.vue";
+import LoginView from "@/components/UserAuth/Login.vue";
+import { auth } from "@/auth.js";
+
+const routes = [
+  { path: "/login", name: "login", component: LoginView },
+  {
+    path: "/",
+    name: "home",
+    component: HomeView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/pos",
+    name: "pos",
+    component: PosView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/transactions",
+    name: "transactions",
+    component: TransactionsView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/inventory",
+    name: "inventory",
+    component: InventoryView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/settings",
+    name: "settings",
+    component: SettingsView,
+    meta: { requiresAuth: true },
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: "/",
-      name: "home",
-      component: HomeView,
-    },
-    {
-      path: "/pos",
-      name: "pos",
-      component: PosView,
-    },
-    {
-      path: "/transactions",
-      name: "transactions",
-      component: TransactionsView,
-    },
-    {
-      path: "/inventory",
-      name: "inventory",
-      component: InventoryView,
-    },
-    {
-      path: "/settings",
-      name: "settings",
-      component: SettingsView,
-    },
-  ],
+  routes,
+});
+
+// Global route guard
+router.beforeEach(async (to, from, next) => {
+  // Initialize auth (check localStorage token)
+  if (!auth.isAuthenticated) await auth.init();
+
+  if (to.meta.requiresAuth && !auth.isAuthenticated) {
+    // Redirect to login and save intended route
+    next({ name: "login", query: { redirect: to.fullPath } });
+  } else {
+    next();
+  }
 });
 
 export default router;

@@ -15,36 +15,50 @@
       style="width: 100%; max-width: 400px; border-radius: 1rem"
     >
       <h3 class="text-center mb-4">Login</h3>
-
-      <form>
+      <form @submit.prevent="submitLogin">
         <div class="mb-3">
-          <label for="email" class="form-label">Username</label>
+          <label class="form-label">Username</label>
           <input
-            type="email"
+            v-model="username"
+            type="text"
             class="form-control"
-            id="email"
-            placeholder="Enter your email"
+            placeholder="Enter your username"
             required
           />
         </div>
-
         <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
+          <label class="form-label">Password</label>
           <input
+            v-model="password"
             type="password"
             class="form-control"
-            id="password"
             placeholder="Enter your password"
             required
           />
         </div>
-
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <a href="#" class="text-decoration-none small">Forgot password?</a>
-        </div>
-
+        <p v-if="auth.error" class="text-danger">{{ auth.error }}</p>
         <button type="submit" class="btn btn-primary w-100">Login</button>
       </form>
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { auth } from "@/auth.js";
+
+const router = useRouter();
+const route = useRoute();
+
+const username = ref("");
+const password = ref("");
+
+const submitLogin = async () => {
+  await auth.login(username.value, password.value);
+  if (auth.isAuthenticated) {
+    const redirect = route.query.redirect || "/";
+    router.push(redirect);
+  }
+};
+</script>
