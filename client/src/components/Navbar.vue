@@ -8,7 +8,7 @@ import { auth } from "@/auth";
 const route = useRoute();
 const router = useRouter();
 
-const isActiveLink = (routePath) => route.path === routePath;
+const isActiveLink = (routePath) => route.path.startsWith(routePath);
 
 function handleLogout() {
   auth.logout();
@@ -62,7 +62,7 @@ function handleLogout() {
                 'dropdown-item nav-link',
                 { active: isActiveLink('/inventory') },
               ]"
-              to="/inventory"
+              to="/inventory/overview"
               >Inventory</RouterLink
             >
           </li>

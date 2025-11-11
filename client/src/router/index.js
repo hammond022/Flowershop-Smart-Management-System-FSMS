@@ -5,6 +5,11 @@ import TransactionsView from "@/views/TransactionsView.vue";
 import InventoryView from "@/views/InventoryView.vue";
 import SettingsView from "@/views/SettingsView.vue";
 import LoginView from "@/components/UserAuth/Login.vue";
+import Overview from "@/components/Inventory/Overview.vue";
+import Products from "@/components/Inventory/Products.vue";
+import PurchaseOrders from "@/components/Inventory/PurchaseOrders.vue";
+import Sales from "@/components/Inventory/Sales.vue";
+
 import { auth } from "@/auth.js";
 
 const routes = [
@@ -38,6 +43,36 @@ const routes = [
     name: "settings",
     component: SettingsView,
     meta: { requiresAuth: true },
+  },
+  {
+    path: "/inventory",
+    component: InventoryView, // Layout always loaded
+    children: [
+      {
+        path: "overview",
+        name: "InventoryOverview",
+        component: Overview,
+      },
+      {
+        path: "products",
+        name: "InventoryProducts",
+        component: Products,
+      },
+      {
+        path: "purchase-orders",
+        name: "InventoryPurchaseOrders",
+        component: PurchaseOrders,
+      },
+      {
+        path: "sales",
+        name: "InventorySales",
+        component: Sales,
+      },
+      {
+        path: "",
+        redirect: { name: "InventoryOverview" }, // default route
+      },
+    ],
   },
 ];
 
