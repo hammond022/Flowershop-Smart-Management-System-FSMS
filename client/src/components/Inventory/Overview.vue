@@ -4,9 +4,9 @@ import OrderService from "@/router/api/ordersService";
 import ItemService from "@/router/api/itemsService";
 import { computed, onMounted, ref } from "vue";
 import { useToast } from "@/composables/useToast";
-
+import { useRouter } from "vue-router";
 const { showToast } = useToast();
-
+const router = useRouter();
 const orders = ref([]);
 const items = ref([]);
 
@@ -61,6 +61,13 @@ const categoryCounts = computed(() => {
   return counts;
 });
 
+function goToTransactions(status) {
+  router.push({
+    name: "transactions",
+    query: { status: status },
+  });
+}
+
 onMounted(() => {
   getOrders();
   getItems();
@@ -76,7 +83,10 @@ onMounted(() => {
     <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
       <div class="col">
         <div class="card shadow-sm border-0">
-          <div class="card-body">
+          <div
+            class="card-body hover-lift"
+            @click="goToTransactions('completed')"
+          >
             <i class="bi bi-check-circle fs-2 text-success mb-2"></i>
             <h5 class="card-title">Completed orders</h5>
             <p class="fs-4 fw-bold">{{ completedOrders.length }}</p>
@@ -116,7 +126,10 @@ onMounted(() => {
 
       <div class="col">
         <div class="card shadow-sm border-0">
-          <div class="card-body">
+          <div
+            class="card-body hover-lift"
+            @click="goToTransactions('pending')"
+          >
             <i class="bi bi-clock fs-2 text-danger mb-2"></i>
             <h5 class="card-title">Pending Payment</h5>
             <p class="fs-4 fw-bold">{{ pendingOrders.length }}</p>

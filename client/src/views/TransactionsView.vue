@@ -5,6 +5,9 @@ import { Modal } from "bootstrap";
 import { useToast } from "@/composables/useToast";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 
 const { showToast } = useToast();
 const transactions = ref([]);
@@ -18,7 +21,7 @@ const totalPages = computed(() =>
 );
 
 const searchQuery = ref("");
-const statusFilter = ref("");
+const statusFilter = ref(route.query.status || "");
 const paymentFilter = ref("");
 const startDate = ref("");
 const endDate = ref("");
