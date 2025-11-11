@@ -1,4 +1,5 @@
 <script setup>
+import Salutation from "./Salutation.vue";
 import OrderService from "@/router/api/ordersService";
 import ItemService from "@/router/api/itemsService";
 import { computed, onMounted, ref } from "vue";
@@ -68,19 +69,7 @@ onMounted(() => {
 
 <template>
   <div class="my-3">
-    <div class="d-flex align-items-center p-3 mb-5 bg-light rounded shadow-sm">
-      <img
-        src="../../assets/icons/user.svg"
-        height="75"
-        width="75"
-        class="rounded-circle me-3"
-        alt="User Avatar"
-      />
-      <div>
-        <h3 class="mb-0">Good Morning, John Doe</h3>
-        <p class="text-muted mb-0">Admin</p>
-      </div>
-    </div>
+    <Salutation />
 
     <h1 class="mb-5">Dashboard</h1>
 

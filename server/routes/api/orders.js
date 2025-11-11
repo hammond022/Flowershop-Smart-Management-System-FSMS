@@ -1,5 +1,7 @@
 import express from "express";
 import { db } from "../../server.js";
+import { basicAuth } from "../../middleware/auth.js";
+import { requirePermission } from "../../middleware/roles.js";
 
 const router = express.Router();
 
@@ -36,69 +38,79 @@ router.get("/:id", (req, res) => {
 });
 
 // CREATE order
-router.post("/", async (req, res) => {
-  try {
-    // orderStart, orderEnd should be confined to a date, orderStatus should be confined to Completed, Return, Draft... idk
-    const {
-      orderStart,
-      orderEnd,
-      orderStatus,
-      selectedFlowers,
-      discounts,
-      mop,
-      actionHistory,
-      amountPaid,
-      change,
-    } = req.body;
+router.post(
+  "/",
+  basicAuth,
+  requirePermission("Orders", "canCreate"),
+  async (req, res) => {
+    try {
+      // orderStart, orderEnd should be confined to a date, orderStatus should be confined to Completed, Return, Draft... idk
+      const {
+        orderStart,
+        orderEnd,
+        orderStatus,
+        selectedFlowers,
+        discounts,
+        mop,
+        actionHistory,
+        amountPaid,
+        change,
+      } = req.body;
 
-    if (!orderStart || !orderStatus) {
-      return res.status(400).json({
-        error: "orderStart, orderEnd, and orderStatus are required",
-      });
+      if (!orderStart || !orderStatus) {
+        return res.status(400).json({
+          error: "orderStart, orderEnd, and orderStatus are required",
+        });
+      }
+
+      const newOrder = {
+        id: Date.now(),
+        orderStart,
+        orderEnd,
+        orderStatus,
+        selectedFlowers: Array.isArray(selectedFlowers) ? selectedFlowers : [],
+        discounts,
+        mop,
+        actionHistory: Array.isArray(actionHistory) ? actionHistory : [],
+        createdAt: new Date().toISOString(),
+        amountPaid: amountPaid || 0,
+        change: change || 0,
+      };
+
+      db.data.orders.push(newOrder);
+      await db.write();
+      res.status(201).json(newOrder);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Server error creating order" });
     }
-
-    const newOrder = {
-      id: Date.now(),
-      orderStart,
-      orderEnd,
-      orderStatus,
-      selectedFlowers: Array.isArray(selectedFlowers) ? selectedFlowers : [],
-      discounts,
-      mop,
-      actionHistory: Array.isArray(actionHistory) ? actionHistory : [],
-      createdAt: new Date().toISOString(),
-      amountPaid: amountPaid || 0,
-      change: change || 0,
-    };
-
-    db.data.orders.push(newOrder);
-    await db.write();
-    res.status(201).json(newOrder);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error creating order" });
   }
-});
+);
 
 // DELETE order by ID
-router.delete("/:id", async (req, res) => {
-  try {
-    const id = Number(req.params.id);
+router.delete(
+  "/:id",
+  basicAuth,
+  requirePermission("Orders", "canDelete"),
+  async (req, res) => {
+    try {
+      const id = Number(req.params.id);
 
-    const order = db.data.orders.find((o) => o.id === id);
-    if (!order) return res.status(404).json({ error: "Order not found" });
+      const order = db.data.orders.find((o) => o.id === id);
+      if (!order) return res.status(404).json({ error: "Order not found" });
 
-    db.data.orders = db.data.orders.filter((o) => o.id !== id);
-    await db.write();
+      db.data.orders = db.data.orders.filter((o) => o.id !== id);
+      await db.write();
 
-    res.json({
-      message: "Order deleted successfully",
-      deletedOrder: order,
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error deleting order" });
+      res.json({
+        message: "Order deleted successfully",
+        deletedOrder: order,
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Server error deleting order" });
+    }
   }
-});
+);
 
 export default router;

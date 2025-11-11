@@ -1,21 +1,17 @@
 import { Toast } from "bootstrap";
-
-let toastInstance;
+// number of hours wasted troubleshooting = 2
 
 export function useToast() {
-  function initToast() {
-    if (!toastInstance) {
-      const el = document.getElementById("myToast");
-      toastInstance = new Toast(el, { delay: 3000, autohide: true });
-    }
-  }
+  let toastInstance;
 
   function showToast(type, message) {
-    initToast();
-    const toast = document.getElementById("myToast");
-    const toastBody = toast.querySelector(".toast-body");
+    const toastEl = document.getElementById("myToast");
+    if (!toastEl) return;
 
-    toast.classList.remove(
+    const toastBody = toastEl.querySelector(".toast-body");
+    toastBody.textContent = message;
+
+    toastEl.classList.remove(
       "bg-success",
       "bg-danger",
       "bg-warning",
@@ -23,12 +19,11 @@ export function useToast() {
       "text-dark"
     );
 
-    toastBody.textContent = message;
+    if (type === "success") toastEl.classList.add("bg-success", "text-white");
+    if (type === "error") toastEl.classList.add("bg-danger", "text-white");
+    if (type === "warning") toastEl.classList.add("bg-warning", "text-dark");
 
-    if (type === "success") toast.classList.add("bg-success", "text-white");
-    if (type === "error") toast.classList.add("bg-danger", "text-white");
-    if (type === "warning") toast.classList.add("bg-warning", "text-dark");
-
+    toastInstance = new Toast(toastEl, { delay: 3000, autohide: true });
     toastInstance.show();
   }
 
