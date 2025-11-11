@@ -77,6 +77,17 @@ function goToTransactionDetails(tx) {
   });
 }
 
+function goToProducts() {
+  router.push({ name: "InventoryProducts" });
+}
+
+function goToCategory(category) {
+  router.push({
+    name: "InventoryProducts",
+    query: { category },
+  });
+}
+
 onMounted(() => {
   getOrders();
   getItems();
@@ -159,7 +170,7 @@ onMounted(() => {
 
     <div class="card shadow-sm border-0 mb-3 mt-3">
       <div class="card-body">
-        <h5 class="card-title mb-4">
+        <h5 class="card-title text-hover mb-4" @click="goToProducts">
           <i class="bi bi-box-seam fs-2 me-2"></i>
           Product Details
         </h5>
@@ -177,7 +188,9 @@ onMounted(() => {
           <div
             v-for="(count, category) in categoryCounts"
             :key="category"
-            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 py-2 text-capitalize"
+            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 py-2 text-capitalize text-hover"
+            style="cursor: pointer"
+            @click="goToCategory(category)"
           >
             All {{ category }}
             <span class="badge bg-primary rounded-pill">{{ count }}</span>

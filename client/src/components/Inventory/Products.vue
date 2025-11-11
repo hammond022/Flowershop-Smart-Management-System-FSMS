@@ -1,9 +1,12 @@
 <script setup>
-import { onMounted, reactive, ref, computed } from "vue";
+import { onMounted, reactive, ref, computed, watch } from "vue";
 import { Modal, Toast } from "bootstrap";
 import { useToast } from "@/composables/useToast";
 import ItemService from "@/router/api/itemsService.js";
 import InventoryProduct from "./Product.vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 
 const { showToast } = useToast();
 
@@ -158,13 +161,25 @@ const handlePhotoUpload = async (event) => {
   }
 };
 
+watch(
+  () => route.query.category,
+  (newCategory) => {
+    if (newCategory) selectedCategory.value = newCategory;
+  }
+);
+
 onMounted(() => {
   createProductModal = new Modal(document.getElementById("createProductModal"));
   toastInstance = new Toast(document.getElementById("myToast"), {
     delay: 3000,
     autohide: true,
   });
+
   getFlowers();
+
+  if (route.query.category) {
+    selectedCategory.value = route.query.category;
+  }
 });
 </script>
 
