@@ -20,7 +20,8 @@ import CustomBouquet from "@/components/MLBouquet/CustomBouquet.vue";
 const selectedCategory = ref("all");
 const categories = ref([]);
 const allItems = ref([]);
-
+const dedicationMessage = ref("");
+const dedicationLimit = 200;
 const discounts = ref([]);
 
 const order = reactive({
@@ -230,6 +231,7 @@ function resetOrder() {
   discounts.value = [];
   order.amountPaid = 0;
   change.value = 0;
+  dedicationMessage.value = "";
 }
 
 function voidOrder() {
@@ -250,6 +252,7 @@ async function confirmAsDraft() {
       total: totalAfterDiscount.value,
       amountPaid: order.amountPaid,
       change: change.value,
+      dedicationMessage: dedicationMessage.value,
     });
     await getDraftOrders();
     showToast("success", "Order saved as draft!");
@@ -286,6 +289,7 @@ async function confirmCheckout() {
       actionHistory: order.actionHistory,
       amountPaid: order.amountPaid,
       change: change.value,
+      dedicationMessage: dedicationMessage.value,
     });
 
     // stock update
@@ -361,6 +365,8 @@ function loadDraft(draft) {
   discounts.value = draft.discounts
     ? draft.discounts.map((d) => ({ ...d }))
     : [];
+
+  dedicationMessage.value = draft.dedicationMessage || "";
 }
 
 // mortal sin - will fix this eventually
@@ -456,7 +462,7 @@ const change = computed(() => {
 
         <div
           class="border border-secondary border-opacity-25 rounded d-flex flex-column mt-3 ms-3 justify-content-between shadow-lg"
-          style="width: 40%; height: 90vh"
+          style="width: 40%; height: 87vh"
         >
           <div>
             <div
@@ -885,26 +891,46 @@ const change = computed(() => {
                       Total:
                       <span>₱{{ totalAfterDiscount }}</span>
                     </li>
-                    <li>
-                      <label
-                        for="dedication"
-                        class="list-group-item d-flex justify-content-between align-items-center list-group-item-light"
-                        >Dedication (Optional)</label
-                      >
-                      <input
-                        id="dedication"
-                        type="string"
-                        class="form-control mb-2"
-                        v-model="order.dedication"
-                        :placeholder="'Enter dedication here'"
-                      />
-                    </li>
                   </ul>
 
                   <!--  -->
                 </div>
               </div>
             </div>
+            <hr />
+            <!-- <div class="form-check mb-3">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="checkDefault"
+              />
+              <label class="form-check-label" for="checkDefault">
+                Add dedication message
+              </label>
+            </div> -->
+
+            <div class="form-floating mt-3">
+              <textarea
+                class="form-control"
+                id="floatingTextarea"
+                placeholder="Write your dedication here..."
+                v-model="dedicationMessage"
+                :maxlength="dedicationLimit"
+              ></textarea>
+              <label for="floatingTextarea">Dedication Message</label>
+              <div
+                class="form-text text-end"
+                :class="{
+                  'text-danger': dedicationMessage.length >= dedicationLimit,
+                  'text-muted': dedicationMessage.length < dedicationLimit,
+                }"
+              >
+                {{ dedicationMessage.length }}/{{ dedicationLimit }}
+              </div>
+            </div>
+
+            <hr />
           </div>
           <label for="">Payment Method</label>
           <div class="form-check">
