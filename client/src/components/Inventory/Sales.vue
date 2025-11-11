@@ -8,6 +8,18 @@ import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
+import { useRouter, useRoute } from "vue-router";
+
+const router = useRouter();
+const route = useRoute();
+
+function goToTransactionDetails(txId) {
+  router.push({
+    name: "transactions",
+    query: { txId },
+    state: { back: route.fullPath }, // store current page
+  });
+}
 
 const { showToast } = useToast();
 const orders = ref([]);
@@ -381,7 +393,6 @@ onMounted(() => {
       </div>
     </div>
 
-    <!-- Transactions Table -->
     <div class="card shadow-sm">
       <div class="card-body">
         <h3 class="mb-4">Today's Transactions</h3>
@@ -396,17 +407,20 @@ onMounted(() => {
                 <th>Total</th>
                 <th>Start</th>
                 <th>End</th>
-                <th>Details</th>
               </tr>
             </thead>
             <tbody>
               <tr
                 v-for="tx in getTodayOrders"
                 :key="tx.id"
+                :id="'tx-' + tx.id"
+                class="hover-lift"
                 :class="{
                   'table-success': getTotal(tx) > 1000,
                   'table-info': isRecent(tx),
+                  'cursor-pointer': true,
                 }"
+                @click="goToTransactionDetails(tx.id)"
               >
                 <td>{{ tx.id }}</td>
                 <td>
@@ -449,14 +463,6 @@ onMounted(() => {
                 </td>
                 <td>{{ new Date(tx.orderStart).toLocaleString() }}</td>
                 <td>{{ new Date(tx.orderEnd).toLocaleString() }}</td>
-                <td>
-                  <button
-                    class="btn btn-sm btn-outline-primary"
-                    @click="openModal(tx)"
-                  >
-                    View
-                  </button>
-                </td>
               </tr>
               <tr v-if="getTodayOrders.length === 0">
                 <td colspan="7" class="text-center text-muted py-3">

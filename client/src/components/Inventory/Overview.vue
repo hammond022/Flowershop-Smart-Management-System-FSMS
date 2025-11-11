@@ -4,9 +4,10 @@ import OrderService from "@/router/api/ordersService";
 import ItemService from "@/router/api/itemsService";
 import { computed, onMounted, ref } from "vue";
 import { useToast } from "@/composables/useToast";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 const { showToast } = useToast();
 const router = useRouter();
+const route = useRoute();
 const orders = ref([]);
 const items = ref([]);
 
@@ -65,6 +66,14 @@ function goToTransactions(status) {
   router.push({
     name: "transactions",
     query: { status: status },
+  });
+}
+
+function goToTransactionDetails(tx) {
+  router.push({
+    name: "transactions",
+    query: { txId: tx.id },
+    state: { back: route.fullPath },
   });
 }
 
@@ -155,7 +164,7 @@ onMounted(() => {
           Product Details
         </h5>
 
-        <div class="list-group list-group-flush">
+        <div class="list-group-flush">
           <div
             class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 py-2"
           >
@@ -179,7 +188,7 @@ onMounted(() => {
 
     <div class="card shadow-sm border-0 mt-3">
       <div class="card-body">
-        <h5 class="card-title mb-4">
+        <h5 class="card-title mb-4 text-hover" @click="goToTransactions('')">
           <i class="bi bi-receipt fs-2 me-2"></i>
           Previous Transactions
         </h5>
@@ -196,7 +205,14 @@ onMounted(() => {
               </tr>
             </thead>
             <tbody>
-              <tr v-for="order in firstFiveOrders" :key="order.id">
+              <tr
+                v-for="order in firstFiveOrders"
+                :key="order.id"
+                :id="'tx-' + order.id"
+                class="hover-lift"
+                @click="goToTransactionDetails(order)"
+                style="cursor: pointer"
+              >
                 <td>
                   {{
                     order.mop
@@ -204,7 +220,6 @@ onMounted(() => {
                       : "—"
                   }}
                 </td>
-
                 <td>
                   {{
                     order.selectedFlowers?.reduce(
@@ -213,7 +228,6 @@ onMounted(() => {
                     ) || 0
                   }}
                 </td>
-
                 <td>
                   <span
                     class="badge"
@@ -229,7 +243,6 @@ onMounted(() => {
                     {{ order.orderStatus }}
                   </span>
                 </td>
-
                 <td>
                   {{
                     new Intl.NumberFormat("en-PH", {
@@ -247,7 +260,6 @@ onMounted(() => {
                     )
                   }}
                 </td>
-
                 <td>{{ new Date(order.createdAt).toLocaleDateString() }}</td>
               </tr>
 

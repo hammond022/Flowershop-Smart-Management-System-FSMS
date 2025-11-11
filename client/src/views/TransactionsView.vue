@@ -1,13 +1,17 @@
 <script setup>
 import OrderService from "@/router/api/ordersService";
-import { ref, computed, onMounted } from "vue";
+import { watch, ref, computed, onMounted } from "vue";
 import { Modal } from "bootstrap";
 import { useToast } from "@/composables/useToast";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
-import { useRoute } from "vue-router";
-
+import { useRouter, useRoute } from "vue-router";
+import { nextTick } from "vue";
+const router = useRouter();
 const route = useRoute();
+
+const previousRoute = ref(null);
+const showGoBack = computed(() => !!route.query.txId);
 
 const { showToast } = useToast();
 const transactions = ref([]);
@@ -206,8 +210,61 @@ const printTransaction = (tx) => {
   doc.save(`transaction-${tx.id}-${new Date().toISOString().slice(0, 10)}.pdf`);
 };
 
+watch(
+  () => route.query.txId,
+  async (txId) => {
+    if (txId) {
+      if (!transactions.value.length) await getTransactions();
+
+      const tx = transactions.value.find((t) => t.id.toString() === txId);
+      if (tx) openModal(tx);
+    }
+  },
+  { immediate: true }
+);
+
+function goBack() {
+  const modalEl = document.getElementById("transactionModal");
+  const modalInstance = Modal.getInstance(modalEl);
+
+  if (modalInstance) {
+    modalInstance.hide();
+  }
+
+  const txId = route.query.txId;
+
+  const navigateAndScroll = async (targetRoute) => {
+    await router.push(targetRoute);
+    await nextTick(); // wait for DOM update
+    if (txId) {
+      const rowEl = document.getElementById("tx-" + txId);
+      if (rowEl) rowEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+
+  if (previousRoute.value) {
+    navigateAndScroll(previousRoute.value);
+  } else {
+    navigateAndScroll({ name: "overview" });
+  }
+}
+
 onMounted(() => {
   getTransactions();
+
+  if (window.history.state && window.history.state.back) {
+    previousRoute.value = window.history.state.back;
+
+    showGoBack.value = previousRoute.value.name !== "transactions";
+  } else {
+    showGoBack.value = false;
+  }
+
+  const txId = route.query.txId;
+  if (txId) {
+    const tx = transactions.value.find((t) => t.id.toString() === txId);
+    if (tx) openModal(tx);
+  }
 });
 </script>
 
@@ -505,21 +562,32 @@ onMounted(() => {
               </div>
             </div>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer d-flex justify-content-between">
             <button
+              v-if="showGoBack"
               type="button"
-              class="btn btn-outline-primary me-2"
-              @click="printTransaction(selectedTransaction)"
+              class="btn btn-outline-secondary"
+              @click="goBack"
             >
-              <i class="bi bi-file-pdf"></i> Print Receipt
+              <i class="bi bi-arrow-left"></i> Go Back
             </button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
+
+            <div class="ms-auto">
+              <button
+                type="button"
+                class="btn btn-outline-primary me-2"
+                @click="printTransaction(selectedTransaction)"
+              >
+                <i class="bi bi-file-pdf"></i> Print Receipt
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </div>
