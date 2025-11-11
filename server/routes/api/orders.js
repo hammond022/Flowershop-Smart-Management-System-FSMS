@@ -56,6 +56,8 @@ router.post(
         amountPaid,
         change,
         dedicationMessage,
+        customerName,
+        customerContact,
       } = req.body;
 
       if (!orderStart || !orderStatus) {
@@ -76,7 +78,9 @@ router.post(
         createdAt: new Date().toISOString(),
         amountPaid: amountPaid || 0,
         change: change || 0,
-        dedicationMessage: dedicationMessage?.substring(0, 200) || "", // ✅ enforce limit
+        dedicationMessage: dedicationMessage?.substring(0, 200) || "",
+        customerName,
+        customerContact,
       };
 
       db.data.orders.push(newOrder);

@@ -207,6 +207,27 @@ const printTransaction = (tx) => {
     ],
   });
 
+  if (tx.dedicationMessage) {
+    doc.text("Dedication Message", 14, doc.lastAutoTable.finalY + 15);
+    doc.setFontSize(12);
+    doc.text(tx.dedicationMessage, 14, doc.lastAutoTable.finalY + 25, {
+      maxWidth: 180,
+    });
+    doc.setFontSize(14);
+  }
+
+  if (tx.customerName) {
+    doc.text("Customer Information", 14, doc.lastAutoTable.finalY + 35);
+    doc.setFontSize(12);
+    doc.text(`Name: ${tx.customerName}`, 14, doc.lastAutoTable.finalY + 45);
+    doc.text(
+      `Contact: ${tx.customerContact || "—"}`,
+      14,
+      doc.lastAutoTable.finalY + 55
+    );
+    doc.setFontSize(14);
+  }
+
   doc.save(`transaction-${tx.id}-${new Date().toISOString().slice(0, 10)}.pdf`);
 };
 
@@ -565,6 +586,13 @@ onMounted(() => {
               <h6>Dedication Message:</h6>
               <p class="fst-italic">
                 {{ selectedTransaction.dedicationMessage }}
+              </p>
+            </div>
+            <div v-if="selectedTransaction?.customerName" class="mt-3">
+              <h6>Customer Information:</h6>
+              <p class="fst-italic">
+                Name: {{ selectedTransaction.customerName }} <br />Contact :
+                {{ selectedTransaction.customerContact }}
               </p>
             </div>
           </div>
