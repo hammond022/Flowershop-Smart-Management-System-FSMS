@@ -32,6 +32,7 @@ class OrderService {
     discounts = [],
     amountPaid = 0,
     change = 0,
+    dedicationMessage = "",
   }) {
     if (!auth.can("Orders", "canCreate")) {
       throw new Error("Permission denied: cannot create orders");
@@ -48,6 +49,7 @@ class OrderService {
         actionHistory,
         amountPaid,
         change,
+        dedicationMessage,
       });
       return res.data;
     } catch (err) {
