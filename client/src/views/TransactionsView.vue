@@ -561,6 +561,12 @@ onMounted(() => {
                 </div>
               </div>
             </div>
+            <div v-if="selectedTransaction?.dedicationMessage" class="mt-3">
+              <h6>Dedication Message:</h6>
+              <p class="fst-italic">
+                {{ selectedTransaction.dedicationMessage }}
+              </p>
+            </div>
           </div>
           <div class="modal-footer d-flex justify-content-between">
             <button
