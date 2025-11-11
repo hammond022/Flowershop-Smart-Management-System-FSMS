@@ -1,25 +1,67 @@
-import axios from "axios";
-const baseURL = "http://localhost:3000/api/purchaseOrders/";
+import api from "@/axios.js"; // shared axios instance with auth headers
+import { auth } from "@/auth.js"; // for permission checking
 
 class PurchaseOrderService {
   static async getPurchaseOrders() {
-    const res = await axios.get(baseURL);
-    return res.data;
+    try {
+      const res = await api.get("/purchaseOrders");
+      return res.data;
+    } catch (err) {
+      console.error("Error fetching purchase orders:", err);
+      throw err;
+    }
   }
 
   static async getPurchaseOrder(id) {
-    const res = await axios.get(`${baseURL}${id}`);
-    return res.data;
+    try {
+      const res = await api.get(`/purchaseOrders/${id}`);
+      return res.data;
+    } catch (err) {
+      console.error(`Error fetching purchase order ${id}:`, err);
+      throw err;
+    }
   }
 
   static async createPurchaseOrder({ supplier, items }) {
-    const res = await axios.post(baseURL, { supplier, items });
-    return res.data;
+    if (!auth.can("PurchaseOrders", "canCreate")) {
+      throw new Error("Permission denied: cannot create purchase orders");
+    }
+
+    try {
+      const res = await api.post("/purchaseOrders", { supplier, items });
+      return res.data;
+    } catch (err) {
+      console.error("Error creating purchase order:", err);
+      throw err;
+    }
+  }
+
+  static async updatePurchaseOrder(id, data) {
+    if (!auth.can("PurchaseOrders", "canUpdate")) {
+      throw new Error("Permission denied: cannot update purchase orders");
+    }
+
+    try {
+      const res = await api.put(`/purchaseOrders/${id}`, data);
+      return res.data;
+    } catch (err) {
+      console.error(`Error updating purchase order ${id}:`, err);
+      throw err;
+    }
   }
 
   static async deletePurchaseOrder(id) {
-    const res = await axios.delete(`${baseURL}${id}`);
-    return res.data;
+    if (!auth.can("PurchaseOrders", "canDelete")) {
+      throw new Error("Permission denied: cannot delete purchase orders");
+    }
+
+    try {
+      const res = await api.delete(`/purchaseOrders/${id}`);
+      return res.data;
+    } catch (err) {
+      console.error(`Error deleting purchase order ${id}:`, err);
+      throw err;
+    }
   }
 }
 

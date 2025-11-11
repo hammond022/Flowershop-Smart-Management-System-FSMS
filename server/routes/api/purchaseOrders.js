@@ -1,5 +1,7 @@
 import express from "express";
 import { db } from "../../server.js";
+import { basicAuth } from "../../middleware/auth.js";
+import { requirePermission } from "../../middleware/roles.js";
 
 const router = express.Router();
 
@@ -25,59 +27,71 @@ router.get("/:id", (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
-  try {
-    const { supplier, items } = req.body;
+router.post(
+  "/",
+  basicAuth,
+  requirePermission("PurchaseOrders", "canCreate"),
+  async (req, res) => {
+    try {
+      const { supplier, items } = req.body;
 
-    if (!supplier || !Array.isArray(items) || items.length === 0) {
-      return res.status(400).json({
-        error: "Supplier and at least one item are required",
-      });
+      if (!supplier || !Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({
+          error: "Supplier and at least one item are required",
+        });
+      }
+
+      const newPO = {
+        id: Date.now(),
+        supplier,
+        items: items.map((item) => ({
+          id: item.id,
+          name: item.name,
+          qty: item.qty,
+          costPerUnit: item.costPerUnit,
+          subtotal: item.qty * item.costPerUnit,
+        })),
+        totalCost: items.reduce(
+          (sum, item) => sum + item.qty * item.costPerUnit,
+          0
+        ),
+        createdAt: new Date().toISOString(),
+      };
+
+      if (!db.data.purchaseOrders) db.data.purchaseOrders = [];
+      db.data.purchaseOrders.push(newPO);
+      await db.write();
+
+      res.status(201).json(newPO);
+    } catch (err) {
+      console.error("Error creating purchase order:", err);
+      res.status(500).json({ error: "Server error creating purchase order" });
     }
-
-    const newPO = {
-      id: Date.now(),
-      supplier,
-      items: items.map((item) => ({
-        id: item.id,
-        name: item.name,
-        qty: item.qty,
-        costPerUnit: item.costPerUnit,
-        subtotal: item.qty * item.costPerUnit,
-      })),
-      totalCost: items.reduce(
-        (sum, item) => sum + item.qty * item.costPerUnit,
-        0
-      ),
-      createdAt: new Date().toISOString(),
-    };
-
-    if (!db.data.purchaseOrders) db.data.purchaseOrders = [];
-    db.data.purchaseOrders.push(newPO);
-    await db.write();
-
-    res.status(201).json(newPO);
-  } catch (err) {
-    console.error("Error creating purchase order:", err);
-    res.status(500).json({ error: "Server error creating purchase order" });
   }
-});
+);
 
-router.delete("/:id", async (req, res) => {
-  try {
-    const id = Number(req.params.id);
-    const existing = db.data.purchaseOrders?.find((p) => p.id === id);
-    if (!existing)
-      return res.status(404).json({ error: "Purchase order not found" });
+router.delete(
+  "/:id",
+  basicAuth,
+  requirePermission("PurchaseOrders", "canDelete"),
+  async (req, res) => {
+    try {
+      const id = Number(req.params.id);
+      const existing = db.data.purchaseOrders?.find((p) => p.id === id);
+      if (!existing)
+        return res.status(404).json({ error: "Purchase order not found" });
 
-    db.data.purchaseOrders = db.data.purchaseOrders.filter((p) => p.id !== id);
-    await db.write();
+      db.data.purchaseOrders = db.data.purchaseOrders.filter(
+        (p) => p.id !== id
+      );
+      await db.write();
 
-    res.json({ message: "Purchase order deleted", deletedPO: existing });
-  } catch (err) {
-    console.error("Error deleting purchase order:", err);
-    res.status(500).json({ error: "Server error deleting purchase order" });
+      res.json({ message: "Purchase order deleted", deletedPO: existing });
+    } catch (err) {
+      console.error("Error deleting purchase order:", err);
+      res.status(500).json({ error: "Server error deleting purchase order" });
+    }
   }
-});
+);
 
 export default router;

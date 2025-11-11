@@ -1,10 +1,9 @@
-import axios from "axios";
-
-const API_BASE = "http://localhost:3000/api";
+import api from "@/axios.js";
+import { auth } from "@/auth.js";
 
 class ItemService {
   static async getItems() {
-    const res = await axios.get(`${API_BASE}/items`);
+    const res = await api.get("/items");
     const base = window.location.origin;
     return res.data.map((item) => ({
       ...item,
@@ -15,40 +14,31 @@ class ItemService {
   }
 
   static async getItem(id) {
-    const res = await axios.get(`${API_BASE}/items/${id}`);
+    const res = await api.get(`/items/${id}`);
     return res.data;
   }
 
-  static async createItem({
-    name,
-    price,
-    cost,
-    category,
-    description,
-    tags = [],
-    stock,
-    photo,
-  }) {
-    const res = await axios.post(`${API_BASE}/items`, {
-      name,
-      price,
-      cost,
-      category,
-      description,
-      tags,
-      stock,
-      photo,
-    });
+  static async createItem(itemData) {
+    if (!auth.can("Items", "canCreate")) {
+      throw new Error("Permission denied: cannot create items");
+    }
+    const res = await api.post("/items", itemData);
     return res.data;
   }
 
   static async updateItemStock(id, stock) {
-    const res = await axios.put(`${API_BASE}/items/${id}`, { stock });
+    if (!auth.can("Items", "canUpdate")) {
+      throw new Error("Permission denied: cannot update items");
+    }
+    const res = await api.put(`/items/${id}`, { stock });
     return res.data;
   }
 
   static async deleteItem(id) {
-    const res = await axios.delete(`${API_BASE}/items/${id}`);
+    if (!auth.can("Items", "canDelete")) {
+      throw new Error("Permission denied: cannot delete items");
+    }
+    const res = await api.delete(`/items/${id}`);
     return res.data;
   }
 
@@ -56,7 +46,7 @@ class ItemService {
     const formData = new FormData();
     formData.append("photo", photoFile);
 
-    const res = await axios.post(`${API_BASE}/upload`, formData, {
+    const res = await api.post("/upload", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
 

@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps } from "vue";
+import { auth } from "@/auth";
 
 defineProps({
   orderStart: {
@@ -14,8 +15,9 @@ defineProps({
     <div class="inner-container">
       <img src="../../assets/icons/user.svg" width="70" alt="" />
       <div class="text-container">
-        <div class="lowlight">ADMIN</div>
-        <div class="primary">John Doe</div>
+        <div v-if="auth.user?.role?.admin?.isAdmin" class="lowlight">ADMIN</div>
+        <div v-else class="lowlight">STAFF</div>
+        <div class="primary">{{ auth.user.username }}</div>
       </div>
     </div>
     <div class="inner-container">

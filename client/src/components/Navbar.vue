@@ -1,11 +1,20 @@
 <script setup>
 import Clock from "./POS/Clock.vue";
-import { RouterLink, useRoute } from "vue-router";
+import { RouterLink, useRoute, useRouter } from "vue-router";
+import { auth } from "@/auth";
 
-const isActiveLink = (routePath) => {
-  const route = useRoute();
-  return route.path === routePath;
-};
+// im not exactly sure what these to does
+// come back to this when for possible routing errors
+const route = useRoute();
+const router = useRouter();
+
+const isActiveLink = (routePath) => route.path === routePath;
+
+function handleLogout() {
+  auth.logout();
+  const redirectPath = route.query.redirect || "/login";
+  router.push(redirectPath);
+}
 </script>
 
 <template>
@@ -49,18 +58,62 @@ const isActiveLink = (routePath) => {
           </li>
           <li class="nav-item me-4">
             <RouterLink
-              :class="['nav-link', { active: isActiveLink('/inventory') }]"
+              :class="[
+                'dropdown-item nav-link',
+                { active: isActiveLink('/inventory') },
+              ]"
               to="/inventory"
               >Inventory</RouterLink
             >
           </li>
-          <li class="nav-item me-4">
-            <RouterLink
-              class="nav-link disabled"
-              aria-disabled="true"
-              to="/settings"
-              >Settings</RouterLink
+          <li class="nav-item dropdown me-4">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="settingsDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
             >
+              Settings
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="settingsDropdown">
+              <li v-if="auth.isAuthenticated">
+                <h6 class="dropdown-header">
+                  Signed in as {{ auth.user.username }}
+                </h6>
+              </li>
+              <li v-else>
+                <h6 class="dropdown-header">Not signed in</h6>
+              </li>
+              <li>
+                <RouterLink
+                  :class="[
+                    'dropdown-item',
+                    {
+                      active: isActiveLink('/settings'),
+                      disabled: !auth.user?.role?.admin?.isAdmin,
+                    },
+                  ]"
+                  to="/settings"
+                  >Settings</RouterLink
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <button
+                  class="dropdown-item"
+                  :class="{
+                    'text-danger': auth.isAuthenticated,
+                    'text-secondary ': !auth.isAuthenticated,
+                  }"
+                  :disabled="!auth.isAuthenticated"
+                  @click="handleLogout"
+                >
+                  Logout
+                </button>
+              </li>
+            </ul>
           </li>
         </ul>
         <div class="ms-auto d-flex">

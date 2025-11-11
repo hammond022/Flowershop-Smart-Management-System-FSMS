@@ -1,5 +1,7 @@
+// routes/api/users.js
 import express from "express";
 import { db } from "../../server.js";
+import { basicAuth } from "../../middleware/auth.js";
 
 const router = express.Router();
 
@@ -17,7 +19,8 @@ router.get("/:id", async (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  res.json(db.data.users);
+  const users = db.data.users.map(({ password, ...rest }) => rest);
+  res.json(users);
 });
 
 router.post("/", async (req, res) => {
@@ -84,7 +87,8 @@ router.put("/:id", basicAuth, async (req, res) => {
   if (role) user.role = role;
 
   await db.write();
-  res.json(user);
+  const { password: _, ...safeUser } = user;
+  res.json(safeUser);
 });
 
 router.delete("/:id", async (req, res) => {
