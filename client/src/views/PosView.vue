@@ -1,5 +1,5 @@
 <!-- im so sorry about this being so poorly written -->
-<!-- day 9 shit on top of dried shit -->
+<!-- day 32 shit on top of dried shit -->
 <script setup>
 import { ref, computed, onMounted, reactive } from "vue";
 import { Modal, Toast } from "bootstrap";
@@ -23,7 +23,7 @@ const allItems = ref([]);
 const dedicationMessage = ref("");
 const dedicationLimit = 200;
 const discounts = ref([]);
-
+const showCustomerFields = ref(false);
 const order = reactive({
   orderStart: "",
   orderEnd: "",
@@ -34,6 +34,8 @@ const order = reactive({
   mop: "cash",
   amountPaid: 0,
   change: 0,
+  customerName: "",
+  customerContact: "",
 });
 const selectedFlowers = ref([]);
 function onFlowerSelect(flower) {
@@ -232,6 +234,9 @@ function resetOrder() {
   order.amountPaid = 0;
   change.value = 0;
   dedicationMessage.value = "";
+  order.customerName = "";
+  order.customerContact = "";
+  showCustomerFields.value = false;
 }
 
 function voidOrder() {
@@ -253,6 +258,8 @@ async function confirmAsDraft() {
       amountPaid: order.amountPaid,
       change: change.value,
       dedicationMessage: dedicationMessage.value,
+      customerName: order.customerName,
+      customerContact: order.customerContact,
     });
     await getDraftOrders();
     showToast("success", "Order saved as draft!");
@@ -272,10 +279,30 @@ async function confirmCheckout() {
       showToast("warning", "Discount exceeds total amount!");
       return;
     }
-
     if (amountPaid.value < totalAfterDiscount.value) {
       showToast("warning", "Insufficient payment amount!");
       return;
+    }
+
+    document.getElementById("customerName")?.classList.remove("is-invalid");
+    document.getElementById("customerContact")?.classList.remove("is-invalid");
+
+    if (showCustomerFields.value) {
+      if (!order.customerName) {
+        showToast("warning", "Customer name is required.");
+        document.getElementById("customerName")?.classList.add("is-invalid");
+        return;
+      }
+
+      const contactRegex = /^\d{10,11}$/; // Allows 10 or 11 digits
+      if (!order.customerContact || !contactRegex.test(order.customerContact)) {
+        showToast(
+          "warning",
+          "Please enter a valid 10 or 11-digit contact number."
+        );
+        document.getElementById("customerContact")?.classList.add("is-invalid");
+        return;
+      }
     }
 
     await OrderService.createOrder({
@@ -290,8 +317,9 @@ async function confirmCheckout() {
       amountPaid: order.amountPaid,
       change: change.value,
       dedicationMessage: dedicationMessage.value,
+      customerName: order.customerName,
+      customerContact: order.customerContact,
     });
-
     // stock update
     await Promise.all(
       selectedFlowers.value.map(async (item) => {
@@ -299,7 +327,6 @@ async function confirmCheckout() {
         await ItemService.updateItemStock(item.id, item.stock);
       })
     );
-
     showToast("success", "Order completed successfully! ");
   } catch (err) {
     console.error(err.message || "checkout failed");
@@ -349,7 +376,6 @@ async function getDraftOrders() {
 
 function loadDraft(draft) {
   resetOrder();
-
   order.orderStart = new Date(draft.orderStart);
   order.orderStatus = draft.orderStatus || "Draft";
   order.actionHistory = draft.actionHistory ? [...draft.actionHistory] : [];
@@ -357,16 +383,19 @@ function loadDraft(draft) {
     draft.actionHistory?.length && draft.actionHistory.at(-1)
       ? draft.actionHistory.at(-1)
       : "Untitled Draft";
-
   selectedFlowers.value = draft.selectedFlowers
     ? draft.selectedFlowers.map((f) => ({ ...f }))
     : [];
-
   discounts.value = draft.discounts
     ? draft.discounts.map((d) => ({ ...d }))
     : [];
-
   dedicationMessage.value = draft.dedicationMessage || "";
+  order.customerName = draft.customerName || ""; // <--- ADD THIS
+  order.customerContact = draft.customerContact || ""; // <--- ADD THIS
+
+  if (order.customerName || order.customerContact) {
+    showCustomerFields.value = true;
+  }
 }
 
 // mortal sin - will fix this eventually
@@ -407,6 +436,18 @@ function decreaseDiscount(amount = 10) {
 function removeDiscount(index) {
   discounts.value.splice(index, 1);
 }
+
+const isValidContact = computed(() =>
+  /^(09|\+639)\d{9}$/.test(order.customerContact)
+);
+
+const isCheckoutDisabled = computed(() => {
+  const customerInfoInvalid =
+    showCustomerFields.value &&
+    (!order.customerName || !order.customerContact || !isValidContact.value);
+  const paymentInsufficient = totalAfterDiscount.value > order.amountPaid;
+  return customerInfoInvalid || paymentInsufficient;
+});
 
 let draftModal;
 let editItemModal;
@@ -930,8 +971,62 @@ const change = computed(() => {
               </div>
             </div>
 
-            <hr />
+            <div class="form-check mb-3">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                v-model="showCustomerFields"
+                id="addCustomerCheck"
+              />
+              <label class="form-check-label" for="addCustomerCheck">
+                Add Customer Information
+              </label>
+            </div>
+
+            <div v-if="showCustomerFields">
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  id="customerName"
+                  class="form-control"
+                  v-model="order.customerName"
+                  :class="{ 'is-invalid': showCustomerFields && !customerName }"
+                  placeholder="Customer Name"
+                />
+                <label for="customerName">Customer Name</label>
+                <div
+                  class="invalid-feedback"
+                  v-if="showCustomerFields && !customerName"
+                >
+                  Customer name is required.
+                </div>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  id="customerContact"
+                  class="form-control"
+                  v-model="order.customerContact"
+                  :class="{
+                    'is-invalid':
+                      showCustomerFields && customerContact && !isValidContact,
+                  }"
+                  placeholder="Customer Contact"
+                />
+                <label for="customerContact">Customer Contact</label>
+                <div
+                  class="invalid-feedback"
+                  v-if="
+                    showCustomerFields && customerContact && !isValidContact
+                  "
+                >
+                  Invalid phone number. Must be 10–11 digits and start with 09
+                  or +639.
+                </div>
+              </div>
+            </div>
           </div>
+          <hr />
           <label for="">Payment Method</label>
           <div class="form-check">
             <input
@@ -984,7 +1079,7 @@ const change = computed(() => {
             <button
               type="button"
               class="btn btn-success"
-              :disabled="totalAfterDiscount > order.amountPaid"
+              :disabled="isCheckoutDisabled"
               @click="confirmCheckout"
             >
               Confirm Checkout

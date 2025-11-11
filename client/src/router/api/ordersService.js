@@ -33,6 +33,8 @@ class OrderService {
     amountPaid = 0,
     change = 0,
     dedicationMessage = "",
+    customerName,
+    customerContact,
   }) {
     if (!auth.can("Orders", "canCreate")) {
       throw new Error("Permission denied: cannot create orders");
@@ -50,6 +52,8 @@ class OrderService {
         amountPaid,
         change,
         dedicationMessage,
+        customerName,
+        customerContact,
       });
       return res.data;
     } catch (err) {
