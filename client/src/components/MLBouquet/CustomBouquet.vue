@@ -268,7 +268,7 @@ const giveFeedback = async (rating) => {
   display: flex;
   flex-direction: column;
   margin: 1rem 0rem;
-  height: 90vh;
+  height: 87vh;
 }
 
 .text {
