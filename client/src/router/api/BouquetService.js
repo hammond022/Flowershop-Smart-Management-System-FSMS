@@ -1,9 +1,9 @@
-import axios from "axios";
+import api from "@/axios.js";
 const API_BASE = "http://localhost:3000/api/bouquets";
 
 export default {
   async suggest(theme, options = {}) {
-    const res = await axios.post(`${API_BASE}/suggest`, {
+    const res = await api.post(`${API_BASE}/suggest`, {
       theme,
       ...options,
     });
@@ -11,7 +11,7 @@ export default {
   },
 
   async suggestDirect(theme, itemCount = 5) {
-    const res = await axios.post(`${API_BASE}/suggest-direct`, {
+    const res = await api.post(`${API_BASE}/suggest-direct`, {
       theme,
       itemCount,
     });
@@ -19,7 +19,7 @@ export default {
   },
 
   async feedback(templateId, rating, notes = "") {
-    const res = await axios.post(`${API_BASE}/feedback`, {
+    const res = await api.post(`${API_BASE}/feedback`, {
       templateId,
       rating,
       notes,

@@ -1,8 +1,8 @@
 import express from "express";
-import axios from "axios";
 import fs from "fs";
 import path from "path";
 import { embedText, similarity, embedTextBatch } from "../../embeddings.js";
+import { db } from "../../server.js";
 
 const router = express.Router();
 
@@ -100,8 +100,10 @@ async function getItemEmbeddings() {
     now - lastInventoryUpdate > 300000
   ) {
     console.log("🔄 Refreshing item embeddings cache...");
-    const response = await axios.get("http://localhost:3000/api/items");
-    const items = response.data;
+
+    await db.read();
+    const items = db.data.items;
+
     const flowerItems = items.filter(
       (item) =>
         item &&
