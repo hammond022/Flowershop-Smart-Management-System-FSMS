@@ -14,7 +14,7 @@
           "canDelete": true,
           "canUpdate": true
         },
-        "Purchase Orders": {
+        "PurchaseOrders": {
           "canCreate": true
         },
         "admin": {
@@ -36,7 +36,7 @@
           "canDelete": true,
           "canUpdate": true
         },
-        "Purchase Orders": {
+        "PurchaseOrders": {
           "canCreate": true
         },
         "admin": {
@@ -58,7 +58,7 @@
           "canDelete": true,
           "canUpdate": true
         },
-        "Purchase Orders": {
+        "PurchaseOrders": {
           "canCreate": false
         },
         "admin": {
@@ -71,7 +71,7 @@
     {
       "id": 1760376321522,
       "name": "Red Rose",
-      "stock": 1,
+      "stock": 7,
       "price": 3.5,
       "cost": 1.5,
       "category": "Flowers",
@@ -81,7 +81,7 @@
     {
       "id": 1760376411347,
       "name": "White Lily",
-      "stock": 0,
+      "stock": 9,
       "price": 4,
       "cost": 2,
       "category": "Flowers",
@@ -1233,6 +1233,77 @@
       "createdAt": "2025-11-11T01:05:55.562Z",
       "amountPaid": 3.5,
       "change": 0
+    },
+    {
+      "id": 1762825012652,
+      "orderStart": "2025-11-11T01:36:35.031Z",
+      "orderEnd": "2025-11-11T01:36:52.607Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "price": 3.5,
+          "stock": 1,
+          "qty": 1,
+          "oldPrice": 3.5,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-11-11T01:36:52.652Z",
+      "amountPaid": 3.5,
+      "change": 0
+    },
+    {
+      "id": 1762893824976,
+      "orderStart": "2025-11-11T20:43:40.691Z",
+      "orderEnd": "2025-11-11T20:43:44.776Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1760376411347,
+          "name": "White Lily",
+          "price": 4,
+          "stock": 10,
+          "qty": 1,
+          "oldPrice": 4,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-11-11T20:43:44.976Z",
+      "amountPaid": 4,
+      "change": 0,
+      "dedicationMessage": "test"
+    },
+    {
+      "id": 1762893972068,
+      "orderStart": "2025-11-11T20:46:04.927Z",
+      "orderEnd": "2025-11-11T20:46:12.002Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "price": 3.5,
+          "stock": 8,
+          "qty": 1,
+          "oldPrice": 3.5,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-11-11T20:46:12.068Z",
+      "amountPaid": 3.5,
+      "change": 0,
+      "dedicationMessage": "test this"
     }
   ],
   "purchaseOrders": [
@@ -1330,6 +1401,21 @@
       ],
       "totalCost": 0,
       "createdAt": "2025-10-13T15:52:15.858Z"
+    },
+    {
+      "id": 1762846392130,
+      "supplier": "sdsd",
+      "items": [
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "qty": 3,
+          "costPerUnit": 1.5,
+          "subtotal": 4.5
+        }
+      ],
+      "totalCost": 4.5,
+      "createdAt": "2025-11-11T07:33:12.131Z"
     }
   ]
 }

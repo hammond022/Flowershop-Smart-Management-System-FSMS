@@ -46,7 +46,7 @@ const routes = [
   },
   {
     path: "/inventory",
-    component: InventoryView, // Layout always loaded
+    component: InventoryView,
     children: [
       {
         path: "overview",
@@ -70,7 +70,7 @@ const routes = [
       },
       {
         path: "",
-        redirect: { name: "InventoryOverview" }, // default route
+        redirect: { name: "InventoryOverview" },
       },
     ],
   },

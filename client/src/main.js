@@ -3,7 +3,8 @@ import App from "./App.vue";
 import { auth } from "./auth.js";
 import tooltip from "@/directives/tooltip";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/css/global.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 // import "bootstrap/dist/js/bootstrap.bundle.min.js";

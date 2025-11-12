@@ -82,7 +82,7 @@ function handleSearchInput(value) {
   flex-direction: column;
   margin: 1rem 0rem;
   /* width: 40%; */
-  height: 90vh;
+  height: 87vh;
   /* toggel this off ^ */
 }
 
