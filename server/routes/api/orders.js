@@ -1,3 +1,5 @@
+// this route does not check the integretity of the requests
+
 import express from "express";
 import { db } from "../../server.js";
 import { basicAuth } from "../../middleware/auth.js";
@@ -58,6 +60,7 @@ router.post(
         dedicationMessage,
         customerName,
         customerContact,
+        refId,
       } = req.body;
 
       if (!orderStart || !orderStatus) {
@@ -81,6 +84,7 @@ router.post(
         dedicationMessage: dedicationMessage?.substring(0, 200) || "",
         customerName,
         customerContact,
+        refId,
       };
 
       db.data.orders.push(newOrder);
@@ -89,6 +93,58 @@ router.post(
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: "Server error creating order" });
+    }
+  }
+);
+
+//UPDATE order by ID
+router.put(
+  "/:id",
+  basicAuth,
+  requirePermission("Orders", "canUpdate"),
+  async (req, res) => {
+    try {
+      const id = Number(req.params.id);
+      const order = db.data.orders.find((o) => o.id === id);
+
+      if (!order) return res.status(404).json({ error: "Order not found" });
+
+      const {
+        orderStart,
+        orderEnd,
+        orderStatus,
+        selectedFlowers,
+        discounts,
+        mop,
+        actionHistory,
+        amountPaid,
+        change,
+        dedicationMessage,
+        customerName,
+        customerContact,
+        refId,
+      } = req.body;
+
+      // Only update fields that are provided in the request
+      if (orderStart) order.orderStart = orderStart;
+      if (orderEnd) order.orderEnd = orderEnd;
+      if (orderStatus) order.orderStatus = orderStatus;
+      if (selectedFlowers) order.selectedFlowers = selectedFlowers;
+      if (discounts) order.discounts = discounts;
+      if (mop) order.mop = mop;
+      if (actionHistory) order.actionHistory = actionHistory;
+      if (amountPaid !== undefined) order.amountPaid = amountPaid;
+      if (change !== undefined) order.change = change;
+      if (dedicationMessage) order.dedicationMessage = dedicationMessage;
+      if (customerName) order.customerName = customerName;
+      if (customerContact) order.customerContact = customerContact;
+      if (refId) order.refId = refId;
+      await db.write();
+
+      res.json({ message: "Order updated successfully", order });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Server error updating order" });
     }
   }
 );
