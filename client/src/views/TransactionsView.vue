@@ -7,6 +7,9 @@ import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import { useRouter, useRoute } from "vue-router";
 import { nextTick } from "vue";
+import { useClock } from "@/composables/useClock";
+
+const { now } = useClock();
 const router = useRouter();
 const route = useRoute();
 
@@ -29,6 +32,27 @@ const statusFilter = ref(route.query.status || "");
 const paymentFilter = ref("");
 const startDate = ref("");
 const endDate = ref("");
+const refId = ref("");
+
+async function completeTransaction(orderId) {
+  try {
+    const updatedOrder = await OrderService.updateOrder(orderId, {
+      orderStatus: "Completed",
+      orderEnd: new Date().toISOString(),
+      refId: refId.value,
+    });
+    showToast("success", `Order updated successfully`);
+    console.log("Order updated successfully:", updatedOrder);
+  } catch (err) {
+    showToast("error", err.response?.data.error);
+    console.error("Failed to update order:", err);
+  } finally {
+    getTransactions();
+    const modalEl = document.getElementById("resolveTransactionModal");
+    const modalInstance = Modal.getInstance(modalEl);
+    modalInstance.hide();
+  }
+}
 
 async function getTransactions() {
   try {
@@ -451,6 +475,9 @@ onMounted(() => {
             ></button>
           </div>
           <div class="modal-body">
+            <div class="alert alert-warning" role="alert">
+              Pending payment through Bank Transfer/E-Wallet.
+            </div>
             <p>
               <strong>Order Start:</strong>
               {{ new Date(selectedTransaction.orderStart).toLocaleString() }}
@@ -458,6 +485,14 @@ onMounted(() => {
             <p>
               <strong>Order End:</strong>
               {{ new Date(selectedTransaction.orderEnd).toLocaleString() }}
+            </p>
+            <p>
+              <strong>Customer Name:</strong>
+              {{ selectedTransaction.customerName }}
+            </p>
+            <p>
+              <strong>Contact No. :</strong>
+              {{ selectedTransaction.customerContact }}
             </p>
             <p>
               <strong>Status: </strong>
@@ -588,13 +623,6 @@ onMounted(() => {
                 {{ selectedTransaction.dedicationMessage }}
               </p>
             </div>
-            <div v-if="selectedTransaction?.customerName" class="mt-3">
-              <h6>Customer Information:</h6>
-              <p class="fst-italic">
-                Name: {{ selectedTransaction.customerName }} <br />Contact :
-                {{ selectedTransaction.customerContact }}
-              </p>
-            </div>
           </div>
           <div class="modal-footer d-flex justify-content-between">
             <button
@@ -604,6 +632,19 @@ onMounted(() => {
               @click="goBack"
             >
               <i class="bi bi-arrow-left"></i> Go Back
+            </button>
+
+            <button
+              v-if="
+                selectedTransaction.mop !== 'cash' &&
+                selectedTransaction.orderStatus !== 'Completed'
+              "
+              type="button"
+              class="btn btn-warning"
+              data-bs-toggle="modal"
+              data-bs-target="#resolveTransactionModal"
+            >
+              Resolve
             </button>
 
             <div class="ms-auto">
@@ -620,6 +661,195 @@ onMounted(() => {
                 data-bs-dismiss="modal"
               >
                 Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="resolveTransactionModal" class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" v-if="selectedTransaction">
+          <div class="modal-header">
+            <h5 class="modal-title">Resolve Transaction Modal</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-warning" role="alert">
+              Resolve by providing payment reference number.
+            </div>
+            <div class="form-floating mt-3 mb-3">
+              <input
+                v-model="refId"
+                type="text"
+                class="form-control"
+                id="floatingInput"
+                placeholder="John Doe"
+              />
+              <label for="floatingInput">Reference no.</label>
+            </div>
+            <p>
+              <strong>Order Start:</strong>
+              {{ new Date(selectedTransaction.orderStart).toLocaleString() }}
+            </p>
+            <p>
+              <strong>Order End:</strong>
+              {{
+                now.toLocaleString("en-US", {
+                  dateStyle: "short",
+                  timeStyle: "medium",
+                })
+              }}
+            </p>
+            <p>
+              <strong>Customer Name:</strong>
+              {{ selectedTransaction.customerName }}
+            </p>
+            <p>
+              <strong>Contact No. :</strong>
+              {{ selectedTransaction.customerContact }}
+            </p>
+            <div class="accordion" id="transactionAccordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#itemsCollapse"
+                  >
+                    Items
+                  </button>
+                </h2>
+                <div
+                  id="itemsCollapse"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#transactionAccordion"
+                >
+                  <div class="accordion-body">
+                    <ul class="list-group list-group-flush">
+                      <li
+                        v-for="item in selectedTransaction.selectedFlowers"
+                        :key="item.id"
+                        class="list-group-item d-flex justify-content-between align-items-center"
+                      >
+                        <div>
+                          <i
+                            class="text-primary ms-1 inline bi bi-sticky"
+                            v-tooltip="item.notes"
+                            v-if="item.notes"
+                          ></i>
+                          {{ item.qty }}x {{ item.name }}
+                          <span>{{
+                            new Intl.NumberFormat("en-PH", {
+                              style: "currency",
+                              currency: "PHP",
+                            }).format(item.price * (item.qty || 0))
+                          }}</span>
+                        </div>
+                      </li>
+
+                      <li
+                        v-if="selectedTransaction.discounts?.length > 0"
+                        class="list-group-item d-flex justify-content-between align-items-center fw-bold"
+                      >
+                        Discount Total:
+                        <span class="badge bg-primary">
+                          {{
+                            selectedTransaction.discounts.reduce((sum, d) => {
+                              if (d.type === "percent")
+                                return (
+                                  sum +
+                                  getTotal(selectedTransaction) *
+                                    (d.value / 100)
+                                );
+                              return sum + d.value;
+                            }, 0)
+                          }}
+                        </span>
+                      </li>
+
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center list-group-item-success"
+                      >
+                        Total:
+                        <span>{{
+                          new Intl.NumberFormat("en-PH", {
+                            style: "currency",
+                            currency: "PHP",
+                          }).format(getTotal(selectedTransaction))
+                        }}</span>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center list-group-item-light"
+                      >
+                        Amount Paid:
+                        <span>
+                          {{
+                            new Intl.NumberFormat("en-PH", {
+                              style: "currency",
+                              currency: "PHP",
+                            }).format(selectedTransaction.amountPaid)
+                          }}
+                        </span>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center list-group-item-warning"
+                      >
+                        Change:
+                        <span>
+                          {{
+                            new Intl.NumberFormat("en-PH", {
+                              style: "currency",
+                              currency: "PHP",
+                            }).format(selectedTransaction.change)
+                          }}
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-if="selectedTransaction?.dedicationMessage" class="mt-3">
+              <h6>Dedication Message:</h6>
+              <p class="fst-italic">
+                {{ selectedTransaction.dedicationMessage }}
+              </p>
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-between">
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              data-bs-dismiss="modal"
+              data-bs-toggle="modal"
+              data-bs-target="#transactionModal"
+            >
+              <i class="bi bi-arrow-left"></i> Go Back
+            </button>
+
+            <div class="ms-auto">
+              <button
+                type="button"
+                class="btn btn-secondary me-2"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                class="btn btn-success"
+                @click="completeTransaction(selectedTransaction.id)"
+                :disabled="!refId"
+              >
+                Complete transaction
               </button>
             </div>
           </div>

@@ -1,7 +1,7 @@
 <!-- im so sorry about this being so poorly written -->
 <!-- day 32 shit on top of dried shit -->
 <script setup>
-import { ref, computed, onMounted, reactive } from "vue";
+import { watch, ref, computed, onMounted, reactive } from "vue";
 import { Modal, Toast } from "bootstrap";
 import CurrentUser from "@/components/POS/CurrentUser.vue";
 import Categories from "@/components/POS/Categories.vue";
@@ -198,7 +198,7 @@ function confirmDiscount() {
   addDiscountModal.hide();
 }
 
-function showToast(type = "success", message = "Operation successful") {
+function showToast(type = "warning", message = "Operation successful") {
   const toast = document.getElementById("myToast");
   const toastBody = toast.querySelector(".toast-body");
 
@@ -273,7 +273,7 @@ async function confirmAsDraft() {
   }
 }
 
-async function confirmCheckout() {
+async function confirmCheckout(status) {
   try {
     if (totalAfterDiscount.value <= 0) {
       showToast("warning", "Discount exceeds total amount!");
@@ -308,7 +308,7 @@ async function confirmCheckout() {
     await OrderService.createOrder({
       orderStart: order.orderStart,
       orderEnd: new Date().toISOString(),
-      orderStatus: "Completed",
+      orderStatus: OrderStatus.value,
       mop: order.mop,
       selectedFlowers: selectedFlowers.value.map((f) => ({ ...f })),
       discounts: discounts.value.map((d) => ({ ...d })),
@@ -327,7 +327,9 @@ async function confirmCheckout() {
         await ItemService.updateItemStock(item.id, item.stock);
       })
     );
-    showToast("success", "Order completed successfully! ");
+    if (status === "pending") {
+      showToast("warning", "Successfully created pending transaction!");
+    } else showToast("success", "Order completed successfully!");
   } catch (err) {
     console.error(err.message || "checkout failed");
     showToast("error", "Checkout failed!");
@@ -338,6 +340,25 @@ async function confirmCheckout() {
     await loadItems();
   }
 }
+
+const OrderStatus = computed(() =>
+  order.mop === "cash"
+    ? "complete"
+    : order.mop === "bank"
+    ? "pending"
+    : "unknown"
+);
+
+watch(
+  () => order.mop,
+  (newVal) => {
+    if (newVal === "bank") {
+      showCustomerFields.value = true;
+    } else if (newVal === "cash") {
+      showCustomerFields.value = false;
+    }
+  }
+);
 
 function addBouquetToOrder(bouquetItems) {
   if (!order.orderStart) {
@@ -390,8 +411,8 @@ function loadDraft(draft) {
     ? draft.discounts.map((d) => ({ ...d }))
     : [];
   dedicationMessage.value = draft.dedicationMessage || "";
-  order.customerName = draft.customerName || ""; // <--- ADD THIS
-  order.customerContact = draft.customerContact || ""; // <--- ADD THIS
+  order.customerName = draft.customerName || "";
+  order.customerContact = draft.customerContact || "";
 
   if (order.customerName || order.customerContact) {
     showCustomerFields.value = true;
@@ -977,6 +998,7 @@ const change = computed(() => {
                 type="checkbox"
                 v-model="showCustomerFields"
                 id="addCustomerCheck"
+                :disabled="order.mop !== `cash`"
               />
               <label class="form-check-label" for="addCustomerCheck">
                 Add Customer Information
@@ -1020,7 +1042,7 @@ const change = computed(() => {
                     showCustomerFields && customerContact && !isValidContact
                   "
                 >
-                  Invalid phone number. Must be 10–11 digits and start with 09
+                  Invalid phone number. Must be 10-11 digits and start with 09
                   or +639.
                 </div>
               </div>
@@ -1048,9 +1070,8 @@ const change = computed(() => {
               name="payment"
               value="bank"
               v-model="order.mop"
-              disabled
             />
-            <label class="form-check-label" for="payment-other">
+            <label class="form-check-label" for="payment-bank">
               Bank Transfer/E-Wallet
             </label>
           </div>
@@ -1077,6 +1098,7 @@ const change = computed(() => {
           </button>
           <div class="btn-group">
             <button
+              v-if="order.mop == `cash`"
               type="button"
               class="btn btn-success"
               :disabled="isCheckoutDisabled"
@@ -1085,8 +1107,22 @@ const change = computed(() => {
               Confirm Checkout
             </button>
             <button
+              v-else
+              type="button"
+              class="btn btn-warning"
+              :disabled="isCheckoutDisabled"
+              @click="confirmCheckout(`pending`)"
+            >
+              Confirm as pending
+            </button>
+
+            <button
               type="button"
               class="btn btn-success dropdown-toggle dropdown-toggle-split"
+              :class="{
+                'btn-success': order.mop === 'cash',
+                'btn-warning': order.mop !== 'cash',
+              }"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             ></button>
