@@ -460,7 +460,7 @@ onMounted(() => {
           </td>
           <td>{{ item.name }}</td>
           <td>
-            <span class="badge text-bg-secondary">{{ item.category }}</span>
+            <span class="badge text-bg-primary">{{ item.category }}</span>
           </td>
           <td>
             <span

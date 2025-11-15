@@ -79,7 +79,7 @@ watch(
         :key="category"
         class="mb-4"
       >
-        <h6 class="text-uppercase text-secondary fw-bold">{{ category }}</h6>
+        <h6 class="text-uppercase fw-bold">{{ category }}</h6>
         <div class="ms-3">
           <div
             v-for="(enabled, permKey) in perms"

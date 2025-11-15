@@ -42,17 +42,15 @@ function toggleSelection(event) {
     </td>
     <td scope="row">{{ name }}</td>
     <td scope="row">
-      <span class="badge text-bg-secondary">{{ category }}</span>
+      <span class="badge text-bg-primary">{{ category }}</span>
     </td>
     <td scope="row">
       {{ description }}
     </td>
     <td scope="row">
-      <span
-        class="badge rounded-pill text-bg-secondary mx-1"
-        v-for="tag in tags"
-        >{{ tag }}</span
-      >
+      <span class="badge rounded-pill text-bg-info mx-1" v-for="tag in tags">{{
+        tag
+      }}</span>
     </td>
     <td scope="row">₱{{ price }}</td>
   </tr>
