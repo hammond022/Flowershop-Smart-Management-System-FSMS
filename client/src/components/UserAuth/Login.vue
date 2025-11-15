@@ -1,4 +1,22 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { auth } from "@/auth.js";
+
+const router = useRouter();
+const route = useRoute();
+
+const username = ref("");
+const password = ref("");
+
+const submitLogin = async () => {
+  await auth.login(username.value, password.value);
+  if (auth.isAuthenticated) {
+    const redirect = route.query.redirect || "/";
+    router.push(redirect);
+  }
+};
+</script>
 
 <template>
   <!-- 
@@ -9,7 +27,9 @@
 
     and yung users.js di ko talaga maintindihan
     -->
-  <div class="d-flex justify-content-center align-items-center vh-70 bg-light">
+  <div
+    class="d-flex justify-content-center align-items-center min-vh-100 bg-light"
+  >
     <div
       class="card shadow p-4"
       style="width: 100%; max-width: 400px; border-radius: 1rem"
@@ -42,23 +62,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import { auth } from "@/auth.js";
-
-const router = useRouter();
-const route = useRoute();
-
-const username = ref("");
-const password = ref("");
-
-const submitLogin = async () => {
-  await auth.login(username.value, password.value);
-  if (auth.isAuthenticated) {
-    const redirect = route.query.redirect || "/";
-    router.push(redirect);
-  }
-};
-</script>
