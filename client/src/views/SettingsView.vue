@@ -84,11 +84,6 @@ function handleOpenCreate() {
   bsModalInstance.value.show();
 }
 
-function handleCreated(newUser) {
-  users.value = users.value || [];
-  users.value.unshift(newUser);
-}
-
 onMounted(() => {
   fetchUsers();
 });
