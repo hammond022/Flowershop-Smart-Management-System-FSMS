@@ -4,6 +4,7 @@ import { useToast } from "@/composables/useToast";
 import UsersService from "@/router/api/UsersService";
 import { auth } from "@/auth.js";
 import { useRouter } from "vue-router";
+import api from "@/axios.js";
 
 const router = useRouter();
 const { showToast } = useToast();
@@ -34,10 +35,10 @@ async function submit() {
   try {
     if (!auth.user?.id) throw new Error("No authenticated user");
     const verifyToken = btoa(`${auth.user.username}:${currentPassword.value}`);
-    const verifyRes = await fetch("http://localhost:3000/api/users/me", {
+    const verifyRes = await api.get("/users/me", {
       headers: { Authorization: `Basic ${verifyToken}` },
     });
-    if (!verifyRes.ok) {
+    if (verifyRes.status !== 200) {
       errors.value.currentPassword = "Current password is incorrect";
       showToast("error", "Current password is incorrect");
       return;
