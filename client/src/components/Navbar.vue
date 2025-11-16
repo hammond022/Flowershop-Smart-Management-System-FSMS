@@ -91,11 +91,16 @@ function handleLogout() {
                   :class="[
                     'dropdown-item',
                     {
-                      active: isActiveLink('/settings'),
-                      disabled: !auth.user?.role?.admin?.isAdmin,
+                      active: auth.user?.role?.admin?.isAdmin
+                        ? isActiveLink('/settings')
+                        : isActiveLink('/change-password'),
                     },
                   ]"
-                  to="/settings"
+                  :to="
+                    auth.user?.role?.admin?.isAdmin
+                      ? '/settings'
+                      : '/change-password'
+                  "
                   >Settings</RouterLink
                 >
               </li>
