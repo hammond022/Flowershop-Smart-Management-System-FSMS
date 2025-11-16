@@ -129,12 +129,11 @@ async function saveAccount() {
 
   accountSaving.value = true;
   try {
-    let updated;
     if (auth.user && auth.user.id === props.user.id) {
-      updated = await UsersService.updateSelf(props.user.id, payload);
+      await UsersService.updateSelf(props.user.id, payload);
     } else {
       // requires admin
-      updated = await UsersService.updateUser(props.user.id, payload);
+      await UsersService.updateUser(props.user.id, payload);
     }
     showToast("success", "Account updated successfully");
 
