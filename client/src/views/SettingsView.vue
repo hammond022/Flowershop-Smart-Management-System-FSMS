@@ -12,7 +12,6 @@ const { showToast } = useToast();
 const users = ref([]);
 const selectedUser = ref(null);
 const bsModalInstance = ref(null);
-const showCreateModal = ref(false);
 
 const cuUsername = ref("");
 const cuPassword = ref("");
@@ -77,7 +76,7 @@ function handleOpenCreate() {
   // show Bootstrap modal
   const modalEl = document.getElementById("createUserModal");
   if (!modalEl) {
-    showCreateModal.value = true;
+    console.warn("Create user modal element not found");
     return;
   }
   if (!bsModalInstance.value) bsModalInstance.value = new Modal(modalEl);
