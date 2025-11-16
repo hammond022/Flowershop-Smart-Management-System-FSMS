@@ -3,7 +3,7 @@
     {
       "id": 1,
       "username": "Whinilit_Winiliti",
-      "password": "secret",
+      "password": "test12",
       "role": {
         "Orders": {
           "canCreate": true,
@@ -52,7 +52,8 @@
       "role": {
         "Orders": {
           "canCreate": false,
-          "canDelete": false
+          "canDelete": false,
+          "canUpdate": false
         },
         "Items": {
           "canCreate": false,
@@ -63,7 +64,63 @@
           "canCreate": false
         },
         "admin": {
-          "isAdmin": true
+          "isAdmin": false
+        }
+      }
+    },
+    {
+      "id": 1763257695602,
+      "username": "test",
+      "password": "test12",
+      "role": {
+        "admin": {
+          "isAdmin": false
+        }
+      }
+    },
+    {
+      "id": 1763257825395,
+      "username": "test1",
+      "password": "test12",
+      "role": {
+        "Orders": {
+          "canCreate": false,
+          "canDelete": false,
+          "canUpdate": false
+        },
+        "Items": {
+          "canCreate": false,
+          "canDelete": false,
+          "canUpdate": false
+        },
+        "PurchaseOrders": {
+          "canCreate": false
+        },
+        "admin": {
+          "isAdmin": false
+        }
+      }
+    },
+    {
+      "id": 1763270301710,
+      "username": "sdsd",
+      "password": "test12",
+      "role": {
+        "Orders": {
+          "canCreate": false,
+          "canDelete": false,
+          "canUpdate": false
+        },
+        "Items": {
+          "canCreate": false,
+          "canDelete": false,
+          "canUpdate": false
+        },
+        "PurchaseOrders": {
+          "canCreate": false
+        },
+        "admin": {
+          "isAdmin": false
         }
       }
     }

@@ -15,14 +15,36 @@ const { showToast } = useToast();
 const saving = ref(false);
 const permissions = reactive({});
 
+const accountSaving = ref(false);
+const formUsername = ref("");
+const newPassword = ref("");
+const confirmPassword = ref("");
+const accountErrors = reactive({});
+
 const isEditingSelf = computed(() => {
   return auth.user && props.user && auth.user.id === props.user.id;
 });
 
+const isAdminUser = computed(
+  () =>
+    !!(
+      auth.user &&
+      auth.user.role &&
+      auth.user.role.admin &&
+      auth.user.role.admin.isAdmin
+    )
+);
+
 async function loadPermissions() {
   try {
     const userData = await UsersService.getUser(props.user.id);
-    Object.keys(permissions).forEach((k) => delete permissions[k]); // clear
+    Object.keys(permissions).forEach((k) => delete permissions[k]);
+
+    formUsername.value = userData.username || "";
+    newPassword.value = "";
+    confirmPassword.value = "";
+
+    Object.keys(accountErrors).forEach((k) => delete accountErrors[k]);
 
     for (const category in userData.role) {
       const role = userData.role[category];
@@ -59,6 +81,69 @@ function resetPermissions() {
   loadPermissions();
 }
 
+async function saveAccount() {
+  Object.keys(accountErrors).forEach((k) => delete accountErrors[k]);
+
+  const payload = {};
+
+  const isAdminUser = auth.user?.role?.admin?.isAdmin;
+
+  if (isAdminUser && !isEditingSelf.value) {
+    if (!formUsername.value) {
+      accountErrors.username = "Username cannot be empty";
+    } else {
+      payload.username = formUsername.value;
+    }
+  }
+
+  const wantsPasswordChange = newPassword.value || confirmPassword.value;
+  if (wantsPasswordChange) {
+    if (!newPassword.value) {
+      accountErrors.newPassword = "New password is required";
+    } else if (newPassword.value.length < 6) {
+      accountErrors.newPassword = "Password must be at least 6 characters";
+    }
+
+    if (!confirmPassword.value) {
+      accountErrors.confirmPassword = "Please confirm the new password";
+    } else if (
+      newPassword.value &&
+      newPassword.value !== confirmPassword.value
+    ) {
+      accountErrors.confirmPassword = "Passwords do not match";
+    }
+
+    if (!accountErrors.newPassword && !accountErrors.confirmPassword) {
+      payload.password = newPassword.value;
+    }
+  }
+
+  if (Object.keys(payload).length === 0) {
+    if (Object.keys(accountErrors).length) return;
+    showToast("warning", "No changes to save");
+    return;
+  }
+
+  accountSaving.value = true;
+  try {
+    let updated;
+    if (auth.user && auth.user.id === props.user.id) {
+      updated = await UsersService.updateSelf(props.user.id, payload);
+    } else {
+      // requires admin
+      updated = await UsersService.updateUser(props.user.id, payload);
+    }
+    showToast("success", "Account updated successfully");
+
+    await loadPermissions();
+  } catch (err) {
+    console.error("Failed to update account:", err);
+    showToast("error", err.response?.data?.error || "Failed to update account");
+  } finally {
+    accountSaving.value = false;
+  }
+}
+
 watch(
   () => props.user,
   () => {
@@ -69,57 +154,180 @@ watch(
 </script>
 
 <template>
-  <div>
-    <h4 class="fw-bold">{{ user.username }}</h4>
-    <hr />
-
-    <fieldset :disabled="isEditingSelf">
-      <div
-        v-for="(perms, category) in permissions"
-        :key="category"
-        class="mb-4"
-      >
-        <h6 class="text-uppercase fw-bold">{{ category }}</h6>
-        <div class="ms-3">
+  <div class="container-fluid p-0">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="d-flex align-items-center mb-3">
           <div
-            v-for="(enabled, permKey) in perms"
-            :key="permKey"
-            class="form-check form-switch mb-2"
+            class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-3"
+            style="width: 48px; height: 48px"
           >
-            <input
-              class="form-check-input"
-              type="checkbox"
-              v-model="permissions[category][permKey]"
-              :id="`${category}-${permKey}`"
-            />
-            <label class="form-check-label" :for="`${category}-${permKey}`">
-              {{ permKey }}
-            </label>
+            <strong>{{ (user.username || "").charAt(0).toUpperCase() }}</strong>
+          </div>
+          <div class="flex-grow-1">
+            <h5 class="mb-0">{{ user.username }}</h5>
+            <small class="text-muted">User ID: {{ user.id }}</small>
+          </div>
+          <div>
+            <span
+              v-if="permissions.admin && permissions.admin.isAdmin"
+              class="badge bg-primary"
+              >Admin</span
+            >
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-12 col-lg-4">
+            <div class="card border-0">
+              <div class="card-body">
+                <h6 class="card-title">Account</h6>
+
+                <div class="mb-3" v-if="isAdminUser && !isEditingSelf">
+                  <label class="form-label small mb-1">Username</label>
+                  <input
+                    class="form-control form-control-sm"
+                    v-model="formUsername"
+                  />
+                  <div
+                    class="text-danger small mt-1"
+                    v-if="accountErrors.username"
+                  >
+                    {{ accountErrors.username }}
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label small mb-1">New Password</label>
+                  <input
+                    type="password"
+                    class="form-control form-control-sm"
+                    v-model="newPassword"
+                  />
+                  <div
+                    class="text-danger small mt-1"
+                    v-if="accountErrors.newPassword"
+                  >
+                    {{ accountErrors.newPassword }}
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label small mb-1">Confirm Password</label>
+                  <input
+                    type="password"
+                    class="form-control form-control-sm"
+                    v-model="confirmPassword"
+                  />
+                  <div
+                    class="text-danger small mt-1"
+                    v-if="accountErrors.confirmPassword"
+                  >
+                    {{ accountErrors.confirmPassword }}
+                  </div>
+                </div>
+
+                <div class="d-grid">
+                  <button
+                    class="btn btn-sm btn-primary"
+                    @click="saveAccount"
+                    :disabled="accountSaving"
+                  >
+                    <span v-if="!accountSaving">Save Account</span>
+                    <span v-else>Saving...</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-8">
+            <div class="card border-0">
+              <div class="card-body">
+                <h6 class="card-title">Permissions</h6>
+
+                <div
+                  v-if="isEditingSelf"
+                  class="alert alert-warning small"
+                  role="alert"
+                >
+                  You cannot edit your own permissions.
+                </div>
+
+                <div class="accordion" id="permissionsAccordion">
+                  <div
+                    class="accordion-item"
+                    v-for="(perms, category, idx) in permissions"
+                    :key="category"
+                  >
+                    <h2 class="accordion-header" :id="`heading-${idx}`">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        :data-bs-target="`#collapse-${idx}`"
+                        aria-expanded="false"
+                        :aria-controls="`collapse-${idx}`"
+                      >
+                        {{ category }}
+                      </button>
+                    </h2>
+                    <div
+                      :id="`collapse-${idx}`"
+                      class="accordion-collapse collapse"
+                      :aria-labelledby="`heading-${idx}`"
+                      data-bs-parent="#permissionsAccordion"
+                    >
+                      <div class="accordion-body">
+                        <div class="row">
+                          <div
+                            class="col-12 col-md-6 mb-2"
+                            v-for="(val, key) in perms"
+                            :key="key"
+                          >
+                            <div class="form-check form-switch">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                v-model="permissions[category][key]"
+                                :id="`${category}-${key}`"
+                                :disabled="isEditingSelf"
+                              />
+                              <label
+                                class="form-check-label small"
+                                :for="`${category}-${key}`"
+                                >{{ key }}</label
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-3 d-flex gap-2">
+                  <button
+                    class="btn btn-sm btn-primary"
+                    @click="savePermissions"
+                    :disabled="saving"
+                  >
+                    <span v-if="!saving">Save Permissions</span>
+                    <span v-else>Saving...</span>
+                  </button>
+                  <button
+                    class="btn btn-sm btn-outline-secondary"
+                    @click="resetPermissions"
+                    :disabled="saving"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      <div class="d-flex gap-2">
-        <button
-          class="btn btn-primary"
-          @click="savePermissions"
-          :disabled="saving"
-        >
-          <span v-if="!saving">Save Changes</span>
-          <span v-else>Saving...</span>
-        </button>
-        <button
-          class="btn btn-outline-secondary"
-          @click="resetPermissions"
-          :disabled="saving"
-        >
-          Reset
-        </button>
-      </div>
-    </fieldset>
-
-    <div v-if="isEditingSelf" class="alert alert-warning mt-3" role="alert">
-      You cannot edit your own permissions.
     </div>
   </div>
 </template>
