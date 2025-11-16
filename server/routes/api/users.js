@@ -117,6 +117,12 @@ router.put("/:id", basicAuth, async (req, res) => {
         .json({ error: "Permission denied to change role" });
     }
 
+    if (req.user.id === id && role.admin?.isAdmin === false) {
+      return res
+        .status(403)
+        .json({ error: "Cannot remove your own admin privileges" });
+    }
+
     user.role = {
       Orders: {
         canCreate: false,
