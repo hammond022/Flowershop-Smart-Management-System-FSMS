@@ -1,5 +1,6 @@
 <script setup>
 import { reactive, ref, watch, computed } from "vue";
+import { Modal, Toast } from "bootstrap";
 import { useToast } from "@/composables/useToast";
 import UsersService from "@/router/api/UsersService";
 import { auth } from "@/auth.js";
@@ -66,6 +67,7 @@ async function savePermissions() {
   try {
     await UsersService.updateUserPermissions(props.user.id, permissions);
     showToast("success", "Permissions saved successfully!");
+    console.log("tests");
   } catch (err) {
     console.error("Failed to save permissions:", err);
     showToast(
