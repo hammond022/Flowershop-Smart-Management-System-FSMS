@@ -85,10 +85,9 @@ async function saveAccount() {
   Object.keys(accountErrors).forEach((k) => delete accountErrors[k]);
 
   const payload = {};
+  const isAdmin = isAdminUser.value;
 
-  const isAdminUser = auth.user?.role?.admin?.isAdmin;
-
-  if (isAdminUser && !isEditingSelf.value) {
+  if (isAdmin && !isEditingSelf.value) {
     if (!formUsername.value) {
       accountErrors.username = "Username cannot be empty";
     } else {
@@ -118,8 +117,12 @@ async function saveAccount() {
     }
   }
 
+  if (Object.keys(accountErrors).length) {
+    showToast("error", "Please fix the form errors before saving");
+    return;
+  }
+
   if (Object.keys(payload).length === 0) {
-    if (Object.keys(accountErrors).length) return;
     showToast("warning", "No changes to save");
     return;
   }
