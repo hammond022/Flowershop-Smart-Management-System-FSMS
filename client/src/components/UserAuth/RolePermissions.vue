@@ -1,6 +1,5 @@
 <script setup>
 import { reactive, ref, watch, computed } from "vue";
-import { Modal, Toast } from "bootstrap";
 import { useToast } from "@/composables/useToast";
 import UsersService from "@/router/api/UsersService";
 import { auth } from "@/auth.js";
