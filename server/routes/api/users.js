@@ -34,6 +34,11 @@ router.post("/", basicAuth, async (req, res) => {
       .status(400)
       .json({ error: "Username and password are required" });
   }
+  if (typeof password !== "string" || password.length < 6) {
+    return res
+      .status(400)
+      .json({ error: "Password must be at least 6 characters" });
+  }
 
   await db.read();
   const exists = db.data.users.some(
