@@ -67,7 +67,6 @@ async function savePermissions() {
   try {
     await UsersService.updateUserPermissions(props.user.id, permissions);
     showToast("success", "Permissions saved successfully!");
-    console.log("tests");
   } catch (err) {
     console.error("Failed to save permissions:", err);
     showToast(
