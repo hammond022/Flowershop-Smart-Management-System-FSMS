@@ -6,7 +6,12 @@ export function useToast() {
 
   function showToast(type, message) {
     const toastEl = document.getElementById("myToast");
-    if (!toastEl) return;
+    if (!toastEl) {
+      console.warn(
+        'useToast: #myToast element not found. Add a <div id="myToast"> to App.vue or the current view.'
+      );
+      return;
+    }
 
     const toastBody = toastEl.querySelector(".toast-body");
     toastBody.textContent = message;

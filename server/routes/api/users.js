@@ -1,4 +1,3 @@
-// routes/api/users.js
 import express from "express";
 import { db } from "../../server.js";
 import { basicAuth } from "../../middleware/auth.js";
@@ -23,7 +22,11 @@ router.get("/", (req, res) => {
   res.json(users);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", basicAuth, async (req, res) => {
+  if (!req.user?.role?.admin?.isAdmin) {
+    return res.status(403).json({ error: "Permission denied" });
+  }
+
   const { username, password, role } = req.body;
 
   if (!username || !password) {
@@ -31,7 +34,13 @@ router.post("/", async (req, res) => {
       .status(400)
       .json({ error: "Username and password are required" });
   }
+  if (typeof password !== "string" || password.length < 6) {
+    return res
+      .status(400)
+      .json({ error: "Password must be at least 6 characters" });
+  }
 
+  await db.read();
   const exists = db.data.users.some(
     (u) => u.username.toLowerCase() === username.toLowerCase()
   );
@@ -39,25 +48,28 @@ router.post("/", async (req, res) => {
     return res.status(409).json({ error: "Username already exists" });
   }
 
+  const permissionDefaults = {
+    Orders: { canCreate: false, canDelete: false, canUpdate: false },
+    Items: { canCreate: false, canDelete: false, canUpdate: false },
+    PurchaseOrders: { canCreate: false },
+    admin: { isAdmin: false },
+  };
+
+  const finalRole = {
+    Orders: { ...permissionDefaults.Orders, ...(role?.Orders || {}) },
+    Items: { ...permissionDefaults.Items, ...(role?.Items || {}) },
+    PurchaseOrders: {
+      ...permissionDefaults.PurchaseOrders,
+      ...(role?.PurchaseOrders || {}),
+    },
+    admin: { ...permissionDefaults.admin, ...(role?.admin || {}) },
+  };
+
   const newUser = {
     id: Date.now(),
     username,
     password,
-    role: role || {
-      Orders: [
-        { key: "create", label: "Create", enabled: false },
-        { key: "delete", label: "Delete", enabled: false },
-      ],
-      Items: [
-        { key: "create", label: "Create", enabled: false },
-        { key: "delete", label: "Delete", enabled: false },
-        { key: "update", label: "Update", enabled: false },
-      ],
-      "Purchase Orders": [{ key: "create", label: "Create", enabled: false }],
-      admin: {
-        isAdmin: false,
-      },
-    },
+    role: finalRole,
   };
 
   db.data.users.push(newUser);
@@ -70,21 +82,64 @@ router.post("/", async (req, res) => {
 router.put("/:id", basicAuth, async (req, res) => {
   const id = Number(req.params.id);
   const { username, password, role } = req.body;
-  if (req.user.id === id && role) {
-    if (role.admin) {
-      return res
-        .status(403)
-        .json({ error: "You cannot edit your own permissions." });
-    } // Note: This still allows users to edit their own non-admin roles.
+
+  if (req.user.id !== id && !req.user?.role?.admin?.isAdmin) {
+    return res.status(403).json({ error: "Permission denied" });
   }
 
+  await db.read();
   const user = db.data.users.find((u) => u.id === id);
-
   if (!user) return res.status(404).json({ error: "User not found" });
 
-  if (username) user.username = username;
-  if (password) user.password = password;
-  if (role) user.role = role;
+  if (username && username !== user.username) {
+    const exists = db.data.users.some(
+      (u) => u.username.toLowerCase() === username.toLowerCase() && u.id !== id
+    );
+    if (exists) {
+      return res.status(409).json({ error: "Username already exists" });
+    }
+    user.username = username;
+  }
+
+  if (password) {
+    if (typeof password !== "string" || password.length < 6) {
+      return res
+        .status(400)
+        .json({ error: "Password must be at least 6 characters" });
+    }
+    user.password = password;
+  }
+
+  if (role) {
+    if (!req.user?.role?.admin?.isAdmin) {
+      return res
+        .status(403)
+        .json({ error: "Permission denied to change role" });
+    }
+
+    if (req.user.id === id && role.admin?.isAdmin === false) {
+      return res
+        .status(403)
+        .json({ error: "Cannot remove your own admin privileges" });
+    }
+
+    user.role = {
+      Orders: {
+        canCreate: false,
+        canDelete: false,
+        canUpdate: false,
+        ...(role.Orders || {}),
+      },
+      Items: {
+        canCreate: false,
+        canDelete: false,
+        canUpdate: false,
+        ...(role.Items || {}),
+      },
+      PurchaseOrders: { canCreate: false, ...(role.PurchaseOrders || {}) },
+      admin: { isAdmin: false, ...(role.admin || {}) },
+    };
+  }
 
   await db.write();
   const { password: _, ...safeUser } = user;

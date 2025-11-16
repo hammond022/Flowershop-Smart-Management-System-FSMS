@@ -3,7 +3,7 @@
     {
       "id": 1,
       "username": "Whinilit_Winiliti",
-      "password": "secret",
+      "password": "test12",
       "role": {
         "Orders": {
           "canCreate": true,
@@ -26,11 +26,12 @@
     {
       "id": 2,
       "username": "Bear_Brand",
-      "password": "staff123",
+      "password": "test123",
       "role": {
         "Orders": {
           "canCreate": true,
-          "canDelete": true
+          "canDelete": true,
+          "canUpdate": false
         },
         "Items": {
           "canCreate": true,
@@ -38,7 +39,7 @@
           "canUpdate": true
         },
         "PurchaseOrders": {
-          "canCreate": true
+          "canCreate": false
         },
         "admin": {
           "isAdmin": false
@@ -52,7 +53,8 @@
       "role": {
         "Orders": {
           "canCreate": false,
-          "canDelete": false
+          "canDelete": false,
+          "canUpdate": false
         },
         "Items": {
           "canCreate": false,
@@ -63,7 +65,63 @@
           "canCreate": false
         },
         "admin": {
-          "isAdmin": true
+          "isAdmin": false
+        }
+      }
+    },
+    {
+      "id": 1763257695602,
+      "username": "test",
+      "password": "test12",
+      "role": {
+        "admin": {
+          "isAdmin": false
+        }
+      }
+    },
+    {
+      "id": 1763257825395,
+      "username": "test1",
+      "password": "test12",
+      "role": {
+        "Orders": {
+          "canCreate": false,
+          "canDelete": false,
+          "canUpdate": false
+        },
+        "Items": {
+          "canCreate": false,
+          "canDelete": false,
+          "canUpdate": false
+        },
+        "PurchaseOrders": {
+          "canCreate": false
+        },
+        "admin": {
+          "isAdmin": false
+        }
+      }
+    },
+    {
+      "id": 1763270301710,
+      "username": "sdsd",
+      "password": "test12",
+      "role": {
+        "Orders": {
+          "canCreate": false,
+          "canDelete": false,
+          "canUpdate": false
+        },
+        "Items": {
+          "canCreate": false,
+          "canDelete": false,
+          "canUpdate": false
+        },
+        "PurchaseOrders": {
+          "canCreate": false
+        },
+        "admin": {
+          "isAdmin": false
         }
       }
     }
@@ -72,7 +130,7 @@
     {
       "id": 1760376321522,
       "name": "Red Rose",
-      "stock": 2,
+      "stock": 3,
       "price": 3.5,
       "cost": 1.5,
       "category": "Flowers",
@@ -614,6 +672,19 @@
         "decor",
         "accessory"
       ]
+    },
+    {
+      "id": 1763273603594,
+      "name": "Jesse Pennington",
+      "stock": 0,
+      "price": 171,
+      "cost": 583,
+      "category": "Plants",
+      "description": "Id soluta est culpa",
+      "tags": [
+        "Expedita in omnis od"
+      ],
+      "photo": null
     }
   ],
   "orders": [
@@ -1779,6 +1850,21 @@
       ],
       "totalCost": 4.5,
       "createdAt": "2025-11-11T07:33:12.131Z"
+    },
+    {
+      "id": 1763273782536,
+      "supplier": "sdsd",
+      "items": [
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "qty": 1,
+          "costPerUnit": 1.5,
+          "subtotal": 1.5
+        }
+      ],
+      "totalCost": 1.5,
+      "createdAt": "2025-11-16T06:16:22.536Z"
     }
   ]
 }

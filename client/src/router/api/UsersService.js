@@ -36,6 +36,13 @@ class UsersService {
     return safeUser;
   }
 
+  // Allows a user to update their own account (username/password) without admin check
+  static async updateSelf(id, userData) {
+    const res = await api.put(`/users/${id}`, userData);
+    const { password, ...safeUser } = res.data;
+    return safeUser;
+  }
+
   static async deleteUser(id) {
     this._checkAdmin();
     const res = await api.delete(`/users/${id}`);
