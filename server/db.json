@@ -1866,5 +1866,22 @@
       "totalCost": 1.5,
       "createdAt": "2025-11-16T06:16:22.536Z"
     }
+  ],
+  "customBouquets": [
+    {
+      "id": 1,
+      "name": "Summer Romance",
+      "description": "A vibrant mix of summer flowers",
+      "price": 45.99,
+      "items": [
+        {
+          "itemId": 1760376321522,
+          "itemName": "Red Rose",
+          "quantity": 5
+        }
+      ],
+      "createdAt": "2025-11-16T06:16:22.536Z",
+      "updatedAt": "2025-11-16T06:16:22.536Z"
+    }
   ]
 }

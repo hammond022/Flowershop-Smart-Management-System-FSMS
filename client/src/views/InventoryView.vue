@@ -55,6 +55,16 @@ function selectSidebar(selected) {
             Purchase Orders
           </router-link>
         </li>
+        <li>
+          <router-link
+            to="/inventory/custom-bouquets"
+            class="nav-link sidebar"
+            :class="{ active: $route.name === 'InventoryCustomBouquets' }"
+          >
+            <i class="me-2 bi bi-flower1"></i>
+            Custom Bouquets
+          </router-link>
+        </li>
       </ul>
     </aside>
 
