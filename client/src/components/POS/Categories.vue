@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, defineEmits, ref, watch } from "vue";
+import { defineProps, defineEmits, ref, watch, computed } from "vue";
 
 const props = defineProps({
   categories: {
@@ -14,23 +14,23 @@ const props = defineProps({
 
 const emit = defineEmits(["select-category", "toggle-custom-bouquet"]);
 
-// Track if Custom Bouquet is active
 const isCustomBouquet = ref(false);
 
-// Handle normal category click
+const displayCategories = computed(() =>
+  props.categories.filter(
+    (c) => (c ?? "").toString().toLowerCase().trim() !== "bouquets"
+  )
+);
+
 function selectCategory(category) {
-  // When user picks a category, turn off Custom Bouquet mode
   isCustomBouquet.value = false;
   emit("select-category", category);
 }
 
-// Handle Custom Bouquet click
 function toggleCustomBouquet() {
-  // Turn on Custom Bouquet mode
   isCustomBouquet.value = true;
 
-  // Optionally reset selectedCategory (since we only want one highlighted)
-  emit("select-category", null); // or "all", depending on your logic
+  emit("select-category", null);
   emit("toggle-custom-bouquet", true);
 }
 </script>
@@ -39,9 +39,8 @@ function toggleCustomBouquet() {
   <div class="container shadow-lg">
     <h1 class="text">Categories</h1>
     <div class="category-list">
-      <!-- Normal category buttons -->
       <button
-        v-for="category in categories"
+        v-for="category in displayCategories"
         :key="category"
         type="button"
         class="btn category-btn w-100 mb-2 text-capitalize"
@@ -54,8 +53,20 @@ function toggleCustomBouquet() {
       >
         {{ category }}
       </button>
+      <button
+        type="button"
+        class="btn category-btn w-100 mb-2 text-capitalize"
+        :class="{
+          'btn-primary':
+            selectedCategory?.toLowerCase() === 'bouquets' && !isCustomBouquet,
+          'btn-outline-secondary':
+            selectedCategory?.toLowerCase() !== 'bouquets' || isCustomBouquet,
+        }"
+        @click="selectCategory('bouquets')"
+      >
+        Bouquets
+      </button>
 
-      <!-- Custom bouquet button -->
       <button
         type="button"
         class="btn category-btn w-100 mb-2 text-capitalize button-neon"

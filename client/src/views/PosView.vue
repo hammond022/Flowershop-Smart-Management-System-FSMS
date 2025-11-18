@@ -514,6 +514,7 @@ const change = computed(() => {
           :all-items="allItems"
           :selected-category="selectedCategory"
           @select="onFlowerSelect"
+          @add-bouquet="addBouquetToOrder"
           v-if="selectedCategory"
         />
         <CustomBouquet

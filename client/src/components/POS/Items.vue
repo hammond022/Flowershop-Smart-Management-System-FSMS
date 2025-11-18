@@ -1,7 +1,8 @@
 <script setup>
-import { computed, defineProps, defineEmits, ref } from "vue";
+import { computed, defineProps, defineEmits, ref, onMounted, watch } from "vue";
 import Item from "./Item.vue";
 import SearchBar from "./SearchBar.vue";
+import CustomBouquetService from "@/router/api/CustomBouquetService";
 
 const props = defineProps({
   selectedCategory: {
@@ -14,9 +15,46 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["select"]);
+const emit = defineEmits(["select", "add-bouquet"]);
 
 const searchTerm = ref("");
+
+const isBouquetsMode = computed(
+  () => props.selectedCategory?.toLowerCase() === "bouquets"
+);
+const bouquets = ref([]);
+const loadingBouquets = ref(false);
+const bouquetError = ref("");
+
+async function fetchBouquets() {
+  try {
+    loadingBouquets.value = true;
+    bouquetError.value = "";
+    const res = await CustomBouquetService.getCustomBouquets();
+    bouquets.value = Array.isArray(res) ? res : [];
+  } catch (e) {
+    bouquetError.value = "Failed to load bouquets";
+    bouquets.value = [];
+  } finally {
+    loadingBouquets.value = false;
+  }
+}
+
+onMounted(() => {
+  if (isBouquetsMode.value) fetchBouquets();
+});
+
+watch(
+  () => props.selectedCategory,
+  (val, oldVal) => {
+    if (
+      val?.toLowerCase() === "bouquets" &&
+      oldVal?.toLowerCase() !== "bouquets"
+    ) {
+      fetchBouquets();
+    }
+  }
+);
 
 const filteredItems = computed(() => {
   let items = props.allItems;
@@ -47,29 +85,135 @@ function handleSelect(payload) {
 function handleSearchInput(value) {
   searchTerm.value = value;
 }
+
+function handleBouquetClick(bouquet) {
+  const mapped = (bouquet.items || []).map((it) => {
+    const inv = props.allItems.find((x) => x.id === it.itemId);
+    return {
+      id: it.itemId,
+      name: it.itemName || inv?.name || `Item ${it.itemId}`,
+      qty: it.quantity || 1,
+      price: inv?.price ?? 0,
+      stock: inv?.stock ?? 0,
+      notes: bouquet.name ? `Bouquet: ${bouquet.name}` : "",
+    };
+  });
+  if (mapped.length) emit("add-bouquet", mapped);
+}
 </script>
 
 <template>
   <div class="container shadow-lg">
-    <h1 class="text text-capitalize">{{ selectedCategory }} Items</h1>
+    <h1 class="text text-capitalize">
+      {{ isBouquetsMode ? "Bouquets" : `${selectedCategory} Items` }}
+    </h1>
 
     <SearchBar @search="handleSearchInput" />
 
     <div class="item-list">
-      <Item
-        v-for="flower in filteredItems"
-        :key="flower.id"
-        :name="flower.name"
-        :price="flower.price"
-        :id="flower.id"
-        :stock="flower.stock"
-        :photo="flower.photo"
-        @select="handleSelect"
-      />
+      <template v-if="isBouquetsMode">
+        <div v-if="loadingBouquets" class="text-center text-muted mt-3">
+          Loading bouquets...
+        </div>
+        <div v-else>
+          <div
+            v-for="b in bouquets.filter((b) => {
+              if (!searchTerm || !searchTerm.trim()) return true;
+              const q = searchTerm.toLowerCase();
+              return (
+                b.name?.toLowerCase().includes(q) ||
+                b.description?.toLowerCase().includes(q)
+              );
+            })"
+            :key="b.id"
+            class="card bouquet-card mb-2 w-100"
+          >
+            <div
+              class="card-header d-flex align-items-center justify-content-between"
+            >
+              <div class="d-flex align-items-center gap-3 flex-grow-1">
+                <div
+                  class="image-container image-placeholder"
+                  aria-hidden="true"
+                >
+                  💐
+                </div>
+                <div class="item-details">
+                  <div class="item-name mb-1">{{ b.name }}</div>
+                  <div class="item-price">₱{{ b.price }}</div>
+                </div>
+              </div>
+              <div class="btn-group ms-3">
+                <button
+                  class="btn btn-primary btn-sm"
+                  @click="handleBouquetClick(b)"
+                >
+                  Add
+                </button>
+                <button
+                  class="btn btn-outline-secondary btn-sm"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  :data-bs-target="`#bouquet-items-${b.id}`"
+                  aria-expanded="false"
+                  :aria-controls="`bouquet-items-${b.id}`"
+                  @click.stop
+                >
+                  <i class="bi bi-chevron-down"></i>
+                </button>
+              </div>
+            </div>
+            <div :id="`bouquet-items-${b.id}`" class="collapse">
+              <ul class="list-group list-group-flush">
+                <li
+                  v-for="(it, idx) in b.items || []"
+                  :key="`${b.id}-${idx}`"
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  <span class="text-truncate">{{
+                    it.itemName || `Item ${it.itemId}`
+                  }}</span>
+                  <span class="badge text-bg-secondary"
+                    >x{{ it.quantity || 1 }}</span
+                  >
+                </li>
+                <li
+                  v-if="!(b.items && b.items.length)"
+                  class="list-group-item text-muted"
+                >
+                  No items in this bouquet
+                </li>
+              </ul>
+            </div>
+          </div>
+          <p
+            v-if="!bouquets.length && !loadingBouquets"
+            class="text-center text-muted mt-3"
+          >
+            No bouquets available.
+          </p>
+          <p v-if="bouquetError" class="text-center text-danger mt-2">
+            {{ bouquetError }}
+          </p>
+        </div>
+      </template>
 
-      <p v-if="!filteredItems.length" class="text-center text-muted mt-3">
-        No items found matching your search in this category.
-      </p>
+      <template v-else>
+        <Item
+          v-for="flower in filteredItems"
+          :key="flower.id"
+          :name="flower.name"
+          :price="flower.price"
+          :id="flower.id"
+          :stock="flower.stock"
+          :photo="flower.photo"
+          @select="handleSelect"
+        />
+
+        <p v-if="!filteredItems.length" class="text-center text-muted mt-3">
+          No items found matching your search in this category.
+        </p>
+      </template>
     </div>
   </div>
 </template>
@@ -104,5 +248,24 @@ function handleSearchInput(value) {
   border-radius: 0.25rem;
   width: 10rem;
   font-size: xx-large;
+}
+
+.image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border-radius: 6px;
+  font-size: 28px;
+}
+
+.bouquet-card .image-container {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+}
+
+.bouquet-card .item-details {
+  text-align: left;
 }
 </style>
