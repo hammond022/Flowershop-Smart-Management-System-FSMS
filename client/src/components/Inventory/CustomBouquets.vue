@@ -59,7 +59,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <strong>Price:</strong>
                 <span class="h5 text-success mb-0"
-                  >${{ bouquet.price.toFixed(2) }}</span
+                  >₱{{ bouquet.price.toFixed(2) }}</span
                 >
               </div>
             </div>
