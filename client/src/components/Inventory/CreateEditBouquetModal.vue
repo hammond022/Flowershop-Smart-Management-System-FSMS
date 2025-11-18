@@ -93,7 +93,7 @@
                   <span
                     ><strong>{{ item.name }}</strong></span
                   >
-                  <span class="text-muted">${{ item.price.toFixed(2) }}</span>
+                  <span class="text-muted">₱{{ item.price.toFixed(2) }}</span>
                 </div>
                 <small class="text-muted">Category: {{ item.category }}</small>
               </button>
