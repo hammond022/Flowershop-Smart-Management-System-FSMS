@@ -268,146 +268,6 @@
       ]
     },
     {
-      "id": 1760377321878,
-      "name": "Romantic Red Bouquet",
-      "stock": 0,
-      "price": 25,
-      "cost": 12,
-      "category": "Bouquets",
-      "description": "A beautiful bouquet of fresh red roses",
-      "tags": [
-        "rose",
-        "bouquet",
-        "romantic"
-      ]
-    },
-    {
-      "id": 1760377359961,
-      "name": "Spring Mix Bouquet",
-      "stock": 0,
-      "price": 20,
-      "cost": 10,
-      "category": "Bouquets",
-      "description": "A mix of spring flowers in a cheerful arrangement",
-      "tags": [
-        "tulip",
-        "daisy",
-        "bouquet"
-      ]
-    },
-    {
-      "id": 1760377376980,
-      "name": "Elegant White Lily Bouquet",
-      "stock": 0,
-      "price": 30,
-      "cost": 15,
-      "category": "Bouquets",
-      "description": "Pure white lilies arranged in an elegant bouquet",
-      "tags": [
-        "lily",
-        "bouquet",
-        "elegant"
-      ]
-    },
-    {
-      "id": 1760377394772,
-      "name": "Sunflower Sunshine",
-      "stock": 0,
-      "price": 22,
-      "cost": 11,
-      "category": "Bouquets",
-      "description": "A sunny bouquet of fresh sunflowers",
-      "tags": [
-        "sunflower",
-        "bouquet",
-        "bright"
-      ]
-    },
-    {
-      "id": 1760377410896,
-      "name": "Exotic Orchid Arrangement",
-      "stock": 0,
-      "price": 40,
-      "cost": 20,
-      "category": "Bouquets",
-      "description": "A sophisticated bouquet featuring exotic orchids",
-      "tags": [
-        "orchid",
-        "bouquet",
-        "exotic"
-      ]
-    },
-    {
-      "id": 1760377426560,
-      "name": "Lavender Serenity",
-      "stock": 0,
-      "price": 18,
-      "cost": 9,
-      "category": "Bouquets",
-      "description": "Fragrant lavender arranged in a calming bouquet",
-      "tags": [
-        "lavender",
-        "bouquet",
-        "fragrant"
-      ]
-    },
-    {
-      "id": 1760377444718,
-      "name": "Mixed Flower Delight",
-      "stock": 0,
-      "price": 24,
-      "cost": 12,
-      "category": "Bouquets",
-      "description": "A vibrant bouquet with mixed seasonal flowers",
-      "tags": [
-        "carnation",
-        "rose",
-        "bouquet"
-      ]
-    },
-    {
-      "id": 1760377459968,
-      "name": "Pink Tulip Elegance",
-      "stock": 0,
-      "price": 21,
-      "cost": 10.5,
-      "category": "Bouquets",
-      "description": "A delicate bouquet of pink tulips",
-      "tags": [
-        "tulip",
-        "pink",
-        "bouquet"
-      ]
-    },
-    {
-      "id": 1760377476002,
-      "name": "Friendship Yellow Roses",
-      "stock": 0,
-      "price": 25,
-      "cost": 12.5,
-      "category": "Bouquets",
-      "description": "Bouquet of yellow roses celebrating friendship",
-      "tags": [
-        "rose",
-        "yellow",
-        "bouquet"
-      ]
-    },
-    {
-      "id": 1760377495077,
-      "name": "Hydrangea Dreams",
-      "stock": 0,
-      "price": 28,
-      "cost": 14,
-      "category": "Bouquets",
-      "description": "Stunning blue hydrangea bouquet for special occasions",
-      "tags": [
-        "hydrangea",
-        "blue",
-        "bouquet"
-      ]
-    },
-    {
       "id": 1760377536424,
       "name": "Peace Lily",
       "stock": 0,
@@ -1865,6 +1725,23 @@
       ],
       "totalCost": 1.5,
       "createdAt": "2025-11-16T06:16:22.536Z"
+    }
+  ],
+  "customBouquets": [
+    {
+      "id": 1,
+      "name": "Summer Romance",
+      "description": "A vibrant mix of summer flowers",
+      "price": 45.99,
+      "items": [
+        {
+          "itemId": 1760376321522,
+          "itemName": "Red Rose",
+          "quantity": 5
+        }
+      ],
+      "createdAt": "2025-11-16T06:16:22.536Z",
+      "updatedAt": "2025-11-16T06:16:22.536Z"
     }
   ]
 }

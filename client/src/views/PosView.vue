@@ -10,7 +10,7 @@ import BottomBar from "@/components/POS/BottomBar.vue";
 import Draft from "@/components/POS/Draft.vue";
 import OrderService from "@/router/api/ordersService";
 import ItemService from "@/router/api/itemsService";
-import CustomBouquet from "@/components/MLBouquet/CustomBouquet.vue";
+import CustomBouquet from "@/components/MLBouquet/MLBouquet.vue";
 
 // import QuantityAdjuster from "@/components/QuantityAdjuster.vue";
 
@@ -514,6 +514,7 @@ const change = computed(() => {
           :all-items="allItems"
           :selected-category="selectedCategory"
           @select="onFlowerSelect"
+          @add-bouquet="addBouquetToOrder"
           v-if="selectedCategory"
         />
         <CustomBouquet

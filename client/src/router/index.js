@@ -10,6 +10,7 @@ import Overview from "@/components/Inventory/Overview.vue";
 import Products from "@/components/Inventory/Products.vue";
 import PurchaseOrders from "@/components/Inventory/PurchaseOrders.vue";
 import Sales from "@/components/Inventory/Sales.vue";
+import CustomBouquets from "@/components/Inventory/CustomBouquets.vue";
 
 import { auth } from "@/auth.js";
 
@@ -74,6 +75,11 @@ const routes = [
         path: "sales",
         name: "InventorySales",
         component: Sales,
+      },
+      {
+        path: "custom-bouquets",
+        name: "InventoryCustomBouquets",
+        component: CustomBouquets,
       },
       {
         path: "",
