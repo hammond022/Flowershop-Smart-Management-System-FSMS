@@ -53,7 +53,7 @@
 
           <!-- Price -->
           <div class="mb-3">
-            <label for="bouquetPrice" class="form-label">Price ($)</label>
+            <label for="bouquetPrice" class="form-label">Price (₱)</label>
             <input
               v-model.number="form.price"
               type="number"
