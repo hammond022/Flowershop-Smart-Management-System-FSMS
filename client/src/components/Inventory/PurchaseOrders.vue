@@ -333,7 +333,7 @@ async function exportSelectedToPDF() {
 
     autoTable(doc, {
       startY: y,
-      head: [["Item ID", "Name", "Qty", "Cost/unit (₱)", "Subtotal (₱)"]],
+      head: [["Item ID", "Name", "Qty", "Cost/unit (PHP)", "Subtotal (PHP)"]],
       body: po.items.map((i) => [
         i.id,
         i.name,
@@ -351,7 +351,7 @@ async function exportSelectedToPDF() {
 
     doc.setFontSize(12);
     doc.text(
-      `Total Cost: ₱${po.totalCost.toLocaleString()}`,
+      `Total Cost: PHP${po.totalCost.toLocaleString()}`,
       pageWidth - 50,
       y,
       {
