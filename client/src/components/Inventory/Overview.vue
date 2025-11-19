@@ -88,6 +88,10 @@ function goToCategory(category) {
   });
 }
 
+function goToPOS() {
+  router.push({ name: "pos" });
+}
+
 onMounted(() => {
   getOrders();
   getItems();
@@ -126,7 +130,7 @@ onMounted(() => {
 
       <div class="col">
         <div class="card shadow-sm border-0">
-          <div class="card-body">
+          <div class="card-body hover-lift" @click="goToPOS()">
             <i class="bi bi-pencil-square fs-2 text-warning mb-2"></i>
             <h5 class="card-title">Drafts</h5>
             <p class="fs-4 fw-bold">{{ draftOrders.length }}</p>
