@@ -28,16 +28,28 @@ function toggleSelection(event) {
   }
   emits("update:selectedItems", props.selectedItems);
 }
+
+function toggleRowSelection() {
+  const isSelected = props.selectedItems.includes(props.id);
+  if (isSelected) {
+    const index = props.selectedItems.indexOf(props.id);
+    if (index > -1) props.selectedItems.splice(index, 1);
+  } else {
+    props.selectedItems.push(props.id);
+  }
+  emits("update:selectedItems", props.selectedItems);
+}
 </script>
 
 <template>
-  <tr>
+  <tr @click="toggleRowSelection">
     <td scope="row">
       <input
         class="form-check-input"
         type="checkbox"
         :checked="selectedItems.includes(id)"
         @change="toggleSelection"
+        @click.stop
       />
     </td>
     <td scope="row">{{ name }}</td>
