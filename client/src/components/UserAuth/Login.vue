@@ -8,6 +8,7 @@ const route = useRoute();
 
 const username = ref("");
 const password = ref("");
+const showPassword = ref(false);
 
 const submitLogin = async () => {
   await auth.login(username.value, password.value);
@@ -48,13 +49,23 @@ const submitLogin = async () => {
         </div>
         <div class="mb-3">
           <label class="form-label">Password</label>
-          <input
-            v-model="password"
-            type="password"
-            class="form-control"
-            placeholder="Enter your password"
-            required
-          />
+          <div class="input-group">
+            <input
+              v-model="password"
+              :type="showPassword ? 'text' : 'password'"
+              class="form-control"
+              placeholder="Enter your password"
+              required
+            />
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              @click="showPassword = !showPassword"
+              :aria-label="showPassword ? 'Hide password' : 'Show password'"
+            >
+              <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+            </button>
+          </div>
         </div>
         <p v-if="auth.error" class="text-danger">{{ auth.error }}</p>
         <button type="submit" class="btn btn-primary w-100">Login</button>
