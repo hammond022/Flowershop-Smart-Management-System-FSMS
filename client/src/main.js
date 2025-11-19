@@ -11,6 +11,8 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 // ^^^ removed this for now since its interfering with accordions collapsing, no issues seen so far
 import router from "./router";
 
+auth.init();
+
 const app = createApp(App);
 
 app.directive("tooltip", tooltip);

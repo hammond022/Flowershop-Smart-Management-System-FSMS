@@ -143,13 +143,28 @@ async function saveAccount() {
 
   accountSaving.value = true;
   try {
-    if (auth.user && auth.user.id === props.user.id) {
-      await UsersService.updateSelf(props.user.id, payload);
+    const isSelf = auth.user && auth.user.id === props.user.id;
+    let updatedUser;
+    if (isSelf) {
+      updatedUser = await UsersService.updateSelf(props.user.id, payload);
     } else {
-      // requires admin
-      await UsersService.updateUser(props.user.id, payload);
+      updatedUser = await UsersService.updateUser(props.user.id, payload);
     }
     showToast("success", "Account updated successfully");
+
+    if (isSelf) {
+      auth.user = { ...auth.user, ...updatedUser };
+      const usernameChanged = !!payload.username;
+      const passwordChanged = !!payload.password;
+      if (passwordChanged) {
+        const newUser = payload.username || auth.user.username;
+        auth.credentials = btoa(`${newUser}:${payload.password}`);
+        localStorage.setItem("authToken", auth.credentials);
+      } else if (usernameChanged) {
+        showToast("info", "Username changed. Please login again.");
+        auth.logout();
+      }
+    }
 
     await loadPermissions();
   } catch (err) {
@@ -225,9 +240,15 @@ watch(
                       class="btn btn-outline-secondary"
                       type="button"
                       @click="showNewPassword = !showNewPassword"
-                      :aria-label="showNewPassword ? 'Hide password' : 'Show password'"
+                      :aria-label="
+                        showNewPassword ? 'Hide password' : 'Show password'
+                      "
                     >
-                      <i :class="showNewPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                      <i
+                        :class="
+                          showNewPassword ? 'bi bi-eye-slash' : 'bi bi-eye'
+                        "
+                      ></i>
                     </button>
                   </div>
                   <div
@@ -237,26 +258,106 @@ watch(
                     {{ accountErrors.newPassword }}
                   </div>
                   <div v-if="newPassword" class="mt-2">
-                    <div class="small text-muted mb-1">Password must contain:</div>
+                    <div class="small text-muted mb-1">
+                      Password must contain:
+                    </div>
                     <ul class="list-unstyled small mb-0">
-                      <li :class="passwordValidation.errors.includes('At least 8 characters') ? 'text-danger' : 'text-success'">
-                        <i :class="passwordValidation.errors.includes('At least 8 characters') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                      <li
+                        :class="
+                          passwordValidation.errors.includes(
+                            'At least 8 characters'
+                          )
+                            ? 'text-danger'
+                            : 'text-success'
+                        "
+                      >
+                        <i
+                          :class="
+                            passwordValidation.errors.includes(
+                              'At least 8 characters'
+                            )
+                              ? 'bi bi-x-circle'
+                              : 'bi bi-check-circle'
+                          "
+                        ></i>
                         At least 8 characters
                       </li>
-                      <li :class="passwordValidation.errors.includes('At least 1 lowercase letter') ? 'text-danger' : 'text-success'">
-                        <i :class="passwordValidation.errors.includes('At least 1 lowercase letter') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                      <li
+                        :class="
+                          passwordValidation.errors.includes(
+                            'At least 1 lowercase letter'
+                          )
+                            ? 'text-danger'
+                            : 'text-success'
+                        "
+                      >
+                        <i
+                          :class="
+                            passwordValidation.errors.includes(
+                              'At least 1 lowercase letter'
+                            )
+                              ? 'bi bi-x-circle'
+                              : 'bi bi-check-circle'
+                          "
+                        ></i>
                         At least 1 lowercase letter
                       </li>
-                      <li :class="passwordValidation.errors.includes('At least 1 uppercase letter') ? 'text-danger' : 'text-success'">
-                        <i :class="passwordValidation.errors.includes('At least 1 uppercase letter') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                      <li
+                        :class="
+                          passwordValidation.errors.includes(
+                            'At least 1 uppercase letter'
+                          )
+                            ? 'text-danger'
+                            : 'text-success'
+                        "
+                      >
+                        <i
+                          :class="
+                            passwordValidation.errors.includes(
+                              'At least 1 uppercase letter'
+                            )
+                              ? 'bi bi-x-circle'
+                              : 'bi bi-check-circle'
+                          "
+                        ></i>
                         At least 1 uppercase letter
                       </li>
-                      <li :class="passwordValidation.errors.includes('At least 1 digit') ? 'text-danger' : 'text-success'">
-                        <i :class="passwordValidation.errors.includes('At least 1 digit') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                      <li
+                        :class="
+                          passwordValidation.errors.includes('At least 1 digit')
+                            ? 'text-danger'
+                            : 'text-success'
+                        "
+                      >
+                        <i
+                          :class="
+                            passwordValidation.errors.includes(
+                              'At least 1 digit'
+                            )
+                              ? 'bi bi-x-circle'
+                              : 'bi bi-check-circle'
+                          "
+                        ></i>
                         At least 1 digit
                       </li>
-                      <li :class="passwordValidation.errors.includes('At least 1 special character') ? 'text-danger' : 'text-success'">
-                        <i :class="passwordValidation.errors.includes('At least 1 special character') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                      <li
+                        :class="
+                          passwordValidation.errors.includes(
+                            'At least 1 special character'
+                          )
+                            ? 'text-danger'
+                            : 'text-success'
+                        "
+                      >
+                        <i
+                          :class="
+                            passwordValidation.errors.includes(
+                              'At least 1 special character'
+                            )
+                              ? 'bi bi-x-circle'
+                              : 'bi bi-check-circle'
+                          "
+                        ></i>
                         At least 1 special character
                       </li>
                     </ul>
@@ -275,9 +376,15 @@ watch(
                       class="btn btn-outline-secondary"
                       type="button"
                       @click="showConfirmPassword = !showConfirmPassword"
-                      :aria-label="showConfirmPassword ? 'Hide password' : 'Show password'"
+                      :aria-label="
+                        showConfirmPassword ? 'Hide password' : 'Show password'
+                      "
                     >
-                      <i :class="showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                      <i
+                        :class="
+                          showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'
+                        "
+                      ></i>
                     </button>
                   </div>
                   <div
