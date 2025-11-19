@@ -5,6 +5,8 @@ import UsersService from "@/router/api/UsersService";
 import { auth } from "@/auth.js";
 import { validatePassword } from "@/utils/passwordValidation";
 
+const emit = defineEmits(["userDeleted"]);
+
 const props = defineProps({
   user: {
     type: Object,
@@ -24,6 +26,11 @@ const accountErrors = reactive({});
 const showNewPassword = ref(false);
 const showConfirmPassword = ref(false);
 const passwordValidation = ref({ isValid: false, errors: [] });
+
+const showDeleteModal = ref(false);
+const deletePassword = ref("");
+const deleting = ref(false);
+const deleteErrors = reactive({});
 
 watch(newPassword, (value) => {
   if (value) {
@@ -94,6 +101,37 @@ async function savePermissions() {
 
 function resetPermissions() {
   loadPermissions();
+}
+
+function openDeleteModal() {
+  if (!isAdminUser.value || isEditingSelf.value) return;
+  deletePassword.value = "";
+  Object.keys(deleteErrors).forEach((k) => delete deleteErrors[k]);
+  showDeleteModal.value = true;
+}
+
+function closeDeleteModal() {
+  showDeleteModal.value = false;
+}
+
+async function confirmDelete() {
+  Object.keys(deleteErrors).forEach((k) => delete deleteErrors[k]);
+  if (!deletePassword.value) {
+    deleteErrors.password = "Password is required";
+    return;
+  }
+  deleting.value = true;
+  try {
+    await UsersService.deleteUser(props.user.id, deletePassword.value);
+    showToast("success", "User deleted");
+    emit("userDeleted", props.user.id);
+    closeDeleteModal();
+  } catch (err) {
+    deleteErrors.password =
+      err.response?.data?.error || err.message || "Delete failed";
+  } finally {
+    deleting.value = false;
+  }
 }
 
 async function saveAccount() {
@@ -405,6 +443,14 @@ watch(
                     <span v-if="!accountSaving">Save Account</span>
                     <span v-else>Saving...</span>
                   </button>
+                  <button
+                    v-if="isAdminUser && !isEditingSelf"
+                    type="button"
+                    class="btn btn-sm btn-outline-danger mt-2"
+                    @click="openDeleteModal"
+                  >
+                    Delete Account
+                  </button>
                 </div>
               </div>
             </div>
@@ -497,6 +543,73 @@ watch(
           </div>
         </div>
       </div>
+    </div>
+
+    <div v-if="showDeleteModal">
+      <div
+        class="modal fade show"
+        style="display: block"
+        tabindex="-1"
+        role="dialog"
+        aria-modal="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Confirm Deletion</h5>
+              <button
+                type="button"
+                class="btn-close"
+                @click="closeDeleteModal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <p class="small mb-3">
+                You are about to delete the user
+                <strong>{{ user.username }}</strong
+                >. This action cannot be undone. Please enter your admin
+                password to confirm.
+              </p>
+              <div class="mb-3">
+                <label class="form-label small">Admin Password</label>
+                <input
+                  type="password"
+                  class="form-control form-control-sm"
+                  v-model="deletePassword"
+                  :disabled="deleting"
+                />
+                <div
+                  class="text-danger small mt-1"
+                  v-if="deleteErrors.password"
+                >
+                  {{ deleteErrors.password }}
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-outline-secondary btn-sm"
+                @click="closeDeleteModal"
+                :disabled="deleting"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger btn-sm"
+                @click="confirmDelete"
+                :disabled="deleting"
+              >
+                <span v-if="!deleting">Delete</span>
+                <span v-else>Deleting...</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-backdrop fade show"></div>
     </div>
   </div>
 </template>

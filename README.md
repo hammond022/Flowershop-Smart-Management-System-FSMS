@@ -47,6 +47,18 @@ Settings
 | Add/Edit/Delete users | 🚧 In Progress |
 | User permissions per action (void, edit, manage POS/inventory) | 🚧 In Progress |
 
+### User Deletion Rules
+
+- Only admins can delete accounts.
+- Admin must re-enter their own password to confirm deletion.
+- An admin cannot delete their own account.
+- Deletion returns HTTP 204 on success; no content body.
+- Errors:
+	- 400 if password missing.
+	- 401 if password incorrect.
+	- 403 if not admin or attempting self-deletion.
+	- 404 if target user not found.
+
 ---
 
 ## Legend

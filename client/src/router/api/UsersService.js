@@ -43,9 +43,10 @@ class UsersService {
     return safeUser;
   }
 
-  static async deleteUser(id) {
+  static async deleteUser(id, password) {
     this._checkAdmin();
-    const res = await api.delete(`/users/${id}`);
+    if (!password) throw new Error("Password required to delete account");
+    const res = await api.delete(`/users/${id}`, { data: { password } });
     return res.data;
   }
 
