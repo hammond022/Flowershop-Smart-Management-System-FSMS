@@ -161,8 +161,9 @@ watch(
       <div class="card-body">
         <div class="d-flex align-items-center mb-3">
           <div
-            class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-3"
+            class="rounded-circle bg-secondary text-primary d-flex align-items-center justify-content-center me-3"
             style="width: 48px; height: 48px"
+            :class="{ 'text-success': user?.role?.admin?.isAdmin }"
           >
             <strong>{{ (user.username || "").charAt(0).toUpperCase() }}</strong>
           </div>
