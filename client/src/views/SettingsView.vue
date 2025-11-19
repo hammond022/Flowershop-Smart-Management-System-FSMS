@@ -43,12 +43,12 @@ function resetCreateForm() {
 async function submitCreateUser() {
   cuErrors.value = {};
   if (!cuUsername.value) cuErrors.value.username = "Username is required";
-  
+
   const validation = validatePassword(cuPassword.value);
   if (!validation.isValid) {
     cuErrors.value.password = "Password does not meet requirements";
   }
-  
+
   if (Object.keys(cuErrors.value).length) return;
 
   cuSubmitting.value = true;
@@ -115,12 +115,35 @@ onMounted(() => {
           :selectedUser="selectedUser"
           @selectUser="handleSelectUser"
           @createUser="handleOpenCreate"
+          @userDeleted="
+            (id) => {
+              users.value = (users.value || []).filter((u) => u.id !== id);
+              if (selectedUser.value && selectedUser.value.id === id) {
+                selectedUser.value = null;
+              }
+              showToast('success', 'User deleted');
+              fetchUsers();
+            }
+          "
         />
       </div>
 
       <!-- Main Panel -->
       <div class="col-12 col-md-8 col-lg-9 p-4">
-        <PermissionPanel v-if="selectedUser" :user="selectedUser" />
+        <PermissionPanel
+          v-if="selectedUser"
+          :user="selectedUser"
+          @userDeleted="
+            (id) => {
+              users.value = (users.value || []).filter((u) => u.id !== id);
+              if (selectedUser.value && selectedUser.value.id === id) {
+                selectedUser.value = null;
+              }
+              showToast('success', 'User deleted');
+              fetchUsers();
+            }
+          "
+        />
 
         <!-- Bootstrap native modal for Create User -->
         <div
@@ -165,9 +188,15 @@ onMounted(() => {
                         class="btn btn-outline-secondary"
                         type="button"
                         @click="showCuPassword = !showCuPassword"
-                        :aria-label="showCuPassword ? 'Hide password' : 'Show password'"
+                        :aria-label="
+                          showCuPassword ? 'Hide password' : 'Show password'
+                        "
                       >
-                        <i :class="showCuPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                        <i
+                          :class="
+                            showCuPassword ? 'bi bi-eye-slash' : 'bi bi-eye'
+                          "
+                        ></i>
                       </button>
                     </div>
                     <div
@@ -177,26 +206,108 @@ onMounted(() => {
                       {{ cuErrors.password }}
                     </div>
                     <div v-if="cuPassword" class="mt-2">
-                      <div class="small text-muted mb-1">Password must contain:</div>
+                      <div class="small text-muted mb-1">
+                        Password must contain:
+                      </div>
                       <ul class="list-unstyled small mb-0">
-                        <li :class="cuPasswordValidation.errors.includes('At least 8 characters') ? 'text-danger' : 'text-success'">
-                          <i :class="cuPasswordValidation.errors.includes('At least 8 characters') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                        <li
+                          :class="
+                            cuPasswordValidation.errors.includes(
+                              'At least 8 characters'
+                            )
+                              ? 'text-danger'
+                              : 'text-success'
+                          "
+                        >
+                          <i
+                            :class="
+                              cuPasswordValidation.errors.includes(
+                                'At least 8 characters'
+                              )
+                                ? 'bi bi-x-circle'
+                                : 'bi bi-check-circle'
+                            "
+                          ></i>
                           At least 8 characters
                         </li>
-                        <li :class="cuPasswordValidation.errors.includes('At least 1 lowercase letter') ? 'text-danger' : 'text-success'">
-                          <i :class="cuPasswordValidation.errors.includes('At least 1 lowercase letter') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                        <li
+                          :class="
+                            cuPasswordValidation.errors.includes(
+                              'At least 1 lowercase letter'
+                            )
+                              ? 'text-danger'
+                              : 'text-success'
+                          "
+                        >
+                          <i
+                            :class="
+                              cuPasswordValidation.errors.includes(
+                                'At least 1 lowercase letter'
+                              )
+                                ? 'bi bi-x-circle'
+                                : 'bi bi-check-circle'
+                            "
+                          ></i>
                           At least 1 lowercase letter
                         </li>
-                        <li :class="cuPasswordValidation.errors.includes('At least 1 uppercase letter') ? 'text-danger' : 'text-success'">
-                          <i :class="cuPasswordValidation.errors.includes('At least 1 uppercase letter') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                        <li
+                          :class="
+                            cuPasswordValidation.errors.includes(
+                              'At least 1 uppercase letter'
+                            )
+                              ? 'text-danger'
+                              : 'text-success'
+                          "
+                        >
+                          <i
+                            :class="
+                              cuPasswordValidation.errors.includes(
+                                'At least 1 uppercase letter'
+                              )
+                                ? 'bi bi-x-circle'
+                                : 'bi bi-check-circle'
+                            "
+                          ></i>
                           At least 1 uppercase letter
                         </li>
-                        <li :class="cuPasswordValidation.errors.includes('At least 1 digit') ? 'text-danger' : 'text-success'">
-                          <i :class="cuPasswordValidation.errors.includes('At least 1 digit') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                        <li
+                          :class="
+                            cuPasswordValidation.errors.includes(
+                              'At least 1 digit'
+                            )
+                              ? 'text-danger'
+                              : 'text-success'
+                          "
+                        >
+                          <i
+                            :class="
+                              cuPasswordValidation.errors.includes(
+                                'At least 1 digit'
+                              )
+                                ? 'bi bi-x-circle'
+                                : 'bi bi-check-circle'
+                            "
+                          ></i>
                           At least 1 digit
                         </li>
-                        <li :class="cuPasswordValidation.errors.includes('At least 1 special character') ? 'text-danger' : 'text-success'">
-                          <i :class="cuPasswordValidation.errors.includes('At least 1 special character') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                        <li
+                          :class="
+                            cuPasswordValidation.errors.includes(
+                              'At least 1 special character'
+                            )
+                              ? 'text-danger'
+                              : 'text-success'
+                          "
+                        >
+                          <i
+                            :class="
+                              cuPasswordValidation.errors.includes(
+                                'At least 1 special character'
+                              )
+                                ? 'bi bi-x-circle'
+                                : 'bi bi-check-circle'
+                            "
+                          ></i>
                           At least 1 special character
                         </li>
                       </ul>

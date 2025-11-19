@@ -34,7 +34,7 @@ router.post("/", basicAuth, async (req, res) => {
       .status(400)
       .json({ error: "Username and password are required" });
   }
-  
+
   // Enforce strong password requirements
   if (typeof password !== "string" || password.length < 8) {
     return res
@@ -189,11 +189,37 @@ router.put("/:id", basicAuth, async (req, res) => {
   res.json(safeUser);
 });
 
-router.delete("/:id", async (req, res) => {
-  const id = Number(req.params.id);
-  db.data.users = db.data.users.filter((u) => u.id !== id);
+router.delete("/:id", basicAuth, async (req, res) => {
+  const targetId = Number(req.params.id);
+  const requester = req.user;
+
+  if (!requester?.role?.admin?.isAdmin) {
+    return res.status(403).json({ error: "Permission denied: admin only" });
+  }
+
+  if (requester.id === targetId) {
+    return res
+      .status(403)
+      .json({ error: "You cannot delete your own account" });
+  }
+
+  const providedPassword = req.body?.password;
+  if (!providedPassword) {
+    return res.status(400).json({ error: "Password is required" });
+  }
+  if (providedPassword !== requester.password) {
+    return res.status(401).json({ error: "Invalid password" });
+  }
+
+  await db.read();
+  const exists = db.data.users.some((u) => u.id === targetId);
+  if (!exists) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  db.data.users = db.data.users.filter((u) => u.id !== targetId);
   await db.write();
-  res.status(204).end();
+  return res.status(204).end();
 });
 
 export default router;
