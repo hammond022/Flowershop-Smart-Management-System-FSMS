@@ -346,7 +346,7 @@ onMounted(() => {
         >
           <option value="">All Payments</option>
           <option value="cash">Cash</option>
-          <option value="card">E-Wallet</option>
+          <option value="bank">E-Wallet</option>
         </select>
       </div>
       <div class="col-md-2">
