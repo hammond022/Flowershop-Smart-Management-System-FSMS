@@ -34,10 +34,32 @@ router.post("/", basicAuth, async (req, res) => {
       .status(400)
       .json({ error: "Username and password are required" });
   }
-  if (typeof password !== "string" || password.length < 6) {
+  
+  // Enforce strong password requirements
+  if (typeof password !== "string" || password.length < 8) {
     return res
       .status(400)
-      .json({ error: "Password must be at least 6 characters" });
+      .json({ error: "Password must be at least 8 characters" });
+  }
+  if (!/[a-z]/.test(password)) {
+    return res
+      .status(400)
+      .json({ error: "Password must contain at least 1 lowercase letter" });
+  }
+  if (!/[A-Z]/.test(password)) {
+    return res
+      .status(400)
+      .json({ error: "Password must contain at least 1 uppercase letter" });
+  }
+  if (!/[0-9]/.test(password)) {
+    return res
+      .status(400)
+      .json({ error: "Password must contain at least 1 digit" });
+  }
+  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+    return res
+      .status(400)
+      .json({ error: "Password must contain at least 1 special character" });
   }
 
   await db.read();
@@ -102,10 +124,31 @@ router.put("/:id", basicAuth, async (req, res) => {
   }
 
   if (password) {
-    if (typeof password !== "string" || password.length < 6) {
+    // Enforce strong password requirements
+    if (typeof password !== "string" || password.length < 8) {
       return res
         .status(400)
-        .json({ error: "Password must be at least 6 characters" });
+        .json({ error: "Password must be at least 8 characters" });
+    }
+    if (!/[a-z]/.test(password)) {
+      return res
+        .status(400)
+        .json({ error: "Password must contain at least 1 lowercase letter" });
+    }
+    if (!/[A-Z]/.test(password)) {
+      return res
+        .status(400)
+        .json({ error: "Password must contain at least 1 uppercase letter" });
+    }
+    if (!/[0-9]/.test(password)) {
+      return res
+        .status(400)
+        .json({ error: "Password must contain at least 1 digit" });
+    }
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+      return res
+        .status(400)
+        .json({ error: "Password must contain at least 1 special character" });
     }
     user.password = password;
   }

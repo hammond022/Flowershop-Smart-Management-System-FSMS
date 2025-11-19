@@ -1,11 +1,12 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useToast } from "@/composables/useToast";
 import UsersService from "@/router/api/UsersService";
 
 import UserSidebar from "../components/UserAuth/Users.vue";
 import PermissionPanel from "../components/UserAuth/RolePermissions.vue";
 import { Modal } from "bootstrap";
+import { validatePassword } from "@/utils/passwordValidation";
 
 const { showToast } = useToast();
 
@@ -18,6 +19,16 @@ const cuPassword = ref("");
 const cuIsAdmin = ref(false);
 const cuErrors = ref({});
 const cuSubmitting = ref(false);
+const showCuPassword = ref(false);
+const cuPasswordValidation = ref({ isValid: false, errors: [] });
+
+watch(cuPassword, (value) => {
+  if (value) {
+    cuPasswordValidation.value = validatePassword(value);
+  } else {
+    cuPasswordValidation.value = { isValid: false, errors: [] };
+  }
+});
 
 function resetCreateForm() {
   cuUsername.value = "";
@@ -25,13 +36,19 @@ function resetCreateForm() {
   cuIsAdmin.value = false;
   cuErrors.value = {};
   cuSubmitting.value = false;
+  showCuPassword.value = false;
+  cuPasswordValidation.value = { isValid: false, errors: [] };
 }
 
 async function submitCreateUser() {
   cuErrors.value = {};
   if (!cuUsername.value) cuErrors.value.username = "Username is required";
-  if (!cuPassword.value || cuPassword.value.length < 6)
-    cuErrors.value.password = "Password must be at least 6 characters";
+  
+  const validation = validatePassword(cuPassword.value);
+  if (!validation.isValid) {
+    cuErrors.value.password = "Password does not meet requirements";
+  }
+  
   if (Object.keys(cuErrors.value).length) return;
 
   cuSubmitting.value = true;
@@ -138,16 +155,51 @@ onMounted(() => {
 
                   <div class="mb-3">
                     <label class="form-label small">Temporary Password</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      v-model="cuPassword"
-                    />
+                    <div class="input-group input-group-sm">
+                      <input
+                        :type="showCuPassword ? 'text' : 'password'"
+                        class="form-control"
+                        v-model="cuPassword"
+                      />
+                      <button
+                        class="btn btn-outline-secondary"
+                        type="button"
+                        @click="showCuPassword = !showCuPassword"
+                        :aria-label="showCuPassword ? 'Hide password' : 'Show password'"
+                      >
+                        <i :class="showCuPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                      </button>
+                    </div>
                     <div
                       class="text-danger small mt-1"
                       v-if="cuErrors.password"
                     >
                       {{ cuErrors.password }}
+                    </div>
+                    <div v-if="cuPassword" class="mt-2">
+                      <div class="small text-muted mb-1">Password must contain:</div>
+                      <ul class="list-unstyled small mb-0">
+                        <li :class="cuPasswordValidation.errors.includes('At least 8 characters') ? 'text-danger' : 'text-success'">
+                          <i :class="cuPasswordValidation.errors.includes('At least 8 characters') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                          At least 8 characters
+                        </li>
+                        <li :class="cuPasswordValidation.errors.includes('At least 1 lowercase letter') ? 'text-danger' : 'text-success'">
+                          <i :class="cuPasswordValidation.errors.includes('At least 1 lowercase letter') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                          At least 1 lowercase letter
+                        </li>
+                        <li :class="cuPasswordValidation.errors.includes('At least 1 uppercase letter') ? 'text-danger' : 'text-success'">
+                          <i :class="cuPasswordValidation.errors.includes('At least 1 uppercase letter') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                          At least 1 uppercase letter
+                        </li>
+                        <li :class="cuPasswordValidation.errors.includes('At least 1 digit') ? 'text-danger' : 'text-success'">
+                          <i :class="cuPasswordValidation.errors.includes('At least 1 digit') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                          At least 1 digit
+                        </li>
+                        <li :class="cuPasswordValidation.errors.includes('At least 1 special character') ? 'text-danger' : 'text-success'">
+                          <i :class="cuPasswordValidation.errors.includes('At least 1 special character') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                          At least 1 special character
+                        </li>
+                      </ul>
                     </div>
                     <div class="form-text">
                       Admin should instruct the user to change password after

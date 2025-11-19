@@ -3,6 +3,7 @@ import { reactive, ref, watch, computed } from "vue";
 import { useToast } from "@/composables/useToast";
 import UsersService from "@/router/api/UsersService";
 import { auth } from "@/auth.js";
+import { validatePassword } from "@/utils/passwordValidation";
 
 const props = defineProps({
   user: {
@@ -20,6 +21,17 @@ const formUsername = ref("");
 const newPassword = ref("");
 const confirmPassword = ref("");
 const accountErrors = reactive({});
+const showNewPassword = ref(false);
+const showConfirmPassword = ref(false);
+const passwordValidation = ref({ isValid: false, errors: [] });
+
+watch(newPassword, (value) => {
+  if (value) {
+    passwordValidation.value = validatePassword(value);
+  } else {
+    passwordValidation.value = { isValid: false, errors: [] };
+  }
+});
 
 const isEditingSelf = computed(() => {
   return auth.user && props.user && auth.user.id === props.user.id;
@@ -43,6 +55,9 @@ async function loadPermissions() {
     formUsername.value = userData.username || "";
     newPassword.value = "";
     confirmPassword.value = "";
+    showNewPassword.value = false;
+    showConfirmPassword.value = false;
+    passwordValidation.value = { isValid: false, errors: [] };
 
     Object.keys(accountErrors).forEach((k) => delete accountErrors[k]);
 
@@ -97,10 +112,9 @@ async function saveAccount() {
 
   const wantsPasswordChange = newPassword.value || confirmPassword.value;
   if (wantsPasswordChange) {
-    if (!newPassword.value) {
-      accountErrors.newPassword = "New password is required";
-    } else if (newPassword.value.length < 6) {
-      accountErrors.newPassword = "Password must be at least 6 characters";
+    const validation = validatePassword(newPassword.value);
+    if (!validation.isValid) {
+      accountErrors.newPassword = "Password does not meet requirements";
     }
 
     if (!confirmPassword.value) {
@@ -201,26 +215,71 @@ watch(
 
                 <div class="mb-3">
                   <label class="form-label small mb-1">New Password</label>
-                  <input
-                    type="password"
-                    class="form-control form-control-sm"
-                    v-model="newPassword"
-                  />
+                  <div class="input-group input-group-sm">
+                    <input
+                      :type="showNewPassword ? 'text' : 'password'"
+                      class="form-control form-control-sm"
+                      v-model="newPassword"
+                    />
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      @click="showNewPassword = !showNewPassword"
+                      :aria-label="showNewPassword ? 'Hide password' : 'Show password'"
+                    >
+                      <i :class="showNewPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                    </button>
+                  </div>
                   <div
                     class="text-danger small mt-1"
                     v-if="accountErrors.newPassword"
                   >
                     {{ accountErrors.newPassword }}
                   </div>
+                  <div v-if="newPassword" class="mt-2">
+                    <div class="small text-muted mb-1">Password must contain:</div>
+                    <ul class="list-unstyled small mb-0">
+                      <li :class="passwordValidation.errors.includes('At least 8 characters') ? 'text-danger' : 'text-success'">
+                        <i :class="passwordValidation.errors.includes('At least 8 characters') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                        At least 8 characters
+                      </li>
+                      <li :class="passwordValidation.errors.includes('At least 1 lowercase letter') ? 'text-danger' : 'text-success'">
+                        <i :class="passwordValidation.errors.includes('At least 1 lowercase letter') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                        At least 1 lowercase letter
+                      </li>
+                      <li :class="passwordValidation.errors.includes('At least 1 uppercase letter') ? 'text-danger' : 'text-success'">
+                        <i :class="passwordValidation.errors.includes('At least 1 uppercase letter') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                        At least 1 uppercase letter
+                      </li>
+                      <li :class="passwordValidation.errors.includes('At least 1 digit') ? 'text-danger' : 'text-success'">
+                        <i :class="passwordValidation.errors.includes('At least 1 digit') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                        At least 1 digit
+                      </li>
+                      <li :class="passwordValidation.errors.includes('At least 1 special character') ? 'text-danger' : 'text-success'">
+                        <i :class="passwordValidation.errors.includes('At least 1 special character') ? 'bi bi-x-circle' : 'bi bi-check-circle'"></i>
+                        At least 1 special character
+                      </li>
+                    </ul>
+                  </div>
                 </div>
 
                 <div class="mb-3">
                   <label class="form-label small mb-1">Confirm Password</label>
-                  <input
-                    type="password"
-                    class="form-control form-control-sm"
-                    v-model="confirmPassword"
-                  />
+                  <div class="input-group input-group-sm">
+                    <input
+                      :type="showConfirmPassword ? 'text' : 'password'"
+                      class="form-control form-control-sm"
+                      v-model="confirmPassword"
+                    />
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      @click="showConfirmPassword = !showConfirmPassword"
+                      :aria-label="showConfirmPassword ? 'Hide password' : 'Show password'"
+                    >
+                      <i :class="showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                    </button>
+                  </div>
                   <div
                     class="text-danger small mt-1"
                     v-if="accountErrors.confirmPassword"
