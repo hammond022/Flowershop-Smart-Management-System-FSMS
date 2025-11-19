@@ -96,11 +96,7 @@ function applyFilters() {
   filteredTransactions.value = transactions.value
     .filter((tx) => {
       const matchesSearch =
-        !searchQuery.value ||
-        tx.id.toString().includes(searchQuery.value) ||
-        tx.selectedFlowers?.some((f) =>
-          f.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-        );
+        !searchQuery.value || tx.id.toString().includes(searchQuery.value);
 
       const matchesStatus =
         !statusFilter.value ||
@@ -321,7 +317,7 @@ onMounted(() => {
         <input
           type="text"
           class="form-control"
-          placeholder="Search by ID or item name"
+          placeholder="Search by ID"
           v-model="searchQuery"
           @input="applyFilters"
         />
