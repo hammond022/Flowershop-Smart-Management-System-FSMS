@@ -16,6 +16,7 @@ const flowers = reactive({
 });
 
 const selectedItems = ref([]);
+const isDeleting = ref(false);
 
 const categories = ref([]);
 const selectedCategory = ref("all");
@@ -94,9 +95,10 @@ async function deleteSelectedItems() {
     return;
 
   try {
-    await Promise.all(
-      selectedItems.value.map((id) => ItemService.deleteItem(id))
-    );
+    isDeleting.value = true;
+    for (const id of [...selectedItems.value]) {
+      await ItemService.deleteItem(id);
+    }
     showToast(
       "success",
       `${selectedItems.value.length} item(s) deleted successfully`
@@ -106,6 +108,8 @@ async function deleteSelectedItems() {
   } catch (err) {
     console.error("Delete failed:", err.response?.data || err.message);
     showToast("error", "Failed to delete selected items");
+  } finally {
+    isDeleting.value = false;
   }
 }
 
@@ -197,10 +201,15 @@ onMounted(() => {
         <button
           type="button"
           class="btn btn-danger"
-          :disabled="selectedItems.length === 0"
+          :disabled="selectedItems.length === 0 || isDeleting"
           @click="deleteSelectedItems"
         >
-          <i class="bi bi-trash"></i>
+          <span v-if="isDeleting">
+            <i class="bi bi-hourglass-split"></i>
+          </span>
+          <span v-else>
+            <i class="bi bi-trash"></i>
+          </span>
         </button>
       </div>
     </div>
