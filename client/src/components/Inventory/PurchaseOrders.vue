@@ -195,6 +195,27 @@ function toggleSelectAll(event) {
   }
 }
 
+function onRowClick(event, id) {
+  // Ignore clicks on interactive elements to prevent conflicting behaviors
+  const tag = event.target.tagName;
+  if (
+    tag === "INPUT" ||
+    tag === "BUTTON" ||
+    tag === "A" ||
+    event.target.closest("button") ||
+    event.target.closest("input")
+  ) {
+    return;
+  }
+
+  const idx = selectedItems.value.indexOf(id);
+  if (idx === -1) {
+    selectedItems.value.push(id);
+  } else {
+    selectedItems.value.splice(idx, 1);
+  }
+}
+
 async function exportSelectedToExcel() {
   if (!selectedPOs.value.length) {
     showToast("error", "Please select at least one purchase order.");
@@ -454,7 +475,13 @@ onMounted(() => {
       </thead>
 
       <tbody>
-        <tr v-for="(item, index) in filteredItems" :key="item.id">
+        <tr
+          v-for="(item, index) in filteredItems"
+          :key="item.id"
+          @click="onRowClick($event, item.id)"
+          :class="{ 'table-active': selectedItems.includes(item.id) }"
+          style="cursor: pointer"
+        >
           <td>
             <input type="checkbox" :value="item.id" v-model="selectedItems" />
           </td>
