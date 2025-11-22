@@ -368,17 +368,28 @@ async function exportSelectedToPDF() {
       theme: "grid",
     });
 
-    y = doc.lastAutoTable.finalY + 10;
+    y = doc.lastAutoTable.finalY + 20;
 
     doc.setFontSize(12);
+    // make the total stand out and ensure it aligns with the table's right margin
+    try {
+      doc.setFont(undefined, "bold");
+    } catch (e) {
+      /* some jspdf builds may not support setFont with undefined; ignore */
+    }
     doc.text(
-      `Total Cost: PHP${po.totalCost.toLocaleString()}`,
-      pageWidth - 50,
+      `Total Cost: PHP ${po.totalCost.toLocaleString()}`,
+      pageWidth - 40,
       y,
       {
         align: "right",
       }
     );
+    try {
+      doc.setFont(undefined, "normal");
+    } catch (e) {
+      /* ignore */
+    }
     y += 30;
 
     if (y > doc.internal.pageSize.getHeight() - 100) {

@@ -85,6 +85,26 @@ function getTotal(order) {
   return subtotal - discount;
 }
 
+function formatPHP(value) {
+  const num = Number(value) || 0;
+  return new Intl.NumberFormat("en-PH", {
+    style: "currency",
+    currency: "PHP",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(num);
+}
+
+function displayStatus(s) {
+  const st = (s || '').toString();
+  if (!st) return '';
+  const lower = st.toLowerCase();
+  if (lower.includes('void') || lower.includes('cancel')) return 'Cancelled';
+  if (lower.includes('complete')) return 'Completed';
+  if (lower.includes('pending')) return 'Pending';
+  return st.charAt(0).toUpperCase() + st.slice(1).toLowerCase();
+}
+
 function openModal(tx) {
   selectedTransaction.value = tx;
   const modalEl = document.getElementById("transactionModal");
@@ -98,9 +118,22 @@ function applyFilters() {
       const matchesSearch =
         !searchQuery.value || tx.id.toString().includes(searchQuery.value);
 
-      const matchesStatus =
-        !statusFilter.value ||
-        tx.orderStatus.toLowerCase() === statusFilter.value;
+      function normalizeStatus(s) {
+        const st = (s || "").toString().toLowerCase();
+        if (!st) return "";
+        if (st.includes("void") || st.includes("cancel")) return "cancelled";
+        if (st.includes("complete")) return "completed";
+        if (st.includes("pending")) return "pending";
+        if (st.includes("draft")) return "draft";
+        return st;
+      }
+
+      const matchesStatus = (() => {
+        if (!statusFilter.value) return true;
+        const filter = statusFilter.value.toLowerCase();
+        const status = normalizeStatus(tx.orderStatus);
+        return status === filter;
+      })();
 
       const matchesPayment =
         !paymentFilter.value ||
@@ -153,15 +186,15 @@ const printTransaction = (tx) => {
     startY: 45,
     head: [["Field", "Value"]],
     body: [
-      ["Status", tx.orderStatus],
+      ["Status", displayStatus(tx.orderStatus)],
       [
         "Payment Method",
         tx.mop ? tx.mop.charAt(0).toUpperCase() + tx.mop.slice(1) : "—",
       ],
       ["Start Time", new Date(tx.orderStart).toLocaleString()],
       ["End Time", new Date(tx.orderEnd).toLocaleString()],
-      ["Amount Paid", `PHP ${tx.amountPaid}`],
-      ["Change", `PHP ${tx.change}`],
+      ["Amount Paid", formatPHP(tx.amountPaid)],
+      ["Change", formatPHP(tx.change)],
     ],
   });
 
@@ -170,8 +203,8 @@ const printTransaction = (tx) => {
     tx.selectedFlowers?.map((item) => [
       item.name,
       item.qty,
-      `PHP ${item.price}`,
-      `PHP ${item.price * (item.qty || 0)}`,
+      formatPHP(item.price),
+      formatPHP(item.price * (item.qty || 0)),
     ]) || [];
 
   autoTable(doc, {
@@ -200,30 +233,30 @@ const printTransaction = (tx) => {
   autoTable(doc, {
     startY: doc.lastAutoTable.finalY + 20,
     body: [
-      [
-        "Subtotal",
-        `PHP ${
-          tx.selectedFlowers?.reduce(
-            (sum, f) => sum + f.price * (f.qty || 0),
-            0
-          ) || 0
-        }`,
-      ],
-      [
-        "Discount",
-        `PHP ${
-          tx.discounts?.reduce((sum, d) => {
-            const subtotal =
-              tx.selectedFlowers?.reduce(
-                (sum, f) => sum + f.price * (f.qty || 0),
-                0
-              ) || 0;
-            if (d.type === "percent") return sum + subtotal * (d.value / 100);
-            return sum + d.value;
-          }, 0) || 0
-        }`,
-      ],
-      ["Total", `PHP ${getTotal(tx)}`],
+    [
+      "Subtotal",
+      formatPHP(
+        tx.selectedFlowers?.reduce(
+          (sum, f) => sum + f.price * (f.qty || 0),
+          0
+        ) || 0
+      ),
+    ],
+    [
+      "Discount",
+      formatPHP(
+        tx.discounts?.reduce((sum, d) => {
+          const subtotal =
+            tx.selectedFlowers?.reduce(
+              (sum, f) => sum + f.price * (f.qty || 0),
+              0
+            ) || 0;
+          if (d.type === "percent") return sum + subtotal * (d.value / 100);
+          return sum + d.value;
+        }, 0) || 0
+      ),
+    ],
+    ["Total", formatPHP(getTotal(tx))],
     ],
   });
 
@@ -394,8 +427,8 @@ onMounted(() => {
                 tx.mop ? tx.mop.charAt(0).toUpperCase() + tx.mop.slice(1) : "—"
               }}
             </td>
-            <td>₱{{ tx.amountPaid }}</td>
-            <td>₱{{ tx.change }}</td>
+            <td>{{ formatPHP(tx.amountPaid) }}</td>
+            <td>{{ formatPHP(tx.change) }}</td>
             <td>
               {{
                 tx.selectedFlowers?.reduce((sum, f) => sum + (f.qty || 0), 0) ||
@@ -403,16 +436,16 @@ onMounted(() => {
               }}
             </td>
             <td>
-              <span
+                <span
                 class="badge"
                 :class="{
-                  'bg-success': tx.orderStatus?.toLowerCase() === 'completed',
-                  'bg-warning text-dark':
-                    tx.orderStatus?.toLowerCase() === 'pending',
-                  'bg-danger': tx.orderStatus?.toLowerCase() === 'cancelled',
+                  'bg-success': (tx.orderStatus || '').toString().toLowerCase().includes('complete'),
+                    'bg-warning text-dark':
+                      (tx.orderStatus || '').toString().toLowerCase().includes('pending'),
+                    'bg-danger': (tx.orderStatus || '').toString().toLowerCase().includes('cancel') || (tx.orderStatus || '').toString().toLowerCase().includes('void'),
                 }"
               >
-                {{ tx.orderStatus }}
+                {{ displayStatus(tx.orderStatus) }}
               </span>
             </td>
             <td>
@@ -471,9 +504,13 @@ onMounted(() => {
             ></button>
           </div>
           <div class="modal-body">
-            <div class="alert alert-warning" role="alert">
-              Pending payment through Bank Transfer/E-Wallet.
-            </div>
+              <div
+                class="alert alert-warning"
+                role="alert"
+                v-if="(selectedTransaction.orderStatus || '').toString().toLowerCase().includes('pending')"
+              >
+                Pending payment through Bank Transfer/E-Wallet.
+              </div>
             <p>
               <strong>Order Start:</strong>
               {{ new Date(selectedTransaction.orderStart).toLocaleString() }}
@@ -492,21 +529,15 @@ onMounted(() => {
             </p>
             <p>
               <strong>Status: </strong>
-              <span
+                <span
                 class="badge"
                 :class="{
-                  'bg-success':
-                    selectedTransaction.orderStatus?.toLowerCase() ===
-                    'completed',
-                  'bg-warning text-dark':
-                    selectedTransaction.orderStatus?.toLowerCase() ===
-                    'pending',
-                  'bg-danger':
-                    selectedTransaction.orderStatus?.toLowerCase() ===
-                    'cancelled',
+                  'bg-success': (selectedTransaction.orderStatus || '').toString().toLowerCase().includes('complete'),
+                  'bg-warning text-dark': (selectedTransaction.orderStatus || '').toString().toLowerCase().includes('pending'),
+                  'bg-danger': (selectedTransaction.orderStatus || '').toString().toLowerCase().includes('cancel') || (selectedTransaction.orderStatus || '').toString().toLowerCase().includes('void'),
                 }"
               >
-                {{ selectedTransaction.orderStatus }}
+                {{ displayStatus(selectedTransaction.orderStatus) }}
               </span>
             </p>
 
@@ -542,12 +573,7 @@ onMounted(() => {
                             v-if="item.notes"
                           ></i>
                           {{ item.qty }}x {{ item.name }}
-                          <span>{{
-                            new Intl.NumberFormat("en-PH", {
-                              style: "currency",
-                              currency: "PHP",
-                            }).format(item.price * (item.qty || 0))
-                          }}</span>
+                          <span>{{ formatPHP(item.price * (item.qty || 0)) }}</span>
                         </div>
                       </li>
 
@@ -558,15 +584,17 @@ onMounted(() => {
                         Discount Total:
                         <span class="badge bg-primary">
                           {{
-                            selectedTransaction.discounts.reduce((sum, d) => {
-                              if (d.type === "percent")
-                                return (
-                                  sum +
-                                  getTotal(selectedTransaction) *
-                                    (d.value / 100)
-                                );
-                              return sum + d.value;
-                            }, 0)
+                            formatPHP(
+                              selectedTransaction.discounts.reduce((sum, d) => {
+                                if (d.type === "percent")
+                                  return (
+                                    sum +
+                                    getTotal(selectedTransaction) *
+                                      (d.value / 100)
+                                  );
+                                return sum + d.value;
+                              }, 0)
+                            )
                           }}
                         </span>
                       </li>
@@ -633,7 +661,7 @@ onMounted(() => {
             <button
               v-if="
                 selectedTransaction.mop !== 'cash' &&
-                selectedTransaction.orderStatus !== 'Completed'
+                (selectedTransaction.orderStatus || '').toString().toLowerCase().includes('pending')
               "
               type="button"
               class="btn btn-warning"
@@ -758,15 +786,17 @@ onMounted(() => {
                         Discount Total:
                         <span class="badge bg-primary">
                           {{
-                            selectedTransaction.discounts.reduce((sum, d) => {
-                              if (d.type === "percent")
-                                return (
-                                  sum +
-                                  getTotal(selectedTransaction) *
-                                    (d.value / 100)
-                                );
-                              return sum + d.value;
-                            }, 0)
+                            formatPHP(
+                              selectedTransaction.discounts.reduce((sum, d) => {
+                                if (d.type === "percent")
+                                  return (
+                                    sum +
+                                    getTotal(selectedTransaction) *
+                                      (d.value / 100)
+                                  );
+                                return sum + d.value;
+                              }, 0)
+                            )
                           }}
                         </span>
                       </li>

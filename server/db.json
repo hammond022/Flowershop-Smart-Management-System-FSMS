@@ -29,14 +29,14 @@
       "password": "test123",
       "role": {
         "Orders": {
-          "canCreate": true,
-          "canDelete": true,
+          "canCreate": false,
+          "canDelete": false,
           "canUpdate": false
         },
         "Items": {
-          "canCreate": true,
-          "canDelete": true,
-          "canUpdate": true
+          "canCreate": false,
+          "canDelete": false,
+          "canUpdate": false
         },
         "PurchaseOrders": {
           "canCreate": false
@@ -130,7 +130,7 @@
     {
       "id": 1760376321522,
       "name": "Red Rose",
-      "stock": 3,
+      "stock": 31,
       "price": 3.5,
       "cost": 1.5,
       "category": "Flowers",
@@ -144,7 +144,7 @@
     {
       "id": 1760376411347,
       "name": "White Lily",
-      "stock": 7,
+      "stock": 25,
       "price": 4,
       "cost": 2,
       "category": "Flowers",
@@ -158,7 +158,7 @@
     {
       "id": 1760376426460,
       "name": "Sunflower",
-      "stock": 0,
+      "stock": 18,
       "price": 3,
       "cost": 1.2,
       "category": "Flowers",
@@ -172,7 +172,7 @@
     {
       "id": 1760376469148,
       "name": "Pink Tulip",
-      "stock": 0,
+      "stock": 20,
       "price": 3.25,
       "cost": 1.3,
       "category": "Flowers",
@@ -186,7 +186,7 @@
     {
       "id": 1760376488968,
       "name": "Orchid",
-      "stock": 0,
+      "stock": 20,
       "price": 7.5,
       "cost": 3.5,
       "category": "Flowers",
@@ -200,7 +200,7 @@
     {
       "id": 1760376528009,
       "name": "Blue Hydrangea",
-      "stock": 0,
+      "stock": 20,
       "price": 5,
       "cost": 2.5,
       "category": "Flowers",
@@ -214,7 +214,7 @@
     {
       "id": 1760376546972,
       "name": "Lavender",
-      "stock": 0,
+      "stock": 19,
       "price": 2.75,
       "cost": 1.1,
       "category": "Flowers",
@@ -228,7 +228,7 @@
     {
       "id": 1760376750511,
       "name": "Gerbera Daisy",
-      "stock": 0,
+      "stock": 101020,
       "price": 3,
       "cost": 1.25,
       "category": "Flowers",
@@ -242,7 +242,7 @@
     {
       "id": 1760376785060,
       "name": "Yellow Rose",
-      "stock": 0,
+      "stock": 20,
       "price": 3.5,
       "cost": 1.5,
       "category": "Flowers",
@@ -256,7 +256,7 @@
     {
       "id": 1760377299155,
       "name": "Mixed Carnation",
-      "stock": 0,
+      "stock": 20,
       "price": 2.8,
       "cost": 1.2,
       "category": "Flowers",
@@ -270,7 +270,7 @@
     {
       "id": 1760377536424,
       "name": "Peace Lily",
-      "stock": 0,
+      "stock": 20,
       "price": 15,
       "cost": 7.5,
       "category": "Plants",
@@ -284,7 +284,7 @@
     {
       "id": 1760377556271,
       "name": "Snake Plant",
-      "stock": 0,
+      "stock": 20,
       "price": 12,
       "cost": 6,
       "category": "Plants",
@@ -298,7 +298,7 @@
     {
       "id": 1760377569474,
       "name": "Fiddle Leaf Fig",
-      "stock": 0,
+      "stock": 20,
       "price": 35,
       "cost": 18,
       "category": "Plants",
@@ -312,7 +312,7 @@
     {
       "id": 1760377585117,
       "name": "Aloe Vera",
-      "stock": 0,
+      "stock": 20,
       "price": 10,
       "cost": 5,
       "category": "Plants",
@@ -326,7 +326,7 @@
     {
       "id": 1760377599856,
       "name": "Bonsai Tree",
-      "stock": 0,
+      "stock": 20,
       "price": 45,
       "cost": 22.5,
       "category": "Plants",
@@ -340,7 +340,7 @@
     {
       "id": 1760377622089,
       "name": "Spider Plant",
-      "stock": 0,
+      "stock": 19,
       "price": 12,
       "cost": 6,
       "category": "Plants",
@@ -354,7 +354,7 @@
     {
       "id": 1760377638761,
       "name": "Orchid Plant",
-      "stock": 0,
+      "stock": 20,
       "price": 25,
       "cost": 12.5,
       "category": "Plants",
@@ -368,7 +368,7 @@
     {
       "id": 1760377654550,
       "name": "Rubber Plant",
-      "stock": 0,
+      "stock": 20,
       "price": 20,
       "cost": 10,
       "category": "Plants",
@@ -382,7 +382,7 @@
     {
       "id": 1760377720075,
       "name": "Mini Cactus",
-      "stock": 0,
+      "stock": 20,
       "price": 8,
       "cost": 3.5,
       "category": "Plants",
@@ -396,7 +396,7 @@
     {
       "id": 1760377760378,
       "name": "Vase - Small",
-      "stock": 0,
+      "stock": 20,
       "price": 8,
       "cost": 4,
       "category": "Others",
@@ -410,7 +410,7 @@
     {
       "id": 1760377776760,
       "name": "Vase - Large",
-      "stock": 0,
+      "stock": 20,
       "price": 15,
       "cost": 7.5,
       "category": "Others",
@@ -424,7 +424,7 @@
     {
       "id": 1760377794800,
       "name": "Floral Ribbon",
-      "stock": 0,
+      "stock": 20,
       "price": 2.5,
       "cost": 1,
       "category": "Others",
@@ -438,7 +438,7 @@
     {
       "id": 1760377816697,
       "name": "Flower Foam",
-      "stock": 0,
+      "stock": 20,
       "price": 3,
       "cost": 1.5,
       "category": "Others",
@@ -452,7 +452,7 @@
     {
       "id": 1760377831438,
       "name": "Greeting Cards",
-      "stock": 0,
+      "stock": 20,
       "price": 3.5,
       "cost": 1.5,
       "category": "Others",
@@ -466,7 +466,7 @@
     {
       "id": 1760377849048,
       "name": "Gift Wrap",
-      "stock": 0,
+      "stock": 20,
       "price": 2,
       "cost": 0.8,
       "category": "Others",
@@ -480,7 +480,7 @@
     {
       "id": 1760377864548,
       "name": "Fertilizer - Plant",
-      "stock": 0,
+      "stock": 10,
       "price": 5,
       "cost": 2.5,
       "category": "Others",
@@ -494,7 +494,7 @@
     {
       "id": 1760377888059,
       "name": "Pruning Shears",
-      "stock": 0,
+      "stock": 10,
       "price": 12,
       "cost": 6,
       "category": "Others",
@@ -508,7 +508,7 @@
     {
       "id": 1760377907286,
       "name": "Candle - Scented",
-      "stock": 0,
+      "stock": 10,
       "price": 6,
       "cost": 3,
       "category": "Others",
@@ -522,7 +522,7 @@
     {
       "id": 1760377926356,
       "name": "Flower Stand",
-      "stock": 0,
+      "stock": 11,
       "price": 20,
       "cost": 10,
       "category": "Others",
@@ -536,7 +536,7 @@
     {
       "id": 1763273603594,
       "name": "Jesse Pennington",
-      "stock": 0,
+      "stock": 20,
       "price": 171,
       "cost": 583,
       "category": "Plants",
@@ -551,13 +551,14 @@
     {
       "id": 1759004626042,
       "orderStart": "2025-09-18T09:00:00Z",
-      "orderEnd": "2025-09-18T10:00:00Z",
-      "orderStatus": "pending",
+      "orderEnd": "2025-11-22T18:20:33.985Z",
+      "orderStatus": "Completed",
       "selectedFlowers": [
         1758116371774
       ],
       "actionHistory": [],
-      "createdAt": "2025-09-27T20:23:46.042Z"
+      "createdAt": "2025-09-27T20:23:46.042Z",
+      "refId": "1321312312"
     },
     {
       "id": 1759025314017,
@@ -714,13 +715,14 @@
     {
       "id": 1759062040493,
       "orderStart": "2025-09-18T09:00:00Z",
-      "orderEnd": "2025-09-18T10:00:00Z",
-      "orderStatus": "pending",
+      "orderEnd": "2025-11-22T18:36:31.501Z",
+      "orderStatus": "Completed",
       "selectedFlowers": [
         1758116371774
       ],
       "actionHistory": [],
-      "createdAt": "2025-09-28T12:20:40.493Z"
+      "createdAt": "2025-09-28T12:20:40.493Z",
+      "refId": "123123123"
     },
     {
       "id": 1759078221093,
@@ -1550,8 +1552,8 @@
     {
       "id": 1762931442572,
       "orderStart": "2025-11-12T07:10:30.719Z",
-      "orderEnd": "2025-11-12T07:10:42.508Z",
-      "orderStatus": "pending",
+      "orderEnd": "2025-11-21T07:40:06.770Z",
+      "orderStatus": "Completed",
       "selectedFlowers": [
         {
           "id": 1760376321522,
@@ -1571,13 +1573,14 @@
       "change": 0,
       "dedicationMessage": "",
       "customerName": "sdsdsds",
-      "customerContact": "09165453441"
+      "customerContact": "09165453441",
+      "refId": "122333441231"
     },
     {
       "id": 1762932212710,
       "orderStart": "2025-11-12T07:23:18.062Z",
-      "orderEnd": "2025-11-12T07:23:32.667Z",
-      "orderStatus": "pending",
+      "orderEnd": "2025-11-19T18:46:59.758Z",
+      "orderStatus": "Completed",
       "selectedFlowers": [
         {
           "id": 1760376321522,
@@ -1597,7 +1600,409 @@
       "change": 0,
       "dedicationMessage": "",
       "customerName": "dsds",
-      "customerContact": "09165453441"
+      "customerContact": "09165453441",
+      "refId": "1231231231123"
+    },
+    {
+      "id": 1763719855365,
+      "orderStart": "2025-11-21T10:05:21.502Z",
+      "orderEnd": "2025-11-21T10:10:55.334Z",
+      "orderStatus": "complete",
+      "selectedFlowers": [
+        {
+          "id": 1760376411347,
+          "name": "White Lily",
+          "price": 4,
+          "stock": 17,
+          "qty": 1,
+          "oldPrice": 4,
+          "notes": ""
+        },
+        {
+          "id": 1760376426460,
+          "name": "Sunflower",
+          "price": 3,
+          "stock": 10,
+          "qty": 1,
+          "oldPrice": 3,
+          "notes": ""
+        },
+        {
+          "id": 1760376528009,
+          "name": "Blue Hydrangea",
+          "price": 5,
+          "stock": 10,
+          "qty": 1,
+          "oldPrice": 5,
+          "notes": ""
+        },
+        {
+          "id": 1760377585117,
+          "name": "Aloe Vera",
+          "price": 10,
+          "stock": 10,
+          "qty": 1,
+          "oldPrice": 10,
+          "notes": ""
+        },
+        {
+          "id": 1760377599856,
+          "name": "Bonsai Tree",
+          "price": 45,
+          "stock": 10,
+          "qty": 1,
+          "oldPrice": 45,
+          "notes": ""
+        },
+        {
+          "id": 1760377622089,
+          "name": "Spider Plant",
+          "price": 12,
+          "stock": 10,
+          "qty": 1,
+          "oldPrice": 12,
+          "notes": ""
+        },
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "price": 3.5,
+          "stock": 13,
+          "qty": 1,
+          "oldPrice": 3.5,
+          "notes": ""
+        }
+      ],
+      "discounts": [
+        {
+          "value": 3,
+          "type": "percent"
+        }
+      ],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-11-21T10:10:55.365Z",
+      "amountPaid": 100,
+      "change": 19.974999999999994,
+      "dedicationMessage": "",
+      "customerName": "",
+      "customerContact": ""
+    },
+    {
+      "id": 1763719872520,
+      "orderStart": "2025-11-21T10:11:02.238Z",
+      "orderEnd": "2025-11-21T10:11:12.391Z",
+      "orderStatus": "complete",
+      "selectedFlowers": [
+        {
+          "id": 1760376411347,
+          "name": "White Lily",
+          "price": 4,
+          "stock": 17,
+          "qty": 1,
+          "oldPrice": 4,
+          "notes": ""
+        },
+        {
+          "id": 1760376426460,
+          "name": "Sunflower",
+          "price": 3,
+          "stock": 10,
+          "qty": 2,
+          "oldPrice": 3,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-11-21T10:11:12.520Z",
+      "amountPaid": 100,
+      "change": 90,
+      "dedicationMessage": "",
+      "customerName": "",
+      "customerContact": ""
+    },
+    {
+      "id": 1763721385687,
+      "orderStart": "2025-11-21T10:36:22.297Z",
+      "orderEnd": "2025-11-21T10:36:25.673Z",
+      "orderStatus": "complete",
+      "selectedFlowers": [
+        {
+          "id": 1760376411347,
+          "name": "White Lily",
+          "price": 4,
+          "stock": 27,
+          "qty": 1,
+          "oldPrice": 4,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-11-21T10:36:25.687Z",
+      "amountPaid": 3123,
+      "change": 3119,
+      "dedicationMessage": "",
+      "customerName": "",
+      "customerContact": ""
+    },
+    {
+      "id": 1763834177100,
+      "orderStart": "2025-11-22T17:56:04.486Z",
+      "orderEnd": "2025-11-22T17:56:16.862Z",
+      "orderStatus": "complete",
+      "selectedFlowers": [
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "price": 3.5,
+          "stock": 34,
+          "qty": 1,
+          "oldPrice": 3.5,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-11-22T17:56:17.100Z",
+      "amountPaid": 100,
+      "change": 96.5,
+      "dedicationMessage": "asdasd",
+      "customerName": "",
+      "customerContact": ""
+    },
+    {
+      "id": 1763835223084,
+      "orderStart": "2025-11-22T18:13:41.164Z",
+      "orderEnd": "2025-11-22T18:13:42.924Z",
+      "orderStatus": "Cancelled",
+      "selectedFlowers": [
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "price": 3.5,
+          "stock": 33,
+          "qty": 1,
+          "oldPrice": 3.5,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-11-22T18:13:43.084Z",
+      "amountPaid": 0,
+      "change": 0,
+      "dedicationMessage": "",
+      "customerName": "",
+      "customerContact": ""
+    },
+    {
+      "id": 1763835241738,
+      "orderStart": "2025-11-22T18:13:58.476Z",
+      "orderEnd": "2025-11-22T18:14:01.717Z",
+      "orderStatus": "Cancelled",
+      "selectedFlowers": [
+        {
+          "id": 1760376411347,
+          "name": "White Lily",
+          "price": 4,
+          "stock": 26,
+          "qty": 1,
+          "oldPrice": 4,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-11-22T18:14:01.738Z",
+      "amountPaid": 0,
+      "change": 0,
+      "dedicationMessage": "",
+      "customerName": "",
+      "customerContact": ""
+    },
+    {
+      "id": 1763835270554,
+      "orderStart": "2025-11-22T18:14:08.985Z",
+      "orderEnd": "2025-11-22T18:14:30.535Z",
+      "orderStatus": "Cancelled",
+      "selectedFlowers": [
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "price": 3.5,
+          "stock": 33,
+          "qty": 1,
+          "oldPrice": 3.5,
+          "notes": ""
+        }
+      ],
+      "discounts": [
+        {
+          "value": 1,
+          "type": "amount"
+        }
+      ],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-11-22T18:14:30.554Z",
+      "amountPaid": 1222,
+      "change": 1219.5,
+      "dedicationMessage": "",
+      "customerName": "",
+      "customerContact": ""
+    },
+    {
+      "id": 1763835572847,
+      "orderStart": "2025-11-22T18:19:26.882Z",
+      "orderEnd": "2025-11-22T18:19:32.827Z",
+      "orderStatus": "completed",
+      "selectedFlowers": [
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "price": 3.5,
+          "stock": 33,
+          "qty": 1,
+          "oldPrice": 3.5,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-11-22T18:19:32.847Z",
+      "amountPaid": 12,
+      "change": 8.5,
+      "dedicationMessage": "",
+      "customerName": "",
+      "customerContact": ""
+    },
+    {
+      "id": 1763835587837,
+      "orderStart": "2025-11-22T18:19:41.235Z",
+      "orderEnd": "2025-11-22T18:19:47.821Z",
+      "orderStatus": "completed",
+      "selectedFlowers": [
+        {
+          "id": 1760376411347,
+          "name": "White Lily",
+          "price": 4,
+          "stock": 26,
+          "qty": 1,
+          "oldPrice": 4,
+          "notes": ""
+        },
+        {
+          "id": 1760376426460,
+          "name": "Sunflower",
+          "price": 3,
+          "stock": 18,
+          "qty": 2,
+          "oldPrice": 3,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-11-22T18:19:47.837Z",
+      "amountPaid": 122,
+      "change": 112,
+      "dedicationMessage": "",
+      "customerName": "",
+      "customerContact": ""
+    },
+    {
+      "id": 1763836524781,
+      "orderStart": "2025-11-22T18:34:49.285Z",
+      "orderEnd": "2025-11-22T18:35:24.608Z",
+      "orderStatus": "completed",
+      "selectedFlowers": [
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "price": 3.5,
+          "stock": 32,
+          "qty": 1,
+          "oldPrice": 3.5,
+          "notes": ""
+        },
+        {
+          "id": 1760376411347,
+          "name": "White Lily",
+          "price": 4,
+          "stock": 25,
+          "qty": 1,
+          "oldPrice": 4,
+          "notes": ""
+        },
+        {
+          "id": 1760376426460,
+          "name": "Sunflower",
+          "price": 3,
+          "stock": 18,
+          "qty": 1,
+          "oldPrice": 3,
+          "notes": ""
+        },
+        {
+          "id": 1760376546972,
+          "name": "Lavender",
+          "price": 2.75,
+          "stock": 20,
+          "qty": 1,
+          "oldPrice": 2.75,
+          "notes": ""
+        }
+      ],
+      "discounts": [
+        {
+          "value": 5,
+          "type": "percent"
+        }
+      ],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-11-22T18:35:24.781Z",
+      "amountPaid": 1222,
+      "change": 1209.4125,
+      "dedicationMessage": "",
+      "customerName": "",
+      "customerContact": ""
+    },
+    {
+      "id": 1763836627220,
+      "orderStart": "2025-11-22T18:36:48.390Z",
+      "orderEnd": "2025-11-22T18:37:18.729Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "price": 3.5,
+          "stock": 32,
+          "qty": 1,
+          "oldPrice": 3.5,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "bank",
+      "actionHistory": [],
+      "createdAt": "2025-11-22T18:37:07.220Z",
+      "amountPaid": 12.5,
+      "change": 9,
+      "dedicationMessage": "",
+      "customerName": "whujbe",
+      "customerContact": "09082189628",
+      "refId": "122333441231"
     }
   ],
   "purchaseOrders": [
@@ -1725,6 +2130,442 @@
       ],
       "totalCost": 1.5,
       "createdAt": "2025-11-16T06:16:22.536Z"
+    },
+    {
+      "id": 1763716676051,
+      "supplier": "qasdas",
+      "items": [
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "qty": 10,
+          "costPerUnit": 1.5,
+          "subtotal": 15
+        },
+        {
+          "id": 1760376411347,
+          "name": "White Lily",
+          "qty": 10,
+          "costPerUnit": 2,
+          "subtotal": 20
+        },
+        {
+          "id": 1760376426460,
+          "name": "Sunflower",
+          "qty": 10,
+          "costPerUnit": 1.2,
+          "subtotal": 12
+        },
+        {
+          "id": 1760376469148,
+          "name": "Pink Tulip",
+          "qty": 10,
+          "costPerUnit": 1.3,
+          "subtotal": 13
+        },
+        {
+          "id": 1760376488968,
+          "name": "Orchid",
+          "qty": 10,
+          "costPerUnit": 3.5,
+          "subtotal": 35
+        },
+        {
+          "id": 1760376528009,
+          "name": "Blue Hydrangea",
+          "qty": 10,
+          "costPerUnit": 2.5,
+          "subtotal": 25
+        },
+        {
+          "id": 1760376546972,
+          "name": "Lavender",
+          "qty": 10,
+          "costPerUnit": 1.1,
+          "subtotal": 11
+        },
+        {
+          "id": 1760376750511,
+          "name": "Gerbera Daisy",
+          "qty": 101010,
+          "costPerUnit": 1.25,
+          "subtotal": 126262.5
+        },
+        {
+          "id": 1760376785060,
+          "name": "Yellow Rose",
+          "qty": 10,
+          "costPerUnit": 1.5,
+          "subtotal": 15
+        },
+        {
+          "id": 1760377299155,
+          "name": "Mixed Carnation",
+          "qty": 10,
+          "costPerUnit": 1.2,
+          "subtotal": 12
+        },
+        {
+          "id": 1760377536424,
+          "name": "Peace Lily",
+          "qty": 10,
+          "costPerUnit": 7.5,
+          "subtotal": 75
+        },
+        {
+          "id": 1760377556271,
+          "name": "Snake Plant",
+          "qty": 10,
+          "costPerUnit": 6,
+          "subtotal": 60
+        },
+        {
+          "id": 1760377569474,
+          "name": "Fiddle Leaf Fig",
+          "qty": 10,
+          "costPerUnit": 18,
+          "subtotal": 180
+        },
+        {
+          "id": 1760377585117,
+          "name": "Aloe Vera",
+          "qty": 10,
+          "costPerUnit": 5,
+          "subtotal": 50
+        },
+        {
+          "id": 1760377599856,
+          "name": "Bonsai Tree",
+          "qty": 10,
+          "costPerUnit": 22.5,
+          "subtotal": 225
+        },
+        {
+          "id": 1760377622089,
+          "name": "Spider Plant",
+          "qty": 10,
+          "costPerUnit": 6,
+          "subtotal": 60
+        },
+        {
+          "id": 1760377638761,
+          "name": "Orchid Plant",
+          "qty": 10,
+          "costPerUnit": 12.5,
+          "subtotal": 125
+        },
+        {
+          "id": 1760377654550,
+          "name": "Rubber Plant",
+          "qty": 10,
+          "costPerUnit": 10,
+          "subtotal": 100
+        },
+        {
+          "id": 1760377720075,
+          "name": "Mini Cactus",
+          "qty": 10,
+          "costPerUnit": 3.5,
+          "subtotal": 35
+        },
+        {
+          "id": 1760377760378,
+          "name": "Vase - Small",
+          "qty": 10,
+          "costPerUnit": 4,
+          "subtotal": 40
+        },
+        {
+          "id": 1760377776760,
+          "name": "Vase - Large",
+          "qty": 10,
+          "costPerUnit": 7.5,
+          "subtotal": 75
+        },
+        {
+          "id": 1760377794800,
+          "name": "Floral Ribbon",
+          "qty": 10,
+          "costPerUnit": 1,
+          "subtotal": 10
+        },
+        {
+          "id": 1760377816697,
+          "name": "Flower Foam",
+          "qty": 10,
+          "costPerUnit": 1.5,
+          "subtotal": 15
+        },
+        {
+          "id": 1760377831438,
+          "name": "Greeting Cards",
+          "qty": 10,
+          "costPerUnit": 1.5,
+          "subtotal": 15
+        },
+        {
+          "id": 1760377849048,
+          "name": "Gift Wrap",
+          "qty": 10,
+          "costPerUnit": 0.8,
+          "subtotal": 8
+        },
+        {
+          "id": 1760377864548,
+          "name": "Fertilizer - Plant",
+          "qty": 10,
+          "costPerUnit": 2.5,
+          "subtotal": 25
+        },
+        {
+          "id": 1760377888059,
+          "name": "Pruning Shears",
+          "qty": 10,
+          "costPerUnit": 6,
+          "subtotal": 60
+        },
+        {
+          "id": 1760377907286,
+          "name": "Candle - Scented",
+          "qty": 10,
+          "costPerUnit": 3,
+          "subtotal": 30
+        },
+        {
+          "id": 1760377926356,
+          "name": "Flower Stand",
+          "qty": 10,
+          "costPerUnit": 10,
+          "subtotal": 100
+        },
+        {
+          "id": 1763273603594,
+          "name": "Jesse Pennington",
+          "qty": 10,
+          "costPerUnit": 583,
+          "subtotal": 5830
+        }
+      ],
+      "totalCost": 133538.5,
+      "createdAt": "2025-11-21T09:17:56.051Z"
+    },
+    {
+      "id": 1763721185904,
+      "supplier": "Whinelit Test1",
+      "items": [
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "qty": 10,
+          "costPerUnit": 1.5,
+          "subtotal": 15
+        },
+        {
+          "id": 1760376411347,
+          "name": "White Lily",
+          "qty": 10,
+          "costPerUnit": 2,
+          "subtotal": 20
+        },
+        {
+          "id": 1760376426460,
+          "name": "Sunflower",
+          "qty": 10,
+          "costPerUnit": 1.2,
+          "subtotal": 12
+        },
+        {
+          "id": 1760376469148,
+          "name": "Pink Tulip",
+          "qty": 10,
+          "costPerUnit": 1.3,
+          "subtotal": 13
+        },
+        {
+          "id": 1760376488968,
+          "name": "Orchid",
+          "qty": 10,
+          "costPerUnit": 3.5,
+          "subtotal": 35
+        },
+        {
+          "id": 1760376528009,
+          "name": "Blue Hydrangea",
+          "qty": 10,
+          "costPerUnit": 2.5,
+          "subtotal": 25
+        },
+        {
+          "id": 1760376546972,
+          "name": "Lavender",
+          "qty": 10,
+          "costPerUnit": 1.1,
+          "subtotal": 11
+        },
+        {
+          "id": 1760376750511,
+          "name": "Gerbera Daisy",
+          "qty": 10,
+          "costPerUnit": 1.25,
+          "subtotal": 12.5
+        },
+        {
+          "id": 1760376785060,
+          "name": "Yellow Rose",
+          "qty": 10,
+          "costPerUnit": 1.5,
+          "subtotal": 15
+        },
+        {
+          "id": 1760377299155,
+          "name": "Mixed Carnation",
+          "qty": 10,
+          "costPerUnit": 1.2,
+          "subtotal": 12
+        },
+        {
+          "id": 1760377536424,
+          "name": "Peace Lily",
+          "qty": 10,
+          "costPerUnit": 7.5,
+          "subtotal": 75
+        },
+        {
+          "id": 1760377556271,
+          "name": "Snake Plant",
+          "qty": 10,
+          "costPerUnit": 6,
+          "subtotal": 60
+        },
+        {
+          "id": 1760377569474,
+          "name": "Fiddle Leaf Fig",
+          "qty": 10,
+          "costPerUnit": 18,
+          "subtotal": 180
+        },
+        {
+          "id": 1760377585117,
+          "name": "Aloe Vera",
+          "qty": 10,
+          "costPerUnit": 5,
+          "subtotal": 50
+        },
+        {
+          "id": 1760377599856,
+          "name": "Bonsai Tree",
+          "qty": 10,
+          "costPerUnit": 22.5,
+          "subtotal": 225
+        },
+        {
+          "id": 1760377622089,
+          "name": "Spider Plant",
+          "qty": 10,
+          "costPerUnit": 6,
+          "subtotal": 60
+        },
+        {
+          "id": 1760377638761,
+          "name": "Orchid Plant",
+          "qty": 10,
+          "costPerUnit": 12.5,
+          "subtotal": 125
+        },
+        {
+          "id": 1760377654550,
+          "name": "Rubber Plant",
+          "qty": 10,
+          "costPerUnit": 10,
+          "subtotal": 100
+        },
+        {
+          "id": 1760377720075,
+          "name": "Mini Cactus",
+          "qty": 10,
+          "costPerUnit": 3.5,
+          "subtotal": 35
+        },
+        {
+          "id": 1760377760378,
+          "name": "Vase - Small",
+          "qty": 10,
+          "costPerUnit": 4,
+          "subtotal": 40
+        },
+        {
+          "id": 1760377776760,
+          "name": "Vase - Large",
+          "qty": 10,
+          "costPerUnit": 7.5,
+          "subtotal": 75
+        },
+        {
+          "id": 1760377794800,
+          "name": "Floral Ribbon",
+          "qty": 10,
+          "costPerUnit": 1,
+          "subtotal": 10
+        },
+        {
+          "id": 1760377816697,
+          "name": "Flower Foam",
+          "qty": 10,
+          "costPerUnit": 1.5,
+          "subtotal": 15
+        },
+        {
+          "id": 1760377831438,
+          "name": "Greeting Cards",
+          "qty": 10,
+          "costPerUnit": 1.5,
+          "subtotal": 15
+        },
+        {
+          "id": 1760377849048,
+          "name": "Gift Wrap",
+          "qty": 10,
+          "costPerUnit": 0.8,
+          "subtotal": 8
+        },
+        {
+          "id": 1760377864548,
+          "name": "Fertilizer - Plant",
+          "qty": 0,
+          "costPerUnit": 2.5,
+          "subtotal": 0
+        },
+        {
+          "id": 1760377888059,
+          "name": "Pruning Shears",
+          "qty": 0,
+          "costPerUnit": 6,
+          "subtotal": 0
+        },
+        {
+          "id": 1760377907286,
+          "name": "Candle - Scented",
+          "qty": 0,
+          "costPerUnit": 3,
+          "subtotal": 0
+        },
+        {
+          "id": 1760377926356,
+          "name": "Flower Stand",
+          "qty": 1,
+          "costPerUnit": 10,
+          "subtotal": 10
+        },
+        {
+          "id": 1763273603594,
+          "name": "Jesse Pennington",
+          "qty": 10,
+          "costPerUnit": 583,
+          "subtotal": 5830
+        }
+      ],
+      "totalCost": 7083.5,
+      "createdAt": "2025-11-21T10:33:05.904Z"
     }
   ],
   "customBouquets": [
