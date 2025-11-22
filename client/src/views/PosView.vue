@@ -1045,13 +1045,13 @@ const change = computed(() => {
                   id="customerName"
                   class="form-control"
                   v-model="order.customerName"
-                  :class="{ 'is-invalid': showCustomerFields && !customerName }"
+                  :class="{ 'is-invalid': showCustomerFields && !order.customerName }"
                   placeholder="Customer Name"
                 />
                 <label for="customerName">Customer Name</label>
                 <div
                   class="invalid-feedback"
-                  v-if="showCustomerFields && !customerName"
+                  v-if="showCustomerFields && !order.customerName"
                 >
                   Customer name is required.
                 </div>
@@ -1064,7 +1064,7 @@ const change = computed(() => {
                   v-model="order.customerContact"
                   :class="{
                     'is-invalid':
-                      showCustomerFields && customerContact && !isValidContact,
+                      showCustomerFields && order.customerContact && !isValidContact,
                   }"
                   placeholder="Customer Contact"
                 />
@@ -1072,7 +1072,7 @@ const change = computed(() => {
                 <div
                   class="invalid-feedback"
                   v-if="
-                    showCustomerFields && customerContact && !isValidContact
+                    showCustomerFields && order.customerContact && !isValidContact
                   "
                 >
                   Invalid phone number. Must be 10-11 digits and start with 09
