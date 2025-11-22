@@ -13,9 +13,8 @@ POS System
 | Modify quantity | ✅ |
 | Customer notes per product order | ✅ |
 | Save order for later (draft) | ✅ |
-| Action history (shows edits, voids, and time taken per action) | 🚧 In Progres |
 | Void whole order (depends on user permission) | ✅ |
-| Create custom product on the fly (not from inventory) | ❌ Cancelled |
+| Create custom product on the fly (not from inventory) | ✅ |
 | Modify product price on the fly | ✅ |
 | Add discounts and tax | ✅ |
 | Products sorted by category | ✅ |
@@ -29,14 +28,13 @@ Inventory System
 |----------|:------:|
 | Automatic stock counting from POS orders | ✅ |
 | Create a product | ✅ |
-| Set product price per quantity (bundles) | ❌ Cancelled |
+| Set product price per quantity (bundles) | ✅ |
 | Create a category | ✅ |
 | Track stock quantity | ✅ |
 | Export to spreadsheet | ✅ |
 | Add tags to products | ✅ |
 | Low stock warning | ✅ |
-| Stock histogram (sales per day/month) | ❌ Cancelled (turned in sales histogram) |
-| Product edit action history | ❌ Cancelled |
+| Stock histogram (sales per day/month) | ✅ |
 
 
 
@@ -44,8 +42,8 @@ Settings
 
 | Feature | Status |
 |----------|:------:|
-| Add/Edit/Delete users | 🚧 In Progress |
-| User permissions per action (void, edit, manage POS/inventory) | 🚧 In Progress |
+| Add/Edit/Delete users | ✅ |
+| User permissions per action (void, edit, manage POS/inventory) | ✅ |
 
 ### User Deletion Rules
 

@@ -20,6 +20,16 @@ import CustomBouquet from "@/components/MLBouquet/MLBouquet.vue";
 const selectedCategory = ref("all");
 const categories = ref([]);
 const allItems = ref([]);
+
+function formatPHP(value) {
+  const num = Number(value) || 0;
+  return new Intl.NumberFormat("en-PH", {
+    style: "currency",
+    currency: "PHP",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(num);
+}
 const dedicationMessage = ref("");
 const dedicationLimit = 200;
 const discounts = ref([]);
@@ -239,10 +249,32 @@ function resetOrder() {
   showCustomerFields.value = false;
 }
 
-function voidOrder() {
-  resetOrder();
-  cancelOrderModal.hide();
-  showToast("warning", "Order voided successfully!");
+async function voidOrder() {
+  try {
+    // Persist a cancelled/voided order so it appears in Transactions
+    await OrderService.createOrder({
+      orderStart: order.orderStart || new Date().toISOString(),
+      orderEnd: new Date().toISOString(),
+      orderStatus: "Cancelled",
+      mop: order.mop,
+      selectedFlowers: selectedFlowers.value.map((f) => ({ ...f })),
+      discounts: discounts.value.map((d) => ({ ...d })),
+      actionHistory: order.actionHistory || [],
+      amountPaid: order.amountPaid || 0,
+      change: change.value || 0,
+      dedicationMessage: dedicationMessage.value || "",
+      customerName: order.customerName || "",
+      customerContact: order.customerContact || "",
+    });
+
+    showToast("warning", "Order voided and saved as Cancelled!");
+  } catch (err) {
+    console.error("Failed to save cancelled order:", err);
+    showToast("error", "Failed to persist cancelled order");
+  } finally {
+    resetOrder();
+    cancelOrderModal.hide();
+  }
 }
 
 async function confirmAsDraft() {
@@ -343,7 +375,7 @@ async function confirmCheckout(status) {
 
 const OrderStatus = computed(() =>
   order.mop === "cash"
-    ? "complete"
+    ? "completed"
     : order.mop === "bank"
     ? "pending"
     : "unknown"
@@ -573,7 +605,7 @@ const change = computed(() => {
                         v-tooltip="item.notes"
                         v-if="item.notes"
                       ></i>
-                      {{ item.name }} - ₱{{ item.price }}
+                      {{ item.name }} - {{ formatPHP(item.price) }}
                     </div>
 
                     <div>
@@ -627,7 +659,7 @@ const change = computed(() => {
                     v-if="total > 0"
                   >
                     <span>Subtotal:</span>
-                    <span class="badge text-bg-secondary">₱{{ total }}</span>
+                    <span class="badge text-bg-secondary">{{ formatPHP(total) }}</span>
                   </li>
                   <li
                     class="list-group-item d-flex justify-content-between align-items-center fw-bold"
@@ -635,7 +667,7 @@ const change = computed(() => {
                   >
                     <span>Discount total:</span>
                     <span class="badge text-bg-primary"
-                      >₱{{
+                      >{{ formatPHP(
                         discounts.reduce((sum, d) => {
                           return (
                             sum +
@@ -644,7 +676,7 @@ const change = computed(() => {
                               : (total * d.value) / 100)
                           );
                         }, 0)
-                      }}
+                      ) }}
                     </span>
                   </li>
                   <li
@@ -652,7 +684,7 @@ const change = computed(() => {
                     v-if="totalAfterDiscount < total"
                   >
                     <span>Total after discount:</span>
-                    <span>₱{{ totalAfterDiscount }}</span>
+                    <span>{{ formatPHP(totalAfterDiscount) }}</span>
                   </li>
                 </ul>
               </div>
@@ -754,7 +786,7 @@ const change = computed(() => {
           </div>
 
           <div class="form-text" v-if="editModal.oldPrice != editModal.price">
-            Price has been edited, original price ₱{{ editModal.oldPrice }}
+            Price has been edited, original price {{ formatPHP(editModal.oldPrice) }}
           </div>
 
           <div class="input-group mb-3">
@@ -837,7 +869,7 @@ const change = computed(() => {
                     >
                       {{ item.qty }}x {{ item.name }}
                       <div>
-                        <span>₱{{ item.price }}</span>
+                        <span>{{ formatPHP(item.price) }}</span>
                       </div>
                     </li>
 
@@ -845,7 +877,7 @@ const change = computed(() => {
                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-success"
                     >
                       Total:
-                      <span>₱{{ total }}</span>
+                      <span>{{ formatPHP(total) }}</span>
                     </li>
                   </ul>
 
@@ -926,7 +958,7 @@ const change = computed(() => {
                         {{ item.qty }}x {{ item.name }}
                       </div>
                       <div>
-                        <span>₱{{ item.price }}</span>
+                        <span>{{ formatPHP(item.price) }}</span>
                       </div>
                     </li>
                     <li
@@ -935,7 +967,7 @@ const change = computed(() => {
                     >
                       <span>Discount total:</span>
                       <span class="badge text-bg-primary"
-                        >₱{{
+                        >{{ formatPHP(
                           discounts.reduce((sum, d) => {
                             return (
                               sum +
@@ -944,7 +976,7 @@ const change = computed(() => {
                                 : (total * d.value) / 100)
                             );
                           }, 0)
-                        }}
+                        ) }}
                       </span>
                     </li>
 
@@ -952,7 +984,7 @@ const change = computed(() => {
                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-success"
                     >
                       Total:
-                      <span>₱{{ totalAfterDiscount }}</span>
+                      <span>{{ formatPHP(totalAfterDiscount) }}</span>
                     </li>
                   </ul>
 
@@ -1013,13 +1045,13 @@ const change = computed(() => {
                   id="customerName"
                   class="form-control"
                   v-model="order.customerName"
-                  :class="{ 'is-invalid': showCustomerFields && !customerName }"
+                  :class="{ 'is-invalid': showCustomerFields && !order.customerName }"
                   placeholder="Customer Name"
                 />
                 <label for="customerName">Customer Name</label>
                 <div
                   class="invalid-feedback"
-                  v-if="showCustomerFields && !customerName"
+                  v-if="showCustomerFields && !order.customerName"
                 >
                   Customer name is required.
                 </div>
@@ -1032,7 +1064,7 @@ const change = computed(() => {
                   v-model="order.customerContact"
                   :class="{
                     'is-invalid':
-                      showCustomerFields && customerContact && !isValidContact,
+                      showCustomerFields && order.customerContact && !isValidContact,
                   }"
                   placeholder="Customer Contact"
                 />
@@ -1040,7 +1072,7 @@ const change = computed(() => {
                 <div
                   class="invalid-feedback"
                   v-if="
-                    showCustomerFields && customerContact && !isValidContact
+                    showCustomerFields && order.customerContact && !isValidContact
                   "
                 >
                   Invalid phone number. Must be 10-11 digits and start with 09
@@ -1083,13 +1115,13 @@ const change = computed(() => {
             class="form-control mb-2"
             v-model.number="order.amountPaid"
             :min="totalAfterDiscount"
-            :placeholder="`₱${totalAfterDiscount}`"
+            :placeholder="formatPHP(totalAfterDiscount)"
           />
 
           <div v-if="order.amountPaid > 0" class="mt-2">
             <label class="form-label fw-bold">Change:</label>
             <div class="form-control bg-light text-success fw-bold" readonly>
-              ₱{{ change }}
+              {{ formatPHP(change) }}
             </div>
           </div>
         </div>
@@ -1191,7 +1223,7 @@ const change = computed(() => {
                     >
                       {{ item.qty }}x {{ item.name }}
                       <div>
-                        <span>₱{{ item.price }}</span>
+                        <span>{{ formatPHP(item.price) }}</span>
                       </div>
                     </li>
 
@@ -1201,7 +1233,7 @@ const change = computed(() => {
                     >
                       <span>Discount total:</span>
                       <span class="badge text-bg-primary"
-                        >₱{{
+                        >{{ formatPHP(
                           discounts.reduce((sum, d) => {
                             return (
                               sum +
@@ -1210,7 +1242,7 @@ const change = computed(() => {
                                 : (total * d.value) / 100)
                             );
                           }, 0)
-                        }}
+                        ) }}
                       </span>
                     </li>
 
@@ -1218,7 +1250,7 @@ const change = computed(() => {
                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-success"
                     >
                       Total:
-                      <span>₱{{ totalAfterDiscount }}</span>
+                      <span>{{ formatPHP(totalAfterDiscount) }}</span>
                     </li>
                   </ul>
 

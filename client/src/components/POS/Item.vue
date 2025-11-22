@@ -31,9 +31,9 @@ function addItem() {
       <!-- Stock status badges -->
       <span v-if="stock === 0" class="badge text-bg-danger">Out of stock</span>
       <span v-else-if="stock < 5" class="badge text-bg-warning"
-        >stock: {{ stock }}</span
+        >Stock: {{ stock }}</span
       >
-      <span v-else class="badge text-bg-success">stock: {{ stock }}</span>
+      <span v-else class="badge text-bg-success">Stock: {{ stock }}</span>
     </div>
   </button>
 </template>
