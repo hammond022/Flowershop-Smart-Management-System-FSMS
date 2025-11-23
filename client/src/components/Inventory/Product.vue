@@ -67,3 +67,13 @@ function toggleRowSelection() {
     <td scope="row">₱{{ price }}</td>
   </tr>
 </template>
+<style>
+.form-check-input {
+  border: 2px solid rgb(29, 61, 221) !important;
+}
+
+.form-check-input:checked {
+  background-color: rgb(29, 61, 221) !important;
+  border-color: rgb(29, 61, 221) !important;
+}
+</style>
