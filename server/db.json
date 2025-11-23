@@ -130,7 +130,7 @@
     {
       "id": 1760376411347,
       "name": "White Lily",
-      "stock": 25,
+      "stock": 35,
       "price": 4,
       "cost": 2,
       "category": "Flowers",
@@ -144,7 +144,7 @@
     {
       "id": 1760376426460,
       "name": "Sunflower",
-      "stock": 18,
+      "stock": 13,
       "price": 3,
       "cost": 1.2,
       "category": "Flowers",
@@ -1989,6 +1989,169 @@
       "customerName": "whujbe",
       "customerContact": "09082189628",
       "refId": "122333441231"
+    },
+    {
+      "id": 1763879025160,
+      "orderStart": "2025-11-23T06:23:13.668Z",
+      "orderEnd": "2025-11-23T06:23:45.079Z",
+      "orderStatus": "completed",
+      "selectedFlowers": [
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "price": 3.5,
+          "stock": 31,
+          "qty": 3,
+          "oldPrice": 3.5,
+          "notes": ""
+        },
+        {
+          "id": 1760376411347,
+          "name": "White Lily",
+          "price": 4,
+          "stock": 25,
+          "qty": 2,
+          "oldPrice": 4,
+          "notes": ""
+        },
+        {
+          "id": 1760376426460,
+          "name": "Sunflower",
+          "price": 3,
+          "stock": 18,
+          "qty": 5,
+          "oldPrice": 3,
+          "notes": ""
+        }
+      ],
+      "discounts": [
+        {
+          "value": 5,
+          "type": "percent"
+        }
+      ],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-11-23T06:23:45.160Z",
+      "amountPaid": 40,
+      "change": 8.175,
+      "dedicationMessage": "",
+      "customerName": "",
+      "customerContact": ""
+    },
+    {
+      "id": 1763894531704,
+      "orderStart": "2025-11-23T10:41:55.570Z",
+      "orderEnd": "2025-11-23T10:42:11.650Z",
+      "orderStatus": "Cancelled",
+      "selectedFlowers": [
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "price": 3.5,
+          "stock": 31,
+          "qty": 1,
+          "oldPrice": 3.5,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-11-23T10:42:11.704Z",
+      "amountPaid": 0,
+      "change": 0,
+      "dedicationMessage": "",
+      "customerName": "",
+      "customerContact": ""
+    },
+    {
+      "id": 1763897944141,
+      "orderStart": "2025-11-23T11:38:38.709Z",
+      "orderEnd": "2025-11-23T11:39:04.041Z",
+      "orderStatus": "completed",
+      "selectedFlowers": [
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "price": 3.5,
+          "stock": 31,
+          "qty": 1,
+          "oldPrice": 3.5,
+          "notes": ""
+        },
+        {
+          "id": 1760376411347,
+          "name": "White Lily",
+          "price": 4,
+          "stock": 25,
+          "qty": 1,
+          "oldPrice": 4,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-11-23T11:39:04.141Z",
+      "amountPaid": 1223,
+      "change": 1215.5,
+      "dedicationMessage": "",
+      "customerName": "Louwin Tan",
+      "customerContact": "09082189628"
+    },
+    {
+      "id": 1763898152745,
+      "orderStart": "2025-11-23T11:42:17.695Z",
+      "orderEnd": "2025-11-23T11:42:51.933Z",
+      "orderStatus": "Completed",
+      "selectedFlowers": [
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "price": 3.5,
+          "stock": 40,
+          "qty": 1,
+          "oldPrice": 3.5,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "bank",
+      "actionHistory": [],
+      "createdAt": "2025-11-23T11:42:32.745Z",
+      "amountPaid": 122,
+      "change": 118.5,
+      "dedicationMessage": "",
+      "customerName": "Erethea Clestine",
+      "customerContact": "09082189628",
+      "refId": "12233344"
+    },
+    {
+      "id": 1763926432520,
+      "orderStart": "2025-11-23T19:33:40.785Z",
+      "orderEnd": "2025-11-23T19:33:52.467Z",
+      "orderStatus": "completed",
+      "selectedFlowers": [
+        {
+          "id": 1760376321522,
+          "name": "Red Roses",
+          "price": 5,
+          "stock": 39,
+          "qty": 1,
+          "oldPrice": 5,
+          "notes": ""
+        }
+      ],
+      "discounts": [],
+      "mop": "cash",
+      "actionHistory": [],
+      "createdAt": "2025-11-23T19:33:52.520Z",
+      "amountPaid": 1000,
+      "change": 995,
+      "dedicationMessage": "",
+      "customerName": "Erethea Clestine",
+      "customerContact": "09082189628"
     }
   ],
   "purchaseOrders": [
@@ -2552,6 +2715,28 @@
       ],
       "totalCost": 7083.5,
       "createdAt": "2025-11-21T10:33:05.904Z"
+    },
+    {
+      "id": 1763898098138,
+      "supplier": "sw",
+      "items": [
+        {
+          "id": 1760376321522,
+          "name": "Red Rose",
+          "qty": 10,
+          "costPerUnit": 1.5,
+          "subtotal": 15
+        },
+        {
+          "id": 1760376411347,
+          "name": "White Lily",
+          "qty": 10,
+          "costPerUnit": 2,
+          "subtotal": 20
+        }
+      ],
+      "totalCost": 35,
+      "createdAt": "2025-11-23T11:41:38.138Z"
     }
   ],
   "customBouquets": [
@@ -2569,6 +2754,26 @@
       ],
       "createdAt": "2025-11-16T06:16:22.536Z",
       "updatedAt": "2025-11-16T06:16:22.536Z"
+    },
+    {
+      "id": 1763898038596,
+      "name": "Whinelit",
+      "description": "",
+      "price": 1000,
+      "items": [
+        {
+          "itemId": 1760377599856,
+          "itemName": "Bonsai Tree",
+          "quantity": 1
+        },
+        {
+          "itemId": 1760377556271,
+          "itemName": "Snake Plant",
+          "quantity": 1
+        }
+      ],
+      "createdAt": "2025-11-23T11:40:38.596Z",
+      "updatedAt": "2025-11-23T11:40:38.596Z"
     }
   ]
 }

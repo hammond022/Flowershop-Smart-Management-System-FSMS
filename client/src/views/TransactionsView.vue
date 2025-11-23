@@ -96,12 +96,12 @@ function formatPHP(value) {
 }
 
 function displayStatus(s) {
-  const st = (s || '').toString();
-  if (!st) return '';
+  const st = (s || "").toString();
+  if (!st) return "";
   const lower = st.toLowerCase();
-  if (lower.includes('void') || lower.includes('cancel')) return 'Cancelled';
-  if (lower.includes('complete')) return 'Completed';
-  if (lower.includes('pending')) return 'Pending';
+  if (lower.includes("void") || lower.includes("cancel")) return "Cancelled";
+  if (lower.includes("complete")) return "Completed";
+  if (lower.includes("pending")) return "Pending";
   return st.charAt(0).toUpperCase() + st.slice(1).toLowerCase();
 }
 
@@ -233,30 +233,30 @@ const printTransaction = (tx) => {
   autoTable(doc, {
     startY: doc.lastAutoTable.finalY + 20,
     body: [
-    [
-      "Subtotal",
-      formatPHP(
-        tx.selectedFlowers?.reduce(
-          (sum, f) => sum + f.price * (f.qty || 0),
-          0
-        ) || 0
-      ),
-    ],
-    [
-      "Discount",
-      formatPHP(
-        tx.discounts?.reduce((sum, d) => {
-          const subtotal =
-            tx.selectedFlowers?.reduce(
-              (sum, f) => sum + f.price * (f.qty || 0),
-              0
-            ) || 0;
-          if (d.type === "percent") return sum + subtotal * (d.value / 100);
-          return sum + d.value;
-        }, 0) || 0
-      ),
-    ],
-    ["Total", formatPHP(getTotal(tx))],
+      [
+        "Subtotal",
+        formatPHP(
+          tx.selectedFlowers?.reduce(
+            (sum, f) => sum + f.price * (f.qty || 0),
+            0
+          ) || 0
+        ),
+      ],
+      [
+        "Discount",
+        formatPHP(
+          tx.discounts?.reduce((sum, d) => {
+            const subtotal =
+              tx.selectedFlowers?.reduce(
+                (sum, f) => sum + f.price * (f.qty || 0),
+                0
+              ) || 0;
+            if (d.type === "percent") return sum + subtotal * (d.value / 100);
+            return sum + d.value;
+          }, 0) || 0
+        ),
+      ],
+      ["Total", formatPHP(getTotal(tx))],
     ],
   });
 
@@ -436,13 +436,26 @@ onMounted(() => {
               }}
             </td>
             <td>
-                <span
+              <span
                 class="badge"
                 :class="{
-                  'bg-success': (tx.orderStatus || '').toString().toLowerCase().includes('complete'),
-                    'bg-warning text-dark':
-                      (tx.orderStatus || '').toString().toLowerCase().includes('pending'),
-                    'bg-danger': (tx.orderStatus || '').toString().toLowerCase().includes('cancel') || (tx.orderStatus || '').toString().toLowerCase().includes('void'),
+                  'bg-success': (tx.orderStatus || '')
+                    .toString()
+                    .toLowerCase()
+                    .includes('complete'),
+                  'bg-warning text-dark': (tx.orderStatus || '')
+                    .toString()
+                    .toLowerCase()
+                    .includes('pending'),
+                  'bg-danger':
+                    (tx.orderStatus || '')
+                      .toString()
+                      .toLowerCase()
+                      .includes('cancel') ||
+                    (tx.orderStatus || '')
+                      .toString()
+                      .toLowerCase()
+                      .includes('void'),
                 }"
               >
                 {{ displayStatus(tx.orderStatus) }}
@@ -504,13 +517,18 @@ onMounted(() => {
             ></button>
           </div>
           <div class="modal-body">
-              <div
-                class="alert alert-warning"
-                role="alert"
-                v-if="(selectedTransaction.orderStatus || '').toString().toLowerCase().includes('pending')"
-              >
-                Pending payment through Bank Transfer/E-Wallet.
-              </div>
+            <div
+              class="alert alert-warning"
+              role="alert"
+              v-if="
+                (selectedTransaction.orderStatus || '')
+                  .toString()
+                  .toLowerCase()
+                  .includes('pending')
+              "
+            >
+              Pending payment through Bank Transfer/E-Wallet.
+            </div>
             <p>
               <strong>Order Start:</strong>
               {{ new Date(selectedTransaction.orderStart).toLocaleString() }}
@@ -529,12 +547,28 @@ onMounted(() => {
             </p>
             <p>
               <strong>Status: </strong>
-                <span
+              <span
                 class="badge"
                 :class="{
-                  'bg-success': (selectedTransaction.orderStatus || '').toString().toLowerCase().includes('complete'),
-                  'bg-warning text-dark': (selectedTransaction.orderStatus || '').toString().toLowerCase().includes('pending'),
-                  'bg-danger': (selectedTransaction.orderStatus || '').toString().toLowerCase().includes('cancel') || (selectedTransaction.orderStatus || '').toString().toLowerCase().includes('void'),
+                  'bg-success': (selectedTransaction.orderStatus || '')
+                    .toString()
+                    .toLowerCase()
+                    .includes('complete'),
+                  'bg-warning text-dark': (
+                    selectedTransaction.orderStatus || ''
+                  )
+                    .toString()
+                    .toLowerCase()
+                    .includes('pending'),
+                  'bg-danger':
+                    (selectedTransaction.orderStatus || '')
+                      .toString()
+                      .toLowerCase()
+                      .includes('cancel') ||
+                    (selectedTransaction.orderStatus || '')
+                      .toString()
+                      .toLowerCase()
+                      .includes('void'),
                 }"
               >
                 {{ displayStatus(selectedTransaction.orderStatus) }}
@@ -573,7 +607,9 @@ onMounted(() => {
                             v-if="item.notes"
                           ></i>
                           {{ item.qty }}x {{ item.name }}
-                          <span>{{ formatPHP(item.price * (item.qty || 0)) }}</span>
+                          <span>{{
+                            formatPHP(item.price * (item.qty || 0))
+                          }}</span>
                         </div>
                       </li>
 
@@ -661,7 +697,10 @@ onMounted(() => {
             <button
               v-if="
                 selectedTransaction.mop !== 'cash' &&
-                (selectedTransaction.orderStatus || '').toString().toLowerCase().includes('pending')
+                (selectedTransaction.orderStatus || '')
+                  .toString()
+                  .toLowerCase()
+                  .includes('pending')
               "
               type="button"
               class="btn btn-warning"

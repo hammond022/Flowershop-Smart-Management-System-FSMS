@@ -1,7 +1,15 @@
+// Moved updateItem inside ItemService class below
 import api from "@/axios.js";
 import { auth } from "@/auth.js";
 
 class ItemService {
+  static async updateItem(id, itemData) {
+    if (!auth.can("Items", "canUpdate")) {
+      throw new Error("Permission denied: cannot update items");
+    }
+    const res = await api.put(`/items/${id}`, itemData);
+    return res.data;
+  }
   static async getItems() {
     const res = await api.get("/items");
     const base = window.location.origin;

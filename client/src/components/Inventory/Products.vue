@@ -49,6 +49,7 @@ const filteredItems = computed(() => {
 });
 
 const product = reactive({
+  id: null,
   name: "",
   price: 0,
   cost: 0,
@@ -59,26 +60,47 @@ const product = reactive({
   previewUrl: null, // for image preview
 });
 
+const isEditMode = ref(false);
+
 async function submitProduct() {
   try {
-    await ItemService.createItem({
-      name: product.name,
-      price: product.price,
-      cost: product.cost,
-      category: product.category,
-      description: product.description,
-      tags: product.tags
-        .split(",")
-        .map((t) => t.trim())
-        .filter(Boolean),
-      stock: 0,
-      photo: product.photo,
-      previewUrl: product.previewUrl,
-    });
+    if (isEditMode.value && product.id) {
+      // Update existing product
+      await ItemService.updateItem(product.id, {
+        name: product.name,
+        price: product.price,
+        cost: product.cost,
+        category: product.category,
+        description: product.description,
+        tags: product.tags
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean),
+        photo: product.photo,
+        previewUrl: product.previewUrl,
+      });
+      showToast("success", `Product ${product.name} updated successfully`);
+    } else {
+      // Create new product
+      await ItemService.createItem({
+        name: product.name,
+        price: product.price,
+        cost: product.cost,
+        category: product.category,
+        description: product.description,
+        tags: product.tags
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean),
+        stock: 0,
+        photo: product.photo,
+        previewUrl: product.previewUrl,
+      });
+      showToast("success", `Successfully created product ${product.name}`);
+    }
     resetModal();
-    showToast("success", `Successfully created product ${product.name}`);
   } catch (err) {
-    console.error("Create failed:", err.response?.data || err.message);
+    console.error("Save failed:", err.response?.data || err.message);
     showToast("error", err.response?.data.error);
   } finally {
     createProductModal.hide();
@@ -114,6 +136,7 @@ async function deleteSelectedItems() {
 }
 
 function resetModal() {
+  product.id = null;
   product.name = "";
   product.price = 0;
   product.cost = 0;
@@ -122,6 +145,7 @@ function resetModal() {
   product.tags = "";
   product.photo = null;
   product.previewUrl = null;
+  isEditMode.value = false;
 }
 
 function increasePrice(amount = 10) {
@@ -136,7 +160,26 @@ let toastInstance;
 let createProductModal;
 
 function createProduct() {
+  resetModal();
+  isEditMode.value = false;
   createProductModal.show();
+}
+
+function editProduct(productId) {
+  const item = flowers.items.find((f) => f.id === productId);
+  if (item) {
+    product.id = item.id;
+    product.name = item.name;
+    product.price = item.price;
+    product.cost = item.cost;
+    product.category = item.category;
+    product.description = item.description;
+    product.tags = Array.isArray(item.tags) ? item.tags.join(", ") : item.tags;
+    product.photo = item.photo || null;
+    product.previewUrl = item.photo || null;
+    isEditMode.value = true;
+    createProductModal.show();
+  }
 }
 
 const isUploading = ref(false);
@@ -244,6 +287,7 @@ onMounted(() => {
           <th>Description</th>
           <th>Tags</th>
           <th>Price</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -259,6 +303,7 @@ onMounted(() => {
           :tags="flower.tags"
           :selectedItems="selectedItems"
           @update:selectedItems="selectedItems = $event"
+          @editProduct="editProduct"
         />
       </tbody>
     </table>
@@ -387,7 +432,7 @@ onMounted(() => {
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="productModalLabel">Add New Product</h5>
+          <h5 class="modal-title" id="productModalLabel">Edit Product</h5>
           <button
             type="button"
             class="btn-close"
@@ -606,7 +651,9 @@ onMounted(() => {
               <span v-if="isUploading">
                 <i class="bi bi-hourglass-split"></i> Uploading...
               </span>
-              <span v-else> Save Product </span>
+              <span v-else>
+                {{ isEditMode ? "Update Product" : "Save Product" }}
+              </span>
             </button>
           </div>
         </form>

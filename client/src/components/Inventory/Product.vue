@@ -16,7 +16,11 @@ const props = defineProps({
   selectedItems: { type: Array, required: true },
 });
 
-const emits = defineEmits(["update:selectedItems"]);
+const emits = defineEmits(["update:selectedItems", "editProduct"]);
+function handleEditClick(event) {
+  event.stopPropagation();
+  emits("editProduct", props.id);
+}
 
 function toggleSelection(event) {
   const isChecked = event.target.checked;
@@ -65,6 +69,11 @@ function toggleRowSelection() {
       }}</span>
     </td>
     <td scope="row">₱{{ price }}</td>
+    <td scope="row">
+      <button class="btn btn-sm btn-outline-primary" @click="handleEditClick">
+        Edit
+      </button>
+    </td>
   </tr>
 </template>
 <style>
