@@ -26,6 +26,7 @@ import DeletingProducts from "@/components/documentation/DeletingProducts.vue";
 import ExportingPurchaseOrderReports from "@/components/documentation/ExportingPurchaseOrderReports.vue";
 import CreatingCustomBouquet from "@/components/documentation/CreatingCustomBouquet.vue";
 import UpdatingCustomBouquet from "@/components/documentation/UpdatingCustomBouquet.vue";
+import UpdateProducts from "@/components/documentation/UpdateProducts.vue";
 
 import { auth } from "@/auth.js";
 
@@ -96,6 +97,11 @@ const routes = [
         path: "products",
         name: "DocProducts",
         component: ProductsDoc,
+      },
+      {
+        path: "update-products",
+        name: "DocUpdateProducts",
+        component: UpdateProducts,
       },
       {
         path: "deleting-products",
