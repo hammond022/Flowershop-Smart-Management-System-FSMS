@@ -104,6 +104,16 @@ function handleLogout() {
                   >Settings</RouterLink
                 >
               </li>
+              <li>
+                <RouterLink
+                  :class="[
+                    'dropdown-item',
+                    { active: isActiveLink('/documentation') },
+                  ]"
+                  to="/documentation/introduction"
+                  >Documentation</RouterLink
+                >
+              </li>
               <li><hr class="dropdown-divider" /></li>
               <li>
                 <button

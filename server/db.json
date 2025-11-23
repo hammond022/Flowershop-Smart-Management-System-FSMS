@@ -128,22 +128,6 @@
   ],
   "items": [
     {
-      "id": 1760376321522,
-      "name": "Red Roses",
-      "stock": 38,
-      "price": 5,
-      "cost": "",
-      "category": "Flowers",
-      "description": "Fresh red roses, perfect for expressing love",
-      "tags": [
-        "rose",
-        "red",
-        "romantic",
-        "love"
-      ],
-      "photo": "http://localhost:3000/uploads/1763926406789-979595625.jpg"
-    },
-    {
       "id": 1760376411347,
       "name": "White Lily",
       "stock": 35,
