@@ -90,8 +90,15 @@ async function loadDraft() {
                   :key="flower.id"
                   class="list-group-item d-flex justify-content-between align-items-center"
                 >
-                  {{ flower.qty }}x {{ flower.name }}
-                  <span>₱{{ flower.price }}</span>
+                  <div>
+                    <i
+                      class="text-primary ms-1 inline bi bi-sticky"
+                      v-tooltip="flower.notes"
+                      v-if="flower.notes"
+                    ></i>
+                    {{ flower.qty }}x {{ flower.name }}
+                    <span>₱{{ flower.price }}</span>
+                  </div>
                 </li>
 
                 <li

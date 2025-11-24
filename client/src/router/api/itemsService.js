@@ -1,43 +1,64 @@
-import axios from "axios";
-const baseURL = "http://localhost:3000/api/items/";
-
-// should this be in a try catch??/
+// Moved updateItem inside ItemService class below
+import api from "@/axios.js";
+import { auth } from "@/auth.js";
 
 class ItemService {
-  // GET all items
+  static async updateItem(id, itemData) {
+    if (!auth.can("Items", "canUpdate")) {
+      throw new Error("Permission denied: cannot update items");
+    }
+    const res = await api.put(`/items/${id}`, itemData);
+    return res.data;
+  }
   static async getItems() {
-    const res = await axios.get(baseURL);
-    return res.data;
+    const res = await api.get("/items");
+    const base = window.location.origin;
+    return res.data.map((item) => ({
+      ...item,
+      photo: item.photo?.startsWith("/uploads/")
+        ? `${base}${item.photo}`
+        : item.photo,
+    }));
   }
 
-  //GET item by ID
   static async getItem(id) {
-    const res = await axios.get(`${baseURL}${id}`);
+    const res = await api.get(`/items/${id}`);
     return res.data;
   }
 
-  // POST create new item
-  static async createItem({ name, quantity, price, category, tags = [] }) {
-    const res = await axios.post(baseURL, {
-      name,
-      quantity,
-      price,
-      category,
-      tags,
+  static async createItem(itemData) {
+    if (!auth.can("Items", "canCreate")) {
+      throw new Error("Permission denied: cannot create items");
+    }
+    const res = await api.post("/items", itemData);
+    return res.data;
+  }
+
+  static async updateItemStock(id, stock) {
+    if (!auth.can("Items", "canUpdate")) {
+      throw new Error("Permission denied: cannot update items");
+    }
+    const res = await api.put(`/items/${id}`, { stock });
+    return res.data;
+  }
+
+  static async deleteItem(id) {
+    if (!auth.can("Items", "canDelete")) {
+      throw new Error("Permission denied: cannot delete items");
+    }
+    const res = await api.delete(`/items/${id}`);
+    return res.data;
+  }
+
+  static async uploadPhoto(photoFile) {
+    const formData = new FormData();
+    formData.append("photo", photoFile);
+
+    const res = await api.post("/upload", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
     });
-    return res.data;
-  }
 
-  // PUT update a user
-  static async updateUser(id, name) {
-    const res = await axios.put(`${baseURL}${id}`, { name });
     return res.data;
-  }
-
-  // DELETE remove a user
-  static async deleteUser(id) {
-    await axios.delete(`${baseURL}${id}`);
-    return true;
   }
 }
 

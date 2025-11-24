@@ -37,6 +37,16 @@ function cancelOrder() {
 function addDiscount() {
   emit("addDiscount");
 }
+
+function formatPHP(value) {
+  const num = Number(value) || 0;
+  return new Intl.NumberFormat("en-PH", {
+    style: "currency",
+    currency: "PHP",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(num);
+}
 </script>
 
 <template>
@@ -74,7 +84,7 @@ function addDiscount() {
             'btn-danger': hasInvalidStock,
           }"
         >
-          Checkout Total ₱{{ total }}
+          Checkout Total {{ formatPHP(total) }}
         </button>
       </div>
 

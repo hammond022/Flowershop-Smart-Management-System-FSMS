@@ -1,7 +1,7 @@
 <!-- im so sorry about this being so poorly written -->
-<!-- day 9 shit on top of dried shit -->
+<!-- day 32 shit on top of dried shit -->
 <script setup>
-import { ref, computed, onMounted, reactive } from "vue";
+import { watch, ref, computed, onMounted, reactive } from "vue";
 import { Modal, Toast } from "bootstrap";
 import CurrentUser from "@/components/POS/CurrentUser.vue";
 import Categories from "@/components/POS/Categories.vue";
@@ -9,7 +9,8 @@ import Items from "@/components/POS/Items.vue";
 import BottomBar from "@/components/POS/BottomBar.vue";
 import Draft from "@/components/POS/Draft.vue";
 import OrderService from "@/router/api/ordersService";
-import ItemService from "@/router/api/itemsService"; // ✅ Add this
+import ItemService from "@/router/api/itemsService";
+import CustomBouquet from "@/components/MLBouquet/MLBouquet.vue";
 
 // import QuantityAdjuster from "@/components/QuantityAdjuster.vue";
 
@@ -20,8 +21,19 @@ const selectedCategory = ref("all");
 const categories = ref([]);
 const allItems = ref([]);
 
+function formatPHP(value) {
+  const num = Number(value) || 0;
+  return new Intl.NumberFormat("en-PH", {
+    style: "currency",
+    currency: "PHP",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(num);
+}
+const dedicationMessage = ref("");
+const dedicationLimit = 200;
 const discounts = ref([]);
-
+const showCustomerFields = ref(false);
 const order = reactive({
   orderStart: "",
   orderEnd: "",
@@ -29,6 +41,11 @@ const order = reactive({
   selectedFlowers: [],
   actionHistory: [],
   draftTitle: "",
+  mop: "cash",
+  amountPaid: 0,
+  change: 0,
+  customerName: "",
+  customerContact: "",
 });
 const selectedFlowers = ref([]);
 function onFlowerSelect(flower) {
@@ -191,11 +208,10 @@ function confirmDiscount() {
   addDiscountModal.hide();
 }
 
-function showToast(type = "success", message = "Operation successful") {
+function showToast(type = "warning", message = "Operation successful") {
   const toast = document.getElementById("myToast");
   const toastBody = toast.querySelector(".toast-body");
 
-  // Remove old classes
   toast.classList.remove(
     "bg-success",
     "bg-danger",
@@ -204,10 +220,8 @@ function showToast(type = "success", message = "Operation successful") {
     "text-dark"
   );
 
-  // Update message
   toastBody.textContent = message;
 
-  // Apply color style
   if (type === "success") {
     toast.classList.add("bg-success", "text-white");
   } else if (type === "error") {
@@ -216,7 +230,6 @@ function showToast(type = "success", message = "Operation successful") {
     toast.classList.add("bg-warning", "text-dark");
   }
 
-  // Show the existing toast instance
   toastInstance?.show();
 }
 
@@ -228,12 +241,40 @@ function resetOrder() {
   order.actionHistory = [];
   selectedFlowers.value = [];
   discounts.value = [];
+  order.amountPaid = 0;
+  change.value = 0;
+  dedicationMessage.value = "";
+  order.customerName = "";
+  order.customerContact = "";
+  showCustomerFields.value = false;
 }
 
-function voidOrder() {
-  resetOrder();
-  cancelOrderModal.hide();
-  showToast("warning", "Order voided successfully!");
+async function voidOrder() {
+  try {
+    // Persist a cancelled/voided order so it appears in Transactions
+    await OrderService.createOrder({
+      orderStart: order.orderStart || new Date().toISOString(),
+      orderEnd: new Date().toISOString(),
+      orderStatus: "Cancelled",
+      mop: order.mop,
+      selectedFlowers: selectedFlowers.value.map((f) => ({ ...f })),
+      discounts: discounts.value.map((d) => ({ ...d })),
+      actionHistory: order.actionHistory || [],
+      amountPaid: order.amountPaid || 0,
+      change: change.value || 0,
+      dedicationMessage: dedicationMessage.value || "",
+      customerName: order.customerName || "",
+      customerContact: order.customerContact || "",
+    });
+
+    showToast("warning", "Order voided and saved as Cancelled!");
+  } catch (err) {
+    console.error("Failed to save cancelled order:", err);
+    showToast("error", "Failed to persist cancelled order");
+  } finally {
+    resetOrder();
+    cancelOrderModal.hide();
+  }
 }
 
 async function confirmAsDraft() {
@@ -246,6 +287,11 @@ async function confirmAsDraft() {
       actionHistory: [...order.actionHistory, order.draftTitle],
       discounts: discounts.value.map((d) => ({ ...d })),
       total: totalAfterDiscount.value,
+      amountPaid: order.amountPaid,
+      change: change.value,
+      dedicationMessage: dedicationMessage.value,
+      customerName: order.customerName,
+      customerContact: order.customerContact,
     });
     await getDraftOrders();
     showToast("success", "Order saved as draft!");
@@ -259,30 +305,114 @@ async function confirmAsDraft() {
   }
 }
 
-function confirmCheckout() {
+async function confirmCheckout(status) {
   try {
     if (totalAfterDiscount.value <= 0) {
       showToast("warning", "Discount exceeds total amount!");
       return;
     }
+    if (amountPaid.value < totalAfterDiscount.value) {
+      showToast("warning", "Insufficient payment amount!");
+      return;
+    }
 
-    OrderService.createOrder({
+    document.getElementById("customerName")?.classList.remove("is-invalid");
+    document.getElementById("customerContact")?.classList.remove("is-invalid");
+
+    if (showCustomerFields.value) {
+      if (!order.customerName) {
+        showToast("warning", "Customer name is required.");
+        document.getElementById("customerName")?.classList.add("is-invalid");
+        return;
+      }
+
+      const contactRegex = /^\d{10,11}$/; // Allows 10 or 11 digits
+      if (!order.customerContact || !contactRegex.test(order.customerContact)) {
+        showToast(
+          "warning",
+          "Please enter a valid 10 or 11-digit contact number."
+        );
+        document.getElementById("customerContact")?.classList.add("is-invalid");
+        return;
+      }
+    }
+
+    await OrderService.createOrder({
       orderStart: order.orderStart,
       orderEnd: new Date().toISOString(),
-      orderStatus: "Completed",
+      orderStatus: OrderStatus.value,
+      mop: order.mop,
       selectedFlowers: selectedFlowers.value.map((f) => ({ ...f })),
       discounts: discounts.value.map((d) => ({ ...d })),
       total: totalAfterDiscount.value,
       actionHistory: order.actionHistory,
+      amountPaid: order.amountPaid,
+      change: change.value,
+      dedicationMessage: dedicationMessage.value,
+      customerName: order.customerName,
+      customerContact: order.customerContact,
     });
-
-    showToast("success", "Order completed successfully!");
+    // stock update
+    await Promise.all(
+      selectedFlowers.value.map(async (item) => {
+        item.stock -= item.qty;
+        await ItemService.updateItemStock(item.id, item.stock);
+      })
+    );
+    if (status === "pending") {
+      showToast("warning", "Successfully created pending transaction!");
+    } else showToast("success", "Order completed successfully!");
   } catch (err) {
     console.error(err.message || "checkout failed");
     showToast("error", "Checkout failed!");
+  } finally {
+    getDraftOrders();
+    orderCheckoutModal.hide();
+    resetOrder();
+    await loadItems();
   }
-  orderCheckoutModal.hide();
-  resetOrder();
+}
+
+const OrderStatus = computed(() =>
+  order.mop === "cash"
+    ? "completed"
+    : order.mop === "bank"
+    ? "pending"
+    : "unknown"
+);
+
+watch(
+  () => order.mop,
+  (newVal) => {
+    if (newVal === "bank") {
+      showCustomerFields.value = true;
+    } else if (newVal === "cash") {
+      showCustomerFields.value = false;
+    }
+  }
+);
+
+function addBouquetToOrder(bouquetItems) {
+  if (!order.orderStart) {
+    order.orderStart = new Date();
+  }
+
+  bouquetItems.forEach((bouquetItem) => {
+    const existingItem = selectedFlowers.value.find(
+      (f) => f.id === bouquetItem.id
+    );
+
+    if (existingItem) {
+      existingItem.qty += bouquetItem.qty;
+    } else {
+      selectedFlowers.value.push({
+        ...bouquetItem,
+        oldPrice: bouquetItem.price,
+        notes: bouquetItem.notes || "",
+      });
+    }
+  });
+  showToast("success", `Added ${bouquetItems.length} bouquet items to order!`);
 }
 
 const draftOrders = ref([]);
@@ -299,7 +429,6 @@ async function getDraftOrders() {
 
 function loadDraft(draft) {
   resetOrder();
-
   order.orderStart = new Date(draft.orderStart);
   order.orderStatus = draft.orderStatus || "Draft";
   order.actionHistory = draft.actionHistory ? [...draft.actionHistory] : [];
@@ -307,14 +436,19 @@ function loadDraft(draft) {
     draft.actionHistory?.length && draft.actionHistory.at(-1)
       ? draft.actionHistory.at(-1)
       : "Untitled Draft";
-
   selectedFlowers.value = draft.selectedFlowers
     ? draft.selectedFlowers.map((f) => ({ ...f }))
     : [];
-
   discounts.value = draft.discounts
     ? draft.discounts.map((d) => ({ ...d }))
     : [];
+  dedicationMessage.value = draft.dedicationMessage || "";
+  order.customerName = draft.customerName || "";
+  order.customerContact = draft.customerContact || "";
+
+  if (order.customerName || order.customerContact) {
+    showCustomerFields.value = true;
+  }
 }
 
 // mortal sin - will fix this eventually
@@ -356,6 +490,18 @@ function removeDiscount(index) {
   discounts.value.splice(index, 1);
 }
 
+const isValidContact = computed(() =>
+  /^(09|\+639)\d{9}$/.test(order.customerContact)
+);
+
+const isCheckoutDisabled = computed(() => {
+  const customerInfoInvalid =
+    showCustomerFields.value &&
+    (!order.customerName || !order.customerContact || !isValidContact.value);
+  const paymentInsufficient = totalAfterDiscount.value > order.amountPaid;
+  return customerInfoInvalid || paymentInsufficient;
+});
+
 let draftModal;
 let editItemModal;
 let cancelOrderModal;
@@ -376,15 +522,42 @@ onMounted(async () => {
   await getDraftOrders();
   await loadItems();
 });
+
+const change = computed(() => {
+  return order.amountPaid > 0
+    ? Math.max(order.amountPaid - totalAfterDiscount.value, 0)
+    : 0;
+});
 </script>
 
 <template>
   <div class="container-fluid h-100">
     <div class="col d-flex flex-column h-100">
       <div class="row">
+        <Categories
+          style="width: 15%"
+          :categories="categories"
+          :selected-category="selectedCategory"
+          @select-category="handleCategorySelect"
+        />
+
+        <Items
+          style="width: 40%"
+          :all-items="allItems"
+          :selected-category="selectedCategory"
+          @select="onFlowerSelect"
+          @add-bouquet="addBouquetToOrder"
+          v-if="selectedCategory"
+        />
+        <CustomBouquet
+          v-if="!selectedCategory"
+          style="width: 40%"
+          @add-to-order="addBouquetToOrder"
+        />
+
         <div
           class="border border-secondary border-opacity-25 rounded d-flex flex-column mt-3 ms-3 justify-content-between shadow-lg"
-          style="width: 40%; height: 90vh"
+          style="width: 40%; height: 87vh"
         >
           <div>
             <div
@@ -426,7 +599,15 @@ onMounted(async () => {
                     v-for="item in selectedFlowers"
                     :key="item.id"
                   >
-                    {{ item.name }} - ₱{{ item.price }}
+                    <div>
+                      <i
+                        class="text-primary ms-1 inline bi bi-sticky"
+                        v-tooltip="item.notes"
+                        v-if="item.notes"
+                      ></i>
+                      {{ item.name }} - {{ formatPHP(item.price) }}
+                    </div>
+
                     <div>
                       <span
                         class="badge text-bg-secondary rounded-pill me-3"
@@ -478,7 +659,7 @@ onMounted(async () => {
                     v-if="total > 0"
                   >
                     <span>Subtotal:</span>
-                    <span class="badge text-bg-secondary">₱{{ total }}</span>
+                    <span class="badge text-bg-secondary">{{ formatPHP(total) }}</span>
                   </li>
                   <li
                     class="list-group-item d-flex justify-content-between align-items-center fw-bold"
@@ -486,7 +667,7 @@ onMounted(async () => {
                   >
                     <span>Discount total:</span>
                     <span class="badge text-bg-primary"
-                      >₱{{
+                      >{{ formatPHP(
                         discounts.reduce((sum, d) => {
                           return (
                             sum +
@@ -495,7 +676,7 @@ onMounted(async () => {
                               : (total * d.value) / 100)
                           );
                         }, 0)
-                      }}
+                      ) }}
                     </span>
                   </li>
                   <li
@@ -503,7 +684,7 @@ onMounted(async () => {
                     v-if="totalAfterDiscount < total"
                   >
                     <span>Total after discount:</span>
-                    <span>₱{{ totalAfterDiscount }}</span>
+                    <span>{{ formatPHP(totalAfterDiscount) }}</span>
                   </li>
                 </ul>
               </div>
@@ -523,20 +704,6 @@ onMounted(async () => {
             @addDiscount="addDiscount"
           />
         </div>
-
-        <Categories
-          style="width: 15%"
-          :categories="categories"
-          :selected-category="selectedCategory"
-          @select-category="handleCategorySelect"
-        />
-
-        <Items
-          style="width: 40%"
-          :all-items="allItems"
-          :selected-category="selectedCategory"
-          @select="onFlowerSelect"
-        />
       </div>
     </div>
   </div>
@@ -619,7 +786,7 @@ onMounted(async () => {
           </div>
 
           <div class="form-text" v-if="editModal.oldPrice != editModal.price">
-            Price has been edited, original price ₱{{ editModal.oldPrice }}
+            Price has been edited, original price {{ formatPHP(editModal.oldPrice) }}
           </div>
 
           <div class="input-group mb-3">
@@ -702,7 +869,7 @@ onMounted(async () => {
                     >
                       {{ item.qty }}x {{ item.name }}
                       <div>
-                        <span>₱{{ item.price }}</span>
+                        <span>{{ formatPHP(item.price) }}</span>
                       </div>
                     </li>
 
@@ -710,7 +877,7 @@ onMounted(async () => {
                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-success"
                     >
                       Total:
-                      <span>₱{{ total }}</span>
+                      <span>{{ formatPHP(total) }}</span>
                     </li>
                   </ul>
 
@@ -782,9 +949,16 @@ onMounted(async () => {
                       v-for="item in selectedFlowers"
                       :key="item.id"
                     >
-                      {{ item.qty }}x {{ item.name }}
                       <div>
-                        <span>₱{{ item.price }}</span>
+                        <i
+                          class="text-primary ms-1 inline bi bi-sticky"
+                          v-tooltip="item.notes"
+                          v-if="item.notes"
+                        ></i>
+                        {{ item.qty }}x {{ item.name }}
+                      </div>
+                      <div>
+                        <span>{{ formatPHP(item.price) }}</span>
                       </div>
                     </li>
                     <li
@@ -793,7 +967,7 @@ onMounted(async () => {
                     >
                       <span>Discount total:</span>
                       <span class="badge text-bg-primary"
-                        >₱{{
+                        >{{ formatPHP(
                           discounts.reduce((sum, d) => {
                             return (
                               sum +
@@ -802,7 +976,7 @@ onMounted(async () => {
                                 : (total * d.value) / 100)
                             );
                           }, 0)
-                        }}
+                        ) }}
                       </span>
                     </li>
 
@@ -810,7 +984,7 @@ onMounted(async () => {
                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-success"
                     >
                       Total:
-                      <span>₱{{ totalAfterDiscount }}</span>
+                      <span>{{ formatPHP(totalAfterDiscount) }}</span>
                     </li>
                   </ul>
 
@@ -818,14 +992,105 @@ onMounted(async () => {
                 </div>
               </div>
             </div>
+            <hr />
+            <!-- <div class="form-check mb-3">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="checkDefault"
+              />
+              <label class="form-check-label" for="checkDefault">
+                Add dedication message
+              </label>
+            </div> -->
+
+            <div class="form-floating mt-3">
+              <textarea
+                class="form-control"
+                id="floatingTextarea"
+                placeholder="Write your dedication here..."
+                v-model="dedicationMessage"
+                :maxlength="dedicationLimit"
+              ></textarea>
+              <label for="floatingTextarea">Dedication Message</label>
+              <div
+                class="form-text text-end"
+                :class="{
+                  'text-danger': dedicationMessage.length >= dedicationLimit,
+                  'text-muted': dedicationMessage.length < dedicationLimit,
+                }"
+              >
+                {{ dedicationMessage.length }}/{{ dedicationLimit }}
+              </div>
+            </div>
+
+            <div class="form-check mb-3">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                v-model="showCustomerFields"
+                id="addCustomerCheck"
+                :disabled="order.mop !== `cash`"
+              />
+              <label class="form-check-label" for="addCustomerCheck">
+                Add Customer Information
+              </label>
+            </div>
+
+            <div v-if="showCustomerFields">
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  id="customerName"
+                  class="form-control"
+                  v-model="order.customerName"
+                  :class="{ 'is-invalid': showCustomerFields && !order.customerName }"
+                  placeholder="Customer Name"
+                />
+                <label for="customerName">Customer Name</label>
+                <div
+                  class="invalid-feedback"
+                  v-if="showCustomerFields && !order.customerName"
+                >
+                  Customer name is required.
+                </div>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  id="customerContact"
+                  class="form-control"
+                  v-model="order.customerContact"
+                  :class="{
+                    'is-invalid':
+                      showCustomerFields && order.customerContact && !isValidContact,
+                  }"
+                  placeholder="Customer Contact"
+                />
+                <label for="customerContact">Customer Contact</label>
+                <div
+                  class="invalid-feedback"
+                  v-if="
+                    showCustomerFields && order.customerContact && !isValidContact
+                  "
+                >
+                  Invalid phone number. Must be 10-11 digits and start with 09
+                  or +639.
+                </div>
+              </div>
+            </div>
           </div>
+          <hr />
           <label for="">Payment Method</label>
           <div class="form-check">
             <input
               class="form-check-input"
               type="radio"
-              name="radioDefault"
               id="payment-cash"
+              name="payment"
+              value="cash"
+              v-model="order.mop"
               checked
             />
             <label class="form-check-label" for="payment-cash"> Cash </label>
@@ -834,13 +1099,30 @@ onMounted(async () => {
             <input
               class="form-check-input"
               type="radio"
-              name="radioDefault"
-              id="payment-other"
-              disabled
+              id="payment-bank"
+              name="payment"
+              value="bank"
+              v-model="order.mop"
             />
-            <label class="form-check-label" for="payment-other">
+            <label class="form-check-label" for="payment-bank">
               Bank Transfer/E-Wallet
             </label>
+          </div>
+          <label for="amountPaid" class="form-label">Amount Paid</label>
+          <input
+            id="amountPaid"
+            type="number"
+            class="form-control mb-2"
+            v-model.number="order.amountPaid"
+            :min="totalAfterDiscount"
+            :placeholder="formatPHP(totalAfterDiscount)"
+          />
+
+          <div v-if="order.amountPaid > 0" class="mt-2">
+            <label class="form-label fw-bold">Change:</label>
+            <div class="form-control bg-light text-success fw-bold" readonly>
+              {{ formatPHP(change) }}
+            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -849,15 +1131,31 @@ onMounted(async () => {
           </button>
           <div class="btn-group">
             <button
+              v-if="order.mop == `cash`"
               type="button"
               class="btn btn-success"
+              :disabled="isCheckoutDisabled"
               @click="confirmCheckout"
             >
               Confirm Checkout
             </button>
             <button
+              v-else
+              type="button"
+              class="btn btn-warning"
+              :disabled="isCheckoutDisabled"
+              @click="confirmCheckout(`pending`)"
+            >
+              Confirm as pending
+            </button>
+
+            <button
               type="button"
               class="btn btn-success dropdown-toggle dropdown-toggle-split"
+              :class="{
+                'btn-success': order.mop === 'cash',
+                'btn-warning': order.mop !== 'cash',
+              }"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             ></button>
@@ -925,7 +1223,7 @@ onMounted(async () => {
                     >
                       {{ item.qty }}x {{ item.name }}
                       <div>
-                        <span>₱{{ item.price }}</span>
+                        <span>{{ formatPHP(item.price) }}</span>
                       </div>
                     </li>
 
@@ -935,7 +1233,7 @@ onMounted(async () => {
                     >
                       <span>Discount total:</span>
                       <span class="badge text-bg-primary"
-                        >₱{{
+                        >{{ formatPHP(
                           discounts.reduce((sum, d) => {
                             return (
                               sum +
@@ -944,7 +1242,7 @@ onMounted(async () => {
                                 : (total * d.value) / 100)
                             );
                           }, 0)
-                        }}
+                        ) }}
                       </span>
                     </li>
 
@@ -952,7 +1250,7 @@ onMounted(async () => {
                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-success"
                     >
                       Total:
-                      <span>₱{{ totalAfterDiscount }}</span>
+                      <span>{{ formatPHP(totalAfterDiscount) }}</span>
                     </li>
                   </ul>
 

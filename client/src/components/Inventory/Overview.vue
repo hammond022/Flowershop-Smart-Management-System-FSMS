@@ -1,17 +1,25 @@
 <script setup>
+import Salutation from "./Salutation.vue";
 import OrderService from "@/router/api/ordersService";
+import ItemService from "@/router/api/itemsService";
 import { computed, onMounted, ref } from "vue";
 import { useToast } from "@/composables/useToast";
-
+import { useRouter, useRoute } from "vue-router";
+const { showToast } = useToast();
+const router = useRouter();
+const route = useRoute();
 const orders = ref([]);
+const items = ref([]);
+
 async function getOrders() {
   try {
     const drafts = await OrderService.getOrders();
     orders.value = drafts;
-  } catch (error) {
-    showToast("error", err.response?.data.error);
+  } catch (err) {
+    showToast("error", err.response?.data?.error || "Failed to load orders");
   }
 }
+
 const completedOrders = computed(() =>
   orders.value.filter(
     (order) => order.orderStatus?.toLowerCase() === "completed"
@@ -26,47 +34,85 @@ const pendingOrders = computed(() =>
   orders.value.filter((order) => order.orderStatus?.toLowerCase() === "pending")
 );
 
-const firstFiveOrders = computed(
-  () =>
-    orders.value
-      .filter((o) => o.orderStatus?.toLowerCase() !== "draft") // exclude drafts
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // latest first
-      .slice(0, 5) // only take 5
+const firstFiveOrders = computed(() =>
+  orders.value
+    .filter((o) => o.orderStatus?.toLowerCase() !== "draft")
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 5)
 );
+
+async function getItems() {
+  try {
+    items.value = await ItemService.getItems();
+  } catch (err) {
+    console.error("Failed to load items:", err);
+  }
+}
+
+const lowStockCount = computed(
+  () => items.value.filter((item) => item.stock <= 5).length
+);
+
+const categoryCounts = computed(() => {
+  const counts = {};
+  items.value.forEach((item) => {
+    if (!counts[item.category]) counts[item.category] = 0;
+    counts[item.category]++;
+  });
+  return counts;
+});
+
+function goToTransactions(status) {
+  router.push({
+    name: "transactions",
+    query: { status: status },
+  });
+}
+
+function goToTransactionDetails(tx) {
+  router.push({
+    name: "transactions",
+    query: { txId: tx.id },
+    state: { back: route.fullPath },
+  });
+}
+
+function goToProducts() {
+  router.push({ name: "InventoryProducts" });
+}
+
+function goToCategory(category) {
+  router.push({
+    name: "InventoryProducts",
+    query: { category },
+  });
+}
+
+function goToPOS() {
+  router.push({ name: "pos" });
+}
 
 onMounted(() => {
   getOrders();
+  getItems();
 });
 </script>
 
 <template>
-  <div class="container my-4">
-    <!-- Welcome Header -->
-    <div class="d-flex align-items-center p-3 mb-5 bg-light rounded shadow-sm">
-      <img
-        src="../../assets/icons/user.svg"
-        height="75"
-        width="75"
-        class="rounded-circle me-3"
-        alt="User Avatar"
-      />
-      <div>
-        <h3 class="mb-0">Good Morning, John Doe</h3>
-        <p class="text-muted mb-0">Admin</p>
-      </div>
-    </div>
+  <div class="my-3">
+    <Salutation />
 
-    <!-- Dashboard Title -->
     <h1 class="mb-5">Dashboard</h1>
 
-    <!-- Sales Activity Cards -->
     <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
-      <!-- Completed -->
       <div class="col">
         <div class="card shadow-sm border-0">
-          <div class="card-body">
+          <div
+            class="card-body hover-lift"
+            @click="goToTransactions('completed')"
+          >
             <i class="bi bi-check-circle fs-2 text-success mb-2"></i>
-            <h5 class="card-title">Completed</h5>
+            <h5 class="card-title">Completed orders</h5>
             <p class="fs-4 fw-bold">{{ completedOrders.length }}</p>
             <span class="badge bg-success mb-2">Success</span>
             <div class="progress mt-2" style="height: 6px">
@@ -82,10 +128,9 @@ onMounted(() => {
         </div>
       </div>
 
-      <!-- Drafts -->
       <div class="col">
         <div class="card shadow-sm border-0">
-          <div class="card-body">
+          <div class="card-body hover-lift" @click="goToPOS()">
             <i class="bi bi-pencil-square fs-2 text-warning mb-2"></i>
             <h5 class="card-title">Drafts</h5>
             <p class="fs-4 fw-bold">{{ draftOrders.length }}</p>
@@ -103,10 +148,12 @@ onMounted(() => {
         </div>
       </div>
 
-      <!-- Pending Payment -->
       <div class="col">
         <div class="card shadow-sm border-0">
-          <div class="card-body">
+          <div
+            class="card-body hover-lift"
+            @click="goToTransactions('pending')"
+          >
             <i class="bi bi-clock fs-2 text-danger mb-2"></i>
             <h5 class="card-title">Pending Payment</h5>
             <p class="fs-4 fw-bold">{{ pendingOrders.length }}</p>
@@ -125,41 +172,40 @@ onMounted(() => {
       </div>
     </div>
 
-    <div id="product-details-card" class="card shadow-sm border-0 mt-3">
+    <div class="card shadow-sm border-0 mb-3 mt-3">
       <div class="card-body">
-        <h5 class="card-title mb-4">
+        <h5 class="card-title text-hover mb-4" @click="goToProducts">
           <i class="bi bi-box-seam fs-2 me-2"></i>
           Product Details
         </h5>
 
-        <div class="list-group list-group-flush">
+        <div class="list-group-flush">
           <div
             class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 py-2"
           >
             Low Stock Items
-            <span class="badge bg-danger rounded-pill">15</span>
+            <span class="badge bg-danger rounded-pill">{{
+              lowStockCount
+            }}</span>
           </div>
+
           <div
-            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 py-2"
+            v-for="(count, category) in categoryCounts"
+            :key="category"
+            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 py-2 text-capitalize text-hover"
+            style="cursor: pointer"
+            @click="goToCategory(category)"
           >
-            All Category 1
-            <span class="badge bg-primary rounded-pill">120</span>
-          </div>
-          <div
-            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 py-2"
-          >
-            All Category 2
-            <span class="badge bg-success rounded-pill">90</span>
+            All {{ category }}
+            <span class="badge bg-primary rounded-pill">{{ count }}</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!--  -->
-
     <div class="card shadow-sm border-0 mt-3">
       <div class="card-body">
-        <h5 class="card-title mb-4">
+        <h5 class="card-title mb-4 text-hover" @click="goToTransactions('')">
           <i class="bi bi-receipt fs-2 me-2"></i>
           Previous Transactions
         </h5>
@@ -176,8 +222,14 @@ onMounted(() => {
               </tr>
             </thead>
             <tbody>
-              <tr v-for="order in firstFiveOrders" :key="order.id">
-                <!-- Mode of Payment (replace with actual field if available) -->
+              <tr
+                v-for="order in firstFiveOrders"
+                :key="order.id"
+                :id="'tx-' + order.id"
+                class="hover-lift"
+                @click="goToTransactionDetails(order)"
+                style="cursor: pointer"
+              >
                 <td>
                   {{
                     order.mop
@@ -185,8 +237,6 @@ onMounted(() => {
                       : "—"
                   }}
                 </td>
-
-                <!-- Total number of items -->
                 <td>
                   {{
                     order.selectedFlowers?.reduce(
@@ -195,8 +245,6 @@ onMounted(() => {
                     ) || 0
                   }}
                 </td>
-
-                <!-- Status badge -->
                 <td>
                   <span
                     class="badge"
@@ -212,8 +260,6 @@ onMounted(() => {
                     {{ order.orderStatus }}
                   </span>
                 </td>
-
-                <!-- Price (sum of all flower items - discounts if any) -->
                 <td>
                   {{
                     new Intl.NumberFormat("en-PH", {
@@ -231,12 +277,9 @@ onMounted(() => {
                     )
                   }}
                 </td>
-
-                <!-- Order date -->
                 <td>{{ new Date(order.createdAt).toLocaleDateString() }}</td>
               </tr>
 
-              <!-- Fallback -->
               <tr v-if="firstFiveOrders.length === 0">
                 <td colspan="5" class="text-center text-muted py-3">
                   No transactions available
@@ -260,5 +303,3 @@ onMounted(() => {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* smooth shadow increase */
 }
 </style> -->
-
-<!-- Remember to include Bootstrap CSS & Bootstrap Icons in your project -->

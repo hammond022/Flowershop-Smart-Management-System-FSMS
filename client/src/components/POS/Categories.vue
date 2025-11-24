@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, defineEmits } from "vue";
+import { defineProps, defineEmits, ref, watch, computed } from "vue";
 
 const props = defineProps({
   categories: {
@@ -11,7 +11,28 @@ const props = defineProps({
     default: "all",
   },
 });
-const emit = defineEmits(["select-category"]);
+
+const emit = defineEmits(["select-category", "toggle-custom-bouquet"]);
+
+const isCustomBouquet = ref(false);
+
+const displayCategories = computed(() =>
+  props.categories.filter(
+    (c) => (c ?? "").toString().toLowerCase().trim() !== "bouquets"
+  )
+);
+
+function selectCategory(category) {
+  isCustomBouquet.value = false;
+  emit("select-category", category);
+}
+
+function toggleCustomBouquet() {
+  isCustomBouquet.value = true;
+
+  emit("select-category", null);
+  emit("toggle-custom-bouquet", true);
+}
 </script>
 
 <template>
@@ -19,17 +40,43 @@ const emit = defineEmits(["select-category"]);
     <h1 class="text">Categories</h1>
     <div class="category-list">
       <button
-        v-for="category in categories"
+        v-for="category in displayCategories"
         :key="category"
         type="button"
         class="btn category-btn w-100 mb-2 text-capitalize"
         :class="{
-          'btn-primary': selectedCategory === category,
-          'btn-outline-secondary': selectedCategory !== category,
+          'btn-primary': selectedCategory === category && !isCustomBouquet,
+          'btn-outline-secondary':
+            selectedCategory !== category || isCustomBouquet,
         }"
-        @click="emit('select-category', category)"
+        @click="selectCategory(category)"
       >
         {{ category }}
+      </button>
+      <button
+        type="button"
+        class="btn category-btn w-100 mb-2 text-capitalize"
+        :class="{
+          'btn-primary':
+            selectedCategory?.toLowerCase() === 'bouquets' && !isCustomBouquet,
+          'btn-outline-secondary':
+            selectedCategory?.toLowerCase() !== 'bouquets' || isCustomBouquet,
+        }"
+        @click="selectCategory('bouquets')"
+      >
+        Bouquets
+      </button>
+
+      <button
+        type="button"
+        class="btn category-btn w-100 mb-2 text-capitalize button-neon"
+        :class="{
+          'btn-success': isCustomBouquet,
+          'btn-outline-secondary': !isCustomBouquet,
+        }"
+        @click="toggleCustomBouquet"
+      >
+        Custom Bouquet
       </button>
     </div>
   </div>
@@ -42,9 +89,7 @@ const emit = defineEmits(["select-category"]);
   display: flex;
   flex-direction: column;
   margin: 1rem;
-  /* width: 40%; */
-  height: 90vh;
-  /* toggel this off ^ */
+  height: 87vh;
 }
 
 .text {

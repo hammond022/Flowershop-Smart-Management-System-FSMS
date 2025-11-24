@@ -1,5 +1,8 @@
-/node_modules
+﻿/node_modules
 /package-lock.json
-server\db.json
+server/db.json
+server/server/uploads
+server/node_modules/
 .prettierignore
 .gitignore
+/server/node_modules
