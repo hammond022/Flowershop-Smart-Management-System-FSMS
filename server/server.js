@@ -11,6 +11,7 @@ import purchaseOrdersRouter from "./routes/api/purchaseOrders.js";
 import bouquetsRouter from "./routes/api/bouquets.js";
 import customBouquetsRouter from "./routes/api/customBouquets.js";
 import photoUploadRoute from "./routes/api/photoUploadRoute.js";
+import databaseRouter from "./routes/api/database.js";
 
 // i apologize for this monstrosity
 // photo upload
@@ -30,6 +31,7 @@ await db.read();
 app.use(basicAuth);
 
 // Mount routers
+app.use("/api/database", databaseRouter);
 app.use("/api/bouquets", bouquetsRouter);
 app.use("/api/custom-bouquets", customBouquetsRouter);
 app.use("/api/users", usersRouter);

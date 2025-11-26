@@ -5,6 +5,7 @@ import TransactionsView from "@/views/TransactionsView.vue";
 import InventoryView from "@/views/InventoryView.vue";
 import SettingsView from "@/views/SettingsView.vue";
 import ChangePasswordView from "@/views/ChangePasswordView.vue";
+import DatabaseManagementView from "@/views/DatabaseManagementView.vue";
 import LoginView from "@/components/UserAuth/Login.vue";
 import Overview from "@/components/Inventory/Overview.vue";
 import Products from "@/components/Inventory/Products.vue";
@@ -65,6 +66,12 @@ const routes = [
     path: "/change-password",
     name: "change-password",
     component: ChangePasswordView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/database-management",
+    name: "database-management",
+    component: DatabaseManagementView,
     meta: { requiresAuth: true },
   },
   {

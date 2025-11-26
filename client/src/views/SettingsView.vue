@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, computed } from "vue";
 import { useToast } from "@/composables/useToast";
 import UsersService from "@/router/api/UsersService";
 
@@ -352,6 +352,7 @@ onMounted(() => {
             </div>
           </div>
         </div>
+
         <div v-if="!selectedUser" class="text-center text-muted mt-5">
           <p>Select a user to manage permissions</p>
         </div>
