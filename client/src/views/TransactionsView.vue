@@ -54,6 +54,24 @@ async function completeTransaction(orderId) {
   }
 }
 
+async function cancelTransaction(orderId) {
+  try {
+    const updatedOrder = await OrderService.updateOrder(orderId, {
+      orderStatus: "Cancelled",
+    });
+    showToast("success", `Transaction cancelled successfully`);
+    console.log("Transaction cancelled successfully:", updatedOrder);
+  } catch (err) {
+    showToast("error", err.response?.data.error);
+    console.error("Failed to cancel transaction:", err);
+  } finally {
+    getTransactions();
+    const modalEl = document.getElementById("resolveTransactionModal");
+    const modalInstance = Modal.getInstance(modalEl);
+    modalInstance.hide();
+  }
+}
+
 async function getTransactions() {
   try {
     const allOrders = await OrderService.getOrders();
@@ -907,6 +925,13 @@ onMounted(() => {
                 data-bs-dismiss="modal"
               >
                 Close
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger me-2"
+                @click="cancelTransaction(selectedTransaction.id)"
+              >
+                Cancel transaction
               </button>
               <button
                 type="button"

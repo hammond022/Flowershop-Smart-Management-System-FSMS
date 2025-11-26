@@ -34,8 +34,7 @@ const routes = [
   { path: "/login", name: "login", component: LoginView },
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    redirect: { name: "InventoryOverview" },
     meta: { requiresAuth: true },
   },
   {
