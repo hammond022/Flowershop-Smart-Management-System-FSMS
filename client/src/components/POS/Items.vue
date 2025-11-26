@@ -226,7 +226,7 @@ function handleBouquetClick(bouquet) {
   flex-direction: column;
   margin: 1rem 0rem;
   /* width: 40%; */
-  height: 87vh;
+  height: 80vh;
   /* toggel this off ^ */
 }
 

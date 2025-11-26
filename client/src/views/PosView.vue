@@ -557,7 +557,7 @@ const change = computed(() => {
 
         <div
           class="border border-secondary border-opacity-25 rounded d-flex flex-column mt-3 ms-3 justify-content-between shadow-lg"
-          style="width: 40%; height: 87vh"
+          style="width: 40%; height: 80vh"
         >
           <div>
             <div
@@ -659,7 +659,9 @@ const change = computed(() => {
                     v-if="total > 0"
                   >
                     <span>Subtotal:</span>
-                    <span class="badge text-bg-secondary">{{ formatPHP(total) }}</span>
+                    <span class="badge text-bg-secondary">{{
+                      formatPHP(total)
+                    }}</span>
                   </li>
                   <li
                     class="list-group-item d-flex justify-content-between align-items-center fw-bold"
@@ -667,16 +669,18 @@ const change = computed(() => {
                   >
                     <span>Discount total:</span>
                     <span class="badge text-bg-primary"
-                      >{{ formatPHP(
-                        discounts.reduce((sum, d) => {
-                          return (
-                            sum +
-                            (d.type === "amount"
-                              ? d.value
-                              : (total * d.value) / 100)
-                          );
-                        }, 0)
-                      ) }}
+                      >{{
+                        formatPHP(
+                          discounts.reduce((sum, d) => {
+                            return (
+                              sum +
+                              (d.type === "amount"
+                                ? d.value
+                                : (total * d.value) / 100)
+                            );
+                          }, 0)
+                        )
+                      }}
                     </span>
                   </li>
                   <li
@@ -786,7 +790,8 @@ const change = computed(() => {
           </div>
 
           <div class="form-text" v-if="editModal.oldPrice != editModal.price">
-            Price has been edited, original price {{ formatPHP(editModal.oldPrice) }}
+            Price has been edited, original price
+            {{ formatPHP(editModal.oldPrice) }}
           </div>
 
           <div class="input-group mb-3">
@@ -967,16 +972,18 @@ const change = computed(() => {
                     >
                       <span>Discount total:</span>
                       <span class="badge text-bg-primary"
-                        >{{ formatPHP(
-                          discounts.reduce((sum, d) => {
-                            return (
-                              sum +
-                              (d.type === "amount"
-                                ? d.value
-                                : (total * d.value) / 100)
-                            );
-                          }, 0)
-                        ) }}
+                        >{{
+                          formatPHP(
+                            discounts.reduce((sum, d) => {
+                              return (
+                                sum +
+                                (d.type === "amount"
+                                  ? d.value
+                                  : (total * d.value) / 100)
+                              );
+                            }, 0)
+                          )
+                        }}
                       </span>
                     </li>
 
@@ -1045,7 +1052,9 @@ const change = computed(() => {
                   id="customerName"
                   class="form-control"
                   v-model="order.customerName"
-                  :class="{ 'is-invalid': showCustomerFields && !order.customerName }"
+                  :class="{
+                    'is-invalid': showCustomerFields && !order.customerName,
+                  }"
                   placeholder="Customer Name"
                 />
                 <label for="customerName">Customer Name</label>
@@ -1064,7 +1073,9 @@ const change = computed(() => {
                   v-model="order.customerContact"
                   :class="{
                     'is-invalid':
-                      showCustomerFields && order.customerContact && !isValidContact,
+                      showCustomerFields &&
+                      order.customerContact &&
+                      !isValidContact,
                   }"
                   placeholder="Customer Contact"
                 />
@@ -1072,7 +1083,9 @@ const change = computed(() => {
                 <div
                   class="invalid-feedback"
                   v-if="
-                    showCustomerFields && order.customerContact && !isValidContact
+                    showCustomerFields &&
+                    order.customerContact &&
+                    !isValidContact
                   "
                 >
                   Invalid phone number. Must be 10-11 digits and start with 09
@@ -1233,16 +1246,18 @@ const change = computed(() => {
                     >
                       <span>Discount total:</span>
                       <span class="badge text-bg-primary"
-                        >{{ formatPHP(
-                          discounts.reduce((sum, d) => {
-                            return (
-                              sum +
-                              (d.type === "amount"
-                                ? d.value
-                                : (total * d.value) / 100)
-                            );
-                          }, 0)
-                        ) }}
+                        >{{
+                          formatPHP(
+                            discounts.reduce((sum, d) => {
+                              return (
+                                sum +
+                                (d.type === "amount"
+                                  ? d.value
+                                  : (total * d.value) / 100)
+                              );
+                            }, 0)
+                          )
+                        }}
                       </span>
                     </li>
 

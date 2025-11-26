@@ -89,7 +89,7 @@ function toggleCustomBouquet() {
   display: flex;
   flex-direction: column;
   margin: 1rem;
-  height: 87vh;
+  height: 80vh;
 }
 
 .text {
