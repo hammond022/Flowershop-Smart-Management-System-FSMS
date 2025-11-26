@@ -232,6 +232,8 @@ function handleBouquetClick(bouquet) {
 
 .text {
   padding: 1rem 0rem;
+  font-size: clamp(1.25rem, 4vw, 2rem);
+  font-weight: 600;
 }
 
 .item-list {
