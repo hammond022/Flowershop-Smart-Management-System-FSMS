@@ -32,7 +32,7 @@ const submitLogin = async () => {
         <div class="login-features">
           <div class="feature">
             <i class="bi bi-box-fill"></i>
-            <span>Inventory </span>
+            <span>Inventory</span>
           </div>
           <div class="feature">
             <i class="bi bi-basket2-fill"></i>
