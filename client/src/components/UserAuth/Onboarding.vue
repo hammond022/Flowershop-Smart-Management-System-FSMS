@@ -120,8 +120,9 @@ const submitForm = async () => {
 
     // Auto-login after successful creation
     setTimeout(async () => {
-      await auth.login(username.value.trim(), password.value);
-      password.value = '';
+      const loginPassword = password.value;
+      password.value = ''; // Clear password immediately before login
+      await auth.login(username.value.trim(), loginPassword);
       if (auth.isAuthenticated) {
         router.push("/");
       }
