@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { API_BASE } from "@/auth.js";
 import HomeView from "@/views/HomeView.vue";
 import PosView from "@/views/PosView.vue";
 import TransactionsView from "@/views/TransactionsView.vue";
@@ -46,8 +45,12 @@ const routes = [
   { path: "/login", name: "login", component: LoginView },
   {
     path: "/",
-    redirect: { name: "InventoryOverview" },
-    meta: { requiresAuth: true },
+    redirect: (to) => {
+      if (auth.isAuthenticated) {
+        return { name: "InventoryOverview" };
+      }
+      return { name: "login" };
+    },
   },
   {
     path: "/pos",
@@ -61,12 +64,7 @@ const routes = [
     component: TransactionsView,
     meta: { requiresAuth: true },
   },
-  {
-    path: "/inventory",
-    name: "inventory",
-    component: InventoryView,
-    meta: { requiresAuth: true },
-  },
+
   {
     path: "/settings",
     name: "settings",
@@ -216,8 +214,7 @@ const router = createRouter({
 // Global route guard
 router.beforeEach(async (to, from, next) => {
   // Check if onboarding is needed FIRST (before any redirects)
-  // Use cached status to avoid API call on every navigation
-  if (to.name !== "onboarding" && to.name !== "login") {
+  if (to.name !== "onboarding") {
     try {
       const statusRes = await fetch(`${API_BASE}/onboarding/status`);
       if (statusRes.ok) {
@@ -227,12 +224,12 @@ router.beforeEach(async (to, from, next) => {
           next({ name: "onboarding" });
           return;
         }
-      } catch (err) {
-        console.warn("Could not check onboarding status:", err);
-        onboardingStatusCache = false;
       }
+    } catch (err) {
+      console.warn("Could not check onboarding status:", err);
+      onboardingStatusCache = false;
     }
-    
+
     if (onboardingStatusCache === true) {
       // Database is empty, redirect to onboarding
       next({ name: "onboarding" });

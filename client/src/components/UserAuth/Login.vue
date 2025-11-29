@@ -13,7 +13,7 @@ const showPassword = ref(false);
 const submitLogin = async () => {
   await auth.login(username.value, password.value);
   if (auth.isAuthenticated) {
-    const redirect = route.query.redirect || "/";
+    const redirect = route.query.redirect || "/inventory/overview";
     router.push(redirect);
   }
 };
