@@ -1,7 +1,7 @@
 // src/auth.js
 import { reactive } from "vue";
 
-const API_BASE = "http://localhost:3000/api";
+export const API_BASE = "http://localhost:3000/api";
 
 export const auth = reactive({
   user: null,

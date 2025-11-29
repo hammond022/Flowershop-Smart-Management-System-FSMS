@@ -8,8 +8,10 @@ const route = useRoute();
 
 <template>
   <FloralBackground />
-  <Navbar v-if="route.name !== 'login'" />
-  <div :class="route.name !== 'login' ? 'mt-4' : ''">
+  <Navbar v-if="route.name !== 'login' && route.name !== 'onboarding'" />
+  <div
+    :class="route.name !== 'login' && route.name !== 'onboarding' ? 'mt-4' : ''"
+  >
     <RouterView />
   </div>
   <!-- Global toast used by composable `useToast()` -->

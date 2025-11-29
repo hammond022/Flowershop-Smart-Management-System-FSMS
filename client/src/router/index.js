@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { API_BASE } from "@/auth.js";
 import HomeView from "@/views/HomeView.vue";
 import PosView from "@/views/PosView.vue";
 import TransactionsView from "@/views/TransactionsView.vue";
@@ -7,6 +8,7 @@ import SettingsView from "@/views/SettingsView.vue";
 import ChangePasswordView from "@/views/ChangePasswordView.vue";
 import DatabaseManagementView from "@/views/DatabaseManagementView.vue";
 import LoginView from "@/components/UserAuth/Login.vue";
+import OnboardingView from "@/components/UserAuth/Onboarding.vue";
 import Overview from "@/components/Inventory/Overview.vue";
 import Products from "@/components/Inventory/Products.vue";
 import PurchaseOrders from "@/components/Inventory/PurchaseOrders.vue";
@@ -29,9 +31,18 @@ import CreatingCustomBouquet from "@/components/documentation/CreatingCustomBouq
 import UpdatingCustomBouquet from "@/components/documentation/UpdatingCustomBouquet.vue";
 import UpdateProducts from "@/components/documentation/UpdateProducts.vue";
 
-import { auth } from "@/auth.js";
+import { auth, API_BASE } from "@/auth.js";
+
+// Cache for onboarding status to avoid repeated API calls
+let onboardingStatusCache = null;
+
+// Function to reset the onboarding cache (call after successful onboarding)
+export function resetOnboardingCache() {
+  onboardingStatusCache = false;
+}
 
 const routes = [
+  { path: "/onboarding", name: "onboarding", component: OnboardingView },
   { path: "/login", name: "login", component: LoginView },
   {
     path: "/",
@@ -204,6 +215,31 @@ const router = createRouter({
 
 // Global route guard
 router.beforeEach(async (to, from, next) => {
+  // Check if onboarding is needed FIRST (before any redirects)
+  // Use cached status to avoid API call on every navigation
+  if (to.name !== "onboarding" && to.name !== "login") {
+    try {
+      const statusRes = await fetch(`${API_BASE}/onboarding/status`);
+      if (statusRes.ok) {
+        const statusData = await statusRes.json();
+        if (statusData.isEmpty) {
+          // Database is empty, redirect to onboarding
+          next({ name: "onboarding" });
+          return;
+        }
+      } catch (err) {
+        console.warn("Could not check onboarding status:", err);
+        onboardingStatusCache = false;
+      }
+    }
+    
+    if (onboardingStatusCache === true) {
+      // Database is empty, redirect to onboarding
+      next({ name: "onboarding" });
+      return;
+    }
+  }
+
   // Initialize auth (check localStorage token)
   if (!auth.isAuthenticated) await auth.init();
 
