@@ -30,7 +30,15 @@ import CreatingCustomBouquet from "@/components/documentation/CreatingCustomBouq
 import UpdatingCustomBouquet from "@/components/documentation/UpdatingCustomBouquet.vue";
 import UpdateProducts from "@/components/documentation/UpdateProducts.vue";
 
-import { auth } from "@/auth.js";
+import { auth, API_BASE } from "@/auth.js";
+
+// Cache for onboarding status to avoid repeated API calls
+let onboardingStatusCache = null;
+
+// Function to reset the onboarding cache (call after successful onboarding)
+export function resetOnboardingCache() {
+  onboardingStatusCache = false;
+}
 
 const routes = [
   { path: "/onboarding", name: "onboarding", component: OnboardingView },
@@ -207,21 +215,27 @@ const router = createRouter({
 // Global route guard
 router.beforeEach(async (to, from, next) => {
   // Check if onboarding is needed FIRST (before any redirects)
+  // Use cached status to avoid API call on every navigation
   if (to.name !== "onboarding" && to.name !== "login") {
-    try {
-      const statusRes = await fetch(
-        "http://localhost:3000/api/onboarding/status"
-      );
-      if (statusRes.ok) {
-        const statusData = await statusRes.json();
-        if (statusData.isEmpty) {
-          // Database is empty, redirect to onboarding
-          next({ name: "onboarding" });
-          return;
+    if (onboardingStatusCache === null) {
+      try {
+        const statusRes = await fetch(`${API_BASE}/onboarding/status`);
+        if (statusRes.ok) {
+          const statusData = await statusRes.json();
+          onboardingStatusCache = statusData.isEmpty;
+        } else {
+          onboardingStatusCache = false;
         }
+      } catch (err) {
+        console.warn("Could not check onboarding status:", err);
+        onboardingStatusCache = false;
       }
-    } catch (err) {
-      console.warn("Could not check onboarding status:", err);
+    }
+    
+    if (onboardingStatusCache === true) {
+      // Database is empty, redirect to onboarding
+      next({ name: "onboarding" });
+      return;
     }
   }
 

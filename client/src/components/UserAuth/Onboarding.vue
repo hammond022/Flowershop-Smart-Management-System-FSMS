@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { auth } from "@/auth.js";
+import { auth, API_BASE } from "@/auth.js";
+import { resetOnboardingCache } from "@/router/index.js";
 
 const router = useRouter();
 
@@ -92,7 +93,7 @@ const submitForm = async () => {
 
   try {
     const response = await fetch(
-      "http://localhost:3000/api/onboarding/create-first-user",
+      `${API_BASE}/onboarding/create-first-user`,
       {
         method: "POST",
         headers: {
@@ -114,9 +115,13 @@ const submitForm = async () => {
 
     successMessage.value = "Account created successfully! Logging you in...";
 
+    // Reset the onboarding cache since user was created
+    resetOnboardingCache();
+
     // Auto-login after successful creation
     setTimeout(async () => {
       await auth.login(username.value.trim(), password.value);
+      password.value = '';
       if (auth.isAuthenticated) {
         router.push("/");
       }
@@ -131,7 +136,7 @@ const submitForm = async () => {
 onMounted(async () => {
   // Check if onboarding is needed
   try {
-    const response = await fetch("http://localhost:3000/api/onboarding/status");
+    const response = await fetch(`${API_BASE}/onboarding/status`);
     const data = await response.json();
 
     if (!data.isEmpty) {
