@@ -18,24 +18,37 @@
         <i class="bi bi-download"></i> Export Database
       </h6>
       <p class="small text-muted mb-3">
-        Download the entire database as a JSON file. You will need to confirm
-        your password.
+        Download the entire database with or without images. You will need to
+        confirm your password.
       </p>
 
-      <div class="d-grid gap-2 gap-sm-0">
-        <button
-          class="btn btn-outline-primary"
-          @click="showExportModal = true"
-          :disabled="isExporting || isImporting"
-        >
-          <span v-if="!isExporting">
-            <i class="bi bi-download"></i> Export Database
-          </span>
-          <span v-else>
-            <span class="spinner-border spinner-border-sm me-2"></span
-            >Exporting...
-          </span>
-        </button>
+      <div class="row g-2">
+        <div class="col-sm-6">
+          <button
+            class="btn btn-outline-primary w-100"
+            @click="openExportModal(true)"
+            :disabled="isExporting || isImporting"
+            title="Export database with all flower images as ZIP"
+          >
+            <span v-if="!isExporting">
+              <i class="bi bi-download"></i> With Images (ZIP)
+            </span>
+            <span v-else>
+              <span class="spinner-border spinner-border-sm me-2"></span
+              >Exporting...
+            </span>
+          </button>
+        </div>
+        <div class="col-sm-6">
+          <button
+            class="btn btn-outline-secondary w-100"
+            @click="openExportModal(false)"
+            :disabled="isExporting || isImporting"
+            title="Export database only as JSON"
+          >
+            <i class="bi bi-download"></i> JSON Only
+          </button>
+        </div>
       </div>
     </div>
 
@@ -47,8 +60,9 @@
         <i class="bi bi-upload"></i> Import Database
       </h6>
       <p class="small text-muted mb-3">
-        Import a previously exported database file. This will replace the entire
-        current database. You will need to confirm your password.
+        Import a previously exported database file (ZIP or JSON). ZIP files will
+        also restore flower images. This will replace the entire current
+        database. You will need to confirm your password.
       </p>
 
       <div class="d-grid gap-2 gap-sm-0">
@@ -57,7 +71,7 @@
           @click="showImportModal = true"
           :disabled="isExporting || isImporting"
         >
-          <i class="bi bi-upload"></i> Import Database
+          <i class="bi bi-upload"></i> Import Database (ZIP or JSON)
         </button>
       </div>
     </div>
@@ -164,31 +178,44 @@
 
             <!-- File Upload -->
             <div class="mb-3">
-              <label class="form-label">Select Database File</label>
+              <label class="form-label"
+                >Select Database File (ZIP or JSON)</label
+              >
               <input
                 type="file"
                 class="form-control form-control-sm"
-                accept=".json"
+                accept=".zip,.json"
                 @change="handleFileSelect"
                 :disabled="isImporting"
               />
+              <small class="form-text text-muted mt-1">
+                Supports ZIP files (with images) or JSON files (database only)
+              </small>
             </div>
 
             <!-- File Preview -->
             <div v-if="importFileData" class="mb-3">
-              <div class="alert alert-info small">
-                <strong>File Preview:</strong>
+              <div v-if="importFileData.isZip" class="alert alert-info small">
+                <strong>ZIP File Detected:</strong>
                 <ul class="mb-0 mt-2">
-                  <li>Users: {{ importFileData.users?.length || 0 }}</li>
-                  <li>Items: {{ importFileData.items?.length || 0 }}</li>
-                  <li v-if="importFileData.orders">
-                    Orders: {{ importFileData.orders.length }}
+                  <li>This file contains database and images</li>
+                  <li>All images will be restored during import</li>
+                </ul>
+              </div>
+              <div v-else class="alert alert-info small">
+                <strong>File Preview (JSON):</strong>
+                <ul class="mb-0 mt-2">
+                  <li>Users: {{ importFileData.data.users?.length || 0 }}</li>
+                  <li>Items: {{ importFileData.data.items?.length || 0 }}</li>
+                  <li v-if="importFileData.data.orders">
+                    Orders: {{ importFileData.data.orders.length }}
                   </li>
-                  <li v-if="importFileData.purchaseOrders">
-                    Purchase Orders: {{ importFileData.purchaseOrders.length }}
+                  <li v-if="importFileData.data.purchaseOrders">
+                    Purchase Orders:
+                    {{ importFileData.data.purchaseOrders.length }}
                   </li>
-                  <li v-if="importFileData.bouquets">
-                    Bouquets: {{ importFileData.bouquets.length }}
+                  <li v-if="importFileData.data.bouquets">
+                    Bouquets: {{ importFileData.data.bouquets.length }}
                   </li>
                 </ul>
               </div>
@@ -269,14 +296,35 @@ const showImportPassword = ref(false);
 const exportError = ref("");
 const importError = ref("");
 const importFileData = ref(null);
+const exportIncludeImages = ref(true);
+
+function openExportModal(includeImages) {
+  exportIncludeImages.value = includeImages;
+  showExportModal.value = true;
+}
 
 async function handleExport() {
   exportError.value = "";
   isExporting.value = true;
 
   try {
-    const result = await DatabaseService.exportDatabase(exportPassword.value);
-    DatabaseService.downloadAsFile(result.data);
+    const result = await DatabaseService.exportDatabase(
+      exportPassword.value,
+      exportIncludeImages.value
+    );
+
+    if (exportIncludeImages.value) {
+      // Result is a Blob (ZIP file)
+      DatabaseService.downloadDatabaseZip(result);
+    } else {
+      // Result is JSON response
+      if (result.data) {
+        DatabaseService.downloadDatabaseJSON(result.data);
+      } else {
+        DatabaseService.downloadDatabaseJSON(result);
+      }
+    }
+
     showToast("success", "Database exported successfully");
     showExportModal.value = false;
     exportPassword.value = "";
@@ -301,7 +349,17 @@ async function handleFileSelect(event) {
   }
 
   try {
-    importFileData.value = await DatabaseService.parseUploadedFile(file);
+    // Check if file is ZIP or JSON
+    if (file.type === "application/zip" || file.name.endsWith(".zip")) {
+      // For ZIP files, just store the file object
+      importFileData.value = { file, isZip: true };
+    } else {
+      // For JSON files, parse the content
+      importFileData.value = {
+        data: await DatabaseService.parseUploadedFile(file),
+        isZip: false,
+      };
+    }
   } catch (error) {
     importError.value = error.message;
     importFileData.value = null;
@@ -314,11 +372,23 @@ async function handleImport() {
   isImporting.value = true;
 
   try {
+    // Pass the file to importDatabase
+    const file =
+      importFileData.value.file ||
+      new File([JSON.stringify(importFileData.value.data)], "database.json", {
+        type: "application/json",
+      });
+
     const result = await DatabaseService.importDatabase(
-      importFileData.value,
+      file,
       importPassword.value
     );
-    showToast("success", result.message || "Database imported successfully");
+    showToast(
+      "success",
+      result.message ||
+        "Database imported successfully" +
+          (result.imagesIncluded ? " with images" : "")
+    );
     showImportModal.value = false;
     importPassword.value = "";
     importFileData.value = null;
