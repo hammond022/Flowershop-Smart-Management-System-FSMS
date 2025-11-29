@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { API_BASE } from "@/auth.js";
 import HomeView from "@/views/HomeView.vue";
 import PosView from "@/views/PosView.vue";
 import TransactionsView from "@/views/TransactionsView.vue";
@@ -209,9 +210,7 @@ router.beforeEach(async (to, from, next) => {
   // Check if onboarding is needed FIRST (before any redirects)
   if (to.name !== "onboarding" && to.name !== "login") {
     try {
-      const statusRes = await fetch(
-        "http://localhost:3000/api/onboarding/status"
-      );
+      const statusRes = await fetch(`${API_BASE}/onboarding/status`);
       if (statusRes.ok) {
         const statusData = await statusRes.json();
         if (statusData.isEmpty) {
