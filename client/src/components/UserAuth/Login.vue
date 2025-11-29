@@ -347,25 +347,6 @@ const submitLogin = async () => {
   transform: translateY(0);
 }
 
-.login-footer {
-  text-align: center;
-  margin-top: 30px;
-  font-size: 13px;
-  color: #999;
-}
-
-.login-footer a {
-  color: #667eea;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s ease;
-}
-
-.login-footer a:hover {
-  color: #764ba2;
-  text-decoration: underline;
-}
-
 /* Responsive design */
 @media (max-width: 768px) {
   .login-wrapper {
