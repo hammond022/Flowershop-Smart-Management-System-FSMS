@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { API_BASE } from "@/auth.js";
 import HomeView from "@/views/HomeView.vue";
 import PosView from "@/views/PosView.vue";
 import TransactionsView from "@/views/TransactionsView.vue";
@@ -217,14 +218,14 @@ router.beforeEach(async (to, from, next) => {
   // Check if onboarding is needed FIRST (before any redirects)
   // Use cached status to avoid API call on every navigation
   if (to.name !== "onboarding" && to.name !== "login") {
-    if (onboardingStatusCache === null) {
-      try {
-        const statusRes = await fetch(`${API_BASE}/onboarding/status`);
-        if (statusRes.ok) {
-          const statusData = await statusRes.json();
-          onboardingStatusCache = statusData.isEmpty;
-        } else {
-          onboardingStatusCache = false;
+    try {
+      const statusRes = await fetch(`${API_BASE}/onboarding/status`);
+      if (statusRes.ok) {
+        const statusData = await statusRes.json();
+        if (statusData.isEmpty) {
+          // Database is empty, redirect to onboarding
+          next({ name: "onboarding" });
+          return;
         }
       } catch (err) {
         console.warn("Could not check onboarding status:", err);
