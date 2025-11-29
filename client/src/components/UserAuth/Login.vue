@@ -40,7 +40,7 @@ const submitLogin = async () => {
           </div>
           <div class="feature">
             <i class="bi bi-graph-up"></i>
-            <span> Analytics</span>
+            <span>Analytics</span>
           </div>
         </div>
       </div>
