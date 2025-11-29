@@ -930,6 +930,7 @@ onMounted(() => {
                 type="button"
                 class="btn btn-danger me-2"
                 @click="cancelTransaction(selectedTransaction.id)"
+                :disabled="!['pending'].includes((selectedTransaction.orderStatus || '').toLowerCase())"
               >
                 Cancel transaction
               </button>
