@@ -12,6 +12,7 @@ import bouquetsRouter from "./routes/api/bouquets.js";
 import customBouquetsRouter from "./routes/api/customBouquets.js";
 import photoUploadRoute from "./routes/api/photoUploadRoute.js";
 import databaseRouter from "./routes/api/database.js";
+import onboardingRouter from "./routes/api/onboarding.js";
 
 // i apologize for this monstrosity
 // photo upload
@@ -27,6 +28,15 @@ app.use("/api/upload", photoUploadRoute);
 const adapter = new JSONFile("db.json");
 export const db = new Low(adapter, { users: [], items: [] });
 await db.read();
+
+// Ensure users array exists
+if (!db.data.users) {
+  db.data.users = [];
+  await db.write();
+}
+
+// Onboarding route (public - no auth required)
+app.use("/api/onboarding", onboardingRouter);
 
 app.use(basicAuth);
 

@@ -7,6 +7,7 @@ import SettingsView from "@/views/SettingsView.vue";
 import ChangePasswordView from "@/views/ChangePasswordView.vue";
 import DatabaseManagementView from "@/views/DatabaseManagementView.vue";
 import LoginView from "@/components/UserAuth/Login.vue";
+import OnboardingView from "@/components/UserAuth/Onboarding.vue";
 import Overview from "@/components/Inventory/Overview.vue";
 import Products from "@/components/Inventory/Products.vue";
 import PurchaseOrders from "@/components/Inventory/PurchaseOrders.vue";
@@ -32,6 +33,7 @@ import UpdateProducts from "@/components/documentation/UpdateProducts.vue";
 import { auth } from "@/auth.js";
 
 const routes = [
+  { path: "/onboarding", name: "onboarding", component: OnboardingView },
   { path: "/login", name: "login", component: LoginView },
   {
     path: "/",
@@ -204,6 +206,25 @@ const router = createRouter({
 
 // Global route guard
 router.beforeEach(async (to, from, next) => {
+  // Check if onboarding is needed FIRST (before any redirects)
+  if (to.name !== "onboarding" && to.name !== "login") {
+    try {
+      const statusRes = await fetch(
+        "http://localhost:3000/api/onboarding/status"
+      );
+      if (statusRes.ok) {
+        const statusData = await statusRes.json();
+        if (statusData.isEmpty) {
+          // Database is empty, redirect to onboarding
+          next({ name: "onboarding" });
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn("Could not check onboarding status:", err);
+    }
+  }
+
   // Initialize auth (check localStorage token)
   if (!auth.isAuthenticated) await auth.init();
 

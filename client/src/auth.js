@@ -48,6 +48,20 @@ export const auth = reactive({
   },
 
   async init() {
+    // Check if onboarding is needed
+    try {
+      const statusRes = await fetch(`${API_BASE}/onboarding/status`);
+      if (statusRes.ok) {
+        const statusData = await statusRes.json();
+        if (statusData.isEmpty) {
+          // Database is empty, onboarding is needed
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn("Could not check onboarding status:", err);
+    }
+
     // restore session if token exists
     const token = localStorage.getItem("authToken");
     if (!token) return;
