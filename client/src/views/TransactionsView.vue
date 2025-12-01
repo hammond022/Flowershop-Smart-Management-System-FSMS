@@ -103,16 +103,6 @@ function getTotal(order) {
   return subtotal - discount;
 }
 
-function formatPHP(value) {
-  const num = Number(value) || 0;
-  return new Intl.NumberFormat("en-PH", {
-    style: "currency",
-    currency: "PHP",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(num);
-}
-
 function displayStatus(s) {
   const st = (s || "").toString();
   if (!st) return "";
@@ -211,8 +201,8 @@ const printTransaction = (tx) => {
       ],
       ["Start Time", new Date(tx.orderStart).toLocaleString()],
       ["End Time", new Date(tx.orderEnd).toLocaleString()],
-      ["Amount Paid", formatPHP(tx.amountPaid)],
-      ["Change", formatPHP(tx.change)],
+      ["Amount Paid", `PHP ${(Number(tx.amountPaid) || 0).toFixed(2)}`],
+      ["Change", `PHP ${(Number(tx.change) || 0).toFixed(2)}`],
     ],
   });
 
@@ -221,8 +211,8 @@ const printTransaction = (tx) => {
     tx.selectedFlowers?.map((item) => [
       item.name,
       item.qty,
-      formatPHP(item.price),
-      formatPHP(item.price * (item.qty || 0)),
+      `PHP ${(Number(item.price) || 0).toFixed(2)}`,
+      `PHP ${((Number(item.price) || 0) * (item.qty || 0) || 0).toFixed(2)}`,
     ]) || [];
 
   autoTable(doc, {
@@ -253,16 +243,16 @@ const printTransaction = (tx) => {
     body: [
       [
         "Subtotal",
-        formatPHP(
+        `PHP ${(
           tx.selectedFlowers?.reduce(
             (sum, f) => sum + f.price * (f.qty || 0),
             0
           ) || 0
-        ),
+        ).toFixed(2)}`,
       ],
       [
         "Discount",
-        formatPHP(
+        `PHP ${(
           tx.discounts?.reduce((sum, d) => {
             const subtotal =
               tx.selectedFlowers?.reduce(
@@ -272,9 +262,9 @@ const printTransaction = (tx) => {
             if (d.type === "percent") return sum + subtotal * (d.value / 100);
             return sum + d.value;
           }, 0) || 0
-        ),
+        ).toFixed(2)}`,
       ],
-      ["Total", formatPHP(getTotal(tx))],
+      ["Total", `PHP ${(getTotal(tx) || 0).toFixed(2)}`],
     ],
   });
 
@@ -445,8 +435,8 @@ onMounted(() => {
                 tx.mop ? tx.mop.charAt(0).toUpperCase() + tx.mop.slice(1) : "—"
               }}
             </td>
-            <td>{{ formatPHP(tx.amountPaid) }}</td>
-            <td>{{ formatPHP(tx.change) }}</td>
+            <td>PHP {{ (Number(tx.amountPaid) || 0).toFixed(2) }}</td>
+            <td>PHP {{ (Number(tx.change) || 0).toFixed(2) }}</td>
             <td>
               {{
                 tx.selectedFlowers?.reduce((sum, f) => sum + (f.qty || 0), 0) ||
@@ -479,14 +469,7 @@ onMounted(() => {
                 {{ displayStatus(tx.orderStatus) }}
               </span>
             </td>
-            <td>
-              {{
-                new Intl.NumberFormat("en-PH", {
-                  style: "currency",
-                  currency: "PHP",
-                }).format(getTotal(tx))
-              }}
-            </td>
+            <td>PHP {{ (getTotal(tx) || 0).toFixed(2) }}</td>
             <td>{{ new Date(tx.orderStart).toLocaleString() }}</td>
             <td>{{ new Date(tx.orderEnd).toLocaleString() }}</td>
             <td>
@@ -625,9 +608,14 @@ onMounted(() => {
                             v-if="item.notes"
                           ></i>
                           {{ item.qty }}x {{ item.name }}
-                          <span>{{
-                            formatPHP(item.price * (item.qty || 0))
-                          }}</span>
+                          <span>
+                            PHP
+                            {{
+                              (
+                                (Number(item.price) || 0) * (item.qty || 0) || 0
+                              ).toFixed(2)
+                            }}
+                          </span>
                         </div>
                       </li>
 
@@ -637,8 +625,9 @@ onMounted(() => {
                       >
                         Discount Total:
                         <span class="badge bg-primary">
+                          PHP
                           {{
-                            formatPHP(
+                            (
                               selectedTransaction.discounts.reduce((sum, d) => {
                                 if (d.type === "percent")
                                   return (
@@ -647,8 +636,8 @@ onMounted(() => {
                                       (d.value / 100)
                                   );
                                 return sum + d.value;
-                              }, 0)
-                            )
+                              }, 0) || 0
+                            ).toFixed(2)
                           }}
                         </span>
                       </li>
@@ -657,38 +646,36 @@ onMounted(() => {
                         class="list-group-item d-flex justify-content-between align-items-center list-group-item-success"
                       >
                         Total:
-                        <span>{{
-                          new Intl.NumberFormat("en-PH", {
-                            style: "currency",
-                            currency: "PHP",
-                          }).format(getTotal(selectedTransaction))
-                        }}</span>
+                        <span
+                          >PHP
+                          {{
+                            (getTotal(selectedTransaction) || 0).toFixed(2)
+                          }}</span
+                        >
                       </li>
                       <li
                         class="list-group-item d-flex justify-content-between align-items-center list-group-item-light"
                       >
                         Amount Paid:
-                        <span>
+                        <span
+                          >PHP
                           {{
-                            new Intl.NumberFormat("en-PH", {
-                              style: "currency",
-                              currency: "PHP",
-                            }).format(selectedTransaction.amountPaid)
-                          }}
-                        </span>
+                            (
+                              Number(selectedTransaction.amountPaid) || 0
+                            ).toFixed(2)
+                          }}</span
+                        >
                       </li>
                       <li
                         class="list-group-item d-flex justify-content-between align-items-center list-group-item-warning"
                       >
                         Change:
-                        <span>
+                        <span
+                          >PHP
                           {{
-                            new Intl.NumberFormat("en-PH", {
-                              style: "currency",
-                              currency: "PHP",
-                            }).format(selectedTransaction.change)
-                          }}
-                        </span>
+                            (Number(selectedTransaction.change) || 0).toFixed(2)
+                          }}</span
+                        >
                       </li>
                     </ul>
                   </div>
@@ -827,12 +814,14 @@ onMounted(() => {
                             v-if="item.notes"
                           ></i>
                           {{ item.qty }}x {{ item.name }}
-                          <span>{{
-                            new Intl.NumberFormat("en-PH", {
-                              style: "currency",
-                              currency: "PHP",
-                            }).format(item.price * (item.qty || 0))
-                          }}</span>
+                          <span>
+                            PHP
+                            {{
+                              (
+                                (Number(item.price) || 0) * (item.qty || 0) || 0
+                              ).toFixed(2)
+                            }}
+                          </span>
                         </div>
                       </li>
 
@@ -842,8 +831,9 @@ onMounted(() => {
                       >
                         Discount Total:
                         <span class="badge bg-primary">
+                          PHP
                           {{
-                            formatPHP(
+                            (
                               selectedTransaction.discounts.reduce((sum, d) => {
                                 if (d.type === "percent")
                                   return (
@@ -852,8 +842,8 @@ onMounted(() => {
                                       (d.value / 100)
                                   );
                                 return sum + d.value;
-                              }, 0)
-                            )
+                              }, 0) || 0
+                            ).toFixed(2)
                           }}
                         </span>
                       </li>
@@ -862,38 +852,36 @@ onMounted(() => {
                         class="list-group-item d-flex justify-content-between align-items-center list-group-item-success"
                       >
                         Total:
-                        <span>{{
-                          new Intl.NumberFormat("en-PH", {
-                            style: "currency",
-                            currency: "PHP",
-                          }).format(getTotal(selectedTransaction))
-                        }}</span>
+                        <span
+                          >PHP
+                          {{
+                            (getTotal(selectedTransaction) || 0).toFixed(2)
+                          }}</span
+                        >
                       </li>
                       <li
                         class="list-group-item d-flex justify-content-between align-items-center list-group-item-light"
                       >
                         Amount Paid:
-                        <span>
+                        <span
+                          >PHP
                           {{
-                            new Intl.NumberFormat("en-PH", {
-                              style: "currency",
-                              currency: "PHP",
-                            }).format(selectedTransaction.amountPaid)
-                          }}
-                        </span>
+                            (
+                              Number(selectedTransaction.amountPaid) || 0
+                            ).toFixed(2)
+                          }}</span
+                        >
                       </li>
                       <li
                         class="list-group-item d-flex justify-content-between align-items-center list-group-item-warning"
                       >
                         Change:
-                        <span>
+                        <span
+                          >PHP
                           {{
-                            new Intl.NumberFormat("en-PH", {
-                              style: "currency",
-                              currency: "PHP",
-                            }).format(selectedTransaction.change)
-                          }}
-                        </span>
+                            (Number(selectedTransaction.change) || 0).toFixed(2)
+                          }}</span
+                        >
                       </li>
                     </ul>
                   </div>
@@ -930,7 +918,11 @@ onMounted(() => {
                 type="button"
                 class="btn btn-danger me-2"
                 @click="cancelTransaction(selectedTransaction.id)"
-                :disabled="!['pending'].includes((selectedTransaction.orderStatus || '').toLowerCase())"
+                :disabled="
+                  !['pending'].includes(
+                    (selectedTransaction.orderStatus || '').toLowerCase()
+                  )
+                "
               >
                 Cancel transaction
               </button>
