@@ -2,12 +2,13 @@ import express from "express";
 import { requirePermission } from "../../middleware/roles.js";
 import { db } from "../../server.js";
 import { fileURLToPath } from "url";
-import { dirname, join } from "path";
+import { dirname } from "path";
 import fs from "fs";
 import path from "path";
 import archiver from "archiver";
 import multer from "multer";
 import unzipper from "unzipper";
+import PATHS from "../../config/paths.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -55,7 +56,7 @@ router.post("/export", verifyAdminPassword, async (req, res) => {
 
     if (includeImages) {
       // Create a ZIP archive with database and images
-      const uploadsDir = path.resolve("uploads");
+      const uploadsDir = PATHS.uploads;
 
       if (fs.existsSync(uploadsDir)) {
         res.setHeader("Content-Type", "application/zip");
@@ -130,7 +131,7 @@ router.post(
         try {
           // Parse the ZIP file
           const zipData = req.file.buffer;
-          const uploadsDir = path.resolve("uploads");
+          const uploadsDir = PATHS.uploads;
 
           // Ensure uploads directory exists
           if (!fs.existsSync(uploadsDir)) {

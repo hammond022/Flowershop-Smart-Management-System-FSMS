@@ -2,11 +2,12 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import PATHS from "../../config/paths.js";
 
 const router = express.Router();
 
 // ✅ Use same folder as server static middleware
-const uploadDir = path.resolve("uploads");
+const uploadDir = PATHS.uploads;
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }

@@ -1,6 +1,7 @@
 import api from "@/axios.js";
+import { API_BASE_URL } from "@/api/base.js";
 
-const API_BASE = "http://localhost:3000/api/custom-bouquets";
+const API_BASE = `${API_BASE_URL}/custom-bouquets`;
 
 export default {
   // Get all custom bouquets

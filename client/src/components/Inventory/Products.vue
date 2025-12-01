@@ -5,6 +5,7 @@ import { useToast } from "@/composables/useToast";
 import ItemService from "@/router/api/itemsService.js";
 import InventoryProduct from "./Product.vue";
 import { useRoute } from "vue-router";
+import { resolveBackendOrigin } from "@/api/base.js";
 
 const route = useRoute();
 
@@ -184,6 +185,8 @@ function editProduct(productId) {
 
 const isUploading = ref(false);
 
+const backendOrigin = resolveBackendOrigin();
+
 const handlePhotoUpload = async (event) => {
   const file = event.target.files[0];
   if (!file) return;
@@ -196,7 +199,7 @@ const handlePhotoUpload = async (event) => {
     const res = await ItemService.uploadPhoto(file);
     // Adjust this depending on your backend response structure
     // e.g. if backend sends { filePath: "uploads/filename.jpg" }
-    product.photo = res.fileUrl || `${window.location.origin}${res.filePath}`;
+    product.photo = res.fileUrl || `${backendOrigin}${res.filePath}`;
 
     showToast("success", "Photo uploaded successfully!");
   } catch (err) {

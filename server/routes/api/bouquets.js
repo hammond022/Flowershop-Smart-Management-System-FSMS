@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import { embedText, similarity, embedTextBatch } from "../../embeddings.js";
 import { db } from "../../server.js";
+import PATHS from "../../config/paths.js";
 
 const router = express.Router();
 
@@ -10,6 +11,22 @@ let templateEmbeddings = null;
 let itemEmbeddingsCache = null;
 let lastInventoryUpdate = null;
 let isProcessing = false;
+
+function ensureTemplatesSeeded() {
+  const templatesPath = path.join(PATHS.data, "templates.json");
+  if (fs.existsSync(templatesPath)) {
+    return templatesPath;
+  }
+
+  const fallbackPath = path.join(PATHS.server, "data", "templates.json");
+  if (!fs.existsSync(fallbackPath)) {
+    throw new Error("Default templates.json file is missing");
+  }
+
+  fs.mkdirSync(path.dirname(templatesPath), { recursive: true });
+  fs.copyFileSync(fallbackPath, templatesPath);
+  return templatesPath;
+}
 
 function keywordMatchTemplates(theme, templates, limit = 5) {
   const themeWords = theme.toLowerCase().split(/\s+/);
@@ -45,7 +62,7 @@ function keywordMatchTemplates(theme, templates, limit = 5) {
 }
 
 async function getTemplates() {
-  const templatesPath = path.resolve("data/templates.json");
+  const templatesPath = ensureTemplatesSeeded();
   return JSON.parse(fs.readFileSync(templatesPath, "utf-8"));
 }
 
@@ -515,7 +532,7 @@ router.post("/feedback", async (req, res) => {
   }
 
   try {
-    const templatesPath = path.resolve("data/templates.json");
+    const templatesPath = path.join(PATHS.data, "templates.json");
     const templates = JSON.parse(fs.readFileSync(templatesPath, "utf-8"));
 
     const templateIndex = templates.findIndex((t) => t.id === templateId);

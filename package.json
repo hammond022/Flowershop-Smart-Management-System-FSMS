@@ -1,10 +1,101 @@
 {
+  "name": "flowershop-smart-management-system",
+  "version": "1.0.0",
+  "description": "Standalone POS & inventory desktop app for floral shops.",
+  "private": true,
+  "main": "electron/main.mjs",
+  "scripts": {
+    "client:dev": "npm run dev --prefix client",
+    "client:build": "npm run build --prefix client",
+    "server:dev": "cross-env NODE_ENV=development nodemon --watch server --ext js,json --exec \"node server/server.js\"",
+    "server:start": "cross-env NODE_ENV=production node server/server.js",
+    "dev": "concurrently -k \"npm:server:dev\" \"npm:client:dev\"",
+    "electron": "electron .",
+    "electron:dev": "cross-env VITE_DEV_SERVER_URL=http://localhost:5173 concurrently -k \"npm:client:dev\" \"wait-on http://localhost:5173 && electron .\"",
+    "build": "npm run client:build",
+    "dist": "npm run build && electron-builder"
+  },
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "dependencies": {
-    "@popperjs/core": "^2.11.8",
-    "axios": "^1.12.1",
-    "bootstrap": "^5.3.8",
+    "@xenova/transformers": "^2.17.2",
+    "archiver": "^6.0.1",
+    "archiver-utils": "^4.0.1",
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
+    "cosine-similarity": "^1.0.1",
     "express": "^5.1.0",
-    "lowdb": "^7.0.1"
+    "express-basic-auth": "^1.2.1",
+    "lowdb": "^7.0.1",
+    "multer": "^2.0.2",
+    "path": "^0.12.7",
+    "unzipper": "^0.10.14"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "cross-env": "^7.0.3",
+    "electron": "^32.1.2",
+    "electron-builder": "^25.1.8",
+    "nodemon": "^3.1.10",
+    "wait-on": "^7.2.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "build": {
+    "appId": "com.fsms.desktop",
+    "productName": "FlowerShop Smart Management System",
+    "files": [
+      "electron/**/*",
+      "client/dist/**/*",
+      "server/**/*",
+      "data/**/*",
+      "uploads/**/*",
+      "package.json",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/@xenova/**"
+    ],
+    "extraResources": [
+      {
+        "from": "data",
+        "to": "data"
+      },
+      {
+        "from": "uploads",
+        "to": "uploads"
+      },
+      {
+        "from": "client/src/assets/icons/icon.ico",
+        "to": "icon.ico"
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "artifactName": "FlowerShop Smart Management System-${version}-setup.${ext}",
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "FlowerShop Smart Management System",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico"
+    }
   }
 }
