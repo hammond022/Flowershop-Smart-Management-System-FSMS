@@ -1008,7 +1008,7 @@ const change = computed(() => {
                 id="checkDefault"
               />
               <label class="form-check-label" for="checkDefault">
-                Add dedication message
+                Add customer notes
               </label>
             </div> -->
 
@@ -1016,11 +1016,11 @@ const change = computed(() => {
               <textarea
                 class="form-control"
                 id="floatingTextarea"
-                placeholder="Write your dedication here..."
+                placeholder="Write your customer notes here..."
                 v-model="dedicationMessage"
                 :maxlength="dedicationLimit"
               ></textarea>
-              <label for="floatingTextarea">Dedication Message</label>
+              <label for="floatingTextarea">Customer Notes</label>
               <div
                 class="form-text text-end"
                 :class="{

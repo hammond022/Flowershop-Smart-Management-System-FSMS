@@ -269,7 +269,7 @@ const printTransaction = (tx) => {
   });
 
   if (tx.dedicationMessage) {
-    doc.text("Dedication Message", 14, doc.lastAutoTable.finalY + 15);
+    doc.text("Customer Notes", 14, doc.lastAutoTable.finalY + 15);
     doc.setFontSize(12);
     doc.text(tx.dedicationMessage, 14, doc.lastAutoTable.finalY + 25, {
       maxWidth: 180,
@@ -683,7 +683,7 @@ onMounted(() => {
               </div>
             </div>
             <div v-if="selectedTransaction?.dedicationMessage" class="mt-3">
-              <h6>Dedication Message:</h6>
+              <h6>Customer Notes:</h6>
               <p class="fst-italic">
                 {{ selectedTransaction.dedicationMessage }}
               </p>
@@ -889,7 +889,7 @@ onMounted(() => {
               </div>
             </div>
             <div v-if="selectedTransaction?.dedicationMessage" class="mt-3">
-              <h6>Dedication Message:</h6>
+              <h6>Customer Notes:</h6>
               <p class="fst-italic">
                 {{ selectedTransaction.dedicationMessage }}
               </p>
