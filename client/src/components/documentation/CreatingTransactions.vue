@@ -117,7 +117,7 @@
                     <i class="bi bi-chat-square-dots text-primary"></i>
                     <div>
                       <h6 class="mb-1">
-                        Customer Notes
+                        Remarks
                         <span class="badge bg-secondary">Optional</span>
                       </h6>
                       <p class="small text-muted mb-0">

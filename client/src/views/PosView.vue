@@ -798,7 +798,7 @@ const change = computed(() => {
             <span class="input-group-text">Notes</span>
             <textarea
               class="form-control"
-              placeholder="ex. Customer notes"
+              placeholder="ex. Remarks"
               aria-label="With textarea"
               v-model="editModal.notes"
             ></textarea>
@@ -1008,7 +1008,7 @@ const change = computed(() => {
                 id="checkDefault"
               />
               <label class="form-check-label" for="checkDefault">
-                Add customer notes
+                Add dedication message
               </label>
             </div> -->
 
@@ -1016,11 +1016,11 @@ const change = computed(() => {
               <textarea
                 class="form-control"
                 id="floatingTextarea"
-                placeholder="Write your customer notes here..."
+                placeholder="Write your dedication here..."
                 v-model="dedicationMessage"
                 :maxlength="dedicationLimit"
               ></textarea>
-              <label for="floatingTextarea">Customer Notes</label>
+              <label for="floatingTextarea">Dedication Message</label>
               <div
                 class="form-text text-end"
                 :class="{
