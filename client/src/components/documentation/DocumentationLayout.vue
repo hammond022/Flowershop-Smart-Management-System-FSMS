@@ -10,7 +10,20 @@
 </template>
 
 <script setup>
+import { onMounted } from "vue";
 import DocumentationSidebar from "./DocumentationSidebar.vue";
+import BouquetService from "@/router/api/BouquetService";
+
+onMounted(async () => {
+  try {
+    const { templates, count } = await BouquetService.getTemplates();
+    console.groupCollapsed("[Docs] Loaded bouquet templates", count);
+    console.log(templates);
+    console.groupEnd();
+  } catch (error) {
+    console.warn("[Docs] Failed to load bouquet templates", error);
+  }
+});
 </script>
 
 <style scoped>

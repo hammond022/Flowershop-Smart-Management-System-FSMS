@@ -26,7 +26,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "passionate_embers",
@@ -55,7 +55,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.9
+    "bias": 1
   },
   {
     "id": "tranquil_azure_dream",
@@ -84,7 +84,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "vibrant_meadow_magic",
@@ -117,7 +117,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "enchanted_forest",
@@ -150,7 +150,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "birthday_fiesta",
@@ -179,7 +179,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.85
+    "bias": 1
   },
   {
     "id": "velvet_night",
@@ -212,7 +212,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "blushing_promise",
@@ -241,7 +241,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.75
+    "bias": 1
   },
   {
     "id": "fiery_zest",
@@ -270,7 +270,7 @@
         "qty": 2
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "pure_innocence",
@@ -299,7 +299,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "get_well_rainbow",
@@ -332,7 +332,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.65
+    "bias": 1
   },
   {
     "id": "sunny_disposition",
@@ -361,7 +361,7 @@
         "qty": 2
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "thankful_heart",
@@ -390,7 +390,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "ocean_whisper",
@@ -419,7 +419,7 @@
         "qty": 6
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "berry_delight",
@@ -446,9 +446,13 @@
       {
         "name": "Hypericum Berries",
         "qty": 4
+      },
+      {
+        "name": "Aster",
+        "qty": 3
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "autumn_glow",
@@ -479,9 +483,17 @@
       {
         "name": "Orange Tulip",
         "qty": 4
+      },
+      {
+        "name": "Marigold",
+        "qty": 4
+      },
+      {
+        "name": "Chrysanthemum",
+        "qty": 3
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "spring_awakening",
@@ -510,7 +522,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "midnight_mystique",
@@ -543,7 +555,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "cotton_candy_clouds",
@@ -572,7 +584,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "citrus_splash",
@@ -599,9 +611,13 @@
       {
         "name": "Bells of Ireland",
         "qty": 4
+      },
+      {
+        "name": "Heliconia",
+        "qty": 3
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "congratulations_champ",
@@ -630,7 +646,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "sympathy_peace",
@@ -663,7 +679,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "festive_cheer",
@@ -696,7 +712,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.75
+    "bias": 1
   },
   {
     "id": "new_baby_bliss",
@@ -729,7 +745,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "friendship_forever",
@@ -758,7 +774,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.8
+    "bias": 1
   },
   {
     "id": "winter_elegance",
@@ -791,7 +807,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "summer_sorbet",
@@ -818,9 +834,17 @@
       {
         "name": "Yellow Ranunculus",
         "qty": 5
+      },
+      {
+        "name": "Sunflower",
+        "qty": 3
+      },
+      {
+        "name": "African Daisy",
+        "qty": 4
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "royal_majesty",
@@ -847,9 +871,17 @@
       {
         "name": "Purple Lisianthus",
         "qty": 6
+      },
+      {
+        "name": "Orchid",
+        "qty": 3
+      },
+      {
+        "name": "Anthurium",
+        "qty": 2
       }
     ],
-    "bias": 0.45
+    "bias": 1
   },
   {
     "id": "thinking_of_you",
@@ -878,7 +910,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.65
+    "bias": 1
   },
   {
     "id": "secret_admirer",
@@ -907,7 +939,7 @@
         "qty": 2
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "corporate_triumph",
@@ -940,7 +972,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "garden_party",
@@ -971,9 +1003,21 @@
       {
         "name": "Lavender",
         "qty": 3
+      },
+      {
+        "name": "Bougainvillea",
+        "qty": 4
+      },
+      {
+        "name": "Ixora",
+        "qty": 3
+      },
+      {
+        "name": "Begonia",
+        "qty": 3
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "tropical_paradise",
@@ -1004,9 +1048,21 @@
       {
         "name": "Anthurium",
         "qty": 4
+      },
+      {
+        "name": "Gumamela",
+        "qty": 4
+      },
+      {
+        "name": "Kalachuchi",
+        "qty": 3
+      },
+      {
+        "name": "Canna Lily",
+        "qty": 2
       }
     ],
-    "bias": 0.45
+    "bias": 1
   },
   {
     "id": "vintage_charm",
@@ -1039,7 +1095,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "dramatic_desire",
@@ -1068,7 +1124,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "morning_dew",
@@ -1101,7 +1157,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "celebrate_success",
@@ -1130,7 +1186,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "serene_sympathy",
@@ -1157,9 +1213,17 @@
       {
         "name": "Lisianthus",
         "qty": 4
+      },
+      {
+        "name": "Camia",
+        "qty": 3
+      },
+      {
+        "name": "Lily",
+        "qty": 2
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "wildflower_whimsy",
@@ -1186,9 +1250,17 @@
       {
         "name": "Daisy",
         "qty": 5
+      },
+      {
+        "name": "Zinnia",
+        "qty": 4
+      },
+      {
+        "name": "Lantana",
+        "qty": 3
       }
     ],
-    "bias": 0.65
+    "bias": 1
   },
   {
     "id": "grand_gesture",
@@ -1213,7 +1285,7 @@
         "qty": 10
       }
     ],
-    "bias": 0.8
+    "bias": 1
   },
   {
     "id": "pink_perfection",
@@ -1242,7 +1314,7 @@
         "qty": 6
       }
     ],
-    "bias": 0.75
+    "bias": 1
   },
   {
     "id": "blue_horizon",
@@ -1271,7 +1343,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "harvest_blessings",
@@ -1304,7 +1376,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "pretty_in_pastels",
@@ -1333,7 +1405,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "sunny_side_up",
@@ -1362,7 +1434,7 @@
         "qty": 6
       }
     ],
-    "bias": 0.8
+    "bias": 1
   },
   {
     "id": "fire_and_ice",
@@ -1391,7 +1463,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "fragrant_escape",
@@ -1418,9 +1490,25 @@
       {
         "name": "Eucalyptus",
         "qty": 3
+      },
+      {
+        "name": "Sampaguita",
+        "qty": 4
+      },
+      {
+        "name": "Jasmine",
+        "qty": 3
+      },
+      {
+        "name": "Tuberose",
+        "qty": 3
+      },
+      {
+        "name": "Dama de Noche",
+        "qty": 2
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "mothers_love",
@@ -1449,7 +1537,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.9
+    "bias": 1
   },
   {
     "id": "bold_and_beautiful",
@@ -1478,7 +1566,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "warm_wishes",
@@ -1507,7 +1595,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.65
+    "bias": 1
   },
   {
     "id": "cool_breeze",
@@ -1536,7 +1624,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "party_time",
@@ -1565,7 +1653,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.85
+    "bias": 1
   },
   {
     "id": "forever_yours",
@@ -1590,7 +1678,7 @@
         "qty": 12
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "spring_cheer",
@@ -1617,9 +1705,17 @@
       {
         "name": "Purple Iris",
         "qty": 5
+      },
+      {
+        "name": "Daisy",
+        "qty": 5
+      },
+      {
+        "name": "Gerbera Daisy",
+        "qty": 4
       }
     ],
-    "bias": 0.75
+    "bias": 1
   },
   {
     "id": "gentle_thoughts",
@@ -1646,9 +1742,17 @@
       {
         "name": "White Alstroemeria",
         "qty": 5
+      },
+      {
+        "name": "Lavender",
+        "qty": 3
+      },
+      {
+        "name": "Carnation",
+        "qty": 4
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "patriotic_pride",
@@ -1677,7 +1781,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "rustic_charm",
@@ -1710,7 +1814,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "mystic_orchid",
@@ -1739,7 +1843,7 @@
         "qty": 2
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "happy_anniversary",
@@ -1768,7 +1872,7 @@
         "qty": 6
       }
     ],
-    "bias": 0.8
+    "bias": 1
   },
   {
     "id": "fields_of_france",
@@ -1797,7 +1901,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "healing_vibes",
@@ -1824,9 +1928,17 @@
       {
         "name": "Ferns",
         "qty": 5
+      },
+      {
+        "name": "Santol Flower",
+        "qty": 2
+      },
+      {
+        "name": "Adelfa",
+        "qty": 2
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "celebrity_status",
@@ -1855,7 +1967,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.3
+    "bias": 1
   },
   {
     "id": "cozy_comfort",
@@ -1884,7 +1996,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "rainbow_connection",
@@ -1927,7 +2039,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "first_date",
@@ -1954,9 +2066,17 @@
       {
         "name": "Gypsophila",
         "qty": 3
+      },
+      {
+        "name": "Rose",
+        "qty": 4
+      },
+      {
+        "name": "Periwinkle",
+        "qty": 3
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "deepest_sympathy",
@@ -1985,7 +2105,7 @@
         "qty": 7
       }
     ],
-    "bias": 0.65
+    "bias": 1
   },
   {
     "id": "just_because_smile",
@@ -2014,7 +2134,7 @@
         "qty": 6
       }
     ],
-    "bias": 0.8
+    "bias": 1
   },
   {
     "id": "ivory_tower",
@@ -2043,7 +2163,7 @@
         "qty": 1
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "pops_of_color",
@@ -2072,7 +2192,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "thank_you_teacher",
@@ -2101,7 +2221,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "bridal_bliss",
@@ -2130,7 +2250,7 @@
         "qty": 10
       }
     ],
-    "bias": 0.75
+    "bias": 1
   },
   {
     "id": "welcome_home",
@@ -2159,7 +2279,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.3
+    "bias": 1
   },
   {
     "id": "sweet_sixteen",
@@ -2188,7 +2308,7 @@
         "qty": 6
       }
     ],
-    "bias": 0.65
+    "bias": 1
   },
   {
     "id": "majestic_purple",
@@ -2217,7 +2337,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "apology_accepted",
@@ -2246,7 +2366,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "good_luck_charm",
@@ -2275,7 +2395,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "winter_berry",
@@ -2308,7 +2428,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.1
+    "bias": 1
   },
   {
     "id": "summer_sunset",
@@ -2337,7 +2457,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "fresh_start",
@@ -2366,7 +2486,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "pink_lemonade",
@@ -2395,7 +2515,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.65
+    "bias": 1
   },
   {
     "id": "blue_lagoon",
@@ -2424,7 +2544,7 @@
         "qty": 2
       }
     ],
-    "bias": 0.45
+    "bias": 1
   },
   {
     "id": "fall_foliage",
@@ -2453,7 +2573,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "silver_anniversary",
@@ -2482,7 +2602,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "hope_and_healing",
@@ -2511,7 +2631,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "dramatic_allure",
@@ -2540,7 +2660,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.3
+    "bias": 1
   },
   {
     "id": "spring_daffodil",
@@ -2569,7 +2689,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "peachy_keen",
@@ -2598,7 +2718,7 @@
         "qty": 6
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "ocean_breeze",
@@ -2631,7 +2751,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "ruby_red_romance",
@@ -2656,7 +2776,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.85
+    "bias": 1
   },
   {
     "id": "buttercup_bouquet",
@@ -2685,7 +2805,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "purple_haze",
@@ -2714,7 +2834,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "white_wedding",
@@ -2743,7 +2863,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.8
+    "bias": 1
   },
   {
     "id": "golden_glow",
@@ -2772,7 +2892,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "pink_promise",
@@ -2801,7 +2921,7 @@
         "qty": 6
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "blue_velvet",
@@ -2830,7 +2950,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "harvest_moon",
@@ -2863,7 +2983,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "snow_queen",
@@ -2896,7 +3016,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.45
+    "bias": 1
   },
   {
     "id": "tutti_frutti",
@@ -2925,7 +3045,7 @@
         "qty": 6
       }
     ],
-    "bias": 0.65
+    "bias": 1
   },
   {
     "id": "emerald_city",
@@ -2958,7 +3078,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "blushing_beauty",
@@ -2987,7 +3107,7 @@
         "qty": 6
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "fiery_sunset",
@@ -3016,7 +3136,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "lavender_dreams",
@@ -3045,7 +3165,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "candy_land",
@@ -3074,7 +3194,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "midnight_blue",
@@ -3103,7 +3223,7 @@
         "qty": 2
       }
     ],
-    "bias": 0.35
+    "bias": 1
   },
   {
     "id": "spring_rain",
@@ -3132,7 +3252,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "royal_treatment",
@@ -3161,7 +3281,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "happy_days",
@@ -3190,7 +3310,7 @@
         "qty": 7
       }
     ],
-    "bias": 0.75
+    "bias": 1
   },
   {
     "id": "enchanted_bloom",
@@ -3219,7 +3339,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "sunshine_and_rainbows",
@@ -3248,7 +3368,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.8
+    "bias": 1
   },
   {
     "id": "deep_forest",
@@ -3281,7 +3401,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.45
+    "bias": 1
   },
   {
     "id": "pink_paradise",
@@ -3310,7 +3430,7 @@
         "qty": 2
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "winter_white",
@@ -3339,7 +3459,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "autumn_splendor",
@@ -3372,7 +3492,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.65
+    "bias": 1
   },
   {
     "id": "oasis",
@@ -3405,7 +3525,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "berry_nice",
@@ -3434,7 +3554,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "golden_harvest",
@@ -3463,7 +3583,7 @@
         "qty": 6
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "silver_bells",
@@ -3492,7 +3612,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "pink_delight",
@@ -3521,7 +3641,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.8
+    "bias": 1
   },
   {
     "id": "blue_heaven",
@@ -3550,7 +3670,7 @@
         "qty": 6
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "firecracker",
@@ -3579,7 +3699,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "mint_fresh",
@@ -3608,7 +3728,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "purple_passion",
@@ -3637,7 +3757,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "tangerine_dream",
@@ -3666,7 +3786,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "whispering_grass",
@@ -3695,7 +3815,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "rose_gold_elegance",
@@ -3724,7 +3844,7 @@
         "qty": 6
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "island_breeze",
@@ -3757,7 +3877,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.45
+    "bias": 1
   },
   {
     "id": "blooming_lovely",
@@ -3786,7 +3906,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.65
+    "bias": 1
   },
   {
     "id": "twilight",
@@ -3815,7 +3935,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "honey_suckle",
@@ -3844,7 +3964,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "frosty_morning",
@@ -3873,7 +3993,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.45
+    "bias": 1
   },
   {
     "id": "popsicle",
@@ -3902,7 +4022,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "woodland_sprite",
@@ -3931,7 +4051,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.35
+    "bias": 1
   },
   {
     "id": "sunkissed",
@@ -3960,7 +4080,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "blueberry_cheesecake",
@@ -3989,7 +4109,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "ruby_tuesday",
@@ -4018,7 +4138,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "green_tea",
@@ -4047,7 +4167,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.45
+    "bias": 1
   },
   {
     "id": "plum_perfect",
@@ -4076,7 +4196,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "lemon_lime",
@@ -4105,7 +4225,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "cotton_field",
@@ -4134,7 +4254,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "raspberry_ripple",
@@ -4163,7 +4283,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "moonlight_sonata",
@@ -4192,7 +4312,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "gingersnap",
@@ -4221,7 +4341,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.45
+    "bias": 1
   },
   {
     "id": "aqua_marine",
@@ -4250,7 +4370,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "strawberry_shortcake",
@@ -4279,7 +4399,7 @@
         "qty": 6
       }
     ],
-    "bias": 0.65
+    "bias": 1
   },
   {
     "id": "black_tie_affair",
@@ -4308,7 +4428,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.35
+    "bias": 1
   },
   {
     "id": "pearlescent",
@@ -4337,7 +4457,7 @@
         "qty": 10
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "tiger_lily",
@@ -4366,7 +4486,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "marshmallow_dream",
@@ -4395,7 +4515,7 @@
         "qty": 7
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "deep_sea",
@@ -4424,7 +4544,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "cinnamon_spice",
@@ -4453,7 +4573,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "lavender_lullaby",
@@ -4482,7 +4602,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "mango_tango",
@@ -4511,7 +4631,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "peppermint_patty",
@@ -4540,7 +4660,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "denim_and_daisies",
@@ -4569,7 +4689,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "champagne_wishes",
@@ -4598,7 +4718,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "electric_avenue",
@@ -4627,7 +4747,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.45
+    "bias": 1
   },
   {
     "id": "coral_reef",
@@ -4656,7 +4776,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "whimsical_wonder",
@@ -4685,7 +4805,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "forest_floor",
@@ -4718,7 +4838,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.35
+    "bias": 1
   },
   {
     "id": "bubble_gum",
@@ -4747,7 +4867,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "amethyst_cluster",
@@ -4776,7 +4896,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.3
+    "bias": 1
   },
   {
     "id": "sunflower_field",
@@ -4805,7 +4925,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.8
+    "bias": 1
   },
   {
     "id": "berry_patch",
@@ -4834,7 +4954,7 @@
         "qty": 6
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "seaside",
@@ -4867,7 +4987,7 @@
         "qty": 2
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "pumpkin_spice",
@@ -4896,7 +5016,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.65
+    "bias": 1
   },
   {
     "id": "starlight",
@@ -4925,7 +5045,7 @@
         "qty": 6
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "lime_sherbet",
@@ -4954,7 +5074,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "royal_velvet",
@@ -4983,7 +5103,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.45
+    "bias": 1
   },
   {
     "id": "orange_crush",
@@ -5012,7 +5132,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "misty_morning",
@@ -5041,7 +5161,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "candy_cane",
@@ -5070,7 +5190,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "blue_jay",
@@ -5099,7 +5219,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "peach_melba",
@@ -5128,7 +5248,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "mossy_stone",
@@ -5161,7 +5281,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.35
+    "bias": 1
   },
   {
     "id": "tropical_sunset",
@@ -5190,7 +5310,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.45
+    "bias": 1
   },
   {
     "id": "ginger_flower",
@@ -5219,7 +5339,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.3
+    "bias": 1
   },
   {
     "id": "lavender_haze_delight",
@@ -5248,7 +5368,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "citrus_zest",
@@ -5277,7 +5397,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "berry_blast",
@@ -5306,7 +5426,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.6
+    "bias": 1
   },
   {
     "id": "ocean_depths",
@@ -5335,7 +5455,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.4
+    "bias": 1
   },
   {
     "id": "autumn_harvest",
@@ -5368,7 +5488,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "winter_rose",
@@ -5397,7 +5517,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.65
+    "bias": 1
   },
   {
     "id": "spring_meadow",
@@ -5426,7 +5546,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.75
+    "bias": 1
   },
   {
     "id": "summer_nights",
@@ -5455,7 +5575,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.5
+    "bias": 1
   },
   {
     "id": "enchanted_garden",
@@ -5488,7 +5608,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.55
+    "bias": 1
   },
   {
     "id": "happy_holidays",
@@ -5521,7 +5641,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.9
+    "bias": 1
   },
   {
     "id": "birthday_bash",
@@ -5554,7 +5674,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.95
+    "bias": 1
   },
   {
     "id": "thank_you_bunch",
@@ -5583,7 +5703,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.8
+    "bias": 1
   },
   {
     "id": "new_beginnings",
@@ -5612,7 +5732,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "forever_friends",
@@ -5641,7 +5761,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.85
+    "bias": 1
   },
   {
     "id": "love_always",
@@ -5670,7 +5790,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.9
+    "bias": 1
   },
   {
     "id": "get_well_soon",
@@ -5699,7 +5819,7 @@
         "qty": 4
       }
     ],
-    "bias": 0.75
+    "bias": 1
   },
   {
     "id": "congratulations_star",
@@ -5728,7 +5848,7 @@
         "qty": 3
       }
     ],
-    "bias": 0.8
+    "bias": 1
   },
   {
     "id": "thinking_of_you_always",
@@ -5757,7 +5877,7 @@
         "qty": 5
       }
     ],
-    "bias": 0.7
+    "bias": 1
   },
   {
     "id": "just_for_you",
@@ -5790,6 +5910,6 @@
         "qty": 4
       }
     ],
-    "bias": 0.8
+    "bias": 1
   }
 ]

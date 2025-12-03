@@ -121,13 +121,19 @@ async function getItemEmbeddings() {
     await db.read();
     const items = db.data.items;
 
-    const flowerItems = items.filter(
-      (item) =>
-        item &&
-        item.category &&
-        item.category.toLowerCase() === "flowers" &&
-        item.stock > 0
-    );
+    const flowerItems = items.filter((item) => {
+      if (!item || !item.category || item.stock <= 0) return false;
+
+      const normalizedCategory = item.category.toLowerCase();
+      const isFlowerCategory = [
+        "flower",
+        "flowers",
+        "florals",
+        "floral",
+      ].includes(normalizedCategory);
+
+      return isFlowerCategory;
+    });
 
     const textsToEmbed = flowerItems.map((item) =>
       [item.name, item.category, item.description, ...(item.tags || [])].join(
@@ -492,6 +498,16 @@ router.post("/suggest", async (req, res) => {
     res.status(500).json(errorResponse);
   } finally {
     isProcessing = false;
+  }
+});
+
+router.get("/templates", async (_req, res) => {
+  try {
+    const templates = await getTemplates();
+    res.json({ templates, count: templates.length });
+  } catch (error) {
+    console.error("Failed to read templates:", error);
+    res.status(500).json({ error: "Unable to load bouquet templates" });
   }
 });
 

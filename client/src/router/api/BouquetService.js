@@ -11,6 +11,11 @@ export default {
     return res.data;
   },
 
+  async getTemplates() {
+    const res = await api.get(`${API_BASE}/templates`);
+    return res.data;
+  },
+
   async suggestDirect(theme, itemCount = 5) {
     const res = await api.post(`${API_BASE}/suggest-direct`, {
       theme,
