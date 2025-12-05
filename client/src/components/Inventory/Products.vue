@@ -69,6 +69,26 @@ const filteredItems = computed(() => {
   });
 });
 
+const allSelected = computed(
+  () =>
+    filteredItems.value.length > 0 &&
+    filteredItems.value.every((item) => selectedItems.value.includes(item.id))
+);
+
+const isIndeterminate = computed(
+  () =>
+    selectedItems.value.length > 0 &&
+    !allSelected.value &&
+    filteredItems.value.length > 0
+);
+
+const toggleSelectAll = (event) => {
+  const shouldSelectAll = event.target.checked;
+  selectedItems.value = shouldSelectAll
+    ? filteredItems.value.map((item) => item.id)
+    : [];
+};
+
 const product = reactive({
   id: null,
   name: "",
@@ -317,7 +337,15 @@ onMounted(() => {
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>#</th>
+          <th>
+            <input
+              class="form-check-input"
+              type="checkbox"
+              :checked="allSelected"
+              :indeterminate="isIndeterminate"
+              @change="toggleSelectAll"
+            />
+          </th>
           <th>Name</th>
           <th>Category</th>
           <th>Description</th>
