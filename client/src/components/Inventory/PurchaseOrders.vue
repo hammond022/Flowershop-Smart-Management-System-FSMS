@@ -28,6 +28,7 @@ let exportPOModal;
 
 const categories = ref([]);
 const selectedCategory = ref("all");
+const searchQuery = ref("");
 
 const getItems = async () => {
   try {
@@ -44,10 +45,29 @@ const getItems = async () => {
 };
 
 const filteredItems = computed(() => {
-  if (selectedCategory.value === "all") return purchaseOrders.items;
-  return purchaseOrders.items.filter(
-    (item) => item.category === selectedCategory.value
-  );
+  const categoryFiltered =
+    selectedCategory.value === "all"
+      ? purchaseOrders.items
+      : purchaseOrders.items.filter(
+          (item) => item.category === selectedCategory.value
+        );
+
+  const query = searchQuery.value.trim().toLowerCase();
+  if (!query) return categoryFiltered;
+
+  return categoryFiltered.filter((item) => {
+    const name = (item.name || "").toLowerCase();
+    const category = (item.category || "").toLowerCase();
+    const stock = String(item.stock ?? "").toLowerCase();
+    const cost = String(item.cost ?? "").toLowerCase();
+
+    return (
+      name.includes(query) ||
+      category.includes(query) ||
+      stock.includes(query) ||
+      cost.includes(query)
+    );
+  });
 });
 
 const purchaseForm = reactive({
@@ -413,8 +433,21 @@ onMounted(() => {
 
 <template>
   <main class="p-4">
-    <div class="d-flex justify-content-between align-items-center">
-      <h1>Purchase Orders</h1>
+    <div
+      class="d-flex justify-content-between flex-wrap gap-3 align-items-start mb-3"
+    >
+      <div>
+        <h1 class="mb-3">Purchase Orders</h1>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-search"></i></span>
+          <input
+            v-model="searchQuery"
+            type="search"
+            class="form-control"
+            placeholder="Search by name, category, stock, cost"
+          />
+        </div>
+      </div>
 
       <div class="btn-group mb-4">
         <button

@@ -22,6 +22,7 @@ const isDeleting = ref(false);
 const categories = ref([]);
 const selectedCategory = ref("all");
 const newCategory = ref(false);
+const searchQuery = ref("");
 
 function formSetNewcategory(x) {
   newCategory.value = x;
@@ -43,10 +44,29 @@ const getFlowers = async () => {
 };
 
 const filteredItems = computed(() => {
-  if (selectedCategory.value === "all") return flowers.items;
-  return flowers.items.filter(
-    (item) => item.category === selectedCategory.value
-  );
+  const categoryFiltered =
+    selectedCategory.value === "all"
+      ? flowers.items
+      : flowers.items.filter(
+          (item) => item.category === selectedCategory.value
+        );
+
+  const query = searchQuery.value.trim().toLowerCase();
+  if (!query) return categoryFiltered;
+
+  return categoryFiltered.filter((item) => {
+    const name = (item.name || "").toLowerCase();
+    const description = (item.description || "").toLowerCase();
+    const tags = Array.isArray(item.tags)
+      ? item.tags.join(", ").toLowerCase()
+      : (item.tags || "").toLowerCase();
+    return (
+      name.includes(query) ||
+      description.includes(query) ||
+      tags.includes(query) ||
+      (item.category || "").toLowerCase().includes(query)
+    );
+  });
 });
 
 const product = reactive({
@@ -235,8 +255,21 @@ onMounted(() => {
 
 <template>
   <main class="p-4">
-    <div class="d-flex justify-content-between">
-      <h1>Products</h1>
+    <div
+      class="d-flex justify-content-between flex-wrap gap-3 align-items-start mb-3"
+    >
+      <div>
+        <h1 class="mb-3">Products</h1>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-search"></i></span>
+          <input
+            v-model="searchQuery"
+            type="search"
+            class="form-control"
+            placeholder="Search by name, description, tags, or category"
+          />
+        </div>
+      </div>
 
       <div class="btn-group mb-4">
         <!-- <button type="button" class="btn btn-primary">Create Product</button> -->
