@@ -208,12 +208,16 @@ const printTransaction = (tx) => {
 
   doc.text("Items", 14, doc.lastAutoTable.finalY + 15);
   const itemsData =
-    tx.selectedFlowers?.map((item) => [
-      item.name,
-      item.qty,
-      `PHP ${(Number(item.price) || 0).toFixed(2)}`,
-      `PHP ${((Number(item.price) || 0) * (item.qty || 0) || 0).toFixed(2)}`,
-    ]) || [];
+    tx.selectedFlowers?.map((item) => {
+      const itemName =
+        item?.type === "bouquet" ? `${item.name} [Bouquet]` : item.name;
+      return [
+        itemName,
+        item.qty,
+        `PHP ${(Number(item.price) || 0).toFixed(2)}`,
+        `PHP ${((Number(item.price) || 0) * (item.qty || 0) || 0).toFixed(2)}`,
+      ];
+    }) || [];
 
   autoTable(doc, {
     startY: doc.lastAutoTable.finalY + 20,
@@ -608,6 +612,13 @@ onMounted(() => {
                             v-if="item.notes"
                           ></i>
                           {{ item.qty }}x {{ item.name }}
+                          <span
+                            v-if="item.type === 'bouquet'"
+                            class="badge text-bg-info ms-2"
+                            title="Bouquet"
+                          >
+                            Bouquet
+                          </span>
                           <span>
                             PHP
                             {{
@@ -814,6 +825,13 @@ onMounted(() => {
                             v-if="item.notes"
                           ></i>
                           {{ item.qty }}x {{ item.name }}
+                          <span
+                            v-if="item.type === 'bouquet'"
+                            class="badge text-bg-info ms-2"
+                            title="Bouquet"
+                          >
+                            Bouquet
+                          </span>
                           <span>
                             PHP
                             {{

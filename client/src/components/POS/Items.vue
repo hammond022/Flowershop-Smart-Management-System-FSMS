@@ -87,18 +87,22 @@ function handleSearchInput(value) {
 }
 
 function handleBouquetClick(bouquet) {
-  const mapped = (bouquet.items || []).map((it) => {
-    const inv = props.allItems.find((x) => x.id === it.itemId);
-    return {
-      id: it.itemId,
-      name: it.itemName || inv?.name || `Item ${it.itemId}`,
-      qty: it.quantity || 1,
-      price: inv?.price ?? 0,
-      stock: inv?.stock ?? 0,
-      notes: bouquet.name ? `Bouquet: ${bouquet.name}` : "",
-    };
-  });
-  if (mapped.length) emit("add-bouquet", mapped);
+  const components = (bouquet.items || []).map((it) => ({
+    itemId: it.itemId,
+    itemName: it.itemName,
+    quantity: it.quantity || 1,
+  }));
+
+  const payload = {
+    id: `bouquet:${bouquet.id}`,
+    type: "bouquet",
+    name: bouquet.name || "Bouquet",
+    price: typeof bouquet.price === "number" ? bouquet.price : 0,
+    qty: 1,
+    components,
+  };
+
+  emit("add-bouquet", payload);
 }
 </script>
 
