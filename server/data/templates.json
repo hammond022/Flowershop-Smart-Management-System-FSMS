@@ -5911,5 +5911,69 @@
       }
     ],
     "bias": 1
+  },
+  {
+    "id": "island_breeze",
+    "name": "Island Breeze",
+    "theme_tags": ["tropical", "fresh", "green", "relaxing", "summer"],
+    "items": [
+      { "name": "Kalachuchi", "qty": 6 },
+      { "name": "Orchid", "qty": 4 },
+      { "name": "Lavender", "qty": 3 }
+    ],
+    "bias": 1
+  },
+  {
+    "id": "manila_romance",
+    "name": "Manila Romance",
+    "theme_tags": ["romantic", "classic", "white", "fragrant"],
+    "items": [
+      { "name": "Sampaguita", "qty": 8 },
+      { "name": "Orchid", "qty": 3 },
+      { "name": "Lavender", "qty": 2 }
+    ],
+    "bias": 1
+  },
+  {
+    "id": "fiesta_colors",
+    "name": "Fiesta Colors",
+    "theme_tags": ["bright", "celebration", "bold", "fun"],
+    "items": [
+      { "name": "Gumamela", "qty": 6 },
+      { "name": "Kalachuchi", "qty": 4 },
+      { "name": "Orchid", "qty": 3 }
+    ],
+    "bias": 1
+  },
+  {
+    "id": "lavender_fields",
+    "name": "Lavender Fields",
+    "theme_tags": ["serene", "purple", "calm", "fresh"],
+    "items": [
+      { "name": "Lavender", "qty": 8 },
+      { "name": "Orchid", "qty": 3 }
+    ],
+    "bias": 1
+  },
+  {
+    "id": "tropical_sunrise",
+    "name": "Tropical Sunrise",
+    "theme_tags": ["sunrise", "warm", "tropical", "yellow"],
+    "items": [
+      { "name": "Kalachuchi", "qty": 6 },
+      { "name": "Gumamela", "qty": 4 },
+      { "name": "Sampaguita", "qty": 3 }
+    ],
+    "bias": 1
+  },
+  {
+    "id": "orchid_elegance",
+    "name": "Orchid Elegance",
+    "theme_tags": ["elegant", "modern", "white", "graceful"],
+    "items": [
+      { "name": "Orchid", "qty": 7 },
+      { "name": "Sampaguita", "qty": 4 }
+    ],
+    "bias": 1
   }
 ]

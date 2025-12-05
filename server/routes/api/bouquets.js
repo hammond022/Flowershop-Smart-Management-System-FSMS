@@ -239,7 +239,8 @@ async function buildBouquetResponse(
   processingStartTime,
   templateConfidence,
   matchingMethod,
-  filteredMatches
+  filteredMatches,
+  themeEmbeddingParam = null
 ) {
   const flowerItems = await getItemEmbeddings();
 
@@ -251,13 +252,61 @@ async function buildBouquetResponse(
   const usedItemIds = new Set();
   let totalMatchingScore = 0;
 
-  for (const templateItem of template.items || []) {
+  // Ensure we have a theme embedding for semantic scoring
+  let themeEmbedding = themeEmbeddingParam;
+  try {
+    if (!themeEmbedding) {
+      themeEmbedding = await embedText(theme.toLowerCase());
+    }
+  } catch (e) {
+    themeEmbedding = null;
+  }
+
+  // Derive template slots from theme/tags when template has no items
+  function deriveTemplateSlots(tpl, themeText) {
+    const slots = [];
+    const tagPool = new Set(
+      [
+        ...(tpl.theme_tags || []),
+        ...(tpl.theme ? tpl.theme.split(/\s+/) : []),
+        ...(tpl.name ? tpl.name.split(/\s+/) : []),
+        ...themeText.split(/\s+/),
+      ]
+        .map((t) => t.trim().toLowerCase())
+        .filter(Boolean)
+    );
+
+    // Prefer more descriptive tags; cap number of slots
+    const preferred = Array.from(tagPool).filter(
+      (t) => t.length > 3 && !["the", "and", "for", "with"].includes(t)
+    );
+
+    const topTags = preferred.slice(0, 6);
+
+    if (topTags.length === 0) {
+      return [
+        { name: "romantic", tags: ["romantic"], qty: 3 },
+        { name: "bright", tags: ["bright"], qty: 3 },
+        { name: "elegant", tags: ["elegant"], qty: 2 },
+      ];
+    }
+
+    return topTags.map((t) => ({ name: t, tags: [t], qty: 2 }));
+  }
+
+  const templateSlots =
+    template.items && template.items.length > 0
+      ? template.items
+      : deriveTemplateSlots(template, theme);
+
+  for (const templateItem of templateSlots) {
     if (!templateItem || bouquetItems.length >= 8) break;
 
     const matches = await findBestMatchingItems(
       templateItem,
       flowerItems,
-      usedItemIds
+      usedItemIds,
+      themeEmbedding
     );
 
     if (matches.length > 0) {
@@ -319,7 +368,10 @@ async function buildBouquetResponse(
       averageItemConfidence: `${averageItemConfidence}%`,
       processingTime: `${processingTime}ms`,
       totalTemplatesConsidered: filteredMatches ? filteredMatches.length : 1,
-      matchingEngine: "AI Semantic + Keyword",
+      matchingEngine:
+        template.items && template.items.length > 0
+          ? "AI Semantic + Keyword"
+          : "AI Semantic + Theme-derived Slots",
     },
     financials: {
       totalCost: +totalCost.toFixed(2),
@@ -381,7 +433,8 @@ router.post("/suggest", async (req, res) => {
           processingStartTime,
           "100.0", // High confidence for preferred template
           "preferred",
-          [preferredTemplate]
+          [preferredTemplate],
+          themeEmbedding
         );
       }
     }
@@ -472,7 +525,8 @@ router.post("/suggest", async (req, res) => {
       processingStartTime,
       templateConfidence,
       matchingMethod,
-      filteredMatches
+      filteredMatches,
+      themeEmbedding
     );
   } catch (err) {
     console.error("Error generating bouquet:", err);

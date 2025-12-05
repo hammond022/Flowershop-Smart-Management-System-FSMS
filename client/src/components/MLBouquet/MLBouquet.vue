@@ -186,23 +186,28 @@ const giveFeedback = async (rating) => {
     <transition name="fade">
       <div
         v-if="bouquet"
-        class="result-card border rounded p-4 d-flex justify-content-between align-items-center mx-3 shadow-sm"
+        class="result-card border rounded p-4 d-flex justify-content-between align-items-start mx-3 shadow-sm"
       >
-        <img
-          src="../../assets/white.jpg"
-          alt="Bouquet"
-          class="rounded result-img"
-        />
-        <div class="ms-4">
-          <h2 class="fw-bold">{{ bouquet.template.name }}</h2>
+        <div class="flex-grow-1">
+          <div class="d-flex align-items-center justify-content-between">
+            <h2 class="fw-bold mb-0">{{ bouquet.template.name }}</h2>
+            <span class="price-badge"
+              >₱{{ bouquet.financials.totalPrice }}</span
+            >
+          </div>
+          <div class="mt-2" v-if="bouquet.template.themeTags?.length">
+            <span
+              class="badge rounded-pill text-bg-primary me-2"
+              v-for="t in bouquet.template.themeTags"
+              :key="t"
+              >{{ t }}</span
+            >
+          </div>
           <p class="text-muted" v-if="bouquet.template.description">
             {{ bouquet.template.description }}
           </p>
-          <h4 class="text-success fw-semibold mt-2">
-            Price: ₱{{ bouquet.financials.totalPrice }}
-          </h4>
           <button
-            class="btn btn-success"
+            class="btn btn-success mt-3"
             :disabled="bouquet.composition.totalItems == 0"
             @click="addBouquetToOrder"
           >
@@ -210,7 +215,7 @@ const giveFeedback = async (rating) => {
           </button>
         </div>
 
-        <div class="align-self-start">
+        <div class="align-self-start ms-3">
           <i
             class="bi bi-hand-thumbs-up-fill me-1 text-success fs-5"
             @click="giveFeedback('up')"
@@ -319,11 +324,13 @@ const giveFeedback = async (rating) => {
   transition: all 0.4s ease;
 }
 
-.result-img {
-  height: 200px;
-  width: 200px;
-  object-fit: cover;
-  border-radius: 1rem;
+.price-badge {
+  background: #e8fff1;
+  color: #0f5132;
+  border: 1px solid #b6f3ce;
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  font-weight: 600;
 }
 
 .fade-enter-active,
