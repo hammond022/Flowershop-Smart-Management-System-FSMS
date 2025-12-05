@@ -159,6 +159,7 @@ const giveFeedback = async (rating) => {
 
     <NeonSearchBar
       class="shadow-sm mb-3"
+      :loading="isLoading"
       @search="onLiveSearch"
       @handleSearch="generateBouquet"
     />
@@ -273,10 +274,13 @@ const giveFeedback = async (rating) => {
 
 .text {
   padding: 1rem 0;
+  font-size: clamp(1.25rem, 4vw, 2rem);
+  font-weight: 600;
 }
 
 .gradient-text {
   background-image: linear-gradient(45deg, #4a36ff, #322d64);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

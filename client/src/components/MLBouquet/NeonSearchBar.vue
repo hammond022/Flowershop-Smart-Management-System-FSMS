@@ -2,6 +2,9 @@
 import { ref, watch } from "vue";
 
 const emit = defineEmits(["search", "handleSearch"]);
+const props = defineProps({
+  loading: { type: Boolean, default: false },
+});
 
 const query = ref("");
 
@@ -15,7 +18,7 @@ watch(query, (newValue) => {
 </script>
 
 <template>
-  <div class="neon-search-container">
+  <div class="neon-search-container" :class="{ 'fast-anim': props.loading }">
     <div class="input-group">
       <input
         v-model="query"
@@ -40,6 +43,10 @@ watch(query, (newValue) => {
   background: linear-gradient(90deg, #0ff, #f0f, #0ff);
   background-size: 200% 200%;
   animation: neon-border 10s linear infinite;
+}
+
+.fast-anim {
+  animation-duration: 0.5s;
 }
 
 .neon-input {
