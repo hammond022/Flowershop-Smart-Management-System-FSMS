@@ -127,6 +127,9 @@ function handleLogout() {
                   >Documentation</RouterLink
                 >
               </li>
+              <li>
+                <div class="dropdown-item disabled">version 1.0.0</div>
+              </li>
               <li><hr class="dropdown-divider" /></li>
               <li>
                 <button
