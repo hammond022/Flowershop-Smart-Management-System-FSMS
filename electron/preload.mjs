@@ -6,4 +6,6 @@ contextBridge.exposeInMainWorld("electronAPI", {
   apiBaseUrl,
   getApiBaseUrl: () => apiBaseUrl,
   openExternal: (target) => ipcRenderer.invoke("app:open-external", target),
+  logout: () => ipcRenderer.invoke("app:logout"),
+  onBeforeQuit: (callback) => ipcRenderer.on("app:before-quit", callback),
 });

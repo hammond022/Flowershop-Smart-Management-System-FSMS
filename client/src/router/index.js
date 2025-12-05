@@ -45,10 +45,26 @@ const routes = [
   { path: "/login", name: "login", component: LoginView },
   {
     path: "/",
-    redirect: (to) => {
+    redirect: async (to) => {
+      // Check if database has users
+      try {
+        const statusRes = await fetch(`${API_BASE}/onboarding/status`);
+        if (statusRes.ok) {
+          const statusData = await statusRes.json();
+          if (statusData.isEmpty) {
+            // No users, go to onboarding
+            return { name: "onboarding" };
+          }
+        }
+      } catch (err) {
+        console.warn("Could not check database status:", err);
+      }
+
+      // If authenticated, go to inventory
       if (auth.isAuthenticated) {
         return { name: "InventoryOverview" };
       }
+      // If database has users, redirect to login
       return { name: "login" };
     },
   },

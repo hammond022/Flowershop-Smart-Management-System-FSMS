@@ -92,19 +92,16 @@ const submitForm = async () => {
   successMessage.value = "";
 
   try {
-    const response = await fetch(
-      `${API_BASE}/onboarding/create-first-user`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: username.value.trim(),
-          password: password.value,
-        }),
-      }
-    );
+    const response = await fetch(`${API_BASE}/onboarding/create-first-user`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username.value.trim(),
+        password: password.value,
+      }),
+    });
 
     const data = await response.json();
 
@@ -121,10 +118,11 @@ const submitForm = async () => {
     // Auto-login after successful creation
     setTimeout(async () => {
       const loginPassword = password.value;
-      password.value = ''; // Clear password immediately before login
+      password.value = ""; // Clear password immediately before login
       await auth.login(username.value.trim(), loginPassword);
       if (auth.isAuthenticated) {
-        router.push("/");
+        // Redirect directly to inventory overview after successful login
+        router.push({ name: "InventoryOverview" });
       }
     }, 1500);
   } catch (err) {

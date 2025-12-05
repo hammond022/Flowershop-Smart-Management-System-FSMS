@@ -141,6 +141,11 @@ async function createWindow() {
   mainWindow.once("ready-to-show", () => mainWindow.show());
   mainWindow.setTitle(APP_TITLE);
 
+  // Handle window closing to trigger logout
+  mainWindow.on("close", (event) => {
+    mainWindow.webContents.send("app:before-quit");
+  });
+
   if (isDev && process.env.VITE_DEV_SERVER_URL) {
     await mainWindow.loadURL(process.env.VITE_DEV_SERVER_URL);
     mainWindow.webContents.openDevTools({ mode: "detach" });
@@ -212,4 +217,9 @@ ipcMain.handle("app:open-external", (_event, target) => {
   if (typeof target === "string" && target.length > 0) {
     shell.openExternal(target);
   }
+});
+
+ipcMain.handle("app:logout", () => {
+  // Handler for logout triggered on window close
+  return true;
 });

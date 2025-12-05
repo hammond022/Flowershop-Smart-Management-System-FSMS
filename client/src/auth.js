@@ -93,4 +93,16 @@ export const auth = reactive({
   can(resource, action) {
     return this.user?.role?.[resource]?.[action] === true;
   },
+
+  async checkDatabaseStatus() {
+    try {
+      const res = await fetch(`${API_BASE}/onboarding/status`);
+      if (!res.ok) throw new Error("Failed to check database status");
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      console.error("Error checking database status:", error);
+      return { isEmpty: false, userCount: 0 };
+    }
+  },
 });
