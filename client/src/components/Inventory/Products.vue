@@ -5,9 +5,11 @@ import { useToast } from "@/composables/useToast";
 import ItemService from "@/router/api/itemsService.js";
 import InventoryProduct from "./Product.vue";
 import { useRoute } from "vue-router";
+import { useAuth } from "@/composables/useAuth";
 import { resolveBackendOrigin } from "@/api/base.js";
 
 const route = useRoute();
+const { user } = useAuth();
 
 const { showToast } = useToast();
 
@@ -42,6 +44,18 @@ const getFlowers = async () => {
     flowers.isLoading = false;
   }
 };
+
+// Prefer backend-provided error messages, with sensible fallbacks
+function getErrorMessage(err) {
+  const data = err?.response?.data;
+  return (
+    data?.error ||
+    data?.message ||
+    (typeof data === "string" ? data : null) ||
+    err?.message ||
+    "An unexpected error occurred"
+  );
+}
 
 const filteredItems = computed(() => {
   const categoryFiltered =
@@ -142,7 +156,7 @@ async function submitProduct() {
     resetModal();
   } catch (err) {
     console.error("Save failed:", err.response?.data || err.message);
-    showToast("error", err.response?.data.error);
+    showToast("error", getErrorMessage(err));
   } finally {
     createProductModal.hide();
     getFlowers();
@@ -170,7 +184,10 @@ async function deleteSelectedItems() {
     getFlowers();
   } catch (err) {
     console.error("Delete failed:", err.response?.data || err.message);
-    showToast("error", "Failed to delete selected items");
+    showToast(
+      "error",
+      getErrorMessage(err) || "Failed to delete selected items"
+    );
   } finally {
     isDeleting.value = false;
   }
@@ -244,7 +261,7 @@ const handlePhotoUpload = async (event) => {
     showToast("success", "Photo uploaded successfully!");
   } catch (err) {
     console.error("Photo upload failed:", err);
-    showToast("error", "Photo upload failed");
+    showToast("error", getErrorMessage(err) || "Photo upload failed");
     product.photo = null;
   } finally {
     isUploading.value = false;
@@ -271,6 +288,14 @@ onMounted(() => {
     selectedCategory.value = route.query.category;
   }
 });
+
+const canCreate = computed(() => {
+  const perms = user.value?.permissions;
+  // Disable only when explicitly set to false
+  const flag = perms?.items?.canCreate;
+  if (flag === false) return false;
+  return true;
+});
 </script>
 
 <template>
@@ -293,7 +318,15 @@ onMounted(() => {
 
       <div class="btn-group mb-4">
         <!-- <button type="button" class="btn btn-primary">Create Product</button> -->
-        <button @click="createProduct" type="button" class="btn btn-primary">
+        <button
+          @click="createProduct"
+          type="button"
+          class="btn btn-primary"
+          :disabled="!canCreate"
+          :title="
+            !canCreate ? 'You do not have permission to create products' : ''
+          "
+        >
           Create Product
           <i class="bi bi-plus-circle ms-1"></i>
         </button>
