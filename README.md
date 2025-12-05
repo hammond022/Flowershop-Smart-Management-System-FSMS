@@ -11,7 +11,6 @@ A comprehensive POS and Inventory Management solution for retail florists — fe
 ### Prerequisites
 - Node.js 16+ 
 - npm or yarn
-- SQLite (for data storage)
 
 ### Installation & Setup
 
