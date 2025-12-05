@@ -140,7 +140,13 @@ function handleBouquetClick(bouquet) {
                   class="image-container image-placeholder"
                   aria-hidden="true"
                 >
-                  💐
+                  <img
+                    v-if="b.thumbnail"
+                    :src="b.thumbnail"
+                    alt="Bouquet thumbnail"
+                    class="bouquet-thumb"
+                  />
+                  <span v-else>💐</span>
                 </div>
                 <div class="item-details">
                   <div class="item-name mb-1">{{ b.name }}</div>
@@ -269,6 +275,13 @@ function handleBouquetClick(bouquet) {
   width: 56px;
   height: 56px;
   flex-shrink: 0;
+}
+
+.bouquet-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
 }
 
 .bouquet-card .item-details {

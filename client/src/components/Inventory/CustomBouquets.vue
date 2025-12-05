@@ -32,6 +32,17 @@
         class="col-md-6 col-lg-4 mb-4"
       >
         <div class="card h-100 shadow-sm">
+          <div
+            v-if="bouquet.thumbnail"
+            class="card-img-top bg-light d-flex align-items-center justify-content-center"
+            style="height: 180px; overflow: hidden"
+          >
+            <img
+              :src="bouquet.thumbnail"
+              alt="Bouquet thumbnail"
+              style="width: 100%; height: 100%; object-fit: cover"
+            />
+          </div>
           <div class="card-body">
             <h5 class="card-title">{{ bouquet.name }}</h5>
             <p v-if="bouquet.description" class="card-text text-muted small">

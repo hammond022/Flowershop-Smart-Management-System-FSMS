@@ -47,7 +47,7 @@ router.post(
   requirePermission("Items", "canCreate"),
   async (req, res) => {
     try {
-      const { name, description, price, items } = req.body;
+      const { name, description, price, items, thumbnail } = req.body;
 
       // Validation
       if (!name || !name.trim()) {
@@ -85,6 +85,7 @@ router.post(
         description: description ? description.trim() : "",
         price,
         items,
+        thumbnail: thumbnail || null,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
@@ -106,68 +107,69 @@ router.put(
   basicAuth,
   requirePermission("Items", "canUpdate"),
   async (req, res) => {
-  try {
-    const { name, description, price, items } = req.body;
+    try {
+      const { name, description, price, items, thumbnail } = req.body;
 
-    // Validation
-    if (name && !name.trim()) {
-      return res.status(400).json({ error: "Bouquet name cannot be empty" });
-    }
-
-    if (price !== undefined) {
-      if (typeof price !== "number" || price < 0) {
-        return res.status(400).json({ error: "Valid price is required" });
-      }
-    }
-
-    if (items) {
-      if (!Array.isArray(items) || items.length === 0) {
-        return res
-          .status(400)
-          .json({ error: "At least one item must be selected" });
+      // Validation
+      if (name && !name.trim()) {
+        return res.status(400).json({ error: "Bouquet name cannot be empty" });
       }
 
-      // Validate items
-      for (const item of items) {
-        if (
-          !item.itemId ||
-          !item.itemName ||
-          !item.quantity ||
-          item.quantity <= 0
-        ) {
-          return res.status(400).json({ error: "Invalid item data" });
+      if (price !== undefined) {
+        if (typeof price !== "number" || price < 0) {
+          return res.status(400).json({ error: "Valid price is required" });
         }
       }
+
+      if (items) {
+        if (!Array.isArray(items) || items.length === 0) {
+          return res
+            .status(400)
+            .json({ error: "At least one item must be selected" });
+        }
+
+        // Validate items
+        for (const item of items) {
+          if (
+            !item.itemId ||
+            !item.itemName ||
+            !item.quantity ||
+            item.quantity <= 0
+          ) {
+            return res.status(400).json({ error: "Invalid item data" });
+          }
+        }
+      }
+
+      await db.read();
+      ensureCustomBouquets();
+
+      const bouquetIndex = db.data.customBouquets.findIndex(
+        (b) => b.id == req.params.id
+      );
+      if (bouquetIndex === -1) {
+        return res.status(404).json({ error: "Bouquet not found" });
+      }
+
+      const bouquet = db.data.customBouquets[bouquetIndex];
+
+      // Update only provided fields
+      if (name) bouquet.name = name.trim();
+      if (description !== undefined) bouquet.description = description.trim();
+      if (price !== undefined) bouquet.price = price;
+      if (items) bouquet.items = items;
+      if (thumbnail !== undefined) bouquet.thumbnail = thumbnail || null;
+
+      bouquet.updatedAt = new Date().toISOString();
+
+      db.data.customBouquets[bouquetIndex] = bouquet;
+      await db.write();
+
+      res.json(bouquet);
+    } catch (err) {
+      console.error("Failed to update custom bouquet:", err);
+      res.status(500).json({ error: "Failed to update custom bouquet" });
     }
-
-    await db.read();
-    ensureCustomBouquets();
-
-    const bouquetIndex = db.data.customBouquets.findIndex(
-      (b) => b.id == req.params.id
-    );
-    if (bouquetIndex === -1) {
-      return res.status(404).json({ error: "Bouquet not found" });
-    }
-
-    const bouquet = db.data.customBouquets[bouquetIndex];
-
-    // Update only provided fields
-    if (name) bouquet.name = name.trim();
-    if (description !== undefined) bouquet.description = description.trim();
-    if (price !== undefined) bouquet.price = price;
-    if (items) bouquet.items = items;
-
-    bouquet.updatedAt = new Date().toISOString();
-
-    db.data.customBouquets[bouquetIndex] = bouquet;
-    await db.write();
-
-    res.json(bouquet);
-  } catch (err) {
-    console.error("Failed to update custom bouquet:", err);
-    res.status(500).json({ error: "Failed to update custom bouquet" });
-  }
   }
 );
 
