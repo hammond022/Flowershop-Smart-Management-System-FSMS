@@ -159,6 +159,19 @@
                     </div>
                   </div>
                 </div>
+                <div class="col-md-6">
+                  <div class="d-flex gap-2 mb-3">
+                    <i class="bi bi-image text-primary"></i>
+                    <div>
+                      <h6 class="mb-1">Thumbnail</h6>
+                      <p class="small text-muted mb-0">
+                        Change or remove the bouquet thumbnail. Selecting a new
+                        file shows a preview in the modal. Supported formats:
+                        JPG/PNG.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
