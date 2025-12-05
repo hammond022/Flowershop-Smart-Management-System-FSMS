@@ -13,6 +13,12 @@ import { useRouter, useRoute } from "vue-router";
 const router = useRouter();
 const route = useRoute();
 
+function sentenceCase(str) {
+  if (!str || typeof str !== "string") return "";
+  const lower = str.toLowerCase();
+  return lower.charAt(0).toUpperCase() + lower.slice(1);
+}
+
 function goToTransactionDetails(txId) {
   router.push({
     name: "transactions",
@@ -450,7 +456,7 @@ onMounted(() => {
                         tx.orderStatus?.toLowerCase() === 'cancelled',
                     }"
                   >
-                    {{ tx.orderStatus }}
+                    {{ sentenceCase(tx.orderStatus) }}
                   </span>
                 </td>
                 <td>
@@ -513,7 +519,7 @@ onMounted(() => {
                     'cancelled',
                 }"
               >
-                {{ selectedTransaction.orderStatus }}
+                {{ sentenceCase(selectedTransaction.orderStatus) }}
               </span>
             </p>
 
