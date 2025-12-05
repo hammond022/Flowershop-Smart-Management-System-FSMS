@@ -1026,15 +1026,12 @@ const change = computed(() => {
             </button>
           </div>
 
-          <div
-            class="form-text mb-3"
-            v-if="editModal.oldPrice != editModal.price"
-          >
+          <div class="form-text" v-if="editModal.oldPrice != editModal.price">
             Price has been edited, original price
             {{ formatPHP(editModal.oldPrice) }}
           </div>
 
-          <div class="input-group mb-3">
+          <div class="input-group mt-3 mb-3">
             <span class="input-group-text">Notes</span>
             <textarea
               class="form-control"
