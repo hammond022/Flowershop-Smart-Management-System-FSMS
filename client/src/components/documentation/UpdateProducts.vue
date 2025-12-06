@@ -1,9 +1,10 @@
 <template>
   <section class="py-4">
     <div class="mb-5">
-      <h1 class="display-5 fw-bold text-dark mb-2">Creating Custom Bouquets</h1>
+      <h1 class="display-5 fw-bold text-dark mb-2">Updating Products</h1>
       <p class="lead text-muted">
-        Follow these steps to create custom bouquets tailored to your needs
+        Follow these steps to edit and update existing products in your
+        inventory
       </p>
     </div>
 
@@ -47,16 +48,16 @@
               2
             </div>
             <div class="flex-grow-1">
-              <h2 class="card-title h5 mb-2">Access Custom Bouquets</h2>
+              <h2 class="card-title h5 mb-2">Access the Products List</h2>
               <p class="text-muted mb-3">
-                Select Custom Bouquets to view all existing custom bouquets and
-                create new ones.
+                Select Products to view all existing product entries in your
+                inventory.
               </p>
               <div class="img-container mb-3">
                 <img
                   class="img-fluid rounded"
-                  src="../../assets/documentation/Picture33.png"
-                  alt="Access Custom Bouquets"
+                  src="../../assets/documentation/Picture2.png"
+                  alt="Access the Products List"
                   loading="lazy"
                 />
               </div>
@@ -76,16 +77,16 @@
               3
             </div>
             <div class="flex-grow-1">
-              <h2 class="card-title h5 mb-2">Click Create Custom Bouquet</h2>
+              <h2 class="card-title h5 mb-2">Select the Product to Edit</h2>
               <p class="text-muted mb-3">
-                Click the "Create Custom Bouquet" button to open the creation
-                modal.
+                Locate the product you want to update and click the Edit button
+                to open the edit modal.
               </p>
               <div class="img-container mb-3">
                 <img
                   class="img-fluid rounded"
-                  src="../../assets/documentation/Picture34.png"
-                  alt="Click Create Custom Bouquet"
+                  src="../../assets/documentation/Picture40.png"
+                  alt="Select the Product to Edit"
                   loading="lazy"
                 />
               </div>
@@ -105,35 +106,45 @@
               4
             </div>
             <div class="flex-grow-1">
-              <h2 class="card-title h5 mb-2">Fill in Bouquet Details</h2>
+              <h2 class="card-title h5 mb-2">Modify Product Details</h2>
               <div class="img-container mb-4">
                 <img
                   class="img-fluid rounded"
-                  src="../../assets/documentation/Picture35.png"
-                  alt="Bouquet Details Form"
+                  src="../../assets/documentation/Picture41.png"
+                  alt="Product Details Form"
                   loading="lazy"
                 />
               </div>
               <div class="row g-3">
                 <div class="col-md-6">
                   <div class="d-flex gap-2 mb-3">
-                    <i class="bi bi-tag text-primary"></i>
+                    <i class="bi bi-image text-primary"></i>
                     <div>
-                      <h6 class="mb-1">Bouquet Name</h6>
+                      <h6 class="mb-1">Product Photo</h6>
                       <p class="small text-muted mb-0">
-                        Enter a unique and descriptive name for your custom
-                        bouquet.
+                        Update the product image if needed.
                       </p>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="d-flex gap-2 mb-3">
-                    <i class="bi bi-currency-dollar text-primary"></i>
+                    <i class="bi bi-tag text-primary"></i>
                     <div>
-                      <h6 class="mb-1">Price</h6>
+                      <h6 class="mb-1">Product Name</h6>
                       <p class="small text-muted mb-0">
-                        Set the selling price for the custom bouquet.
+                        Modify the product name as needed.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex gap-2 mb-3">
+                    <i class="bi bi-bookmark text-primary"></i>
+                    <div>
+                      <h6 class="mb-1">Tags</h6>
+                      <p class="small text-muted mb-0">
+                        Update relevant descriptors for the product.
                       </p>
                     </div>
                   </div>
@@ -144,32 +155,40 @@
                     <div>
                       <h6 class="mb-1">Description</h6>
                       <p class="small text-muted mb-0">
-                        Add an optional description for the bouquet.
+                        Edit the detailed explanation of the product.
                       </p>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="d-flex gap-2 mb-3">
-                    <i class="bi bi-flower1 text-primary"></i>
+                    <i class="bi bi-folder text-primary"></i>
                     <div>
-                      <h6 class="mb-1">Select Items</h6>
+                      <h6 class="mb-1">Category</h6>
                       <p class="small text-muted mb-0">
-                        Choose and add at least one item with quantity to the
-                        bouquet.
+                        Change the product category if necessary.
                       </p>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="d-flex gap-2 mb-3">
-                    <i class="bi bi-image text-primary"></i>
+                    <i class="bi bi-currency-dollar text-primary"></i>
                     <div>
-                      <h6 class="mb-1">Thumbnail (Optional)</h6>
+                      <h6 class="mb-1">Selling Price</h6>
                       <p class="small text-muted mb-0">
-                        Upload an image to represent the bouquet. A preview
-                        appears in the modal after selecting a file. Supported
-                        formats: JPG/PNG.
+                        Update the selling price of the product.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex gap-2">
+                    <i class="bi bi-cash-coin text-primary"></i>
+                    <div>
+                      <h6 class="mb-1">Cost Price</h6>
+                      <p class="small text-muted mb-0">
+                        Update the cost price of the product.
                       </p>
                     </div>
                   </div>
@@ -191,16 +210,16 @@
               ✓
             </div>
             <div class="flex-grow-1">
-              <h2 class="card-title h5 mb-2">Save the Custom Bouquet</h2>
+              <h2 class="card-title h5 mb-2">Save the Product</h2>
               <p class="text-muted mb-3">
-                Click Save to finalize the custom bouquet. Ensure all required
-                fields are completed and at least one item is selected.
+                Click Update Product to finalize all updates. Your changes will
+                be reflected immediately in the system.
               </p>
               <div class="img-container">
                 <img
                   class="img-fluid rounded"
-                  src="../../assets/documentation/Picture36.png"
-                  alt="Save the Custom Bouquet"
+                  src="../../assets/documentation/Picture42.png"
+                  alt="Save the Product"
                   loading="lazy"
                 />
               </div>

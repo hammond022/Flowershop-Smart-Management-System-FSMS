@@ -89,14 +89,22 @@ function toggleCustomBouquet() {
   display: flex;
   flex-direction: column;
   margin: 1rem;
-  height: 87vh;
+  height: 80vh;
 }
 
 .text {
   padding: 1rem 0rem;
+  font-size: clamp(1.25rem, 4vw, 2rem);
+  font-weight: 600;
 }
 
 .category-list {
   overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .text {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+  }
 }
 </style>

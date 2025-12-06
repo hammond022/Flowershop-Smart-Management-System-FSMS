@@ -5,7 +5,9 @@ import TransactionsView from "@/views/TransactionsView.vue";
 import InventoryView from "@/views/InventoryView.vue";
 import SettingsView from "@/views/SettingsView.vue";
 import ChangePasswordView from "@/views/ChangePasswordView.vue";
+import DatabaseManagementView from "@/views/DatabaseManagementView.vue";
 import LoginView from "@/components/UserAuth/Login.vue";
+import OnboardingView from "@/components/UserAuth/Onboarding.vue";
 import Overview from "@/components/Inventory/Overview.vue";
 import Products from "@/components/Inventory/Products.vue";
 import PurchaseOrders from "@/components/Inventory/PurchaseOrders.vue";
@@ -26,16 +28,45 @@ import DeletingProducts from "@/components/documentation/DeletingProducts.vue";
 import ExportingPurchaseOrderReports from "@/components/documentation/ExportingPurchaseOrderReports.vue";
 import CreatingCustomBouquet from "@/components/documentation/CreatingCustomBouquet.vue";
 import UpdatingCustomBouquet from "@/components/documentation/UpdatingCustomBouquet.vue";
+import UpdateProducts from "@/components/documentation/UpdateProducts.vue";
 
-import { auth } from "@/auth.js";
+import { auth, API_BASE } from "@/auth.js";
+
+// Cache for onboarding status to avoid repeated API calls
+let onboardingStatusCache = null;
+
+// Function to reset the onboarding cache (call after successful onboarding)
+export function resetOnboardingCache() {
+  onboardingStatusCache = false;
+}
 
 const routes = [
+  { path: "/onboarding", name: "onboarding", component: OnboardingView },
   { path: "/login", name: "login", component: LoginView },
   {
     path: "/",
-    name: "home",
-    component: HomeView,
-    meta: { requiresAuth: true },
+    redirect: async (to) => {
+      // Check if database has users
+      try {
+        const statusRes = await fetch(`${API_BASE}/onboarding/status`);
+        if (statusRes.ok) {
+          const statusData = await statusRes.json();
+          if (statusData.isEmpty) {
+            // No users, go to onboarding
+            return { name: "onboarding" };
+          }
+        }
+      } catch (err) {
+        console.warn("Could not check database status:", err);
+      }
+
+      // If authenticated, go to inventory
+      if (auth.isAuthenticated) {
+        return { name: "InventoryOverview" };
+      }
+      // If database has users, redirect to login
+      return { name: "login" };
+    },
   },
   {
     path: "/pos",
@@ -49,12 +80,7 @@ const routes = [
     component: TransactionsView,
     meta: { requiresAuth: true },
   },
-  {
-    path: "/inventory",
-    name: "inventory",
-    component: InventoryView,
-    meta: { requiresAuth: true },
-  },
+
   {
     path: "/settings",
     name: "settings",
@@ -65,6 +91,12 @@ const routes = [
     path: "/change-password",
     name: "change-password",
     component: ChangePasswordView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/database-management",
+    name: "database-management",
+    component: DatabaseManagementView,
     meta: { requiresAuth: true },
   },
   {
@@ -96,6 +128,11 @@ const routes = [
         path: "products",
         name: "DocProducts",
         component: ProductsDoc,
+      },
+      {
+        path: "update-products",
+        name: "DocUpdateProducts",
+        component: UpdateProducts,
       },
       {
         path: "deleting-products",
@@ -192,6 +229,30 @@ const router = createRouter({
 
 // Global route guard
 router.beforeEach(async (to, from, next) => {
+  // Check if onboarding is needed FIRST (before any redirects)
+  if (to.name !== "onboarding") {
+    try {
+      const statusRes = await fetch(`${API_BASE}/onboarding/status`);
+      if (statusRes.ok) {
+        const statusData = await statusRes.json();
+        if (statusData.isEmpty) {
+          // Database is empty, redirect to onboarding
+          next({ name: "onboarding" });
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn("Could not check onboarding status:", err);
+      onboardingStatusCache = false;
+    }
+
+    if (onboardingStatusCache === true) {
+      // Database is empty, redirect to onboarding
+      next({ name: "onboarding" });
+      return;
+    }
+  }
+
   // Initialize auth (check localStorage token)
   if (!auth.isAuthenticated) await auth.init();
 

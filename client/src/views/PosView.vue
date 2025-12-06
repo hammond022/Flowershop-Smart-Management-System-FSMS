@@ -107,9 +107,67 @@ const totalAfterDiscount = computed(() => {
   return Math.max(subtotal - totalDiscount, 0);
 });
 
+function computeRequiredQuantities() {
+  const required = new Map();
+
+  for (const item of selectedFlowers.value) {
+    if (item?.type === "bouquet" && Array.isArray(item.components)) {
+      for (const comp of item.components) {
+        const needed = (comp.quantity || 1) * (item.qty || 1);
+        const key = String(comp.itemId);
+        required.set(key, (required.get(key) || 0) + needed);
+      }
+    } else {
+      const key = String(item.id);
+      required.set(key, (required.get(key) || 0) + (item.qty || 0));
+    }
+  }
+
+  return required;
+}
+
 const hasInvalidStock = computed(() => {
-  return selectedFlowers.value.some((item) => item.qty > item.stock);
+  const required = computeRequiredQuantities();
+  for (const [itemId, qtyNeeded] of required.entries()) {
+    const inv = allItems.value.find((x) => String(x.id) === String(itemId));
+    const stock = inv?.stock ?? 0;
+    if (qtyNeeded > stock) return true;
+  }
+  return false;
 });
+
+function getInventoryItem(itemId) {
+  return allItems.value.find((x) => String(x.id) === String(itemId));
+}
+
+function safeId(value) {
+  return String(value).replace(/[^a-zA-Z0-9_-]/g, "-");
+}
+
+const shortageMap = computed(() => {
+  const map = {};
+  const required = computeRequiredQuantities();
+  for (const [itemId, qtyNeeded] of required.entries()) {
+    const inv = getInventoryItem(itemId);
+    const stock = inv?.stock ?? 0;
+    const short = qtyNeeded - stock;
+    if (short > 0) map[itemId] = short;
+  }
+  return map;
+});
+
+function bouquetHasShortage(bouquet) {
+  if (
+    !bouquet ||
+    bouquet.type !== "bouquet" ||
+    !Array.isArray(bouquet.components)
+  )
+    return false;
+  for (const comp of bouquet.components) {
+    if ((shortageMap.value[String(comp.itemId)] || 0) > 0) return true;
+  }
+  return false;
+}
 
 // kaawaan nawa ako ng diyos
 function removeOne(id) {
@@ -352,11 +410,14 @@ async function confirmCheckout(status) {
       customerName: order.customerName,
       customerContact: order.customerContact,
     });
-    // stock update
+    // stock update (aggregate normal items and bouquet components)
+    const required = computeRequiredQuantities();
     await Promise.all(
-      selectedFlowers.value.map(async (item) => {
-        item.stock -= item.qty;
-        await ItemService.updateItemStock(item.id, item.stock);
+      Array.from(required.entries()).map(async ([itemId, qtyNeeded]) => {
+        const inv = allItems.value.find((x) => String(x.id) === String(itemId));
+        const currentStock = inv?.stock ?? 0;
+        const newStock = Math.max(currentStock - qtyNeeded, 0);
+        await ItemService.updateItemStock(itemId, newStock);
       })
     );
     if (status === "pending") {
@@ -392,27 +453,105 @@ watch(
   }
 );
 
-function addBouquetToOrder(bouquetItems) {
+function addBouquetToOrder(payload) {
   if (!order.orderStart) {
     order.orderStart = new Date();
   }
 
-  bouquetItems.forEach((bouquetItem) => {
-    const existingItem = selectedFlowers.value.find(
-      (f) => f.id === bouquetItem.id
-    );
-
-    if (existingItem) {
-      existingItem.qty += bouquetItem.qty;
+  // New payload: single bouquet object
+  if (payload && typeof payload === "object" && !Array.isArray(payload)) {
+    const id = payload.id || `bouquet:${Date.now()}`;
+    const existing = selectedFlowers.value.find((f) => f.id === id);
+    if (existing) {
+      existing.qty += payload.qty || 1;
     } else {
       selectedFlowers.value.push({
-        ...bouquetItem,
-        oldPrice: bouquetItem.price,
-        notes: bouquetItem.notes || "",
+        id,
+        type: "bouquet",
+        name: payload.name || "Bouquet",
+        price: Number(payload.price) || 0,
+        qty: payload.qty || 1,
+        components: Array.isArray(payload.components)
+          ? payload.components.map((c) => ({
+              itemId: c.itemId,
+              itemName: c.itemName,
+              quantity: c.quantity || 1,
+            }))
+          : [],
+        oldPrice: Number(payload.price) || 0,
+        notes: payload.notes || "",
       });
     }
-  });
-  showToast("success", `Added ${bouquetItems.length} bouquet items to order!`);
+    // Shortage toast after adding (limit to this bouquet's components)
+    const compIds = new Set(
+      (payload.components || []).map((c) => String(c.itemId))
+    );
+    const shortages = Array.from(compIds)
+      .map((iid) => [iid, shortageMap.value[String(iid)] || 0])
+      .filter(([, short]) => short > 0);
+    if (shortages.length) {
+      const details = shortages
+        .slice(0, 3)
+        .map(([iid, short]) => {
+          const inv = getInventoryItem(iid);
+          return `${inv?.name || `Item ${iid}`} (${short} short)`;
+        })
+        .join(", ");
+      const suffix = shortages.length > 3 ? ", …" : "";
+      showToast(
+        "warning",
+        `Some bouquet components exceed stock: ${details}${suffix}`
+      );
+    } else {
+      showToast("success", `Added bouquet to order`);
+    }
+    return;
+  }
+
+  // Legacy payload: array of items -> aggregate
+  if (Array.isArray(payload) && payload.length) {
+    const components = payload.map((it) => ({
+      itemId: it.id,
+      itemName: it.name,
+      quantity: it.qty || 1,
+    }));
+    const price = payload.reduce(
+      (sum, it) => sum + (Number(it.price) || 0) * (Number(it.qty) || 0),
+      0
+    );
+    const id = `bouquet:custom:${Date.now()}`;
+
+    selectedFlowers.value.push({
+      id,
+      type: "bouquet",
+      name: "Custom Bouquet",
+      price,
+      qty: 1,
+      components,
+      oldPrice: price,
+      notes: "",
+    });
+    const compIds = new Set(components.map((c) => String(c.itemId)));
+    const shortages = Array.from(compIds)
+      .map((iid) => [iid, shortageMap.value[String(iid)] || 0])
+      .filter(([, short]) => short > 0);
+    if (shortages.length) {
+      const details = shortages
+        .slice(0, 3)
+        .map(([iid, short]) => {
+          const inv = getInventoryItem(iid);
+          return `${inv?.name || `Item ${iid}`} (${short} short)`;
+        })
+        .join(", ");
+      const suffix = shortages.length > 3 ? ", …" : "";
+      showToast(
+        "warning",
+        `Some bouquet components exceed stock: ${details}${suffix}`
+      );
+    } else {
+      showToast("success", `Added custom bouquet to order`);
+    }
+  }
 }
 
 const draftOrders = ref([]);
@@ -557,7 +696,7 @@ const change = computed(() => {
 
         <div
           class="border border-secondary border-opacity-25 rounded d-flex flex-column mt-3 ms-3 justify-content-between shadow-lg"
-          style="width: 40%; height: 87vh"
+          style="width: 40%; height: 80vh"
         >
           <div>
             <div
@@ -594,43 +733,141 @@ const change = computed(() => {
               </div>
               <div id="cart">
                 <ul class="list-group">
-                  <li
-                    class="list-group-item d-flex justify-content-between align-items-center"
-                    v-for="item in selectedFlowers"
-                    :key="item.id"
-                  >
-                    <div>
-                      <i
-                        class="text-primary ms-1 inline bi bi-sticky"
-                        v-tooltip="item.notes"
-                        v-if="item.notes"
-                      ></i>
-                      {{ item.name }} - {{ formatPHP(item.price) }}
-                    </div>
-
-                    <div>
-                      <span
-                        class="badge text-bg-secondary rounded-pill me-3"
-                        v-if="item.qty > 1"
-                        >{{ item.qty }}</span
-                      >
-                      <div class="btn-group">
-                        <button
-                          type="button"
-                          class="btn btn-outline-primary"
-                          @click="editItem(item.id)"
+                  <template v-for="item in selectedFlowers" :key="item.id">
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      <div>
+                        <i
+                          class="text-primary ms-1 inline bi bi-sticky"
+                          v-tooltip="item.notes"
+                          v-if="item.notes"
+                        ></i>
+                        {{ item.name }}
+                        <span
+                          v-if="item.type === 'bouquet'"
+                          class="badge text-bg-info ms-2"
+                          title="Bouquet"
                         >
-                          <i class="bi bi-pencil-square"></i></button
-                        ><button
-                          type="button"
-                          class="btn btn-outline-danger"
-                          @click="removeOne(item.id)"
+                          Bouquet
+                        </span>
+                        - {{ formatPHP(item.price) }}
+                        <span
+                          v-if="
+                            item.type === 'bouquet' && bouquetHasShortage(item)
+                          "
+                          class="badge text-bg-danger ms-2"
+                          title="Some bouquet components are short on stock"
                         >
-                          -
-                        </button>
+                          Stock warning
+                        </span>
                       </div>
-                    </div>
-                  </li>
+
+                      <div>
+                        <span
+                          class="badge text-bg-secondary rounded-pill me-3"
+                          v-if="item.qty > 1"
+                          >{{ item.qty }}</span
+                        >
+                        <div class="btn-group">
+                          <button
+                            v-if="item.type === 'bouquet'"
+                            type="button "
+                            class="btn btn-outline-primary"
+                            data-bs-toggle="collapse"
+                            :data-bs-target="`#bouquet-details-${safeId(
+                              item.id
+                            )}`"
+                            :aria-controls="`bouquet-details-${safeId(
+                              item.id
+                            )}`"
+                            aria-expanded="false"
+                            title="Show bouquet components"
+                          >
+                            <i class="bi bi-chevron-down"></i>
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-outline-primary"
+                            @click="editItem(item.id)"
+                          >
+                            <i class="bi bi-pencil-square"></i></button
+                          ><button
+                            type="button"
+                            class="btn btn-outline-danger"
+                            @click="removeOne(item.id)"
+                          >
+                            -
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                    <!-- Bouquet components detail directly below parent -->
+                    <li
+                      v-if="item.type === 'bouquet'"
+                      class="list-group-item p-0 border-0"
+                    >
+                      <div
+                        class="collapse"
+                        :id="`bouquet-details-${safeId(item.id)}`"
+                      >
+                        <ul class="list-group list-group-flush">
+                          <li
+                            v-for="(comp, idx) in item.components || []"
+                            :key="`${item.id}-${idx}`"
+                            class="list-group-item d-flex justify-content-between align-items-center"
+                            :class="{
+                              'text-danger':
+                                (shortageMap[String(comp.itemId)] || 0) > 0,
+                            }"
+                          >
+                            <span class="text-truncate">
+                              {{ comp.itemName || `Item ${comp.itemId}` }}
+                            </span>
+                            <span class="d-flex align-items-center gap-2">
+                              <span class="badge text-bg-secondary"
+                                >x{{ comp.quantity }} each</span
+                              >
+                              <span
+                                class="badge text-bg-light border"
+                                v-tooltip="
+                                  `Total required now: ${
+                                    computeRequiredQuantities().get(
+                                      String(comp.itemId)
+                                    ) || 0
+                                  }`
+                                "
+                                >required:
+                                {{
+                                  computeRequiredQuantities().get(
+                                    String(comp.itemId)
+                                  ) || 0
+                                }}
+                              </span>
+                              <span class="badge text-bg-light border"
+                                >stock:
+                                {{ getInventoryItem(comp.itemId)?.stock ?? 0 }}
+                              </span>
+                              <span
+                                v-if="
+                                  (shortageMap[String(comp.itemId)] || 0) > 0
+                                "
+                                class="badge text-bg-danger"
+                                >short:
+                                {{ shortageMap[String(comp.itemId)] }}</span
+                              >
+                            </span>
+                          </li>
+                          <li
+                            v-if="!(item.components && item.components.length)"
+                            class="list-group-item text-muted"
+                          >
+                            No components listed for this bouquet
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </template>
 
                   <li
                     v-for="(discount, index) in discounts"
@@ -659,7 +896,9 @@ const change = computed(() => {
                     v-if="total > 0"
                   >
                     <span>Subtotal:</span>
-                    <span class="badge text-bg-secondary">{{ formatPHP(total) }}</span>
+                    <span class="badge text-bg-secondary">{{
+                      formatPHP(total)
+                    }}</span>
                   </li>
                   <li
                     class="list-group-item d-flex justify-content-between align-items-center fw-bold"
@@ -667,16 +906,18 @@ const change = computed(() => {
                   >
                     <span>Discount total:</span>
                     <span class="badge text-bg-primary"
-                      >{{ formatPHP(
-                        discounts.reduce((sum, d) => {
-                          return (
-                            sum +
-                            (d.type === "amount"
-                              ? d.value
-                              : (total * d.value) / 100)
-                          );
-                        }, 0)
-                      ) }}
+                      >{{
+                        formatPHP(
+                          discounts.reduce((sum, d) => {
+                            return (
+                              sum +
+                              (d.type === "amount"
+                                ? d.value
+                                : (total * d.value) / 100)
+                            );
+                          }, 0)
+                        )
+                      }}
                     </span>
                   </li>
                   <li
@@ -760,7 +1001,7 @@ const change = computed(() => {
             </div>
           </div>
 
-          <div class="input-group mb-3">
+          <div class="input-group">
             <span class="input-group-text">Price</span>
             <span class="input-group-text">Per item</span>
             <span class="input-group-text">₱</span>
@@ -786,14 +1027,15 @@ const change = computed(() => {
           </div>
 
           <div class="form-text" v-if="editModal.oldPrice != editModal.price">
-            Price has been edited, original price {{ formatPHP(editModal.oldPrice) }}
+            Price has been edited, original price
+            {{ formatPHP(editModal.oldPrice) }}
           </div>
 
-          <div class="input-group mb-3">
+          <div class="input-group mt-3 mb-3">
             <span class="input-group-text">Notes</span>
             <textarea
               class="form-control"
-              placeholder="ex. Customer notes"
+              placeholder="ex. Remarks"
               aria-label="With textarea"
               v-model="editModal.notes"
             ></textarea>
@@ -867,9 +1109,61 @@ const change = computed(() => {
                       v-for="item in selectedFlowers"
                       :key="item.id"
                     >
-                      {{ item.qty }}x {{ item.name }}
+                      <div>
+                        {{ item.qty }}x {{ item.name }}
+                        <span
+                          v-if="item.type === 'bouquet'"
+                          class="badge text-bg-info ms-2"
+                          title="Bouquet"
+                        >
+                          Bouquet
+                        </span>
+                      </div>
+
                       <div>
                         <span>{{ formatPHP(item.price) }}</span>
+                      </div>
+                    </li>
+                    <!-- Bouquet components inside draft modal list -->
+                    <li
+                      v-for="item in selectedFlowers"
+                      :key="`draft-details-${item.id}`"
+                      class="list-group-item p-0 border-0"
+                    >
+                      <div v-if="item.type === 'bouquet'" class="ms-3">
+                        <ul class="list-group list-group-flush">
+                          <li
+                            v-for="(comp, idx) in item.components || []"
+                            :key="`${item.id}-df-${idx}`"
+                            class="list-group-item d-flex justify-content-between align-items-center bg-light"
+                          >
+                            <span class="small text-muted">
+                              - {{ comp.quantity }}x
+                              {{ comp.itemName || `Item ${comp.itemId}` }}
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <!-- Bouquet components inside cancel order modal list -->
+                    <li
+                      v-for="item in selectedFlowers"
+                      :key="`cancel-details-${item.id}`"
+                      class="list-group-item p-0 border-0"
+                    >
+                      <div v-if="item.type === 'bouquet'" class="ms-3">
+                        <ul class="list-group list-group-flush">
+                          <li
+                            v-for="(comp, idx) in item.components || []"
+                            :key="`${item.id}-cx-${idx}`"
+                            class="list-group-item d-flex justify-content-between align-items-center bg-light"
+                          >
+                            <span class="small text-muted">
+                              - {{ comp.quantity }}x
+                              {{ comp.itemName || `Item ${comp.itemId}` }}
+                            </span>
+                          </li>
+                        </ul>
                       </div>
                     </li>
 
@@ -956,9 +1250,37 @@ const change = computed(() => {
                           v-if="item.notes"
                         ></i>
                         {{ item.qty }}x {{ item.name }}
+                        <span
+                          v-if="item.type === 'bouquet'"
+                          class="badge text-bg-info ms-2"
+                          title="Bouquet"
+                        >
+                          Bouquet
+                        </span>
                       </div>
                       <div>
                         <span>{{ formatPHP(item.price) }}</span>
+                      </div>
+                    </li>
+                    <!-- show bouquet components under bouquet line -->
+                    <li
+                      v-for="item in selectedFlowers"
+                      :key="`checkout-details-${item.id}`"
+                      class="list-group-item p-0 border-0"
+                    >
+                      <div v-if="item.type === 'bouquet'" class="ms-3">
+                        <ul class="list-group list-group-flush">
+                          <li
+                            v-for="(comp, idx) in item.components || []"
+                            :key="`${item.id}-co-${idx}`"
+                            class="list-group-item d-flex justify-content-between align-items-center bg-light"
+                          >
+                            <span class="small text-muted">
+                              - {{ comp.quantity }}x
+                              {{ comp.itemName || `Item ${comp.itemId}` }}
+                            </span>
+                          </li>
+                        </ul>
                       </div>
                     </li>
                     <li
@@ -967,16 +1289,18 @@ const change = computed(() => {
                     >
                       <span>Discount total:</span>
                       <span class="badge text-bg-primary"
-                        >{{ formatPHP(
-                          discounts.reduce((sum, d) => {
-                            return (
-                              sum +
-                              (d.type === "amount"
-                                ? d.value
-                                : (total * d.value) / 100)
-                            );
-                          }, 0)
-                        ) }}
+                        >{{
+                          formatPHP(
+                            discounts.reduce((sum, d) => {
+                              return (
+                                sum +
+                                (d.type === "amount"
+                                  ? d.value
+                                  : (total * d.value) / 100)
+                              );
+                            }, 0)
+                          )
+                        }}
                       </span>
                     </li>
 
@@ -1045,7 +1369,9 @@ const change = computed(() => {
                   id="customerName"
                   class="form-control"
                   v-model="order.customerName"
-                  :class="{ 'is-invalid': showCustomerFields && !order.customerName }"
+                  :class="{
+                    'is-invalid': showCustomerFields && !order.customerName,
+                  }"
                   placeholder="Customer Name"
                 />
                 <label for="customerName">Customer Name</label>
@@ -1064,7 +1390,9 @@ const change = computed(() => {
                   v-model="order.customerContact"
                   :class="{
                     'is-invalid':
-                      showCustomerFields && order.customerContact && !isValidContact,
+                      showCustomerFields &&
+                      order.customerContact &&
+                      !isValidContact,
                   }"
                   placeholder="Customer Contact"
                 />
@@ -1072,7 +1400,9 @@ const change = computed(() => {
                 <div
                   class="invalid-feedback"
                   v-if="
-                    showCustomerFields && order.customerContact && !isValidContact
+                    showCustomerFields &&
+                    order.customerContact &&
+                    !isValidContact
                   "
                 >
                   Invalid phone number. Must be 10-11 digits and start with 09
@@ -1233,16 +1563,18 @@ const change = computed(() => {
                     >
                       <span>Discount total:</span>
                       <span class="badge text-bg-primary"
-                        >{{ formatPHP(
-                          discounts.reduce((sum, d) => {
-                            return (
-                              sum +
-                              (d.type === "amount"
-                                ? d.value
-                                : (total * d.value) / 100)
-                            );
-                          }, 0)
-                        ) }}
+                        >{{
+                          formatPHP(
+                            discounts.reduce((sum, d) => {
+                              return (
+                                sum +
+                                (d.type === "amount"
+                                  ? d.value
+                                  : (total * d.value) / 100)
+                              );
+                            }, 0)
+                          )
+                        }}
                       </span>
                     </li>
 

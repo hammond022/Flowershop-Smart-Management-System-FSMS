@@ -6,3 +6,5 @@ server/node_modules/
 .prettierignore
 .gitignore
 /server/node_modules
+/dist
+/.tmp

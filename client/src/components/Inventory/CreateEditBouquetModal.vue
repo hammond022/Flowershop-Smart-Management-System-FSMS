@@ -21,6 +21,38 @@
         </div>
 
         <div class="modal-body">
+          <!-- Thumbnail Upload -->
+          <div class="mb-3">
+            <label for="bouquetThumbnail" class="form-label"
+              >Thumbnail (Optional)</label
+            >
+            <div class="d-flex align-items-center gap-3">
+              <div
+                style="width: 96px; height: 96px"
+                class="border rounded d-flex align-items-center justify-content-center bg-light overflow-hidden"
+              >
+                <img
+                  v-if="form.thumbnailPreviewUrl"
+                  :src="form.thumbnailPreviewUrl"
+                  alt="Thumbnail preview"
+                  style="max-width: 100%; max-height: 100%; object-fit: cover"
+                />
+                <span v-else class="text-muted small">No image</span>
+              </div>
+              <div class="flex-grow-1">
+                <input
+                  id="bouquetThumbnail"
+                  type="file"
+                  class="form-control"
+                  accept="image/*"
+                  @change="handleThumbnailUpload"
+                />
+                <small class="text-muted d-block mt-1"
+                  >PNG/JPG up to a few MB.</small
+                >
+              </div>
+            </div>
+          </div>
           <!-- Bouquet Name -->
           <div class="mb-3">
             <label for="bouquetName" class="form-label">Bouquet Name</label>
@@ -234,6 +266,8 @@ const form = ref({
   description: "",
   price: 0,
   items: [],
+  thumbnail: null,
+  thumbnailPreviewUrl: null,
 });
 
 const errors = ref({
@@ -275,6 +309,8 @@ async function initializeModal() {
       description: props.editingBouquet.description || "",
       price: props.editingBouquet.price,
       items: JSON.parse(JSON.stringify(props.editingBouquet.items)),
+      thumbnail: props.editingBouquet.thumbnail || null,
+      thumbnailPreviewUrl: props.editingBouquet.thumbnail || null,
     };
   } else {
     resetForm();
@@ -357,6 +393,28 @@ function validateForm() {
   return Object.values(errors.value).every((err) => err === "");
 }
 
+async function handleThumbnailUpload(event) {
+  const file = event.target.files?.[0];
+  if (!file) return;
+
+  // Local preview
+  form.value.thumbnailPreviewUrl = URL.createObjectURL(file);
+
+  try {
+    // Reuse item photo upload endpoint
+    const { default: ItemService } = await import(
+      "@/router/api/itemsService.js"
+    );
+    const res = await ItemService.uploadPhoto(file);
+    // Prefer absolute URL if provided, otherwise build from filePath
+    form.value.thumbnail = res.fileUrl || `${res.filePath}`;
+  } catch (err) {
+    console.error("Thumbnail upload failed:", err);
+    showToast("error", "Thumbnail upload failed");
+    form.value.thumbnail = null;
+  }
+}
+
 async function submitBouquet() {
   if (!validateForm()) {
     return;
@@ -370,6 +428,7 @@ async function submitBouquet() {
       description: form.value.description,
       price: form.value.price,
       items: form.value.items,
+      thumbnail: form.value.thumbnail || null,
     };
 
     if (isEditing.value) {
@@ -400,6 +459,8 @@ function resetForm() {
     description: "",
     price: 0,
     items: [],
+    thumbnail: null,
+    thumbnailPreviewUrl: null,
   };
   errors.value = {
     name: "",

@@ -5,8 +5,11 @@ import { useToast } from "@/composables/useToast";
 import ItemService from "@/router/api/itemsService.js";
 import InventoryProduct from "./Product.vue";
 import { useRoute } from "vue-router";
+import { useAuth } from "@/composables/useAuth";
+import { resolveBackendOrigin } from "@/api/base.js";
 
 const route = useRoute();
+const { user } = useAuth();
 
 const { showToast } = useToast();
 
@@ -21,6 +24,7 @@ const isDeleting = ref(false);
 const categories = ref([]);
 const selectedCategory = ref("all");
 const newCategory = ref(false);
+const searchQuery = ref("");
 
 function formSetNewcategory(x) {
   newCategory.value = x;
@@ -41,12 +45,63 @@ const getFlowers = async () => {
   }
 };
 
-const filteredItems = computed(() => {
-  if (selectedCategory.value === "all") return flowers.items;
-  return flowers.items.filter(
-    (item) => item.category === selectedCategory.value
+// Prefer backend-provided error messages, with sensible fallbacks
+function getErrorMessage(err) {
+  const data = err?.response?.data;
+  return (
+    data?.error ||
+    data?.message ||
+    (typeof data === "string" ? data : null) ||
+    err?.message ||
+    "An unexpected error occurred"
   );
+}
+
+const filteredItems = computed(() => {
+  const categoryFiltered =
+    selectedCategory.value === "all"
+      ? flowers.items
+      : flowers.items.filter(
+          (item) => item.category === selectedCategory.value
+        );
+
+  const query = searchQuery.value.trim().toLowerCase();
+  if (!query) return categoryFiltered;
+
+  return categoryFiltered.filter((item) => {
+    const name = (item.name || "").toLowerCase();
+    const description = (item.description || "").toLowerCase();
+    const tags = Array.isArray(item.tags)
+      ? item.tags.join(", ").toLowerCase()
+      : (item.tags || "").toLowerCase();
+    return (
+      name.includes(query) ||
+      description.includes(query) ||
+      tags.includes(query) ||
+      (item.category || "").toLowerCase().includes(query)
+    );
+  });
 });
+
+const allSelected = computed(
+  () =>
+    filteredItems.value.length > 0 &&
+    filteredItems.value.every((item) => selectedItems.value.includes(item.id))
+);
+
+const isIndeterminate = computed(
+  () =>
+    selectedItems.value.length > 0 &&
+    !allSelected.value &&
+    filteredItems.value.length > 0
+);
+
+const toggleSelectAll = (event) => {
+  const shouldSelectAll = event.target.checked;
+  selectedItems.value = shouldSelectAll
+    ? filteredItems.value.map((item) => item.id)
+    : [];
+};
 
 const product = reactive({
   id: null,
@@ -101,7 +156,7 @@ async function submitProduct() {
     resetModal();
   } catch (err) {
     console.error("Save failed:", err.response?.data || err.message);
-    showToast("error", err.response?.data.error);
+    showToast("error", getErrorMessage(err));
   } finally {
     createProductModal.hide();
     getFlowers();
@@ -129,7 +184,10 @@ async function deleteSelectedItems() {
     getFlowers();
   } catch (err) {
     console.error("Delete failed:", err.response?.data || err.message);
-    showToast("error", "Failed to delete selected items");
+    showToast(
+      "error",
+      getErrorMessage(err) || "Failed to delete selected items"
+    );
   } finally {
     isDeleting.value = false;
   }
@@ -184,6 +242,8 @@ function editProduct(productId) {
 
 const isUploading = ref(false);
 
+const backendOrigin = resolveBackendOrigin();
+
 const handlePhotoUpload = async (event) => {
   const file = event.target.files[0];
   if (!file) return;
@@ -196,12 +256,12 @@ const handlePhotoUpload = async (event) => {
     const res = await ItemService.uploadPhoto(file);
     // Adjust this depending on your backend response structure
     // e.g. if backend sends { filePath: "uploads/filename.jpg" }
-    product.photo = res.fileUrl || `${window.location.origin}${res.filePath}`;
+    product.photo = res.fileUrl || `${backendOrigin}${res.filePath}`;
 
     showToast("success", "Photo uploaded successfully!");
   } catch (err) {
     console.error("Photo upload failed:", err);
-    showToast("error", "Photo upload failed");
+    showToast("error", getErrorMessage(err) || "Photo upload failed");
     product.photo = null;
   } finally {
     isUploading.value = false;
@@ -228,16 +288,45 @@ onMounted(() => {
     selectedCategory.value = route.query.category;
   }
 });
+
+const canCreate = computed(() => {
+  const perms = user.value?.permissions;
+  // Disable only when explicitly set to false
+  const flag = perms?.items?.canCreate;
+  if (flag === false) return false;
+  return true;
+});
 </script>
 
 <template>
   <main class="p-4">
-    <div class="d-flex justify-content-between">
-      <h1>Products</h1>
+    <div
+      class="d-flex justify-content-between flex-wrap gap-3 align-items-start mb-3"
+    >
+      <div>
+        <h1 class="mb-3">Products</h1>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-search"></i></span>
+          <input
+            v-model="searchQuery"
+            type="search"
+            class="form-control"
+            placeholder="Search by name, description, tags, or category"
+          />
+        </div>
+      </div>
 
       <div class="btn-group mb-4">
         <!-- <button type="button" class="btn btn-primary">Create Product</button> -->
-        <button @click="createProduct" type="button" class="btn btn-primary">
+        <button
+          @click="createProduct"
+          type="button"
+          class="btn btn-primary"
+          :disabled="!canCreate"
+          :title="
+            !canCreate ? 'You do not have permission to create products' : ''
+          "
+        >
           Create Product
           <i class="bi bi-plus-circle ms-1"></i>
         </button>
@@ -281,7 +370,15 @@ onMounted(() => {
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>#</th>
+          <th>
+            <input
+              class="form-check-input"
+              type="checkbox"
+              :checked="allSelected"
+              :indeterminate="isIndeterminate"
+              @change="toggleSelectAll"
+            />
+          </th>
           <th>Name</th>
           <th>Category</th>
           <th>Description</th>

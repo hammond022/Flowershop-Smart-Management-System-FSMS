@@ -11,6 +11,12 @@ const route = useRoute();
 const orders = ref([]);
 const items = ref([]);
 
+function sentenceCase(str) {
+  if (!str || typeof str !== "string") return "";
+  const lower = str.toLowerCase();
+  return lower.charAt(0).toUpperCase() + lower.slice(1);
+}
+
 async function getOrders() {
   try {
     const drafts = await OrderService.getOrders();
@@ -257,7 +263,7 @@ onMounted(() => {
                         order.orderStatus?.toLowerCase() === 'cancelled',
                     }"
                   >
-                    {{ order.orderStatus }}
+                    {{ sentenceCase(order.orderStatus) }}
                   </span>
                 </td>
                 <td>

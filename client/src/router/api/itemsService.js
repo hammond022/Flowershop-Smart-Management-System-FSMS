@@ -1,6 +1,7 @@
 // Moved updateItem inside ItemService class below
 import api from "@/axios.js";
 import { auth } from "@/auth.js";
+import { resolveBackendOrigin } from "@/api/base.js";
 
 class ItemService {
   static async updateItem(id, itemData) {
@@ -12,11 +13,11 @@ class ItemService {
   }
   static async getItems() {
     const res = await api.get("/items");
-    const base = window.location.origin;
+    const origin = resolveBackendOrigin();
     return res.data.map((item) => ({
       ...item,
       photo: item.photo?.startsWith("/uploads/")
-        ? `${base}${item.photo}`
+        ? `${origin}${item.photo}`
         : item.photo,
     }));
   }

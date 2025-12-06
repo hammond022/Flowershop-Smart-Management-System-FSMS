@@ -2,11 +2,14 @@
 import Clock from "./POS/Clock.vue";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import { auth } from "@/auth";
+import { computed } from "vue";
 
 // im not exactly sure what these to does
 // come back to this when for possible routing errors
 const route = useRoute();
 const router = useRouter();
+
+const isAdmin = computed(() => auth.user?.role?.admin?.isAdmin || false);
 
 const isActiveLink = (routePath) => route.path.startsWith(routePath);
 
@@ -104,6 +107,16 @@ function handleLogout() {
                   >Settings</RouterLink
                 >
               </li>
+              <li v-if="isAdmin">
+                <RouterLink
+                  :class="[
+                    'dropdown-item',
+                    { active: isActiveLink('/database-management') },
+                  ]"
+                  to="/database-management"
+                  >Database Management</RouterLink
+                >
+              </li>
               <li>
                 <RouterLink
                   :class="[
@@ -113,6 +126,9 @@ function handleLogout() {
                   to="/documentation/introduction"
                   >Documentation</RouterLink
                 >
+              </li>
+              <li>
+                <div class="dropdown-item disabled">version 1.0.0</div>
               </li>
               <li><hr class="dropdown-divider" /></li>
               <li>

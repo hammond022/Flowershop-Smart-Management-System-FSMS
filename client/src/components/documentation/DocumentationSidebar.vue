@@ -47,6 +47,14 @@
           <ul class="list-unstyled nested-list">
             <li>
               <RouterLink
+                to="/documentation/update-products"
+                class="sidebar-link nested-link"
+                active-class="active"
+                >Updating Products</RouterLink
+              >
+            </li>
+            <li>
+              <RouterLink
                 to="/documentation/deleting-products"
                 class="sidebar-link nested-link"
                 active-class="active"

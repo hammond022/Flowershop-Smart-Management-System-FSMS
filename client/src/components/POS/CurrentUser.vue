@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps } from "vue";
+import { defineProps, computed } from "vue";
 import { auth } from "@/auth";
 
 defineProps({
@@ -8,16 +8,27 @@ defineProps({
     default: "Pending",
   },
 });
+
+const userInitial = computed(() => {
+  const name = auth.user?.username || "";
+  return name.charAt(0).toUpperCase() || "?";
+});
 </script>
 
 <template>
   <div class="container shadow-sm">
     <div class="inner-container">
-      <img src="../../assets/icons/user.svg" width="70" alt="" />
+      <div
+        class="rounded-circle bg-secondary text-primary d-flex align-items-center justify-content-center my-3"
+        style="width: 70px; height: 70px"
+        :class="{ 'text-success': auth.user?.role?.admin?.isAdmin }"
+      >
+        <strong class="fs-3">{{ userInitial }}</strong>
+      </div>
       <div class="text-container">
         <div v-if="auth.user?.role?.admin?.isAdmin" class="lowlight">ADMIN</div>
         <div v-else class="lowlight">STAFF</div>
-        <div class="primary">{{ auth.user.username }}</div>
+        <div class="primary">{{ auth.user?.username }}</div>
       </div>
     </div>
     <div class="inner-container">

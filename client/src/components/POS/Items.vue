@@ -87,18 +87,22 @@ function handleSearchInput(value) {
 }
 
 function handleBouquetClick(bouquet) {
-  const mapped = (bouquet.items || []).map((it) => {
-    const inv = props.allItems.find((x) => x.id === it.itemId);
-    return {
-      id: it.itemId,
-      name: it.itemName || inv?.name || `Item ${it.itemId}`,
-      qty: it.quantity || 1,
-      price: inv?.price ?? 0,
-      stock: inv?.stock ?? 0,
-      notes: bouquet.name ? `Bouquet: ${bouquet.name}` : "",
-    };
-  });
-  if (mapped.length) emit("add-bouquet", mapped);
+  const components = (bouquet.items || []).map((it) => ({
+    itemId: it.itemId,
+    itemName: it.itemName,
+    quantity: it.quantity || 1,
+  }));
+
+  const payload = {
+    id: `bouquet:${bouquet.id}`,
+    type: "bouquet",
+    name: bouquet.name || "Bouquet",
+    price: typeof bouquet.price === "number" ? bouquet.price : 0,
+    qty: 1,
+    components,
+  };
+
+  emit("add-bouquet", payload);
 }
 </script>
 
@@ -136,7 +140,13 @@ function handleBouquetClick(bouquet) {
                   class="image-container image-placeholder"
                   aria-hidden="true"
                 >
-                  💐
+                  <img
+                    v-if="b.thumbnail"
+                    :src="b.thumbnail"
+                    alt="Bouquet thumbnail"
+                    class="bouquet-thumb"
+                  />
+                  <span v-else>💐</span>
                 </div>
                 <div class="item-details">
                   <div class="item-name mb-1">{{ b.name }}</div>
@@ -226,12 +236,14 @@ function handleBouquetClick(bouquet) {
   flex-direction: column;
   margin: 1rem 0rem;
   /* width: 40%; */
-  height: 87vh;
+  height: 80vh;
   /* toggel this off ^ */
 }
 
 .text {
   padding: 1rem 0rem;
+  font-size: clamp(1.25rem, 4vw, 2rem);
+  font-weight: 600;
 }
 
 .item-list {
@@ -263,6 +275,13 @@ function handleBouquetClick(bouquet) {
   width: 56px;
   height: 56px;
   flex-shrink: 0;
+}
+
+.bouquet-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
 }
 
 .bouquet-card .item-details {

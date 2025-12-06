@@ -117,11 +117,11 @@
                     <i class="bi bi-chat-square-dots text-primary"></i>
                     <div>
                       <h6 class="mb-1">
-                        Dedication Message
+                        Remarks
                         <span class="badge bg-secondary">Optional</span>
                       </h6>
                       <p class="small text-muted mb-0">
-                        Add a message that will apply to the entire transaction.
+                        Add notes that will apply to the entire transaction.
                         This will appear in the transaction details.
                       </p>
                     </div>

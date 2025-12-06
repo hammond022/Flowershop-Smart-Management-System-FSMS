@@ -54,6 +54,24 @@ async function completeTransaction(orderId) {
   }
 }
 
+async function cancelTransaction(orderId) {
+  try {
+    const updatedOrder = await OrderService.updateOrder(orderId, {
+      orderStatus: "Cancelled",
+    });
+    showToast("success", `Transaction cancelled successfully`);
+    console.log("Transaction cancelled successfully:", updatedOrder);
+  } catch (err) {
+    showToast("error", err.response?.data.error);
+    console.error("Failed to cancel transaction:", err);
+  } finally {
+    getTransactions();
+    const modalEl = document.getElementById("resolveTransactionModal");
+    const modalInstance = Modal.getInstance(modalEl);
+    modalInstance.hide();
+  }
+}
+
 async function getTransactions() {
   try {
     const allOrders = await OrderService.getOrders();
@@ -83,16 +101,6 @@ function getTotal(order) {
     }, 0) || 0;
 
   return subtotal - discount;
-}
-
-function formatPHP(value) {
-  const num = Number(value) || 0;
-  return new Intl.NumberFormat("en-PH", {
-    style: "currency",
-    currency: "PHP",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(num);
 }
 
 function displayStatus(s) {
@@ -193,19 +201,23 @@ const printTransaction = (tx) => {
       ],
       ["Start Time", new Date(tx.orderStart).toLocaleString()],
       ["End Time", new Date(tx.orderEnd).toLocaleString()],
-      ["Amount Paid", formatPHP(tx.amountPaid)],
-      ["Change", formatPHP(tx.change)],
+      ["Amount Paid", `PHP ${(Number(tx.amountPaid) || 0).toFixed(2)}`],
+      ["Change", `PHP ${(Number(tx.change) || 0).toFixed(2)}`],
     ],
   });
 
   doc.text("Items", 14, doc.lastAutoTable.finalY + 15);
   const itemsData =
-    tx.selectedFlowers?.map((item) => [
-      item.name,
-      item.qty,
-      formatPHP(item.price),
-      formatPHP(item.price * (item.qty || 0)),
-    ]) || [];
+    tx.selectedFlowers?.map((item) => {
+      const itemName =
+        item?.type === "bouquet" ? `${item.name} [Bouquet]` : item.name;
+      return [
+        itemName,
+        item.qty,
+        `PHP ${(Number(item.price) || 0).toFixed(2)}`,
+        `PHP ${((Number(item.price) || 0) * (item.qty || 0) || 0).toFixed(2)}`,
+      ];
+    }) || [];
 
   autoTable(doc, {
     startY: doc.lastAutoTable.finalY + 20,
@@ -235,16 +247,16 @@ const printTransaction = (tx) => {
     body: [
       [
         "Subtotal",
-        formatPHP(
+        `PHP ${(
           tx.selectedFlowers?.reduce(
             (sum, f) => sum + f.price * (f.qty || 0),
             0
           ) || 0
-        ),
+        ).toFixed(2)}`,
       ],
       [
         "Discount",
-        formatPHP(
+        `PHP ${(
           tx.discounts?.reduce((sum, d) => {
             const subtotal =
               tx.selectedFlowers?.reduce(
@@ -254,14 +266,14 @@ const printTransaction = (tx) => {
             if (d.type === "percent") return sum + subtotal * (d.value / 100);
             return sum + d.value;
           }, 0) || 0
-        ),
+        ).toFixed(2)}`,
       ],
-      ["Total", formatPHP(getTotal(tx))],
+      ["Total", `PHP ${(getTotal(tx) || 0).toFixed(2)}`],
     ],
   });
 
   if (tx.dedicationMessage) {
-    doc.text("Dedication Message", 14, doc.lastAutoTable.finalY + 15);
+    doc.text("Remarks", 14, doc.lastAutoTable.finalY + 15);
     doc.setFontSize(12);
     doc.text(tx.dedicationMessage, 14, doc.lastAutoTable.finalY + 25, {
       maxWidth: 180,
@@ -427,8 +439,8 @@ onMounted(() => {
                 tx.mop ? tx.mop.charAt(0).toUpperCase() + tx.mop.slice(1) : "—"
               }}
             </td>
-            <td>{{ formatPHP(tx.amountPaid) }}</td>
-            <td>{{ formatPHP(tx.change) }}</td>
+            <td>PHP {{ (Number(tx.amountPaid) || 0).toFixed(2) }}</td>
+            <td>PHP {{ (Number(tx.change) || 0).toFixed(2) }}</td>
             <td>
               {{
                 tx.selectedFlowers?.reduce((sum, f) => sum + (f.qty || 0), 0) ||
@@ -461,14 +473,7 @@ onMounted(() => {
                 {{ displayStatus(tx.orderStatus) }}
               </span>
             </td>
-            <td>
-              {{
-                new Intl.NumberFormat("en-PH", {
-                  style: "currency",
-                  currency: "PHP",
-                }).format(getTotal(tx))
-              }}
-            </td>
+            <td>PHP {{ (getTotal(tx) || 0).toFixed(2) }}</td>
             <td>{{ new Date(tx.orderStart).toLocaleString() }}</td>
             <td>{{ new Date(tx.orderEnd).toLocaleString() }}</td>
             <td>
@@ -607,9 +612,21 @@ onMounted(() => {
                             v-if="item.notes"
                           ></i>
                           {{ item.qty }}x {{ item.name }}
-                          <span>{{
-                            formatPHP(item.price * (item.qty || 0))
-                          }}</span>
+                          <span
+                            v-if="item.type === 'bouquet'"
+                            class="badge text-bg-info ms-2"
+                            title="Bouquet"
+                          >
+                            Bouquet
+                          </span>
+                          <span>
+                            PHP
+                            {{
+                              (
+                                (Number(item.price) || 0) * (item.qty || 0) || 0
+                              ).toFixed(2)
+                            }}
+                          </span>
                         </div>
                       </li>
 
@@ -619,8 +636,9 @@ onMounted(() => {
                       >
                         Discount Total:
                         <span class="badge bg-primary">
+                          PHP
                           {{
-                            formatPHP(
+                            (
                               selectedTransaction.discounts.reduce((sum, d) => {
                                 if (d.type === "percent")
                                   return (
@@ -629,8 +647,8 @@ onMounted(() => {
                                       (d.value / 100)
                                   );
                                 return sum + d.value;
-                              }, 0)
-                            )
+                              }, 0) || 0
+                            ).toFixed(2)
                           }}
                         </span>
                       </li>
@@ -639,38 +657,36 @@ onMounted(() => {
                         class="list-group-item d-flex justify-content-between align-items-center list-group-item-success"
                       >
                         Total:
-                        <span>{{
-                          new Intl.NumberFormat("en-PH", {
-                            style: "currency",
-                            currency: "PHP",
-                          }).format(getTotal(selectedTransaction))
-                        }}</span>
+                        <span
+                          >PHP
+                          {{
+                            (getTotal(selectedTransaction) || 0).toFixed(2)
+                          }}</span
+                        >
                       </li>
                       <li
                         class="list-group-item d-flex justify-content-between align-items-center list-group-item-light"
                       >
                         Amount Paid:
-                        <span>
+                        <span
+                          >PHP
                           {{
-                            new Intl.NumberFormat("en-PH", {
-                              style: "currency",
-                              currency: "PHP",
-                            }).format(selectedTransaction.amountPaid)
-                          }}
-                        </span>
+                            (
+                              Number(selectedTransaction.amountPaid) || 0
+                            ).toFixed(2)
+                          }}</span
+                        >
                       </li>
                       <li
                         class="list-group-item d-flex justify-content-between align-items-center list-group-item-warning"
                       >
                         Change:
-                        <span>
+                        <span
+                          >PHP
                           {{
-                            new Intl.NumberFormat("en-PH", {
-                              style: "currency",
-                              currency: "PHP",
-                            }).format(selectedTransaction.change)
-                          }}
-                        </span>
+                            (Number(selectedTransaction.change) || 0).toFixed(2)
+                          }}</span
+                        >
                       </li>
                     </ul>
                   </div>
@@ -678,7 +694,7 @@ onMounted(() => {
               </div>
             </div>
             <div v-if="selectedTransaction?.dedicationMessage" class="mt-3">
-              <h6>Dedication Message:</h6>
+              <h6>Remarks:</h6>
               <p class="fst-italic">
                 {{ selectedTransaction.dedicationMessage }}
               </p>
@@ -809,12 +825,21 @@ onMounted(() => {
                             v-if="item.notes"
                           ></i>
                           {{ item.qty }}x {{ item.name }}
-                          <span>{{
-                            new Intl.NumberFormat("en-PH", {
-                              style: "currency",
-                              currency: "PHP",
-                            }).format(item.price * (item.qty || 0))
-                          }}</span>
+                          <span
+                            v-if="item.type === 'bouquet'"
+                            class="badge text-bg-info ms-2"
+                            title="Bouquet"
+                          >
+                            Bouquet
+                          </span>
+                          <span>
+                            PHP
+                            {{
+                              (
+                                (Number(item.price) || 0) * (item.qty || 0) || 0
+                              ).toFixed(2)
+                            }}
+                          </span>
                         </div>
                       </li>
 
@@ -824,8 +849,9 @@ onMounted(() => {
                       >
                         Discount Total:
                         <span class="badge bg-primary">
+                          PHP
                           {{
-                            formatPHP(
+                            (
                               selectedTransaction.discounts.reduce((sum, d) => {
                                 if (d.type === "percent")
                                   return (
@@ -834,8 +860,8 @@ onMounted(() => {
                                       (d.value / 100)
                                   );
                                 return sum + d.value;
-                              }, 0)
-                            )
+                              }, 0) || 0
+                            ).toFixed(2)
                           }}
                         </span>
                       </li>
@@ -844,38 +870,36 @@ onMounted(() => {
                         class="list-group-item d-flex justify-content-between align-items-center list-group-item-success"
                       >
                         Total:
-                        <span>{{
-                          new Intl.NumberFormat("en-PH", {
-                            style: "currency",
-                            currency: "PHP",
-                          }).format(getTotal(selectedTransaction))
-                        }}</span>
+                        <span
+                          >PHP
+                          {{
+                            (getTotal(selectedTransaction) || 0).toFixed(2)
+                          }}</span
+                        >
                       </li>
                       <li
                         class="list-group-item d-flex justify-content-between align-items-center list-group-item-light"
                       >
                         Amount Paid:
-                        <span>
+                        <span
+                          >PHP
                           {{
-                            new Intl.NumberFormat("en-PH", {
-                              style: "currency",
-                              currency: "PHP",
-                            }).format(selectedTransaction.amountPaid)
-                          }}
-                        </span>
+                            (
+                              Number(selectedTransaction.amountPaid) || 0
+                            ).toFixed(2)
+                          }}</span
+                        >
                       </li>
                       <li
                         class="list-group-item d-flex justify-content-between align-items-center list-group-item-warning"
                       >
                         Change:
-                        <span>
+                        <span
+                          >PHP
                           {{
-                            new Intl.NumberFormat("en-PH", {
-                              style: "currency",
-                              currency: "PHP",
-                            }).format(selectedTransaction.change)
-                          }}
-                        </span>
+                            (Number(selectedTransaction.change) || 0).toFixed(2)
+                          }}</span
+                        >
                       </li>
                     </ul>
                   </div>
@@ -883,7 +907,7 @@ onMounted(() => {
               </div>
             </div>
             <div v-if="selectedTransaction?.dedicationMessage" class="mt-3">
-              <h6>Dedication Message:</h6>
+              <h6>Remarks:</h6>
               <p class="fst-italic">
                 {{ selectedTransaction.dedicationMessage }}
               </p>
@@ -907,6 +931,18 @@ onMounted(() => {
                 data-bs-dismiss="modal"
               >
                 Close
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger me-2"
+                @click="cancelTransaction(selectedTransaction.id)"
+                :disabled="
+                  !['pending'].includes(
+                    (selectedTransaction.orderStatus || '').toLowerCase()
+                  )
+                "
+              >
+                Cancel transaction
               </button>
               <button
                 type="button"

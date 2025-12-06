@@ -1,5 +1,6 @@
 import api from "@/axios.js";
-const API_BASE = "http://localhost:3000/api/bouquets";
+import { API_BASE_URL } from "@/api/base.js";
+const API_BASE = `${API_BASE_URL}/bouquets`;
 
 export default {
   async suggest(theme, options = {}) {
@@ -7,6 +8,11 @@ export default {
       theme,
       ...options,
     });
+    return res.data;
+  },
+
+  async getTemplates() {
+    const res = await api.get(`${API_BASE}/templates`);
     return res.data;
   },
 
