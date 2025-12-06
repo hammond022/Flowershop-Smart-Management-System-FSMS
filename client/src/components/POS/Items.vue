@@ -56,6 +56,19 @@ watch(
   }
 );
 
+function matchesSearchTerm(item) {
+  if (!searchTerm.value.trim()) return true;
+  const query = searchTerm.value.toLowerCase();
+  const name = (item.name || "").toLowerCase();
+  const description = (item.description || "").toLowerCase();
+  const tags = Array.isArray(item.tags)
+    ? item.tags.join(", ").toLowerCase()
+    : (item.tags || "").toLowerCase();
+  return (
+    name.includes(query) || description.includes(query) || tags.includes(query)
+  );
+}
+
 const filteredItems = computed(() => {
   let items = props.allItems;
 
@@ -66,16 +79,12 @@ const filteredItems = computed(() => {
         item.category.toLowerCase() === props.selectedCategory.toLowerCase()
     );
   }
-  if (searchTerm.value.trim() !== "") {
-    const query = searchTerm.value.toLowerCase();
-    items = items.filter(
-      (item) =>
-        item.name?.toLowerCase().includes(query) ||
-        item.description?.toLowerCase().includes(query)
-    );
-  }
 
-  return items;
+  return items.filter(matchesSearchTerm);
+});
+
+const filteredBouquets = computed(() => {
+  return bouquets.value.filter(matchesSearchTerm);
 });
 
 function handleSelect(payload) {
@@ -121,14 +130,7 @@ function handleBouquetClick(bouquet) {
         </div>
         <div v-else>
           <div
-            v-for="b in bouquets.filter((b) => {
-              if (!searchTerm || !searchTerm.trim()) return true;
-              const q = searchTerm.toLowerCase();
-              return (
-                b.name?.toLowerCase().includes(q) ||
-                b.description?.toLowerCase().includes(q)
-              );
-            })"
+            v-for="b in filteredBouquets"
             :key="b.id"
             class="card bouquet-card mb-2 w-100"
           >
